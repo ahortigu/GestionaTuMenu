@@ -24,11 +24,10 @@
         android:layout_height="wrap_content"
         android:background="@color/violeta_oscuro"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/action_bar"
-        app:popupTheme="@style/ActionBar"
+        app:menu="@menu/action_bar_menu"
+        app:popupTheme="@style/ActionBarMenu"
         app:titleTextColor="@color/white" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
