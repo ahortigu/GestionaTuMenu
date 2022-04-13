@@ -8,4 +8,10 @@
     <string name="buscar">Buscar</string>
     <string name="add">Añadir</string>
     <string name="back_arrow">Back Arrow</string>
+    <string name="menu_low">Menu</string>
+    <string name="planificador_low">Planificador</string>
+    <string name="recetas_low">Recetas</string>
+    <string name="despensa_low">Despensa</string>
+    <string name="lista_de_la_compra_low">Lista de la Compra</string>
+    <string name="ingredientes_low">Ingredientes</string>
 </resources>
