@@ -5,16 +5,15 @@
         android:id="@+id/more"
         android:icon="@drawable/more"
         android:title=""
-        android:iconTint="@color/white"
         app:showAsAction="ifRoom">
         <menu>
             <item
-                android:id="@+id/search"
+                android:id="@+id/nav_buscar"
                 android:icon="@drawable/search"
                 android:title="@string/buscar"
                 app:showAsAction="never"/>
             <item
-                android:id="@+id/add"
+                android:id="@+id/nav_add"
                 android:icon="@drawable/add"
                 android:title="@string/add"
                 app:showAsAction="never"/>

@@ -2,60 +2,47 @@ package com.aihg.gestionatumenu;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.appcompat.widget.Toolbar;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
+import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity {
 
-    HomeFragment homeFragment = new HomeFragment();
-    MenuFragment menuFragment = new MenuFragment();
-    ListaCompraFragment listaCompraFragment = new   ListaCompraFragment();
+public class MainActivity extends AppCompatActivity implements AppBarConfiguration.OnNavigateUpListener  {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView navigation = findViewById(R.id.botton_navigation);
-        navigation.setOnNavigationItemSelectedListener(navListener);
-        loadFragment(homeFragment);
+        //NavController
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
+        NavController navController = navHostFragment.getNavController();
+
+        // Toolbar y bottonNavBar
+        BottomNavigationView  bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        // Propagación de acciones
+        NavigationUI.setupWithNavController(bottomNavigationView,navController);
+        NavigationUI.setupWithNavController(toolbar, navController);
     }
 
-    public void loadFragment(Fragment fragment){
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.nav_host_fragment_activity_main, fragment);
-        transaction.commit();
-    }
-
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.action_bar_menu, menu);
+        getMenuInflater().inflate(R.menu.action_bar_menu, menu);
         return true;
     }
 
-
-    private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.nav_home:
-                    loadFragment(homeFragment);
-                    return true;
-                case R.id.nav_menu:
-                    loadFragment(menuFragment);
-                    return true;
-                case R.id.nav_lista_compra:
-                    loadFragment(listaCompraFragment);
-                    return true;
-            }
-            return false;
-        }
-    };
 }

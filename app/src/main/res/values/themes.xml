@@ -1,3 +1,4 @@
+
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.GestionaTuMenu" parent="Theme.MaterialComponents.DayNight.NoActionBar">
@@ -10,7 +11,7 @@
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" >@color/violeta_claro</item>
         <!-- Customize your theme here. -->
     </style>
 
@@ -21,7 +22,8 @@
     </style>
 
     <style name = "ActionBarMenu" parent="Theme.AppCompat.Light">
-        <item name="android:colorBackground">@color/design_default_color_secondary</item>
-        <item name="android:textColor">@color/violeta_oscuro</item>
+        <item name="android:colorBackground">@color/violeta_claro</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="itemIconTint">@color/white</item>
     </style>
 </resources>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_navegation"
+    app:startDestination="@id/homeFragment">
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.aihg.gestionatumenu.HomeFragment"
+        android:label="@string/home_upp"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_ingredientesFragment"
+            app:destination="@id/ingredientesFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_listaCompraFragment"
+            app:destination="@id/listaCompraFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_recetasFragment"
+            app:destination="@id/recetasFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_despensaFragment"
+            app:destination="@id/despensaFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_planificadorFragment"
+            app:destination="@id/planificadorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ingredientesFragment"
+        android:name="com.aihg.gestionatumenu.IngredientesFragment"
+        android:label="@string/ingredientes_upp"
+        tools:layout="@layout/fragment_ingredientes" />
+    <fragment
+        android:id="@+id/listaCompraFragment"
+        android:name="com.aihg.gestionatumenu.ListaCompraFragment"
+        android:label="@string/lista_de_la_compra_upp"
+        tools:layout="@layout/fragment_lista_compra" />
+    <fragment
+        android:id="@+id/recetasFragment"
+        android:name="com.aihg.gestionatumenu.RecetasFragment"
+        android:label="@string/recetas_upp"
+        tools:layout="@layout/fragment_recetas" />
+    <fragment
+        android:id="@+id/despensaFragment"
+        android:name="com.aihg.gestionatumenu.DespensaFragment"
+        android:label="@string/despensa_upp"
+        tools:layout="@layout/fragment_despensa" />
+    <fragment
+        android:id="@+id/planificadorFragment"
+        android:name="com.aihg.gestionatumenu.PlanificadorFragment"
+        android:label="@string/planificador_upp"
+        tools:layout="@layout/fragment_planificador" />
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.aihg.gestionatumenu.MenuFragment"
+        android:label="@string/menu_app"
+        tools:layout="@layout/fragment_menu" />
+</navigation>
