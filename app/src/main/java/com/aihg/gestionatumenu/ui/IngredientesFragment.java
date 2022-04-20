@@ -5,12 +5,15 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
 import android.widget.Toast;
 
+import com.aihg.gestionatumenu.HomeFragmentDirections;
 import com.aihg.gestionatumenu.R;
 
 import java.util.ArrayList;
@@ -57,7 +60,7 @@ public class IngredientesFragment extends Fragment implements IngredientesAdapte
 
     @Override
     public void onNoteClick(int position) {
-        Toast toast = Toast.makeText(getActivity(), "CLICKED", Toast.LENGTH_SHORT);
-        toast.show();
+        NavDirections action = IngredientesFragmentDirections.actionIngredientesFragmentToCreateIngredienteFragment();
+        Navigation.findNavController(getView()).navigate(action);
     }
 }
