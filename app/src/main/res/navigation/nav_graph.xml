@@ -30,7 +30,7 @@
     </fragment>
     <fragment
         android:id="@+id/ingredientesFragment"
-        android:name="com.aihg.gestionatumenu.IngredientesFragment"
+        android:name="com.aihg.gestionatumenu.ui.IngredientesFragment"
         android:label="@string/ingredientes_upp"
         tools:layout="@layout/fragment_ingredientes" />
     <fragment
