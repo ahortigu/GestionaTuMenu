@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.fragment.app.Fragment;;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,24 +35,16 @@ public class IngredientesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        // Asinación del RecyclerView
-//        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rvIngredientes);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        recyclerView.setAdapter(new CategoriaIngredientesAdapter(this.listaIngredientes, this));
-
         recyclerView = (RecyclerView) view.findViewById(R.id.rvIngredientes);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new CategoriaIngredientesAdapter(listaIngredientes);
         recyclerView.setAdapter(adapter);
-        recyclerView.setHasFixedSize(true);
-
+        recyclerView.setHasFixedSize(false);
     }
 
     public void fetchData() {
+        //Mock data
         listaIngredientes = new ArrayList<>();
-
-        //list1
         List<String> carnes = new ArrayList<>();
         carnes.add("Conejo");
         carnes.add("Pollo");
@@ -89,10 +81,4 @@ public class IngredientesFragment extends Fragment {
         listaIngredientes.add(new CategoriaIngredientesDataModel(fruta, "FRUTA"));
         listaIngredientes.add(new CategoriaIngredientesDataModel(verduras, "VERDURAS"));
     }
-
-//    @Override
-//    public void onNoteClick(int position) {
-//        NavDirections action = IngredientesFragmentDirections.actionIngredientesFragmentToCreateIngredienteFragment();
-//        Navigation.findNavController(getView()).navigate(action);
-//    }
 }
