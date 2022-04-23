@@ -19,4 +19,8 @@
     <string name="buscar">Buscar</string>
     <string name="add">Añadir</string>
     <string name="back_arrow">Back Arrow</string>
+    <string name="unidad">Unidad</string>
+    <string name="ingrediente">Ingrediente</string>
+    <string name="imagen_de_ingrediente">Imagen de ingrediente</string>
+    <string name="alimento">Alimento</string>
 </resources>

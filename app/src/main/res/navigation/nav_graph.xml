@@ -30,9 +30,13 @@
     </fragment>
     <fragment
         android:id="@+id/ingredientesFragment"
-        android:name="com.aihg.gestionatumenu.IngredientesFragment"
+        android:name="com.aihg.gestionatumenu.ui.IngredientesFragment"
         android:label="@string/ingredientes_upp"
-        tools:layout="@layout/fragment_ingredientes" />
+        tools:layout="@layout/fragment_ingredientes" >
+        <action
+            android:id="@+id/action_ingredientesFragment_to_createIngredienteFragment"
+            app:destination="@id/createIngredienteFragment" />
+    </fragment>
     <fragment
         android:id="@+id/listaCompraFragment"
         android:name="com.aihg.gestionatumenu.ListaCompraFragment"
@@ -58,4 +62,9 @@
         android:name="com.aihg.gestionatumenu.MenuFragment"
         android:label="@string/menu_app"
         tools:layout="@layout/fragment_menu" />
+    <fragment
+        android:id="@+id/createIngredienteFragment"
+        android:name="com.aihg.gestionatumenu.IngredienteDetailsFragment"
+        android:label="DETALLES INGREDIENTE"
+        tools:layout="@layout/fragment_details_ingrediente" />
 </navigation>
