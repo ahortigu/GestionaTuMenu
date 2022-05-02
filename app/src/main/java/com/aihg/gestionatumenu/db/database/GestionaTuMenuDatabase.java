@@ -2,6 +2,7 @@ package com.aihg.gestionatumenu.db.database;
 
 import static com.aihg.gestionatumenu.db.database.util.DataGenerator.getDefaultCategoriasIngrediente;
 import static com.aihg.gestionatumenu.db.database.util.DataGenerator.getDefaultIngredientes;
+import static com.aihg.gestionatumenu.db.database.util.DataGenerator.getDefaultMediciones;
 import static com.aihg.gestionatumenu.db.database.util.DatabaseTables.DATABASE_NAME;
 
 import android.content.Context;
@@ -14,8 +15,10 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.aihg.gestionatumenu.db.daos.CategoriaIngredienteDAO;
 import com.aihg.gestionatumenu.db.daos.IngredienteDAO;
+import com.aihg.gestionatumenu.db.daos.MedicionDAO;
 import com.aihg.gestionatumenu.db.entities.CategoriaIngrediente;
 import com.aihg.gestionatumenu.db.entities.Ingrediente;
+import com.aihg.gestionatumenu.db.entities.Medicion;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -24,20 +27,19 @@ import java.util.concurrent.Executors;
     entities = {
         Ingrediente.class,
         CategoriaIngrediente.class,
-        //Medicion.class
+        Medicion.class
     },
     version = 1
 )
 public abstract class GestionaTuMenuDatabase extends RoomDatabase {
 
     // Instancia
-    private static GestionaTuMenuDatabase INSTANCE;
+    private static volatile GestionaTuMenuDatabase INSTANCE;
 
     // DAO
     public abstract CategoriaIngredienteDAO categoriaIngredienteDAO();
     public abstract IngredienteDAO ingredienteDAO();
-
-    //public abstract MedicionDAO medicionDAO();
+    public abstract MedicionDAO medicionDAO();
 
     private static Callback roomCallBack = new Callback() {
         @Override
@@ -47,17 +49,22 @@ public abstract class GestionaTuMenuDatabase extends RoomDatabase {
             // DAO
             CategoriaIngredienteDAO categoriaIngredienteDAO = INSTANCE.categoriaIngredienteDAO();
             IngredienteDAO ingredienteDAO = INSTANCE.ingredienteDAO();
+            MedicionDAO medicionDAO = INSTANCE.medicionDAO();
 
             ExecutorService executorService = Executors.newSingleThreadExecutor();
             executorService.execute(new Runnable() {
                 @Override
                 public void run() {
                     getDefaultCategoriasIngrediente().stream().forEach(
-                            categoriaIngredienteDAO::insert
+                        categoriaIngredienteDAO::insert
+                    );
+
+                    getDefaultMediciones().stream().forEach(
+                        medicionDAO::insert
                     );
 
                     getDefaultIngredientes().stream().forEach(
-                            ingredienteDAO::insert
+                        ingredienteDAO::insert
                     );
                 }
             });

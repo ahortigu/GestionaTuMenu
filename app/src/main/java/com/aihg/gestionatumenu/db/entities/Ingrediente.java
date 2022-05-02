@@ -4,48 +4,32 @@ import static com.aihg.gestionatumenu.db.database.util.DatabaseTables.INGREDIENT
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(
-        tableName = INGREDIENTES,
-        indices = {@Index(value = {"nombre"}, unique = true)},
-        foreignKeys = {
-//                @ForeignKey(
-//                        entity = Medicion.class,
-//                        parentColumns = "id",
-//                        childColumns = "id_medicion",
-//                        onDelete = ForeignKey.CASCADE
-//                ),
-                @ForeignKey(
-                        entity = CategoriaIngrediente.class,
-                        parentColumns = "id",
-                        childColumns = "id_categoria",
-                        onDelete = ForeignKey.CASCADE
-                )
-        }
-)
+@Entity(tableName = INGREDIENTES)
 public class Ingrediente {
 
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id_ingrediente",  index = true)
     public int id;
 
     @NonNull
+    @ColumnInfo(name = "nombre_ingrediente",  index = true)
     public String nombre;
 
 //    @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
 //    public byte[] imagen;
 
-//    @ColumnInfo(name = "id_medicion", index = true)
-//    @NonNull
-//    public int idMedicion;
+    @Embedded
+    public Medicion medicion;
 
-    @ColumnInfo(name = "id_categoria",  index = true)
-    @NonNull
-    public int idCategoria;
+    @Embedded
+    public CategoriaIngrediente categoriaIngrediente;
 
     public int getId() {
         return id;
@@ -64,19 +48,38 @@ public class Ingrediente {
         this.nombre = nombre;
     }
 
-    public int getIdCategoria() {
-        return idCategoria;
+    public Medicion getMedicion() {
+        return medicion;
     }
 
-    public void setIdCategoria(int idCategoria) {
-        this.idCategoria = idCategoria;
+    public void setMedicion(Medicion medicion) {
+        this.medicion = medicion;
+    }
+
+    public CategoriaIngrediente getCategoriaIngrediente() {
+        return categoriaIngrediente;
+    }
+
+    public void setCategoriaIngrediente(CategoriaIngrediente categoriaIngrediente) {
+        this.categoriaIngrediente = categoriaIngrediente;
+    }
+
+    @Override
+    public String toString() {
+        return "Ingrediente{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", medicion=" + medicion +
+                ", categoriaIngrediente=" + categoriaIngrediente +
+                '}';
     }
 
     public Ingrediente() {}
 
     @Ignore
-    public Ingrediente(@NonNull String nombre, @NonNull int idCategoria) {
+    public Ingrediente(@NonNull String nombre, CategoriaIngrediente categoria, Medicion medicion) {
         this.nombre = nombre;
-        this.idCategoria = idCategoria;
+        this.categoriaIngrediente = categoria;
+        this.medicion = medicion;
     }
 }

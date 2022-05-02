@@ -25,6 +25,6 @@ public interface IngredienteDAO {
     @Update
     void update(Ingrediente ingrediente);
 
-    @Query("SELECT * FROM " + INGREDIENTES + " ORDER BY id ASC")
+    @Query("SELECT * FROM " + INGREDIENTES + " ORDER BY id_ingrediente ASC")
     LiveData<List<Ingrediente>> getAllIngredientes();
 }

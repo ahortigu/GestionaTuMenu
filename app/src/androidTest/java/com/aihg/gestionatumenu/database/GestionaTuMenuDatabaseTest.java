@@ -11,9 +11,11 @@ import androidx.test.core.app.ApplicationProvider;
 
 import com.aihg.gestionatumenu.db.daos.CategoriaIngredienteDAO;
 import com.aihg.gestionatumenu.db.daos.IngredienteDAO;
+import com.aihg.gestionatumenu.db.daos.MedicionDAO;
 import com.aihg.gestionatumenu.db.database.GestionaTuMenuDatabase;
 import com.aihg.gestionatumenu.db.entities.CategoriaIngrediente;
 import com.aihg.gestionatumenu.db.entities.Ingrediente;
+import com.aihg.gestionatumenu.db.entities.Medicion;
 
 import org.junit.After;
 import org.junit.Before;
@@ -25,6 +27,7 @@ import java.util.List;
 public class GestionaTuMenuDatabaseTest {
     private CategoriaIngredienteDAO categoriaIngredienteDAO;
     private IngredienteDAO ingredienteDAO;
+    private MedicionDAO medicionDAO;
     private GestionaTuMenuDatabase db;
 
     @Before
@@ -36,6 +39,7 @@ public class GestionaTuMenuDatabaseTest {
 
         categoriaIngredienteDAO = db.categoriaIngredienteDAO();
         ingredienteDAO = db.ingredienteDAO();
+        medicionDAO = db.medicionDAO();
     }
 
     @After
@@ -48,6 +52,7 @@ public class GestionaTuMenuDatabaseTest {
     @Test
     public void test_InsertCategoriaIngredientes() throws InterruptedException {
         CategoriaIngrediente verdura = new CategoriaIngrediente();
+        verdura.setId(1);
         verdura.setNombre("verdura");
         List<CategoriaIngrediente> esperado = Arrays.asList(verdura);
 
@@ -61,25 +66,35 @@ public class GestionaTuMenuDatabaseTest {
 
     @Test
     public void test_InsertIngrediente() throws InterruptedException {
-        categoriaIngredienteDAO.insert(new CategoriaIngrediente("Verduras"));
+        categoriaIngredienteDAO.insert(new CategoriaIngrediente("Carne"));
         List<CategoriaIngrediente> categorias = getOrAwaitValue(
-                categoriaIngredienteDAO.getAllCategoriasIngrediente()
+            categoriaIngredienteDAO.getAllCategoriasIngrediente()
         );
 
         assertFalse(categorias.isEmpty());
 
-        CategoriaIngrediente catVerduras = categorias.get(0);
+        CategoriaIngrediente catCarne = categorias.get(0);
 
-        Ingrediente lechuga = new Ingrediente("lechuga", catVerduras.getId());
-        ingredienteDAO.insert(lechuga);
+        medicionDAO.insert(new Medicion("Kg"));
+        List<Medicion> mediciones = getOrAwaitValue(
+            medicionDAO.getAllMediciones()
+        );
+
+        assertFalse(mediciones.isEmpty());
+
+        Medicion medUnidad = mediciones.get(0);
+
+        Ingrediente pollo = new Ingrediente("Pollo", catCarne, medUnidad);
+        ingredienteDAO.insert(pollo);
 
         List<Ingrediente> ingredientes = getOrAwaitValue(
-                ingredienteDAO.getAllIngredientes()
+            ingredienteDAO.getAllIngredientes()
         );
 
         assertFalse(ingredientes.isEmpty());
         Ingrediente first = ingredientes.get(0);
-        assertEquals(first.getIdCategoria(), catVerduras.getId());
-        assertEquals(first.getNombre(), lechuga.getNombre());
+
+        assertEquals(first.getCategoriaIngrediente(), catCarne);
+        assertEquals(first.getMedicion(), medUnidad);
     }
 }

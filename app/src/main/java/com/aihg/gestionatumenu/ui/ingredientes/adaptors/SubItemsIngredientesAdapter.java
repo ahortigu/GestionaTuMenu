@@ -38,9 +38,8 @@ public class SubItemsIngredientesAdapter extends RecyclerView.Adapter<SubItemsIn
     public void onBindViewHolder(@NonNull SubItemIngredienteViewHolder holder, int position) {
         Ingrediente ingrediente = ingredientes.get(position);
         Log.i("INGREDIENTE", "" + ingrediente.getNombre());
-
         holder.txt_nombre_ingrediente.setText(ingrediente.getNombre());
-        holder.txt_valor_medicion.setText("Unidad");
+        holder.txt_valor_medicion.setText(ingrediente.getMedicion().getNombre());
 
         holder.v_subItemIngrediente.setOnClickListener(new View.OnClickListener() {
                 @Override

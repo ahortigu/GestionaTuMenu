@@ -113,7 +113,7 @@ public class ItemsCategoriasAdapter extends RecyclerView.Adapter<ItemsCategorias
             .map(categoria -> new CategoriaWrapper(
                 categoria,
                 this.ingredientes.stream()
-                    .filter(ingrediente -> ingrediente.getIdCategoria() == categoria.getId())
+                    .filter(ingrediente -> ingrediente.getCategoriaIngrediente().equals(categoria))
                     .collect(Collectors.toList())
             ))
             .collect(Collectors.toList());

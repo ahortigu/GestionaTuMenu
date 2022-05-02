@@ -5,4 +5,5 @@ public class DatabaseTables {
 
     public static final String CATEGORIAS_INGREDIENTE = "categorias_ingrediente";
     public static final String INGREDIENTES = "ingredientes";
+    public static final String MEDICIONES = "mediciones";
 }
