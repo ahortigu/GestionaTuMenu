@@ -12,15 +12,17 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aihg.gestionatumenu.R;
+import com.aihg.gestionatumenu.db.entities.Ingrediente;
 import com.aihg.gestionatumenu.ui.ingredientes.IngredientesFragmentDirections;
+import com.aihg.gestionatumenu.ui.ingredientes.wrapper.CategoriaWrapper;
 
 import java.util.List;
 
 public class SubItemsIngredientesAdapter extends RecyclerView.Adapter<SubItemsIngredientesAdapter.SubItemIngredienteViewHolder> {
-    private List<String> ingredientesList;
+    private List<Ingrediente> ingredientes;
 
-    public SubItemsIngredientesAdapter(List<String> ingredientesList) {
-        this.ingredientesList = ingredientesList;
+    public SubItemsIngredientesAdapter(CategoriaWrapper wrapper) {
+        this.ingredientes = wrapper.getIngredientes();
     }
 
     @NonNull
@@ -34,16 +36,16 @@ public class SubItemsIngredientesAdapter extends RecyclerView.Adapter<SubItemsIn
 
     @Override
     public void onBindViewHolder(@NonNull SubItemIngredienteViewHolder holder, int position) {
-        String ingrediente = ingredientesList.get(position);
-        Log.i("INGREDIENTE", "" + ingrediente);
+        Ingrediente ingrediente = ingredientes.get(position);
+        Log.i("INGREDIENTE", "" + ingrediente.getNombre());
 
-        holder.txt_nombre_ingrediente.setText(ingrediente);
+        holder.txt_nombre_ingrediente.setText(ingrediente.getNombre());
         holder.txt_valor_medicion.setText("Unidad");
 
         holder.v_subItemIngrediente.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // elemento a recuperar para mandarlo como argumento/parametro
+                    // TODO elemento a recuperar para mandarlo como argumento/parametro
                     // ingredientesList.get(nestedViewHolder.getAdapterPosition());
                     NavDirections action = IngredientesFragmentDirections.actionIngredientesFragmentToCreateIngredienteFragment();
                     Navigation.findNavController(view).navigate(action);
@@ -54,7 +56,7 @@ public class SubItemsIngredientesAdapter extends RecyclerView.Adapter<SubItemsIn
 
     @Override
     public int getItemCount() {
-        return ingredientesList.size();
+        return ingredientes.size();
     }
 
     public class SubItemIngredienteViewHolder extends RecyclerView.ViewHolder {
