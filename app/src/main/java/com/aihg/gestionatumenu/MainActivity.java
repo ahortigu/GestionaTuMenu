@@ -27,7 +27,8 @@ public class MainActivity extends AppCompatActivity implements AppBarConfigurati
         setContentView(R.layout.activity_main);
 
         //NavController
-        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.nav_host_fragment_activity_main);
         NavController navController = navHostFragment.getNavController();
 
         // Toolbar y bottonNavBar

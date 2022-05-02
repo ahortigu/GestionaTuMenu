@@ -1,5 +1,6 @@
 package com.aihg.gestionatumenu.ui.ingredientes.adaptors;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,7 @@ import com.aihg.gestionatumenu.ui.ingredientes.IngredientesFragmentDirections;
 
 import java.util.List;
 
-public class SubItemsIngredientesAdapter extends RecyclerView.Adapter<SubItemsIngredientesAdapter.NestedViewHolder> {
+public class SubItemsIngredientesAdapter extends RecyclerView.Adapter<SubItemsIngredientesAdapter.SubItemIngredienteViewHolder> {
     private List<String> ingredientesList;
 
     public SubItemsIngredientesAdapter(List<String> ingredientesList) {
@@ -24,20 +25,26 @@ public class SubItemsIngredientesAdapter extends RecyclerView.Adapter<SubItemsIn
 
     @NonNull
     @Override
-    public NestedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ingredientes__subitem_ingrediente, parent, false);
-        return new NestedViewHolder(view);
+    public SubItemIngredienteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater
+                .from(parent.getContext())
+                .inflate(R.layout.ingredientes__subitem_ingrediente, parent, false);
+        return new SubItemIngredienteViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NestedViewHolder nestedViewHolder, int position) {
-        nestedViewHolder.txt_nombre_ingrediente.setText(ingredientesList.get(position));
-        nestedViewHolder.txt_valor_medicion.setText("Unidad");
+    public void onBindViewHolder(@NonNull SubItemIngredienteViewHolder holder, int position) {
+        String ingrediente = ingredientesList.get(position);
+        Log.i("INGREDIENTE", "" + ingrediente);
 
-        nestedViewHolder.ingredienteView.setOnClickListener(new View.OnClickListener() {
+        holder.txt_nombre_ingrediente.setText(ingrediente);
+        holder.txt_valor_medicion.setText("Unidad");
+
+        holder.v_subItemIngrediente.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ingredientesList.get(nestedViewHolder.getAdapterPosition());
+                    // elemento a recuperar para mandarlo como argumento/parametro
+                    // ingredientesList.get(nestedViewHolder.getAdapterPosition());
                     NavDirections action = IngredientesFragmentDirections.actionIngredientesFragmentToCreateIngredienteFragment();
                     Navigation.findNavController(view).navigate(action);
                 }
@@ -50,15 +57,15 @@ public class SubItemsIngredientesAdapter extends RecyclerView.Adapter<SubItemsIn
         return ingredientesList.size();
     }
 
-    public class NestedViewHolder extends RecyclerView.ViewHolder {
-        private View ingredienteView;
+    public class SubItemIngredienteViewHolder extends RecyclerView.ViewHolder {
+        private View v_subItemIngrediente;
 
         private TextView txt_nombre_ingrediente;
         private TextView txt_valor_medicion;
 
-        public NestedViewHolder(@NonNull View itemView) {
+        public SubItemIngredienteViewHolder(@NonNull View itemView) {
             super(itemView);
-            ingredienteView = itemView;
+            v_subItemIngrediente = itemView;
             txt_nombre_ingrediente = itemView.findViewById(R.id.txt_nombre_ingrediente);
             txt_valor_medicion = itemView.findViewById(R.id.txt_valor_medicion);
         }
