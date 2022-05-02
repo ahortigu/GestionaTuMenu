@@ -11,15 +11,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 import com.aihg.gestionatumenu.R;
+import com.aihg.gestionatumenu.ui.ingredientes.adaptors.ItemsCategoriasAdapter;
+import com.aihg.gestionatumenu.ui.ingredientes.wrapper.CategoriaIngredientesWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class IngredientesFragment extends Fragment {
-    private List<CategoriaIngredientesDataModel> listaIngredientes;
+    private List<CategoriaIngredientesWrapper> listaIngredientes;
     private RecyclerView recyclerView;
-    private CategoriaIngredientesAdapter adapter;
+    private ItemsCategoriasAdapter adapter;
 
     public IngredientesFragment() {
         super(R.layout.ingredientes__fragment);
@@ -35,9 +37,9 @@ public class IngredientesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recyclerView = (RecyclerView) view.findViewById(R.id.rvIngredientes);
+        recyclerView = (RecyclerView) view.findViewById(R.id.rv_categorias);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new CategoriaIngredientesAdapter(listaIngredientes);
+        adapter = new ItemsCategoriasAdapter(listaIngredientes);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(false);
     }
@@ -75,10 +77,10 @@ public class IngredientesFragment extends Fragment {
         verduras.add("Lechuga");
         verduras.add("Pepino");
 
-        listaIngredientes.add(new CategoriaIngredientesDataModel(carnes, "CARNES"));
-        listaIngredientes.add(new CategoriaIngredientesDataModel(cerealesYFrutosSecos, "CEREALES Y FRUTOS SECOS"));
-        listaIngredientes.add(new CategoriaIngredientesDataModel(condimentos, "CONDIMENTOS"));
-        listaIngredientes.add(new CategoriaIngredientesDataModel(fruta, "FRUTA"));
-        listaIngredientes.add(new CategoriaIngredientesDataModel(verduras, "VERDURAS"));
+        listaIngredientes.add(new CategoriaIngredientesWrapper(carnes, "CARNES"));
+        listaIngredientes.add(new CategoriaIngredientesWrapper(cerealesYFrutosSecos, "CEREALES Y FRUTOS SECOS"));
+        listaIngredientes.add(new CategoriaIngredientesWrapper(condimentos, "CONDIMENTOS"));
+        listaIngredientes.add(new CategoriaIngredientesWrapper(fruta, "FRUTA"));
+        listaIngredientes.add(new CategoriaIngredientesWrapper(verduras, "VERDURAS"));
     }
 }

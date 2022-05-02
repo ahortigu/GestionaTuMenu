@@ -1,14 +1,14 @@
-package com.aihg.gestionatumenu.ui.ingredientes;
+package com.aihg.gestionatumenu.ui.ingredientes.wrapper;
 
 import java.util.List;
 
-public class CategoriaIngredientesDataModel {
+public class CategoriaIngredientesWrapper {
 
     private List<String> nestedIngredientesList;
     private String txtCategoria;
     private boolean isExpandable;
 
-    public CategoriaIngredientesDataModel(List<String> nestedIngredientesList , String txtCategoria) {
+    public CategoriaIngredientesWrapper(List<String> nestedIngredientesList , String txtCategoria) {
         this.nestedIngredientesList = nestedIngredientesList ;
         this.txtCategoria = txtCategoria;
         isExpandable = false;

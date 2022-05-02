@@ -1,4 +1,4 @@
-package com.aihg.gestionatumenu.ui.ingredientes;
+package com.aihg.gestionatumenu.ui.ingredientes.adaptors;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,13 +11,14 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aihg.gestionatumenu.R;
+import com.aihg.gestionatumenu.ui.ingredientes.IngredientesFragmentDirections;
 
 import java.util.List;
 
-public class IngredientesNestedAdapter extends RecyclerView.Adapter<IngredientesNestedAdapter.NestedViewHolder> {
+public class SubItemsIngredientesAdapter extends RecyclerView.Adapter<SubItemsIngredientesAdapter.NestedViewHolder> {
     private List<String> ingredientesList;
 
-    public IngredientesNestedAdapter(List<String> ingredientesList) {
+    public SubItemsIngredientesAdapter(List<String> ingredientesList) {
         this.ingredientesList = ingredientesList;
     }
 

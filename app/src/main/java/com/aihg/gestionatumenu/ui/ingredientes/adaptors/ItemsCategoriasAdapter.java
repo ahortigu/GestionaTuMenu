@@ -1,4 +1,4 @@
-package com.aihg.gestionatumenu.ui.ingredientes;
+package com.aihg.gestionatumenu.ui.ingredientes.adaptors;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,16 +13,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aihg.gestionatumenu.R;
+import com.aihg.gestionatumenu.ui.ingredientes.wrapper.CategoriaIngredientesWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoriaIngredientesAdapter extends RecyclerView.Adapter<CategoriaIngredientesAdapter.CategoriaIngredientesViewHolder> {
+public class ItemsCategoriasAdapter extends RecyclerView.Adapter<ItemsCategoriasAdapter.CategoriaIngredientesViewHolder> {
 
-    private List<CategoriaIngredientesDataModel> categoriasList;
+    private List<CategoriaIngredientesWrapper> categoriasList;
     private List<String> ingredientesList = new ArrayList<>();
 
-    public CategoriaIngredientesAdapter(List<CategoriaIngredientesDataModel> categoriasList) {
+    public ItemsCategoriasAdapter(List<CategoriaIngredientesWrapper> categoriasList) {
         this.categoriasList = categoriasList;
     }
 
@@ -35,10 +36,10 @@ public class CategoriaIngredientesAdapter extends RecyclerView.Adapter<Categoria
 
     @Override
     public void onBindViewHolder(@NonNull CategoriaIngredientesViewHolder holder, int position) {
-        CategoriaIngredientesDataModel categoriaIngredientesDataModel = categoriasList.get(position);
-        holder.txtCategoria.setText(categoriaIngredientesDataModel.getTxtCategoria());
+        CategoriaIngredientesWrapper categoriaIngredientesWrapper = categoriasList.get(position);
+        holder.txtCategoria.setText(categoriaIngredientesWrapper.getTxtCategoria());
 
-        boolean isExpandable = categoriaIngredientesDataModel.isExpandable();
+        boolean isExpandable = categoriaIngredientesWrapper.isExpandable();
         holder.l_expandable_ingredientes.setVisibility(isExpandable ? View.VISIBLE : View.GONE);
 
         if (isExpandable) {
@@ -47,14 +48,14 @@ public class CategoriaIngredientesAdapter extends RecyclerView.Adapter<Categoria
             holder.iv_arrow.setImageResource(R.drawable.arrow_down);
         }
 
-        IngredientesNestedAdapter adapter = new IngredientesNestedAdapter(ingredientesList);
+        SubItemsIngredientesAdapter adapter = new SubItemsIngredientesAdapter(ingredientesList);
         holder.rv_child_ingredientes.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));
         holder.rv_child_ingredientes.setAdapter(adapter);
         holder.l_parent_categoria_ingredientes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                categoriaIngredientesDataModel.setExpandable(!categoriaIngredientesDataModel.isExpandable());
-                ingredientesList = categoriaIngredientesDataModel.getNestedIngredientesList();
+                categoriaIngredientesWrapper.setExpandable(!categoriaIngredientesWrapper.isExpandable());
+                ingredientesList = categoriaIngredientesWrapper.getNestedIngredientesList();
                 notifyItemChanged(holder.getAdapterPosition());
             }
         });
