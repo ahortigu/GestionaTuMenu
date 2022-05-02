@@ -22,7 +22,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/txtCategoria"
+                android:id="@+id/txt_nombre_categoria"
                 android:layout_width="wrap_content"
                 android:layout_height="70dp"
                 android:layout_gravity="center"
@@ -58,7 +58,7 @@
             android:background="@color/gris_oscuro">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_child_ingredientes"
+                android:id="@+id/rv_subitems_ingrediente"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </RelativeLayout>

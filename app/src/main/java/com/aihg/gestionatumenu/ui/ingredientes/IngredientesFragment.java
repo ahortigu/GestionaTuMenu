@@ -1,4 +1,4 @@
-package com.aihg.gestionatumenu.ui;
+package com.aihg.gestionatumenu.ui.ingredientes;
 
 import android.os.Bundle;
 
@@ -22,7 +22,7 @@ public class IngredientesFragment extends Fragment {
     private CategoriaIngredientesAdapter adapter;
 
     public IngredientesFragment() {
-        super(R.layout.fragment_ingredientes);
+        super(R.layout.ingredientes__fragment);
     }
 
     @Override

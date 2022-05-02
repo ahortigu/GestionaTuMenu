@@ -1,4 +1,4 @@
-package com.aihg.gestionatumenu.ui;
+package com.aihg.gestionatumenu.ui.ingredientes;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,13 +24,15 @@ public class IngredientesNestedAdapter extends RecyclerView.Adapter<Ingredientes
     @NonNull
     @Override
     public NestedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ingrediente_cardview, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ingredientes__subitem_ingrediente, parent, false);
         return new NestedViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull NestedViewHolder nestedViewHolder, int position) {
-        nestedViewHolder.txtIngrediente.setText(ingredientesList.get(position));
+        nestedViewHolder.txt_nombre_ingrediente.setText(ingredientesList.get(position));
+        nestedViewHolder.txt_valor_medicion.setText("Unidad");
+
         nestedViewHolder.ingredienteView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -48,13 +50,16 @@ public class IngredientesNestedAdapter extends RecyclerView.Adapter<Ingredientes
     }
 
     public class NestedViewHolder extends RecyclerView.ViewHolder {
-        private TextView txtIngrediente;
         private View ingredienteView;
+
+        private TextView txt_nombre_ingrediente;
+        private TextView txt_valor_medicion;
 
         public NestedViewHolder(@NonNull View itemView) {
             super(itemView);
             ingredienteView = itemView;
-            txtIngrediente = itemView.findViewById(R.id.txtIngrediente);
+            txt_nombre_ingrediente = itemView.findViewById(R.id.txt_nombre_ingrediente);
+            txt_valor_medicion = itemView.findViewById(R.id.txt_valor_medicion);
         }
     }
 }

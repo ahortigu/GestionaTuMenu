@@ -30,9 +30,9 @@
     </fragment>
     <fragment
         android:id="@+id/ingredientesFragment"
-        android:name="com.aihg.gestionatumenu.ui.IngredientesFragment"
+        android:name="com.aihg.gestionatumenu.ui.ingredientes.IngredientesFragment"
         android:label="@string/ingredientes_upp"
-        tools:layout="@layout/fragment_ingredientes" >
+        tools:layout="@layout/ingredientes__fragment" >
         <action
             android:id="@+id/action_ingredientesFragment_to_createIngredienteFragment"
             app:destination="@id/createIngredienteFragment" />

@@ -1,4 +1,4 @@
-package com.aihg.gestionatumenu.ui;
+package com.aihg.gestionatumenu.ui.ingredientes;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,14 +29,12 @@ public class CategoriaIngredientesAdapter extends RecyclerView.Adapter<Categoria
     @NonNull
     @Override
     public CategoriaIngredientesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.categoria_ingrediente_nested_cardview, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ingredientes__item_categoria, parent, false);
         return new CategoriaIngredientesViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull CategoriaIngredientesViewHolder holder, int position) {
-
         CategoriaIngredientesDataModel categoriaIngredientesDataModel = categoriasList.get(position);
         holder.txtCategoria.setText(categoriaIngredientesDataModel.getTxtCategoria());
 
@@ -52,7 +50,6 @@ public class CategoriaIngredientesAdapter extends RecyclerView.Adapter<Categoria
         IngredientesNestedAdapter adapter = new IngredientesNestedAdapter(ingredientesList);
         holder.rv_child_ingredientes.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));
         holder.rv_child_ingredientes.setAdapter(adapter);
-        holder.rv_child_ingredientes.setHasFixedSize(false);
         holder.l_parent_categoria_ingredientes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,9 +76,9 @@ public class CategoriaIngredientesAdapter extends RecyclerView.Adapter<Categoria
             super(itemView);
             l_parent_categoria_ingredientes = itemView.findViewById(R.id.l_parent_categoria_ingredientes);
             l_expandable_ingredientes = itemView.findViewById(R.id.l_expandable_ingredientes);
-            txtCategoria = itemView.findViewById(R.id.txtCategoria);
+            txtCategoria = itemView.findViewById(R.id.txt_nombre_categoria);
             iv_arrow = itemView.findViewById(R.id.iv_arrow);
-            rv_child_ingredientes = itemView.findViewById(R.id.rv_child_ingredientes);
+            rv_child_ingredientes = itemView.findViewById(R.id.rv_subitems_ingrediente);
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.aihg.gestionatumenu.ui;
+package com.aihg.gestionatumenu.ui.ingredientes;
 
 import java.util.List;
 
