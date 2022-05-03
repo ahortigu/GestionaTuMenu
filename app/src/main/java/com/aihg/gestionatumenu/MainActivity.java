@@ -11,6 +11,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements AppBarConfigurati
         // Toolbar y bottonNavBar
         BottomNavigationView  bottomNavigationView = findViewById(R.id.bottomNavigationView);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         // Propagación de acciones
         NavigationUI.setupWithNavController(bottomNavigationView,navController);
@@ -42,8 +44,8 @@ public class MainActivity extends AppCompatActivity implements AppBarConfigurati
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.action_bar_menu, menu);
-        return true;
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.action_bar_menu, menu);
+        return super.onCreateOptionsMenu(menu);
     }
-
 }

@@ -36,6 +36,9 @@
         <action
             android:id="@+id/action_ingredientesFragment_to_ingredienteDetailsFragment"
             app:destination="@id/ingredienteDetailsFragment" />
+        <action
+            android:id="@+id/action_ingredientesFragment_to_planificadorFragment"
+            app:destination="@id/planificadorFragment" />
     </fragment>
     <fragment
         android:id="@+id/listaCompraFragment"
@@ -70,5 +73,13 @@
         <argument
             android:name="ingrediente"
             app:argType="com.aihg.gestionatumenu.db.entities.Ingrediente" />
+        <action
+            android:id="@+id/action_ingredienteDetailsFragment_to_ingredienteEditFragment"
+            app:destination="@id/ingredienteEditFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/ingredienteEditFragment"
+        android:name="com.aihg.gestionatumenu.IngredienteEditFragment"
+        android:label="EDITAR INGREDIENTE"
+        tools:layout="@layout/fragment_ingrediente_edit" />
 </navigation>

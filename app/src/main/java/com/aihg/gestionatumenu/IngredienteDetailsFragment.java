@@ -1,29 +1,35 @@
 package com.aihg.gestionatumenu;
 
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavArgs;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.aihg.gestionatumenu.db.entities.Ingrediente;
 
-
 public class IngredienteDetailsFragment extends Fragment {
+    private View view;
     public IngredienteDetailsFragment() {
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.ingredientes__view_detail, container, false);
+        this.view = inflater.inflate(R.layout.ingredientes__view_detail, container, false);
         Ingrediente ingrediente = IngredienteDetailsFragmentArgs.fromBundle(getArguments()).getIngrediente();
         TextView txt_nombre = view.findViewById(R.id.txt_nombre);
         TextView txt_categoria = view.findViewById(R.id.txt_categoria);
@@ -32,5 +38,22 @@ public class IngredienteDetailsFragment extends Fragment {
         txt_categoria.setText(ingrediente.getCategoriaIngrediente().getNombre());
         txt_medicion.setText(ingrediente.getMedicion().getNombre());
         return view;
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        menu.findItem(R.id.more).setVisible(false);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        NavDirections action;
+        if(id == R.id.nav_editar) {
+            action = IngredienteDetailsFragmentDirections.actionIngredienteDetailsFragmentToIngredienteEditFragment();
+            Navigation.findNavController(view).navigate(action);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
