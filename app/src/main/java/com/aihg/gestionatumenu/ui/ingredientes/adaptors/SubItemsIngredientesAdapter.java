@@ -45,11 +45,8 @@ public class SubItemsIngredientesAdapter extends RecyclerView.Adapter<SubItemsIn
                 @Override
                 public void onClick(View view) {
                            // TODO elemento a recuperar para mandarlo como argumento/parametro
-//                    Ingrediente ingrediente = ingredientes.get(holder.getAdapterPosition());
-//                    String nombreIngrediente = ingrediente.getNombre();
-//                    String nombreCategoria = ingrediente.categoriaIngrediente.getNombre();
-//                    String nombreMedicion = ingrediente.medicion.getNombre();
-                    NavDirections action = IngredientesFragmentDirections.actionIngredientesFragmentToIngredienteDetailsFragment();
+                    Ingrediente ingrediente = ingredientes.get(holder.getAdapterPosition());
+                    NavDirections action = IngredientesFragmentDirections.actionIngredientesFragmentToIngredienteDetailsFragment(ingrediente);
                     Navigation.findNavController(view).navigate(action);
                 }
             }

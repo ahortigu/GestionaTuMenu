@@ -67,5 +67,8 @@
         android:name="com.aihg.gestionatumenu.IngredienteDetailsFragment"
         android:label="DETALLES INGREDIENTE"
         tools:layout="@layout/ingredientes__view_detail">
+        <argument
+            android:name="ingrediente"
+            app:argType="com.aihg.gestionatumenu.db.entities.Ingrediente" />
     </fragment>
 </navigation>
