@@ -4,58 +4,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/rosa_claro"
     tools:context=".IngredienteDetailsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/l_ingredienteDetail"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/rosa_claro"
-        tools:context=".UpdateImageActivity">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        tools:context=".MainActivity">
 
         <ImageView
             android:id="@+id/iv_ingrediente"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:layout_marginVertical="40dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/borde_fondo_blanco"
+            android:contentDescription="Foto de ingrediente"
             android:scaleType="fitCenter"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ImageContrastCheck"
-            tools:src="@tools:sample/avatars"
-            android:contentDescription="TODO" />
+            tools:src="@tools:sample/avatars" />
+
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="30dp"
             android:gravity="center"
             android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_ingrediente">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="75dp"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginVertical="20dp"
-                android:background="@color/white"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/borde_fondo_blanco"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/lv_nombre"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/mostaza_oscuro"
+                    android:background="@drawable/borde_fondo_mostaza"
+                    android:padding="5dp"
                     android:text="NOMBRE"
                     android:textColor="@color/black"
-                    android:textSize="24sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/txt_nombre"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
                     android:layout_weight="1"
@@ -68,25 +74,57 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="75dp"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginVertical="20dp"
-                android:background="@color/white"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/borde_fondo_blanco"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/lv_medicion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/borde_fondo_mostaza"
+                    android:padding="5dp"
+                    android:text="MEDICION"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_medicion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:layout_weight="1"
+                    android:hint="Unidad"
+                    android:textAlignment="textEnd"
+                    android:textColorHint="@color/gris_claro"
+                    android:textSize="24sp"
+                    android:textStyle="bold|italic" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/borde_fondo_blanco"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/lv_categoria"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/mostaza_oscuro"
+                    android:background="@drawable/borde_fondo_mostaza"
+                    android:padding="5dp"
                     android:text="CATEGORIA"
                     android:textColor="@color/black"
-                    android:textSize="24sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/txt_categoria"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
                     android:layout_weight="1"
@@ -98,47 +136,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="75dp"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginVertical="20dp"
-                android:background="@color/white"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/lv_medicion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/mostaza_oscuro"
-                    android:text="MEDICION"
-                    android:textColor="@color/black"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/txt_medicion"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:layout_weight="1"
-                    android:hint="Unidad"
-                    android:textAlignment="textEnd"
-                    android:textColorHint="@color/gris_claro"
-                    android:textSize="24sp"
-                    android:textStyle="bold|italic" />
-
-            </LinearLayout>
-            <![CDATA[
-
-
-
-
-
-            />
-
-
-        ]]>
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
