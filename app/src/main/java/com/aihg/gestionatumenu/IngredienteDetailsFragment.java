@@ -19,6 +19,6 @@ public class IngredienteDetailsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_details_ingrediente, container, false);
+        return inflater.inflate(R.layout.ingredientes__view_detail, container, false);
     }
 }

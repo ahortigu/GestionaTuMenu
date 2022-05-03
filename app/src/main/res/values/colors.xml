@@ -20,5 +20,5 @@
     <color name="rojo_claro">#FF7F7F</color>
     <color name="verde_oscuro">#2A7955</color>
     <color name="gris_oscuro">#4D4D4D</color>
-    <color name="gris_claro">#999999</color>
+    <color name="gris_claro">#78909C</color>
 </resources>

@@ -66,5 +66,5 @@
         android:id="@+id/createIngredienteFragment"
         android:name="com.aihg.gestionatumenu.IngredienteDetailsFragment"
         android:label="DETALLES INGREDIENTE"
-        tools:layout="@layout/fragment_details_ingrediente" />
+        tools:layout="@layout/ingredientes__view_detail" />
 </navigation>
