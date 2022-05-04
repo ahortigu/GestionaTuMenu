@@ -27,6 +27,7 @@
     <string name="imagen_receta">Imagen Receta</string>
     <string name="receta_up">RECETA</string>
     <string name="categoria_up">CATEGORIA</string>
+    <string name="instrucciones_up">INSTRUCCIONES</string>
     <string name="buscar">Buscar</string>
     <string name="add">Añadir</string>
     <string name="back_arrow">Back Arrow</string>
