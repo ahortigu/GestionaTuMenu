@@ -44,7 +44,7 @@
         android:id="@+id/listaCompraFragment"
         android:name="com.aihg.gestionatumenu.ListaCompraFragment"
         android:label="@string/lista_de_la_compra_upp"
-        tools:layout="@layout/fragment_lista_compra" />
+        tools:layout="@layout/listacompra__fragment" />
     <fragment
         android:id="@+id/recetasFragment"
         android:name="com.aihg.gestionatumenu.RecetasFragment"
