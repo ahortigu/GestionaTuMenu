@@ -41,7 +41,7 @@ public class ItemsCategoriasAdapter extends RecyclerView.Adapter<ItemsCategorias
     public ItemCategoriaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.ingredientes__item_categoria, parent, false);
+                .inflate(R.layout.ingredientes__item, parent, false);
         return new ItemCategoriaViewHolder(view);
     }
 

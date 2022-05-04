@@ -23,7 +23,10 @@
     <string name="catidad_low">Cantidad</string>
     <string name="ingrediente_up">INGREDIENTE</string>
     <string name="ingrediente_low">Ingrediente</string>
-    <string name="imagen_ingrediente">Imagen_ingrediente</string>
+    <string name="imagen_ingrediente">Imagen ingrediente</string>
+    <string name="imagen_receta">Imagen Receta</string>
+    <string name="receta_up">RECETA</string>
+    <string name="categoria_up">CATEGORIA</string>
     <string name="buscar">Buscar</string>
     <string name="add">Añadir</string>
     <string name="back_arrow">Back Arrow</string>

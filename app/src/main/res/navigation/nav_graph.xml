@@ -49,7 +49,7 @@
         android:id="@+id/recetasFragment"
         android:name="com.aihg.gestionatumenu.RecetasFragment"
         android:label="@string/recetas_up"
-        tools:layout="@layout/fragment_recetas" />
+        tools:layout="@layout/recetas__fragment" />
     <fragment
         android:id="@+id/despensaFragment"
         android:name="com.aihg.gestionatumenu.DespensaFragment"
