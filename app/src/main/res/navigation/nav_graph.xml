@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.aihg.gestionatumenu.HomeFragment"
-        android:label="@string/home_upp"
+        android:label="@string/home_up"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_ingredientesFragment"
@@ -48,17 +48,17 @@
     <fragment
         android:id="@+id/recetasFragment"
         android:name="com.aihg.gestionatumenu.RecetasFragment"
-        android:label="@string/recetas_upp"
+        android:label="@string/recetas_up"
         tools:layout="@layout/fragment_recetas" />
     <fragment
         android:id="@+id/despensaFragment"
         android:name="com.aihg.gestionatumenu.DespensaFragment"
-        android:label="@string/despensa_upp"
-        tools:layout="@layout/fragment_despensa" />
+        android:label="@string/despensa_up"
+        tools:layout="@layout/despensa__fragment" />
     <fragment
         android:id="@+id/planificadorFragment"
         android:name="com.aihg.gestionatumenu.PlanificadorFragment"
-        android:label="@string/planificador_upp"
+        android:label="@string/planificador_up"
         tools:layout="@layout/fragment_planificador" />
     <fragment
         android:id="@+id/menuFragment"

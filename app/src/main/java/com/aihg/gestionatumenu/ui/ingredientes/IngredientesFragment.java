@@ -7,20 +7,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.aihg.gestionatumenu.IngredienteDetailsFragmentDirections;
 import com.aihg.gestionatumenu.R;
 import com.aihg.gestionatumenu.db.entities.CategoriaIngrediente;
 import com.aihg.gestionatumenu.db.entities.Ingrediente;
@@ -78,7 +73,7 @@ public class IngredientesFragment extends Fragment {
         Log.i("FRAGMENT-INGREDIENTE", "onCreateView");
         this.view = inflater.inflate(R.layout.ingredientes__fragment, container, false);
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.rv_categorias);
+        recyclerView = (RecyclerView) view.findViewById(R.id.rv_i_categorias);
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 

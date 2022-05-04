@@ -9,7 +9,7 @@
     tools:context=".ui.ingredientes.IngredientesFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_categorias"
+        android:id="@+id/rv_i_categorias"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"

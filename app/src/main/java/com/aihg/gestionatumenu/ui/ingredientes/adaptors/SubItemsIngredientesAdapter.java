@@ -38,10 +38,10 @@ public class SubItemsIngredientesAdapter extends RecyclerView.Adapter<SubItemsIn
     public void onBindViewHolder(@NonNull SubItemIngredienteViewHolder holder, int position) {
         Ingrediente ingrediente = ingredientes.get(position);
         Log.i("INGREDIENTE", "" + ingrediente.getNombre());
-        holder.txt_nombre_ingrediente.setText(ingrediente.getNombre());
-        holder.txt_valor_medicion.setText(ingrediente.getMedicion().getNombre());
+        holder.txt_nombre.setText(ingrediente.getNombre());
+        holder.txt_medicion.setText(ingrediente.getMedicion().getNombre());
 
-        holder.v_subItemIngrediente.setOnClickListener(new View.OnClickListener() {
+        holder.v_subitem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                            // TODO elemento a recuperar para mandarlo como argumento/parametro
@@ -59,16 +59,16 @@ public class SubItemsIngredientesAdapter extends RecyclerView.Adapter<SubItemsIn
     }
 
     public class SubItemIngredienteViewHolder extends RecyclerView.ViewHolder {
-        private View v_subItemIngrediente;
+        private View v_subitem;
 
-        private TextView txt_nombre_ingrediente;
-        private TextView txt_valor_medicion;
+        private TextView txt_nombre;
+        private TextView txt_medicion;
 
         public SubItemIngredienteViewHolder(@NonNull View itemView) {
             super(itemView);
-            v_subItemIngrediente = itemView;
-            txt_nombre_ingrediente = itemView.findViewById(R.id.txt_nombre_ingrediente);
-            txt_valor_medicion = itemView.findViewById(R.id.txt_valor_medicion);
+            v_subitem = itemView;
+            txt_nombre = itemView.findViewById(R.id.txt_is_nombre);
+            txt_medicion = itemView.findViewById(R.id.txt_is_medicion);
         }
     }
 }

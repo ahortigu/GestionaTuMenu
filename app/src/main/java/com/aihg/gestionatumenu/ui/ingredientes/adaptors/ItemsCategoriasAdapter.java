@@ -58,18 +58,18 @@ public class ItemsCategoriasAdapter extends RecyclerView.Adapter<ItemsCategorias
         //if (isExpandable) ingredientesList = categoria.getNestedIngredientesList();
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(
-            holder.rv_child_ingredientes.getContext(), LinearLayoutManager.VERTICAL, false
+            holder.rv_child.getContext(), LinearLayoutManager.VERTICAL, false
         );
         layoutManager.setInitialPrefetchItemCount(
             categoria.getIngredientes().size()
         );
 
         SubItemsIngredientesAdapter adapter = new SubItemsIngredientesAdapter(categoria);
-        holder.rv_child_ingredientes.setLayoutManager(layoutManager);
-        holder.rv_child_ingredientes.setAdapter(adapter);
-        holder.rv_child_ingredientes.setRecycledViewPool(recycledViewPool);
+        holder.rv_child.setLayoutManager(layoutManager);
+        holder.rv_child.setAdapter(adapter);
+        holder.rv_child.setRecycledViewPool(recycledViewPool);
 
-        holder.l_parent_categoria_ingredientes.setOnClickListener(new View.OnClickListener() {
+        holder.l_parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 categoria.setExpandido(!categoria.isExpandido());
@@ -79,7 +79,7 @@ public class ItemsCategoriasAdapter extends RecyclerView.Adapter<ItemsCategorias
             }
         });
 
-        holder.l_expandable_ingredientes.setVisibility(isExpandable ? View.VISIBLE : View.GONE);
+        holder.l_expandable.setVisibility(isExpandable ? View.VISIBLE : View.GONE);
         Log.i("CATEGORIA", "isExpandable " + isExpandable);
         if (isExpandable) {
             holder.iv_arrow.setImageResource(R.drawable.arrow_up);
@@ -120,21 +120,21 @@ public class ItemsCategoriasAdapter extends RecyclerView.Adapter<ItemsCategorias
     }
 
     public class ItemCategoriaViewHolder extends RecyclerView.ViewHolder {
-        private LinearLayout l_parent_categoria_ingredientes;
-        private RelativeLayout l_expandable_ingredientes;
+        private LinearLayout l_parent;
+        private RelativeLayout l_expandable;
         private TextView txt_nombre_categoria;
         private ImageView iv_arrow;
 
-        private RecyclerView rv_child_ingredientes;
+        private RecyclerView rv_child;
 
         public ItemCategoriaViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            l_parent_categoria_ingredientes = itemView.findViewById(R.id.l_parent_categoria_despensa);
-            l_expandable_ingredientes = itemView.findViewById(R.id.l_expandable_ingredientes);
-            txt_nombre_categoria = itemView.findViewById(R.id.txt_nombre_categoria);
-            iv_arrow = itemView.findViewById(R.id.iv_arrow);
-            rv_child_ingredientes = itemView.findViewById(R.id.rv_subitems_despensa);
+            l_parent = itemView.findViewById(R.id.l_ii_ingredientes);
+            l_expandable = itemView.findViewById(R.id.l_ii_expandable_ingredientes);
+            txt_nombre_categoria = itemView.findViewById(R.id.txt_ii_categoria);
+            iv_arrow = itemView.findViewById(R.id.iv_ii_arrow);
+            rv_child = itemView.findViewById(R.id.rv_ii_ingredientes);
         }
     }
 }

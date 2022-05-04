@@ -2,7 +2,6 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cv_categoria_despensa"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
@@ -11,24 +10,23 @@
     app:cardElevation="6dp">
 
     <LinearLayout
-        android:id="@+id/l_parent_categoria_despensa"
+        android:id="@+id/l_ii_ingredientes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/black"
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/l_categoria_despensa"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/txt_nombre_categoria"
+                android:id="@+id/txt_ii_categoria"
                 android:layout_width="wrap_content"
                 android:layout_height="70dp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="CATEGORIA"
+                android:text="@string/cantidad_up"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -39,11 +37,12 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/iv_arrow"
+                android:id="@+id/iv_ii_arrow"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="16dp"
+                android:contentDescription="@string/imagen_ingrediente"
                 android:src="@drawable/arrow_down"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -52,18 +51,17 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <RelativeLayout
-            android:id="@+id/l_expandable_ingredientes"
+            android:id="@+id/l_ii_expandable_ingredientes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:background="@color/gris_oscuro">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_subitems_despensa"
+                android:id="@+id/rv_ii_ingredientes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:listitem="@layout/ingredientes__subitem_ingrediente"
-            />
+                tools:listitem="@layout/ingredientes__subitem_ingrediente" />
         </RelativeLayout>
     </LinearLayout>
 

@@ -3,7 +3,7 @@
     <item
         android:id="@+id/homeFragment"
         android:icon="@drawable/home"
-        android:title="@string/home_upp"
+        android:title="@string/home_up"
         android:enabled="true" />
 
     <item
@@ -15,6 +15,6 @@
     <item
         android:id="@+id/listaCompraFragment"
         android:icon= "@drawable/lista_compra"
-        android:title="@string/lista_app"
+        android:title="@string/lista_up"
         android:enabled="true" />
 </menu>
