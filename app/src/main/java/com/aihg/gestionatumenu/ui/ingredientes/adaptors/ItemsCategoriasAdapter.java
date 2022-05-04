@@ -130,11 +130,11 @@ public class ItemsCategoriasAdapter extends RecyclerView.Adapter<ItemsCategorias
         public ItemCategoriaViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            l_parent_categoria_ingredientes = itemView.findViewById(R.id.l_parent_categoria_ingredientes);
+            l_parent_categoria_ingredientes = itemView.findViewById(R.id.l_parent_categoria_despensa);
             l_expandable_ingredientes = itemView.findViewById(R.id.l_expandable_ingredientes);
             txt_nombre_categoria = itemView.findViewById(R.id.txt_nombre_categoria);
             iv_arrow = itemView.findViewById(R.id.iv_arrow);
-            rv_child_ingredientes = itemView.findViewById(R.id.rv_subitems_ingrediente);
+            rv_child_ingredientes = itemView.findViewById(R.id.rv_subitems_despensa);
         }
     }
 }
