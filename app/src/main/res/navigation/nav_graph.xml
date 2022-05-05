@@ -69,7 +69,7 @@
         android:id="@+id/ingredienteDetailsFragment"
         android:name="com.aihg.gestionatumenu.IngredienteDetailsFragment"
         android:label="DETALLES INGREDIENTE"
-        tools:layout="@layout/ingredientes__view_detail">
+        tools:layout="@layout/ingredientes__detail">
         <argument
             android:name="ingrediente"
             app:argType="com.aihg.gestionatumenu.db.entities.Ingrediente" />
@@ -81,5 +81,5 @@
         android:id="@+id/ingredienteEditFragment"
         android:name="com.aihg.gestionatumenu.IngredienteEditFragment"
         android:label="EDITAR INGREDIENTE"
-        tools:layout="@layout/fragment_ingrediente_edit" />
+        tools:layout="@layout/ingredientes__edit" />
 </navigation>

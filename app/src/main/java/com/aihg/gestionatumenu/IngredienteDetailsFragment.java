@@ -29,11 +29,11 @@ public class IngredienteDetailsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        this.view = inflater.inflate(R.layout.ingredientes__view_detail, container, false);
+        this.view = inflater.inflate(R.layout.ingredientes__detail, container, false);
         Ingrediente ingrediente = IngredienteDetailsFragmentArgs.fromBundle(getArguments()).getIngrediente();
-        TextView txt_nombre = view.findViewById(R.id.txt_iv_nombre);
-        TextView txt_categoria = view.findViewById(R.id.txt_iv_categoria);
-        TextView txt_medicion = view.findViewById(R.id.txt_iv_medicion);
+        TextView txt_nombre = view.findViewById(R.id.txt_id_nombre);
+        TextView txt_categoria = view.findViewById(R.id.txt_id_categoria);
+        TextView txt_medicion = view.findViewById(R.id.txt_id_medicion);
         txt_nombre.setText(ingrediente.getNombre());
         txt_categoria.setText(ingrediente.getCategoriaIngrediente().getNombre());
         txt_medicion.setText(ingrediente.getMedicion().getNombre());
