@@ -22,6 +22,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ImageContrastCheck"
             tools:src="@tools:sample/avatars" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -55,19 +56,21 @@
                 android:id="@+id/txt_ie_ingrediente"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp"
+                android:layout_marginEnd="16dp"
                 android:autofillHints=""
                 android:ems="10"
                 android:hint="@string/tomate_low"
                 android:inputType="textPersonName"
+                android:minHeight="48dp"
                 android:textAlignment="viewEnd"
                 android:textColor="@color/black"
                 android:textColorHint="@color/gris_claro"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:textStyle="bold|italic"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.518" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -106,10 +109,11 @@
                 android:ems="10"
                 android:hint="@string/verduras_low"
                 android:inputType="textPersonName"
+                android:minHeight="48dp"
                 android:textAlignment="viewEnd"
                 android:textColor="@color/black"
                 android:textColorHint="@color/gris_claro"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:textStyle="bold|italic"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -150,11 +154,12 @@
                 android:autofillHints=""
                 android:ems="10"
                 android:hint="@string/unidad_low"
-                android:inputType="textPersonName"
+                android:inputType="numberSigned"
+                android:minHeight="48dp"
                 android:textAlignment="viewEnd"
                 android:textColor="@color/black"
                 android:textColorHint="@color/gris_claro"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:textStyle="bold|italic"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
