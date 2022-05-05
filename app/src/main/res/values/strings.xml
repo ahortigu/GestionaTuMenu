@@ -35,4 +35,8 @@
     <string name="ingrediente">Ingrediente</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tomate_low">Tomate</string>
+    <string name="verduras_low">Verduras</string>
+    <string name="unidad_low">Unidad</string>
+    <string name="guardar_UP">GUARDAR</string>
 </resources>

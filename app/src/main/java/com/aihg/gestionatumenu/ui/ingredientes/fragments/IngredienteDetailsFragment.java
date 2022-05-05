@@ -32,7 +32,7 @@ public class IngredienteDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.view = inflater.inflate(R.layout.ingredientes__detail_fragment, container, false);
         Ingrediente ingrediente = IngredienteDetailsFragmentArgs.fromBundle(getArguments()).getIngrediente();
-        TextView txt_nombre = view.findViewById(R.id.txt_id_nombre);
+        TextView txt_nombre = view.findViewById(R.id.txt_id_ingrediente);
         TextView txt_categoria = view.findViewById(R.id.txt_id_categoria);
         TextView txt_medicion = view.findViewById(R.id.txt_id_medicion);
         txt_nombre.setText(ingrediente.getNombre());

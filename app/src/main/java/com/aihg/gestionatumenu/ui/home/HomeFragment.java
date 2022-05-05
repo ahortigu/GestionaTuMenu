@@ -1,4 +1,4 @@
-package com.aihg.gestionatumenu;
+package com.aihg.gestionatumenu.ui.home;
 
 import android.os.Bundle;
 
@@ -13,6 +13,8 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import com.aihg.gestionatumenu.R;
 
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
