@@ -1,4 +1,4 @@
-package com.aihg.gestionatumenu;
+package com.aihg.gestionatumenu.ui.recetas.fragments;
 
 import android.os.Bundle;
 
@@ -14,11 +14,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.aihg.gestionatumenu.R;
 import com.aihg.gestionatumenu.db.entities.Ingrediente;
+import com.aihg.gestionatumenu.ui.ingredientes.fragments.IngredienteDetailsFragmentArgs;
+import com.aihg.gestionatumenu.ui.ingredientes.fragments.IngredienteDetailsFragmentDirections;
 
-public class IngredienteDetailsFragment extends Fragment {
+public class RecetaDetailsFragment extends Fragment {
     private View view;
-    public IngredienteDetailsFragment() {
+
+    public RecetaDetailsFragment() {
     }
 
     @Override
@@ -29,14 +33,7 @@ public class IngredienteDetailsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        this.view = inflater.inflate(R.layout.ingredientes__detail, container, false);
-        Ingrediente ingrediente = IngredienteDetailsFragmentArgs.fromBundle(getArguments()).getIngrediente();
-        TextView txt_nombre = view.findViewById(R.id.txt_id_nombre);
-        TextView txt_categoria = view.findViewById(R.id.txt_id_categoria);
-        TextView txt_medicion = view.findViewById(R.id.txt_id_medicion);
-        txt_nombre.setText(ingrediente.getNombre());
-        txt_categoria.setText(ingrediente.getCategoriaIngrediente().getNombre());
-        txt_medicion.setText(ingrediente.getMedicion().getNombre());
+        this.view = inflater.inflate(R.layout.recetas_details_fragment, container, false);
         return view;
     }
 
@@ -51,7 +48,7 @@ public class IngredienteDetailsFragment extends Fragment {
         int id = item.getItemId();
         NavDirections action;
         if(id == R.id.nav_editar) {
-            action = IngredienteDetailsFragmentDirections.actionIngredienteDetailsFragmentToIngredienteEditFragment();
+            action = RecetaDetailsFragmentDirections.actionRecetaDetailsFragmentToRecetaEditFragment();
             Navigation.findNavController(view).navigate(action);
         }
         return super.onOptionsItemSelected(item);

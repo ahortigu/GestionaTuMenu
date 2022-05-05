@@ -1,4 +1,4 @@
-package com.aihg.gestionatumenu;
+package com.aihg.gestionatumenu.ui.recetas.fragments;
 
 import android.os.Bundle;
 
@@ -10,9 +10,11 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class IngredienteEditFragment extends Fragment {
+import com.aihg.gestionatumenu.R;
 
-    public IngredienteEditFragment() {
+public class RecetasFragment extends Fragment {
+
+    public RecetasFragment() {
     }
 
     @Override
@@ -23,13 +25,12 @@ public class IngredienteEditFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.ingredientes__edit, container, false);
+        return inflater.inflate(R.layout.recetas__fragment, container, false);
     }
 
     @Override
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        menu.findItem(R.id.more).setVisible(false);
         menu.findItem(R.id.nav_editar).setVisible(false);
     }
 }

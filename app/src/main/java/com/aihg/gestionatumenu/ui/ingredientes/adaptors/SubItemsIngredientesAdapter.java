@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.aihg.gestionatumenu.R;
 import com.aihg.gestionatumenu.db.entities.Ingrediente;
-import com.aihg.gestionatumenu.ui.ingredientes.IngredientesFragmentDirections;
+import com.aihg.gestionatumenu.ui.ingredientes.fragments.IngredientesFragmentDirections;
 import com.aihg.gestionatumenu.ui.ingredientes.wrapper.CategoriaWrapper;
 
 import java.util.List;

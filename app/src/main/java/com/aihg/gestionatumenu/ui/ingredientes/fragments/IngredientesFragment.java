@@ -1,4 +1,4 @@
-package com.aihg.gestionatumenu.ui.ingredientes;
+package com.aihg.gestionatumenu.ui.ingredientes.fragments;
 
 import android.os.Bundle;
 

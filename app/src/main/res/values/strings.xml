@@ -33,4 +33,6 @@
     <string name="back_arrow">Back Arrow</string>
     <string name="unidad">Unidad</string>
     <string name="ingrediente">Ingrediente</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

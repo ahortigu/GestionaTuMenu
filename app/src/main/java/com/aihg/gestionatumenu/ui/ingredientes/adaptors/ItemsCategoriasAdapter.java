@@ -82,9 +82,9 @@ public class ItemsCategoriasAdapter extends RecyclerView.Adapter<ItemsCategorias
         holder.l_expandable.setVisibility(isExpandable ? View.VISIBLE : View.GONE);
         Log.i("CATEGORIA", "isExpandable " + isExpandable);
         if (isExpandable) {
-            holder.iv_arrow.setImageResource(R.drawable.arrow_up);
+            holder.iv_arrow.setImageResource(R.drawable.ic_arrow_up);
         } else {
-            holder.iv_arrow.setImageResource(R.drawable.arrow_down);
+            holder.iv_arrow.setImageResource(R.drawable.ic_arrow_down);
         }
     }
 
