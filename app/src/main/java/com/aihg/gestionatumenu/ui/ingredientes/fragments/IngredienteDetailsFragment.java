@@ -19,6 +19,8 @@ import com.aihg.gestionatumenu.db.entities.Ingrediente;
 
 public class IngredienteDetailsFragment extends Fragment {
     private View view;
+    private Ingrediente ingrediente;
+
     public IngredienteDetailsFragment() {
     }
 
@@ -31,7 +33,7 @@ public class IngredienteDetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.view = inflater.inflate(R.layout.ingredientes__detail_fragment, container, false);
-        Ingrediente ingrediente = IngredienteDetailsFragmentArgs.fromBundle(getArguments()).getIngrediente();
+        ingrediente = IngredienteDetailsFragmentArgs.fromBundle(getArguments()).getIngrediente();
         TextView txt_nombre = view.findViewById(R.id.txt_id_ingrediente);
         TextView txt_categoria = view.findViewById(R.id.txt_id_categoria);
         TextView txt_medicion = view.findViewById(R.id.txt_id_medicion);
@@ -52,8 +54,9 @@ public class IngredienteDetailsFragment extends Fragment {
         int id = item.getItemId();
         NavDirections action;
         if(id == R.id.nav_editar) {
-            action = IngredienteDetailsFragmentDirections.actionIngredienteDetailsFragmentToIngredienteEditFragment();
+            action = IngredienteDetailsFragmentDirections.actionIngredienteDetailsFragmentToIngredienteEditFragment(ingrediente);
             Navigation.findNavController(view).navigate(action);
+
         }
         return super.onOptionsItemSelected(item);
     }

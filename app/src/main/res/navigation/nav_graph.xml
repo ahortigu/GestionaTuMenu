@@ -82,7 +82,11 @@
         android:id="@+id/ingredienteEditFragment"
         android:name="com.aihg.gestionatumenu.ui.ingredientes.fragments.IngredienteEditFragment"
         android:label="EDITAR INGREDIENTE"
-        tools:layout="@layout/ingredientes__edit_fragment" />
+        tools:layout="@layout/ingredientes__edit_fragment" >
+        <argument
+            android:name="ingrediente"
+            app:argType="com.aihg.gestionatumenu.db.entities.Ingrediente" />
+    </fragment>
     <fragment
         android:id="@+id/recetaDetailsFragment"
         android:name="com.aihg.gestionatumenu.ui.recetas.fragments.RecetaDetailsFragment"

@@ -3,16 +3,21 @@ package com.aihg.gestionatumenu.ui.ingredientes.fragments;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.aihg.gestionatumenu.R;
+import com.aihg.gestionatumenu.db.entities.Ingrediente;
 
 public class IngredienteEditFragment extends Fragment {
+    private View view;
 
     public IngredienteEditFragment() {
     }
@@ -25,7 +30,16 @@ public class IngredienteEditFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.ingredientes__edit_fragment, container, false);
+        this.view = inflater.inflate(R.layout.ingredientes__edit_fragment, container, false);
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Ingrediente ingrediente = IngredienteDetailsFragmentArgs.fromBundle(getArguments()).getIngrediente();
+        TextView txt_nombre = view.findViewById(R.id.txt_ie_ingrediente);
+        txt_nombre.setHint(ingrediente.getNombre());
     }
 
     @Override
