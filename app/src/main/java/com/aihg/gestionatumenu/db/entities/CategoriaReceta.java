@@ -68,11 +68,4 @@ public class CategoriaReceta {
         this.nombre = nombre;
     }
 
-    @Ignore
-    public CategoriaReceta(@NonNull int id, @NonNull String nombre) {
-        this.id = id;
-        this.nombre = nombre;
-    }
-
-
 }

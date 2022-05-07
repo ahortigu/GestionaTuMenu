@@ -9,10 +9,10 @@ import android.content.Context;
 import androidx.room.Room;
 import androidx.test.core.app.ApplicationProvider;
 
+import com.aihg.gestionatumenu.db.daos.CategoriaRecetaDAO;
 import com.aihg.gestionatumenu.db.daos.RecetaDAO;
 import com.aihg.gestionatumenu.db.database.GestionaTuMenuDatabase;
-import com.aihg.gestionatumenu.db.entities.Ingrediente;
-import com.aihg.gestionatumenu.db.entities.ListaCompra;
+import com.aihg.gestionatumenu.db.entities.CategoriaReceta;
 import com.aihg.gestionatumenu.db.entities.Receta;
 
 
@@ -24,6 +24,7 @@ import java.util.List;
 
 public class RecetaTest {
     private RecetaDAO recetaDAO;
+    private CategoriaRecetaDAO categoriaRecetaDAO;
     private GestionaTuMenuDatabase db;
 
 
@@ -34,6 +35,7 @@ public class RecetaTest {
                 .allowMainThreadQueries()
                 .build();
         recetaDAO = db.recetaDAO();
+        categoriaRecetaDAO = db.categoriaRecetaDAO();
     }
 
     @After
@@ -54,5 +56,16 @@ public class RecetaTest {
         Receta actual = recetas.get(0);
         assertEquals(actual.nombre, "Huevos fritos");
         assertEquals(actual.getInstrucciones(), "Freir huevos con cuidados");
+    }
+
+    @Test
+    public void test_InsertCategoriaReceta() throws InterruptedException {
+        categoriaRecetaDAO.insert(new CategoriaReceta("Pescados"));
+        List<CategoriaReceta> categoriasReceta = getOrAwaitValue(
+                categoriaRecetaDAO.getAllCategoriasReceta()
+        );
+        assertFalse(categoriasReceta.isEmpty());
+        CategoriaReceta actual = categoriasReceta.get(0);
+        assertEquals(actual.nombre, "Pescados");
     }
 }

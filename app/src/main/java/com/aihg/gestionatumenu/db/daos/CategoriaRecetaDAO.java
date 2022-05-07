@@ -16,7 +16,7 @@ import java.util.List;
 @Dao
 public interface CategoriaRecetaDAO {
     @Insert
-    void insert(CategoriaIngrediente categoriaIngrediente);
+    void insert(CategoriaReceta categoriaReceta);
 
     @Query("SELECT * FROM " + CATEGORIAS_RECETA + " ORDER BY id_categoria_receta ASC")
     LiveData<List<CategoriaReceta>> getAllCategoriasReceta();
