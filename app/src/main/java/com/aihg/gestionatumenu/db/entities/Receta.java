@@ -20,10 +20,10 @@ public class Receta {
 
     @NonNull
     @ColumnInfo(name = "nombre_receta",  index = true)
-    public int nombre;
+    public String nombre;
 
     @NonNull
-    public int instrucciones;
+    public String instrucciones;
 
     public Receta() {
     }
@@ -32,29 +32,38 @@ public class Receta {
     public String toString() {
         return "Receta{" +
                 "id=" + id +
-                ", nombre=" + nombre +
-                ", instrucciones=" + instrucciones +
+                ", nombre='" + nombre + '\'' +
+                ", instrucciones='" + instrucciones + '\'' +
                 '}';
     }
 
-    public int getNombre() {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @NonNull
+    public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(int nombre) {
+    public void setNombre(@NonNull String nombre) {
         this.nombre = nombre;
     }
 
-    public int getInstrucciones() {
+    @NonNull
+    public String getInstrucciones() {
         return instrucciones;
     }
 
-    public void setInstrucciones(int instrucciones) {
+    public void setInstrucciones(@NonNull String instrucciones) {
         this.instrucciones = instrucciones;
     }
 
-    @Ignore
-    public Receta(int nombre, int instrucciones) {
+    public Receta(@NonNull String nombre, @NonNull String instrucciones) {
         this.nombre = nombre;
         this.instrucciones = instrucciones;
     }
