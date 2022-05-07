@@ -1,6 +1,7 @@
 package com.aihg.gestionatumenu.database;
 
 import static com.aihg.gestionatumenu.database.util.LiveDataTestUtil.getOrAwaitValue;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
@@ -10,10 +11,12 @@ import androidx.room.Room;
 import androidx.test.core.app.ApplicationProvider;
 
 import com.aihg.gestionatumenu.db.daos.CategoriaIngredienteDAO;
+import com.aihg.gestionatumenu.db.daos.DespensaDAO;
 import com.aihg.gestionatumenu.db.daos.IngredienteDAO;
 import com.aihg.gestionatumenu.db.daos.MedicionDAO;
 import com.aihg.gestionatumenu.db.database.GestionaTuMenuDatabase;
 import com.aihg.gestionatumenu.db.entities.CategoriaIngrediente;
+import com.aihg.gestionatumenu.db.entities.Despensa;
 import com.aihg.gestionatumenu.db.entities.Ingrediente;
 import com.aihg.gestionatumenu.db.entities.Medicion;
 
@@ -21,14 +24,15 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
 import java.util.List;
 
-public class GestionaTuMenuDatabaseTest {
+public class DespensaTest {
+    private DespensaDAO despensaDAO;
     private CategoriaIngredienteDAO categoriaIngredienteDAO;
     private IngredienteDAO ingredienteDAO;
     private MedicionDAO medicionDAO;
     private GestionaTuMenuDatabase db;
+
 
     @Before
     public void setUp() throws Exception {
@@ -40,6 +44,7 @@ public class GestionaTuMenuDatabaseTest {
         categoriaIngredienteDAO = db.categoriaIngredienteDAO();
         ingredienteDAO = db.ingredienteDAO();
         medicionDAO = db.medicionDAO();
+        despensaDAO = db.despensaDAO();
     }
 
     @After
@@ -49,52 +54,47 @@ public class GestionaTuMenuDatabaseTest {
         }
     }
 
-    @Test
-    public void test_InsertCategoriaIngredientes() throws InterruptedException {
-        CategoriaIngrediente verdura = new CategoriaIngrediente();
-        verdura.setId(1);
-        verdura.setNombre("verdura");
-        List<CategoriaIngrediente> esperado = Arrays.asList(verdura);
-
-        categoriaIngredienteDAO.insert(verdura);
-
-        List<CategoriaIngrediente> liveActual = getOrAwaitValue(
-                categoriaIngredienteDAO.getAllCategoriasIngrediente()
-        );
-        assertEquals(esperado, liveActual);
-    }
-
-    @Test
-    public void test_InsertIngrediente() throws InterruptedException {
+    public void insertarIngredientes () throws InterruptedException {
+        // Insert categoria
         categoriaIngredienteDAO.insert(new CategoriaIngrediente("Carne"));
         List<CategoriaIngrediente> categorias = getOrAwaitValue(
-            categoriaIngredienteDAO.getAllCategoriasIngrediente()
+                categoriaIngredienteDAO.getAllCategoriasIngrediente()
         );
-
         assertFalse(categorias.isEmpty());
+        CategoriaIngrediente carne = categorias.get(0);
 
-        CategoriaIngrediente catCarne = categorias.get(0);
-
-        medicionDAO.insert(new Medicion("Kg"));
+        // Insert medicion
+        medicionDAO.insert(new Medicion("Unidad"));
         List<Medicion> mediciones = getOrAwaitValue(
-            medicionDAO.getAllMediciones()
+                medicionDAO.getAllMediciones()
         );
-
         assertFalse(mediciones.isEmpty());
+        Medicion unidad = mediciones.get(0);
 
-        Medicion medUnidad = mediciones.get(0);
-
-        Ingrediente pollo = new Ingrediente("Pollo", catCarne, medUnidad);
-        ingredienteDAO.insert(pollo);
-
+        // Insert ingrediente
+        ingredienteDAO.insert(new Ingrediente("Cordero",carne, unidad));
         List<Ingrediente> ingredientes = getOrAwaitValue(
-            ingredienteDAO.getAllIngredientes()
+                ingredienteDAO.getAllIngredientes()
         );
-
         assertFalse(ingredientes.isEmpty());
-        Ingrediente first = ingredientes.get(0);
+    }
 
-        assertEquals(first.getCategoriaIngrediente(), catCarne);
-        assertEquals(first.getMedicion(), medUnidad);
+    @Test
+    public void test_InsertDespensa() throws InterruptedException {
+        insertarIngredientes();
+        List<Ingrediente> ingredientes = getOrAwaitValue(
+                ingredienteDAO.getAllIngredientes()
+        );
+        Ingrediente cordero = ingredientes.get(0);
+
+        despensaDAO.insert(new Despensa(2, cordero));
+        List<Despensa> despensa = getOrAwaitValue(
+                despensaDAO.getAllDespensa()
+        );
+        assertFalse(despensa.isEmpty());
+        Despensa actual = despensa.get(0);
+        assertEquals(actual.getIngrediente(), cordero);
+        assertEquals(actual.getCantidad(), 2);
     }
 }
+

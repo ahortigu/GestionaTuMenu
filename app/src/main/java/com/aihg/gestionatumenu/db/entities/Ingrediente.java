@@ -67,6 +67,29 @@ public class Ingrediente implements Serializable {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Ingrediente)) return false;
+
+        Ingrediente that = (Ingrediente) o;
+
+        if (id != that.id) return false;
+        if (!nombre.equals(that.nombre)) return false;
+        if (medicion != null ? !medicion.equals(that.medicion) : that.medicion != null)
+            return false;
+        return categoriaIngrediente != null ? categoriaIngrediente.equals(that.categoriaIngrediente) : that.categoriaIngrediente == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + nombre.hashCode();
+        result = 31 * result + (medicion != null ? medicion.hashCode() : 0);
+        result = 31 * result + (categoriaIngrediente != null ? categoriaIngrediente.hashCode() : 0);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "Ingrediente{" +
                 "id=" + id +
