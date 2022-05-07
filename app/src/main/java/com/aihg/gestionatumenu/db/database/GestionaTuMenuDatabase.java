@@ -15,21 +15,24 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.aihg.gestionatumenu.db.daos.CategoriaIngredienteDAO;
 import com.aihg.gestionatumenu.db.daos.IngredienteDAO;
+import com.aihg.gestionatumenu.db.daos.ListaCompraDAO;
 import com.aihg.gestionatumenu.db.daos.MedicionDAO;
 import com.aihg.gestionatumenu.db.entities.CategoriaIngrediente;
 import com.aihg.gestionatumenu.db.entities.Ingrediente;
+import com.aihg.gestionatumenu.db.entities.ListaCompra;
 import com.aihg.gestionatumenu.db.entities.Medicion;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Database(
-    entities = {
-        Ingrediente.class,
-        CategoriaIngrediente.class,
-        Medicion.class
-    },
-    version = 1
+        entities = {
+                Ingrediente.class,
+                CategoriaIngrediente.class,
+                Medicion.class,
+                ListaCompra.class
+        },
+        version = 1
 )
 public abstract class GestionaTuMenuDatabase extends RoomDatabase {
 
@@ -38,8 +41,12 @@ public abstract class GestionaTuMenuDatabase extends RoomDatabase {
 
     // DAO
     public abstract CategoriaIngredienteDAO categoriaIngredienteDAO();
+
     public abstract IngredienteDAO ingredienteDAO();
+
     public abstract MedicionDAO medicionDAO();
+
+    public abstract ListaCompraDAO listaCompraDAO();
 
     private static Callback roomCallBack = new Callback() {
         @Override
@@ -50,21 +57,22 @@ public abstract class GestionaTuMenuDatabase extends RoomDatabase {
             CategoriaIngredienteDAO categoriaIngredienteDAO = INSTANCE.categoriaIngredienteDAO();
             IngredienteDAO ingredienteDAO = INSTANCE.ingredienteDAO();
             MedicionDAO medicionDAO = INSTANCE.medicionDAO();
+            ListaCompraDAO listaCompraDAO = INSTANCE.listaCompraDAO();
 
             ExecutorService executorService = Executors.newSingleThreadExecutor();
             executorService.execute(new Runnable() {
                 @Override
                 public void run() {
                     getDefaultCategoriasIngrediente().stream().forEach(
-                        categoriaIngredienteDAO::insert
+                            categoriaIngredienteDAO::insert
                     );
 
                     getDefaultMediciones().stream().forEach(
-                        medicionDAO::insert
+                            medicionDAO::insert
                     );
 
                     getDefaultIngredientes().stream().forEach(
-                        ingredienteDAO::insert
+                            ingredienteDAO::insert
                     );
                 }
             });
@@ -76,13 +84,13 @@ public abstract class GestionaTuMenuDatabase extends RoomDatabase {
             synchronized (GestionaTuMenuDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(
-                        context.getApplicationContext(),
-                        GestionaTuMenuDatabase.class,
-                        DATABASE_NAME
+                            context.getApplicationContext(),
+                            GestionaTuMenuDatabase.class,
+                            DATABASE_NAME
                     )
-                    .fallbackToDestructiveMigration()
-                    .addCallback(roomCallBack)
-                    .build();
+                            .fallbackToDestructiveMigration()
+                            .addCallback(roomCallBack)
+                            .build();
                 }
             }
         }

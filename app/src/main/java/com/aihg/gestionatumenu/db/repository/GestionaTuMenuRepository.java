@@ -6,9 +6,11 @@ import androidx.lifecycle.LiveData;
 
 import com.aihg.gestionatumenu.db.daos.CategoriaIngredienteDAO;
 import com.aihg.gestionatumenu.db.daos.IngredienteDAO;
+import com.aihg.gestionatumenu.db.daos.ListaCompraDAO;
 import com.aihg.gestionatumenu.db.database.GestionaTuMenuDatabase;
 import com.aihg.gestionatumenu.db.entities.CategoriaIngrediente;
 import com.aihg.gestionatumenu.db.entities.Ingrediente;
+import com.aihg.gestionatumenu.db.entities.ListaCompra;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -22,10 +24,12 @@ public class GestionaTuMenuRepository {
     // DAO
     private CategoriaIngredienteDAO categoriaIngredienteDAO;
     private IngredienteDAO ingredienteDAO;
+    private ListaCompraDAO listaCompraDAO;
 
     // Listas
     private LiveData<List<CategoriaIngrediente>> categoriasIngrediente;
     private LiveData<List<Ingrediente>> ingredientes;
+    private LiveData<List<ListaCompra>> listaCompra;
 
     // Executors
     private ExecutorService executors = Executors.newSingleThreadExecutor();
@@ -38,10 +42,12 @@ public class GestionaTuMenuRepository {
         // Interfaces
         categoriaIngredienteDAO = database.categoriaIngredienteDAO();
         ingredienteDAO = database.ingredienteDAO();
+        listaCompraDAO = database.listaCompraDAO();
 
         // Lists
         categoriasIngrediente = categoriaIngredienteDAO.getAllCategoriasIngrediente();
         ingredientes = ingredienteDAO.getAllIngredientes();
+        listaCompra = listaCompraDAO.getAllListaCompra();
     }
 
     public LiveData<List<CategoriaIngrediente>> getAllCategoriasIngrediente() {
@@ -49,10 +55,15 @@ public class GestionaTuMenuRepository {
     }
 
     public LiveData<List<Ingrediente>> getAllIngredientes() {
+
         return ingredientes;
     }
 
-    // Ingrediente
+    public  LiveData<List<ListaCompra>> getALLListaCompra(){
+        return listaCompra;
+    }
+
+
     public void insert(Ingrediente ingrediente) {
         executors.execute(new Runnable() {
             @Override
@@ -76,6 +87,33 @@ public class GestionaTuMenuRepository {
             @Override
             public void run() {
                 ingredienteDAO.update(ingrediente);
+            }
+        });
+    }
+
+    public void insert(ListaCompra listaCompra) {
+        executors.execute(new Runnable() {
+            @Override
+            public void run() {
+                listaCompraDAO.insert(listaCompra);
+            }
+        });
+    }
+
+    public void delete(ListaCompra listaCompra) {
+        executors.execute(new Runnable() {
+            @Override
+            public void run() {
+                listaCompraDAO.delete(listaCompra);
+            }
+        });
+    }
+
+    public void update(ListaCompra listaCompra) {
+        executors.execute(new Runnable() {
+            @Override
+            public void run() {
+                listaCompraDAO.update(listaCompra);
             }
         });
     }
