@@ -5,10 +5,12 @@ import android.app.Application;
 import androidx.lifecycle.LiveData;
 
 import com.aihg.gestionatumenu.db.daos.CategoriaIngredienteDAO;
+import com.aihg.gestionatumenu.db.daos.DespensaDAO;
 import com.aihg.gestionatumenu.db.daos.IngredienteDAO;
 import com.aihg.gestionatumenu.db.daos.ListaCompraDAO;
 import com.aihg.gestionatumenu.db.database.GestionaTuMenuDatabase;
 import com.aihg.gestionatumenu.db.entities.CategoriaIngrediente;
+import com.aihg.gestionatumenu.db.entities.Despensa;
 import com.aihg.gestionatumenu.db.entities.Ingrediente;
 import com.aihg.gestionatumenu.db.entities.ListaCompra;
 
@@ -25,11 +27,14 @@ public class GestionaTuMenuRepository {
     private CategoriaIngredienteDAO categoriaIngredienteDAO;
     private IngredienteDAO ingredienteDAO;
     private ListaCompraDAO listaCompraDAO;
+    private DespensaDAO despensaDAO;
 
     // Listas
     private LiveData<List<CategoriaIngrediente>> categoriasIngrediente;
     private LiveData<List<Ingrediente>> ingredientes;
     private LiveData<List<ListaCompra>> listaCompra;
+    private LiveData<List<Despensa>> despensa;
+
 
     // Executors
     private ExecutorService executors = Executors.newSingleThreadExecutor();
@@ -43,11 +48,13 @@ public class GestionaTuMenuRepository {
         categoriaIngredienteDAO = database.categoriaIngredienteDAO();
         ingredienteDAO = database.ingredienteDAO();
         listaCompraDAO = database.listaCompraDAO();
+        despensaDAO = database.despensaDAO();
 
         // Lists
         categoriasIngrediente = categoriaIngredienteDAO.getAllCategoriasIngrediente();
         ingredientes = ingredienteDAO.getAllIngredientes();
         listaCompra = listaCompraDAO.getAllListaCompra();
+        despensa = despensaDAO.getAllDespensa();
     }
 
     public LiveData<List<CategoriaIngrediente>> getAllCategoriasIngrediente() {
@@ -60,7 +67,13 @@ public class GestionaTuMenuRepository {
     }
 
     public  LiveData<List<ListaCompra>> getALLListaCompra(){
+
         return listaCompra;
+    }
+
+    public  LiveData<List<Despensa>> getALLDespensa(){
+
+        return despensa;
     }
 
 
@@ -114,6 +127,33 @@ public class GestionaTuMenuRepository {
             @Override
             public void run() {
                 listaCompraDAO.update(listaCompra);
+            }
+        });
+    }
+
+    public void insert(Despensa despensa) {
+        executors.execute(new Runnable() {
+            @Override
+            public void run() {
+                despensaDAO.insert(despensa);
+            }
+        });
+    }
+
+    public void delete(Despensa despensa) {
+        executors.execute(new Runnable() {
+            @Override
+            public void run() {
+                despensaDAO.delete(despensa);
+            }
+        });
+    }
+
+    public void update(Despensa despensa) {
+        executors.execute(new Runnable() {
+            @Override
+            public void run() {
+                despensaDAO.update(despensa);
             }
         });
     }

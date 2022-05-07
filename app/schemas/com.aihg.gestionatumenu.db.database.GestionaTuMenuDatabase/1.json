@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "6c1a667792b6ac04872797ed90f26c9f",
+    "identityHash": "ccc15dabc54d0f621c39cdbe4bdc3100",
     "entities": [
       {
         "tableName": "ingredientes",
@@ -243,12 +243,93 @@
           }
         ],
         "foreignKeys": []
+      },
+      {
+        "tableName": "despensa",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_despensa` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cantidad_despensa` INTEGER NOT NULL, `id_ingrediente` INTEGER, `nombre_ingrediente` TEXT, `id_medicion` INTEGER, `nombre_medicion` TEXT, `id_categoria` INTEGER, `nombre_categoria` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id_despensa",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cantidad",
+            "columnName": "cantidad_despensa",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ingrediente.id",
+            "columnName": "id_ingrediente",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ingrediente.nombre",
+            "columnName": "nombre_ingrediente",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ingrediente.medicion.id",
+            "columnName": "id_medicion",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ingrediente.medicion.nombre",
+            "columnName": "nombre_medicion",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ingrediente.categoriaIngrediente.id",
+            "columnName": "id_categoria",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ingrediente.categoriaIngrediente.nombre",
+            "columnName": "nombre_categoria",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id_despensa"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_despensa_id_despensa",
+            "unique": false,
+            "columnNames": [
+              "id_despensa"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_despensa_id_despensa` ON `${TABLE_NAME}` (`id_despensa`)"
+          },
+          {
+            "name": "index_despensa_cantidad_despensa",
+            "unique": false,
+            "columnNames": [
+              "cantidad_despensa"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_despensa_cantidad_despensa` ON `${TABLE_NAME}` (`cantidad_despensa`)"
+          }
+        ],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6c1a667792b6ac04872797ed90f26c9f')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ccc15dabc54d0f621c39cdbe4bdc3100')"
     ]
   }
 }
