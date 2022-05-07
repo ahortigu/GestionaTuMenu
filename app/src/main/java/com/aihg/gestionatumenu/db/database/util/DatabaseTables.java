@@ -8,4 +8,5 @@ public class DatabaseTables {
     public static final String MEDICIONES = "mediciones";
     public static final String LISTACOMPRA = "lista_compra";
     public static final String DESPENSA = "despensa";
+    public static final String CATEGORIAS_RECETA = "categorias_receta";
 }

@@ -5,11 +5,13 @@ import android.app.Application;
 import androidx.lifecycle.LiveData;
 
 import com.aihg.gestionatumenu.db.daos.CategoriaIngredienteDAO;
+import com.aihg.gestionatumenu.db.daos.CategoriaRecetaDAO;
 import com.aihg.gestionatumenu.db.daos.DespensaDAO;
 import com.aihg.gestionatumenu.db.daos.IngredienteDAO;
 import com.aihg.gestionatumenu.db.daos.ListaCompraDAO;
 import com.aihg.gestionatumenu.db.database.GestionaTuMenuDatabase;
 import com.aihg.gestionatumenu.db.entities.CategoriaIngrediente;
+import com.aihg.gestionatumenu.db.entities.CategoriaReceta;
 import com.aihg.gestionatumenu.db.entities.Despensa;
 import com.aihg.gestionatumenu.db.entities.Ingrediente;
 import com.aihg.gestionatumenu.db.entities.ListaCompra;
@@ -28,12 +30,14 @@ public class GestionaTuMenuRepository {
     private IngredienteDAO ingredienteDAO;
     private ListaCompraDAO listaCompraDAO;
     private DespensaDAO despensaDAO;
+    private CategoriaRecetaDAO categoriaRecetaDAO;
 
     // Listas
     private LiveData<List<CategoriaIngrediente>> categoriasIngrediente;
     private LiveData<List<Ingrediente>> ingredientes;
     private LiveData<List<ListaCompra>> listaCompra;
     private LiveData<List<Despensa>> despensa;
+    private LiveData<List<CategoriaReceta>> categoriasReceta;
 
 
     // Executors
@@ -49,12 +53,14 @@ public class GestionaTuMenuRepository {
         ingredienteDAO = database.ingredienteDAO();
         listaCompraDAO = database.listaCompraDAO();
         despensaDAO = database.despensaDAO();
+        categoriaRecetaDAO = database.categoriaRecetaDAO();
 
         // Lists
         categoriasIngrediente = categoriaIngredienteDAO.getAllCategoriasIngrediente();
         ingredientes = ingredienteDAO.getAllIngredientes();
         listaCompra = listaCompraDAO.getAllListaCompra();
         despensa = despensaDAO.getAllDespensa();
+        categoriasReceta = categoriaRecetaDAO.getAllCategoriasReceta();
     }
 
     public LiveData<List<CategoriaIngrediente>> getAllCategoriasIngrediente() {
@@ -76,6 +82,10 @@ public class GestionaTuMenuRepository {
         return despensa;
     }
 
+    public  LiveData<List<CategoriaReceta>> getALLCategoriasReceta(){
+
+        return categoriasReceta;
+    }
 
     public void insert(Ingrediente ingrediente) {
         executors.execute(new Runnable() {

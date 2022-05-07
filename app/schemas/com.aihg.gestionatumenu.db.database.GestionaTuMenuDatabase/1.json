@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "ccc15dabc54d0f621c39cdbe4bdc3100",
+    "identityHash": "04952d9af0a8dd13967d613e43bc28aa",
     "entities": [
       {
         "tableName": "ingredientes",
@@ -324,12 +324,57 @@
           }
         ],
         "foreignKeys": []
+      },
+      {
+        "tableName": "categorias_receta",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_categoria_receta` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nombre_categoria_receta` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id_categoria_receta",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nombre",
+            "columnName": "nombre_categoria_receta",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id_categoria_receta"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_categorias_receta_id_categoria_receta",
+            "unique": false,
+            "columnNames": [
+              "id_categoria_receta"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_categorias_receta_id_categoria_receta` ON `${TABLE_NAME}` (`id_categoria_receta`)"
+          },
+          {
+            "name": "index_categorias_receta_nombre_categoria_receta",
+            "unique": false,
+            "columnNames": [
+              "nombre_categoria_receta"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_categorias_receta_nombre_categoria_receta` ON `${TABLE_NAME}` (`nombre_categoria_receta`)"
+          }
+        ],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ccc15dabc54d0f621c39cdbe4bdc3100')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '04952d9af0a8dd13967d613e43bc28aa')"
     ]
   }
 }
