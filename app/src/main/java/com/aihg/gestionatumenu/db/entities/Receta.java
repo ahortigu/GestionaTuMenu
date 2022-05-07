@@ -4,9 +4,13 @@ import static com.aihg.gestionatumenu.db.database.util.DatabaseTables.RECETAS;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+
+import java.util.List;
+import java.util.Set;
 
 @Entity(tableName = RECETAS)
 public class Receta {
@@ -22,6 +26,15 @@ public class Receta {
     public int instrucciones;
 
     public Receta() {
+    }
+
+    @Override
+    public String toString() {
+        return "Receta{" +
+                "id=" + id +
+                ", nombre=" + nombre +
+                ", instrucciones=" + instrucciones +
+                '}';
     }
 
     public int getNombre() {

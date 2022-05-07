@@ -48,6 +48,16 @@ public class Despensa {
         this.ingrediente = ingrediente;
     }
 
+
+    @Override
+    public String toString() {
+        return "Despensa{" +
+                "id=" + id +
+                ", cantidad=" + cantidad +
+                ", ingrediente=" + ingrediente +
+                '}';
+    }
+
     @Ignore
     public Despensa(@NonNull int cantidad, Ingrediente ingrediente) {
         this.cantidad = cantidad;

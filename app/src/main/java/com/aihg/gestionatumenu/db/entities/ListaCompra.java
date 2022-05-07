@@ -48,6 +48,15 @@ public class ListaCompra {
         this.ingrediente = ingrediente;
     }
 
+    @Override
+    public String toString() {
+        return "ListaCompra{" +
+                "id=" + id +
+                ", cantidad=" + cantidad +
+                ", ingrediente=" + ingrediente +
+                '}';
+    }
+
     @Ignore
     public ListaCompra(@NonNull int cantidad, Ingrediente ingrediente) {
         this.cantidad = cantidad;

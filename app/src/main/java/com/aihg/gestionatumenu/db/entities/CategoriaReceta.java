@@ -38,9 +38,9 @@ public class CategoriaReceta {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof CategoriaIngrediente)) return false;
+        if (!(o instanceof CategoriaReceta)) return false;
 
-        CategoriaIngrediente that = (CategoriaIngrediente) o;
+        CategoriaReceta that = (CategoriaReceta) o;
 
         if (id != that.id) return false;
         return nombre.equals(that.nombre);
@@ -55,7 +55,7 @@ public class CategoriaReceta {
 
     @Override
     public String toString() {
-        return "CategoriaIngrediente{" +
+        return "CategoriaReceta{" +
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 '}';
@@ -73,4 +73,6 @@ public class CategoriaReceta {
         this.id = id;
         this.nombre = nombre;
     }
+
+
 }
