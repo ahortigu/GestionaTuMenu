@@ -19,12 +19,14 @@ import com.aihg.gestionatumenu.db.daos.DespensaDAO;
 import com.aihg.gestionatumenu.db.daos.IngredienteDAO;
 import com.aihg.gestionatumenu.db.daos.ListaCompraDAO;
 import com.aihg.gestionatumenu.db.daos.MedicionDAO;
+import com.aihg.gestionatumenu.db.daos.RecetaDAO;
 import com.aihg.gestionatumenu.db.entities.CategoriaIngrediente;
 import com.aihg.gestionatumenu.db.entities.CategoriaReceta;
 import com.aihg.gestionatumenu.db.entities.Despensa;
 import com.aihg.gestionatumenu.db.entities.Ingrediente;
 import com.aihg.gestionatumenu.db.entities.ListaCompra;
 import com.aihg.gestionatumenu.db.entities.Medicion;
+import com.aihg.gestionatumenu.db.entities.Receta;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -37,6 +39,7 @@ import java.util.concurrent.Executors;
                 ListaCompra.class,
                 Despensa.class,
                 CategoriaReceta.class,
+                Receta.class,
         },
         version = 1
 )
@@ -58,6 +61,8 @@ public abstract class GestionaTuMenuDatabase extends RoomDatabase {
 
     public abstract CategoriaRecetaDAO categoriaRecetaDAO();
 
+    public abstract RecetaDAO recetaDAO();
+
     private static Callback roomCallBack = new Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
@@ -70,6 +75,7 @@ public abstract class GestionaTuMenuDatabase extends RoomDatabase {
             ListaCompraDAO listaCompraDAO = INSTANCE.listaCompraDAO();
             DespensaDAO despensaDAO = INSTANCE.despensaDAO();
             CategoriaRecetaDAO categoriaRecetaDAO = INSTANCE.categoriaRecetaDAO();
+            RecetaDAO recetaDAO = INSTANCE.recetaDAO();
 
             ExecutorService executorService = Executors.newSingleThreadExecutor();
             executorService.execute(new Runnable() {

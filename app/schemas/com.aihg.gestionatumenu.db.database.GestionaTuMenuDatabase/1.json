@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "04952d9af0a8dd13967d613e43bc28aa",
+    "identityHash": "783d3d979bc687fa91d28e2b3b6b02ee",
     "entities": [
       {
         "tableName": "ingredientes",
@@ -369,12 +369,63 @@
           }
         ],
         "foreignKeys": []
+      },
+      {
+        "tableName": "recetas",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_receta` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nombre_receta` INTEGER NOT NULL, `instrucciones` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id_receta",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nombre",
+            "columnName": "nombre_receta",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "instrucciones",
+            "columnName": "instrucciones",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id_receta"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_recetas_id_receta",
+            "unique": false,
+            "columnNames": [
+              "id_receta"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_recetas_id_receta` ON `${TABLE_NAME}` (`id_receta`)"
+          },
+          {
+            "name": "index_recetas_nombre_receta",
+            "unique": false,
+            "columnNames": [
+              "nombre_receta"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_recetas_nombre_receta` ON `${TABLE_NAME}` (`nombre_receta`)"
+          }
+        ],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '04952d9af0a8dd13967d613e43bc28aa')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '783d3d979bc687fa91d28e2b3b6b02ee')"
     ]
   }
 }
