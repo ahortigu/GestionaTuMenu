@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "5d946a8bffbe9006d4b5cd581ccf0759",
+    "identityHash": "32b2cefd164accb159d7376d1667e749",
     "entities": [
       {
         "tableName": "ingredientes",
@@ -420,12 +420,30 @@
           }
         ],
         "foreignKeys": []
+      },
+      {
+        "tableName": "utiliza",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`cantidad` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "cantidad",
+            "columnName": "cantidad",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5d946a8bffbe9006d4b5cd581ccf0759')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '32b2cefd164accb159d7376d1667e749')"
     ]
   }
 }
