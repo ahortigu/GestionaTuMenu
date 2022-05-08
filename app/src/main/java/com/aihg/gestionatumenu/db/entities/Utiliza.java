@@ -59,6 +59,36 @@ public class Utiliza {
         this.cantidad = cantidad;
     }
 
+    @Override
+    public String toString() {
+        return "Utiliza{" +
+                "id_receta=" + id_receta +
+                ", id_ingrediente=" + id_ingrediente +
+                ", cantidad=" + cantidad +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Utiliza)) return false;
+
+        Utiliza utiliza = (Utiliza) o;
+
+        if (cantidad != utiliza.cantidad) return false;
+        if (!id_receta.equals(utiliza.id_receta)) return false;
+        return id_ingrediente.equals(utiliza.id_ingrediente);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id_receta.hashCode();
+        result = 31 * result + id_ingrediente.hashCode();
+        result = 31 * result + cantidad;
+        return result;
+    }
+
+    @Ignore
     public Utiliza(Receta id_receta, Ingrediente id_ingrediente, int cantidad) {
         this.id_receta = id_receta;
         this.id_ingrediente = id_ingrediente;
