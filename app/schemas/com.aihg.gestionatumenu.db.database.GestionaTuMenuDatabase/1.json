@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "32b2cefd164accb159d7376d1667e749",
+    "identityHash": "71b379a42892beac256dc8343d737aad",
     "entities": [
       {
         "tableName": "ingredientes",
@@ -423,27 +423,107 @@
       },
       {
         "tableName": "utiliza",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`cantidad` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`cantidad_utiliza` INTEGER NOT NULL, `id_receta` INTEGER NOT NULL, `nombre_receta` TEXT NOT NULL, `instrucciones` TEXT NOT NULL, `id_ingrediente` INTEGER NOT NULL, `nombre_ingrediente` TEXT NOT NULL, `id_medicion` INTEGER, `nombre_medicion` TEXT, `id_categoria` INTEGER, `nombre_categoria` TEXT, PRIMARY KEY(`id_receta`, `id_ingrediente`), FOREIGN KEY(`id_receta`) REFERENCES `recetas`(`id_receta`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`id_ingrediente`) REFERENCES `ingredientes`(`id_ingrediente`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "cantidad",
-            "columnName": "cantidad",
+            "columnName": "cantidad_utiliza",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "id_receta.id",
+            "columnName": "id_receta",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id_receta.nombre",
+            "columnName": "nombre_receta",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id_receta.instrucciones",
+            "columnName": "instrucciones",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id_ingrediente.id",
+            "columnName": "id_ingrediente",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id_ingrediente.nombre",
+            "columnName": "nombre_ingrediente",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id_ingrediente.medicion.id",
+            "columnName": "id_medicion",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "id_ingrediente.medicion.nombre",
+            "columnName": "nombre_medicion",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "id_ingrediente.categoriaIngrediente.id",
+            "columnName": "id_categoria",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "id_ingrediente.categoriaIngrediente.nombre",
+            "columnName": "nombre_categoria",
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
-          "columnNames": [],
+          "columnNames": [
+            "id_receta",
+            "id_ingrediente"
+          ],
           "autoGenerate": false
         },
         "indices": [],
-        "foreignKeys": []
+        "foreignKeys": [
+          {
+            "table": "recetas",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "id_receta"
+            ],
+            "referencedColumns": [
+              "id_receta"
+            ]
+          },
+          {
+            "table": "ingredientes",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "id_ingrediente"
+            ],
+            "referencedColumns": [
+              "id_ingrediente"
+            ]
+          }
+        ]
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '32b2cefd164accb159d7376d1667e749')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '71b379a42892beac256dc8343d737aad')"
     ]
   }
 }

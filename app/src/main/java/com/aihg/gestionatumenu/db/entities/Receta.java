@@ -63,6 +63,7 @@ public class Receta {
         this.instrucciones = instrucciones;
     }
 
+    @Ignore
     public Receta(@NonNull String nombre, @NonNull String instrucciones) {
         this.nombre = nombre;
         this.instrucciones = instrucciones;

@@ -6,49 +6,49 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+import androidx.room.Relation;
 
 import org.jetbrains.annotations.NotNull;
 
-@Entity(tableName = UTILIZA, primaryKeys = {"id_Receta", "id_Ingrediente"})
+@Entity(tableName = UTILIZA, primaryKeys = {"id_receta", "id_ingrediente"}, foreignKeys = {
+        @ForeignKey(entity = Receta.class,
+                parentColumns = "id_receta",
+                childColumns = "id_receta"),
+        @ForeignKey(entity = Ingrediente.class,
+                parentColumns = "id_ingrediente",
+                childColumns = "id_ingrediente")
+})
 public class Utiliza {
+    @NonNull
     @Embedded
-    @ColumnInfo(name = "id_Receta", index = true)
-    public int idReceta;
-
+    public Receta id_receta;
+    @NonNull
     @Embedded
-    @ColumnInfo(name = "id_Ingrediente", index = true)
-    public int idIngrediente;
+    public Ingrediente id_ingrediente;
 
     @NonNull
+    @ColumnInfo(name = "cantidad_utiliza")
     public int cantidad;
 
-    public Utiliza() {
+    public Utiliza() {}
+
+    public Receta getId_receta() {
+        return id_receta;
     }
 
-    @Override
-    public String toString() {
-        return "Utiliza{" +
-                "idReceta=" + idReceta +
-                ", idIngrediente=" + idIngrediente +
-                ", cantidad=" + cantidad +
-                '}';
+    public void setId_receta(Receta id_receta) {
+        this.id_receta = id_receta;
     }
 
-    public int getIdReceta() {
-        return idReceta;
+    public Ingrediente getId_ingrediente() {
+        return id_ingrediente;
     }
 
-    public void setIdReceta(int idReceta) {
-        this.idReceta = idReceta;
-    }
-
-    public int getIdIngrediente() {
-        return idIngrediente;
-    }
-
-    public void setIdIngrediente(int idIngrediente) {
-        this.idIngrediente = idIngrediente;
+    public void setId_ingrediente(Ingrediente id_ingrediente) {
+        this.id_ingrediente = id_ingrediente;
     }
 
     public int getCantidad() {
@@ -56,6 +56,12 @@ public class Utiliza {
     }
 
     public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public Utiliza(Receta id_receta, Ingrediente id_ingrediente, int cantidad) {
+        this.id_receta = id_receta;
+        this.id_ingrediente = id_ingrediente;
         this.cantidad = cantidad;
     }
 }
