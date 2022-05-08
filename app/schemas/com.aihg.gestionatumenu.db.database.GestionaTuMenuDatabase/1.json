@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "71b379a42892beac256dc8343d737aad",
+    "identityHash": "189b1a0d2ea7fc78484614ff6e3dd471",
     "entities": [
       {
         "tableName": "ingredientes",
@@ -518,12 +518,80 @@
             ]
           }
         ]
+      },
+      {
+        "tableName": "cataloga",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_receta` INTEGER NOT NULL, `nombre_receta` TEXT NOT NULL, `instrucciones` TEXT NOT NULL, `id_categoria_receta` INTEGER NOT NULL, `nombre_categoria_receta` TEXT NOT NULL, PRIMARY KEY(`id_receta`, `id_categoria_receta`), FOREIGN KEY(`id_receta`) REFERENCES `recetas`(`id_receta`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`id_categoria_receta`) REFERENCES `categorias_receta`(`id_categoria_receta`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id_receta.id",
+            "columnName": "id_receta",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id_receta.nombre",
+            "columnName": "nombre_receta",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id_receta.instrucciones",
+            "columnName": "instrucciones",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id_categoria_receta.id",
+            "columnName": "id_categoria_receta",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id_categoria_receta.nombre",
+            "columnName": "nombre_categoria_receta",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id_receta",
+            "id_categoria_receta"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "recetas",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "id_receta"
+            ],
+            "referencedColumns": [
+              "id_receta"
+            ]
+          },
+          {
+            "table": "categorias_receta",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "id_categoria_receta"
+            ],
+            "referencedColumns": [
+              "id_categoria_receta"
+            ]
+          }
+        ]
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '71b379a42892beac256dc8343d737aad')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '189b1a0d2ea7fc78484614ff6e3dd471')"
     ]
   }
 }

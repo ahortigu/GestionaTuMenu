@@ -11,4 +11,5 @@ public class DatabaseTables {
     public static final String CATEGORIAS_RECETA = "categorias_receta";
     public static final String RECETAS = "recetas";
     public static final String UTILIZA = "utiliza";
+    public static final String CATALOGA = "cataloga";
 }

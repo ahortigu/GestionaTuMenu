@@ -4,6 +4,7 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
+import com.aihg.gestionatumenu.db.daos.CatalogaDAO;
 import com.aihg.gestionatumenu.db.daos.CategoriaIngredienteDAO;
 import com.aihg.gestionatumenu.db.daos.CategoriaRecetaDAO;
 import com.aihg.gestionatumenu.db.daos.DespensaDAO;
@@ -12,6 +13,7 @@ import com.aihg.gestionatumenu.db.daos.ListaCompraDAO;
 import com.aihg.gestionatumenu.db.daos.RecetaDAO;
 import com.aihg.gestionatumenu.db.daos.UtilizaDAO;
 import com.aihg.gestionatumenu.db.database.GestionaTuMenuDatabase;
+import com.aihg.gestionatumenu.db.entities.Cataloga;
 import com.aihg.gestionatumenu.db.entities.CategoriaIngrediente;
 import com.aihg.gestionatumenu.db.entities.CategoriaReceta;
 import com.aihg.gestionatumenu.db.entities.Despensa;
@@ -37,6 +39,7 @@ public class GestionaTuMenuRepository {
     private CategoriaRecetaDAO categoriaRecetaDAO;
     private RecetaDAO recetaDAO;
     private UtilizaDAO utilizaDAO;
+    private CatalogaDAO catalogaDAO;
 
     // Listas
     private LiveData<List<CategoriaIngrediente>> categoriasIngrediente;
@@ -46,6 +49,7 @@ public class GestionaTuMenuRepository {
     private LiveData<List<CategoriaReceta>> categoriasReceta;
     private LiveData<List<Receta>> recetas;
     private LiveData<List<Utiliza>> utiliza;
+    private LiveData<List<Cataloga>> cataloga;
 
 
     // Executors
@@ -64,6 +68,8 @@ public class GestionaTuMenuRepository {
         categoriaRecetaDAO = database.categoriaRecetaDAO();
         recetaDAO = database.recetaDAO();
         utilizaDAO = database.utilizaDAO();
+        catalogaDAO = database.catalogaDAO();
+
 
         // Lists
         categoriasIngrediente = categoriaIngredienteDAO.getAllCategoriasIngrediente();
@@ -73,6 +79,7 @@ public class GestionaTuMenuRepository {
         categoriasReceta = categoriaRecetaDAO.getAllCategoriasReceta();
         recetas = recetaDAO.getAllRecetas();
         utiliza = utilizaDAO.getAllUtiliza();
+        cataloga = catalogaDAO.getAllCataloga();
     }
 
     public LiveData<List<CategoriaIngrediente>> getAllCategoriasIngrediente() {
@@ -106,6 +113,11 @@ public class GestionaTuMenuRepository {
 
     public  LiveData<List<Utiliza>> getAllUtiliza(){
         return getAllUtiliza();
+    }
+
+    public  LiveData<List<Cataloga>> getALLCataloga(){
+
+        return cataloga;
     }
 
     public void insert(Ingrediente ingrediente) {
@@ -243,7 +255,31 @@ public class GestionaTuMenuRepository {
         });
     }
 
+    public void insert(Cataloga cataloga) {
+        executors.execute(new Runnable() {
+            @Override
+            public void run() {
+                catalogaDAO.insert(cataloga);
+            }
+        });
+    }
 
+    public void delete(Cataloga cataloga) {
+        executors.execute(new Runnable() {
+            @Override
+            public void run() {
+                catalogaDAO.delete(cataloga);
+            }
+        });
+    }
 
+    public void update(Cataloga cataloga) {
+        executors.execute(new Runnable() {
+            @Override
+            public void run() {
+                catalogaDAO.update(cataloga);
+            }
+        });
+    }
 
 }
