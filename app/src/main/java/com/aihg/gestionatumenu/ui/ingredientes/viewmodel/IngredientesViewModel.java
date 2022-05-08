@@ -44,13 +44,16 @@ public class IngredientesViewModel extends AndroidViewModel {
 
     public void insertIngrediente(@NonNull Ingrediente toInsert) {
         Log.i("VM-INGREDIENTES", "Inserting " + toInsert.toString());
+        repository.insert(toInsert);
     }
 
     public void updateIngrediente(@NonNull Ingrediente toUpdate) {
         Log.i("VM-INGREDIENTES", "Updating " + toUpdate.toString());
+        repository.update(toUpdate);
     }
 
     public void deleteIngrediente(@NonNull Ingrediente toDelete) {
         Log.i("VM-INGREDIENTES", "Deleting " + toDelete.toString());
+        repository.delete(toDelete);
     }
 }

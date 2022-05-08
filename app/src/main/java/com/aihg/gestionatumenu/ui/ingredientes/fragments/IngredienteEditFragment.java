@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -78,6 +80,7 @@ public class IngredienteEditFragment extends Fragment {
                             CategoriaIngrediente seleccionado = (CategoriaIngrediente) adapterView.getSelectedItem();
                             Log.i("SPINNER", "Se ha elegido la categoria: " + seleccionado);
                             toModify.setCategoriaIngrediente(seleccionado);
+                            viewModel.updateIngrediente(toModify);
                         }
 
                         @Override
@@ -116,6 +119,7 @@ public class IngredienteEditFragment extends Fragment {
                             Medicion seleccionado = (Medicion) adapterView.getSelectedItem();
                             Log.i("SPINNER", "Se ha elegido la medicion: " + seleccionado);
                             toModify.setMedicion(seleccionado);
+                            viewModel.updateIngrediente(toModify);
                         }
 
                         @Override
@@ -125,6 +129,7 @@ public class IngredienteEditFragment extends Fragment {
                     });
                 }
             });
+
     }
 
     @Override
@@ -139,6 +144,20 @@ public class IngredienteEditFragment extends Fragment {
         toModify = IngredienteDetailsFragmentArgs.fromBundle(getArguments()).getIngrediente();
         TextView txt_nombre = view.findViewById(R.id.txt_ie_ingrediente);
         txt_nombre.setHint(toModify.getNombre());
+        txt_nombre.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // TODO anadir validaciones aqui
+                toModify.setNombre(s.toString());
+                viewModel.updateIngrediente(toModify);
+            }
+        });
     }
 
     @Override
@@ -147,6 +166,8 @@ public class IngredienteEditFragment extends Fragment {
         menu.findItem(R.id.more).setVisible(false);
         menu.findItem(R.id.nav_editar).setVisible(false);
     }
+
+
 
     private int getPosicionCategoria(List<CategoriaIngrediente> dondeBuscar) {
         return IntStream.range(0, dondeBuscar.size())
