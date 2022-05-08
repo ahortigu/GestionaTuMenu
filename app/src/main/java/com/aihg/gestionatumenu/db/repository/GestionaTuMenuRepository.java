@@ -10,6 +10,7 @@ import com.aihg.gestionatumenu.db.daos.CategoriaRecetaDAO;
 import com.aihg.gestionatumenu.db.daos.DespensaDAO;
 import com.aihg.gestionatumenu.db.daos.IngredienteDAO;
 import com.aihg.gestionatumenu.db.daos.ListaCompraDAO;
+import com.aihg.gestionatumenu.db.daos.MedicionDAO;
 import com.aihg.gestionatumenu.db.daos.RecetaDAO;
 import com.aihg.gestionatumenu.db.daos.UtilizaDAO;
 import com.aihg.gestionatumenu.db.database.GestionaTuMenuDatabase;
@@ -19,6 +20,7 @@ import com.aihg.gestionatumenu.db.entities.CategoriaReceta;
 import com.aihg.gestionatumenu.db.entities.Despensa;
 import com.aihg.gestionatumenu.db.entities.Ingrediente;
 import com.aihg.gestionatumenu.db.entities.ListaCompra;
+import com.aihg.gestionatumenu.db.entities.Medicion;
 import com.aihg.gestionatumenu.db.entities.Receta;
 import com.aihg.gestionatumenu.db.entities.Utiliza;
 
@@ -34,8 +36,12 @@ public class GestionaTuMenuRepository {
     // DAO
     private CategoriaIngredienteDAO categoriaIngredienteDAO;
     private IngredienteDAO ingredienteDAO;
+    private MedicionDAO medicionDAO;
+
     private ListaCompraDAO listaCompraDAO;
+
     private DespensaDAO despensaDAO;
+
     private CategoriaRecetaDAO categoriaRecetaDAO;
     private RecetaDAO recetaDAO;
     private UtilizaDAO utilizaDAO;
@@ -44,8 +50,12 @@ public class GestionaTuMenuRepository {
     // Listas
     private LiveData<List<CategoriaIngrediente>> categoriasIngrediente;
     private LiveData<List<Ingrediente>> ingredientes;
+    private LiveData<List<Medicion>> mediciones;
+
     private LiveData<List<ListaCompra>> listaCompra;
+
     private LiveData<List<Despensa>> despensa;
+
     private LiveData<List<CategoriaReceta>> categoriasReceta;
     private LiveData<List<Receta>> recetas;
     private LiveData<List<Utiliza>> utiliza;
@@ -63,8 +73,12 @@ public class GestionaTuMenuRepository {
         // Interfaces
         categoriaIngredienteDAO = database.categoriaIngredienteDAO();
         ingredienteDAO = database.ingredienteDAO();
+        medicionDAO = database.medicionDAO();
+
         listaCompraDAO = database.listaCompraDAO();
+
         despensaDAO = database.despensaDAO();
+
         categoriaRecetaDAO = database.categoriaRecetaDAO();
         recetaDAO = database.recetaDAO();
         utilizaDAO = database.utilizaDAO();
@@ -74,8 +88,12 @@ public class GestionaTuMenuRepository {
         // Lists
         categoriasIngrediente = categoriaIngredienteDAO.getAllCategoriasIngrediente();
         ingredientes = ingredienteDAO.getAllIngredientes();
+        mediciones = medicionDAO.getAllMediciones();
+
         listaCompra = listaCompraDAO.getAllListaCompra();
+
         despensa = despensaDAO.getAllDespensa();
+
         categoriasReceta = categoriaRecetaDAO.getAllCategoriasReceta();
         recetas = recetaDAO.getAllRecetas();
         utiliza = utilizaDAO.getAllUtiliza();
@@ -87,8 +105,11 @@ public class GestionaTuMenuRepository {
     }
 
     public LiveData<List<Ingrediente>> getAllIngredientes() {
-
         return ingredientes;
+    }
+
+    public LiveData<List<Medicion>> getAllMediciones() {
+        return mediciones;
     }
 
     public  LiveData<List<ListaCompra>> getALLListaCompra(){

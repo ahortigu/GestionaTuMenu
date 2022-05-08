@@ -15,7 +15,7 @@ public class IngredientesDataGenerator {
     private static final CategoriaIngrediente CI_CEREALES_Y_FRUTOS_SECOS = new CategoriaIngrediente(2, "CEREALES Y FRUTOS SECOS");
     private static final CategoriaIngrediente CI_CONDIMENTOS = new CategoriaIngrediente(3, "CONDIMENTOS");
     private static final CategoriaIngrediente CI_FRUTA = new CategoriaIngrediente(4, "FRUTA");
-    private static final CategoriaIngrediente CI_HUEVOS_Y_LACTEOS = new CategoriaIngrediente(5, "HUEVOS y  LÁCTEOS");
+    private static final CategoriaIngrediente CI_HUEVOS_Y_LACTEOS = new CategoriaIngrediente(5, "HUEVOS Y LÁCTEOS");
     private static final CategoriaIngrediente CI_OTROS = new CategoriaIngrediente(6, "OTROS");
     private static final CategoriaIngrediente CI_PESCADOS = new CategoriaIngrediente(7, "PESCADOS");
     private static final CategoriaIngrediente CI_VERDURAS = new CategoriaIngrediente(8, "VERDURAS");
