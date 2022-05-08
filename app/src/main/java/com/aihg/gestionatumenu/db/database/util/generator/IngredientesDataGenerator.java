@@ -64,7 +64,9 @@ public class IngredientesDataGenerator {
             CI_HUEVOS_Y_LACTEOS,
             CI_OTROS,
             CI_PESCADOS,
-            CI_VERDURAS
+            CI_VERDURAS,
+            CI_PASTA_Y_ARROZ,
+            CI_LEGUMBRES
         );
     }
 
