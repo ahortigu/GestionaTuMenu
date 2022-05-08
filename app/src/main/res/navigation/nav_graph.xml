@@ -6,65 +6,99 @@
     app:startDestination="@id/homeFragment">
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.aihg.gestionatumenu.HomeFragment"
-        android:label="@string/home_upp"
-        tools:layout="@layout/fragment_home" >
+        android:name="com.aihg.gestionatumenu.ui.home.HomeFragment"
+        android:label="@string/home_up"
+        tools:layout="@layout/home__fragment" >
         <action
             android:id="@+id/action_homeFragment_to_ingredientesFragment"
             app:destination="@id/ingredientesFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_listaCompraFragment"
-            app:destination="@id/listaCompraFragment" />
-        <action
             android:id="@+id/action_homeFragment_to_menuFragment"
             app:destination="@id/menuFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_recetasFragment"
-            app:destination="@id/recetasFragment" />
+            android:id="@+id/action_homeFragment_to_listaCompraFragment"
+            app:destination="@id/listaCompraFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_planificadorFragment"
+            app:destination="@id/planificadorFragment" />
         <action
             android:id="@+id/action_homeFragment_to_despensaFragment"
             app:destination="@id/despensaFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_planificadorFragment"
-            app:destination="@id/planificadorFragment" />
+            android:id="@+id/action_homeFragment_to_recetasFragment"
+            app:destination="@id/recetasFragment" />
     </fragment>
     <fragment
         android:id="@+id/ingredientesFragment"
-        android:name="com.aihg.gestionatumenu.ui.IngredientesFragment"
+        android:name="com.aihg.gestionatumenu.ui.ingredientes.fragments.IngredientesFragment"
         android:label="@string/ingredientes_upp"
-        tools:layout="@layout/fragment_ingredientes" >
+        tools:layout="@layout/ingredientes__fragment" >
         <action
-            android:id="@+id/action_ingredientesFragment_to_createIngredienteFragment"
-            app:destination="@id/createIngredienteFragment" />
+            android:id="@+id/action_ingredientesFragment_to_ingredienteDetailsFragment"
+            app:destination="@id/ingredienteDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/listaCompraFragment"
-        android:name="com.aihg.gestionatumenu.ListaCompraFragment"
+        android:name="com.aihg.gestionatumenu.ui.listacompra.ListaCompraFragment"
         android:label="@string/lista_de_la_compra_upp"
-        tools:layout="@layout/fragment_lista_compra" />
+        tools:layout="@layout/listacompra__fragment" />
     <fragment
         android:id="@+id/recetasFragment"
-        android:name="com.aihg.gestionatumenu.RecetasFragment"
-        android:label="@string/recetas_upp"
-        tools:layout="@layout/fragment_recetas" />
+        android:name="com.aihg.gestionatumenu.ui.recetas.fragments.RecetasFragment"
+        android:label="@string/recetas_up"
+        tools:layout="@layout/recetas__fragment" >
+        <action
+            android:id="@+id/action_recetasFragment_to_recetaDetailsFragment"
+            app:destination="@id/recetaDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/despensaFragment"
-        android:name="com.aihg.gestionatumenu.DespensaFragment"
-        android:label="@string/despensa_upp"
-        tools:layout="@layout/fragment_despensa" />
+        android:name="com.aihg.gestionatumenu.ui.despensa.DespensaFragment"
+        android:label="@string/despensa_up"
+        tools:layout="@layout/despensa__fragment" />
     <fragment
         android:id="@+id/planificadorFragment"
-        android:name="com.aihg.gestionatumenu.PlanificadorFragment"
-        android:label="@string/planificador_upp"
-        tools:layout="@layout/fragment_planificador" />
+        android:name="com.aihg.gestionatumenu.ui.planificador.PlanificadorFragment"
+        android:label="@string/planificador_up"
+        tools:layout="@layout/planificador__fragment" />
     <fragment
         android:id="@+id/menuFragment"
-        android:name="com.aihg.gestionatumenu.MenuFragment"
+        android:name="com.aihg.gestionatumenu.ui.menu.MenuFragment"
         android:label="@string/menu_app"
-        tools:layout="@layout/fragment_menu" />
+        tools:layout="@layout/menu__fragment" />
     <fragment
-        android:id="@+id/createIngredienteFragment"
-        android:name="com.aihg.gestionatumenu.IngredienteDetailsFragment"
+        android:id="@+id/ingredienteDetailsFragment"
+        android:name="com.aihg.gestionatumenu.ui.ingredientes.fragments.IngredienteDetailsFragment"
         android:label="DETALLES INGREDIENTE"
-        tools:layout="@layout/fragment_details_ingrediente" />
+        tools:layout="@layout/ingredientes__detail_fragment">
+        <argument
+            android:name="ingrediente"
+            app:argType="com.aihg.gestionatumenu.db.entities.Ingrediente" />
+        <action
+            android:id="@+id/action_ingredienteDetailsFragment_to_ingredienteEditFragment"
+            app:destination="@id/ingredienteEditFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ingredienteEditFragment"
+        android:name="com.aihg.gestionatumenu.ui.ingredientes.fragments.IngredienteEditFragment"
+        android:label="EDITAR INGREDIENTE"
+        tools:layout="@layout/ingredientes__edit_fragment" >
+        <argument
+            android:name="ingrediente"
+            app:argType="com.aihg.gestionatumenu.db.entities.Ingrediente" />
+    </fragment>
+    <fragment
+        android:id="@+id/recetaDetailsFragment"
+        android:name="com.aihg.gestionatumenu.ui.recetas.fragments.RecetaDetailsFragment"
+        android:label="fragment_receta_details"
+        tools:layout="@layout/recetas_details_fragment" >
+        <action
+            android:id="@+id/action_recetaDetailsFragment_to_recetaEditFragment"
+            app:destination="@id/recetaEditFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recetaEditFragment"
+        android:name="com.aihg.gestionatumenu.ui.recetas.fragments.RecetaEditFragment"
+        android:label="fragment_receta_edit"
+        tools:layout="@layout/recetas_edit_fragment" />
 </navigation>
