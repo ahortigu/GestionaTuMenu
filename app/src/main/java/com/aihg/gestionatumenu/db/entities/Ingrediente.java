@@ -102,6 +102,14 @@ public class Ingrediente implements Serializable {
     public Ingrediente() {}
 
     @Ignore
+    public Ingrediente(int id, @NonNull String nombre, Medicion medicion, CategoriaIngrediente categoriaIngrediente) {
+        this.id = id;
+        this.nombre = nombre;
+        this.medicion = medicion;
+        this.categoriaIngrediente = categoriaIngrediente;
+    }
+
+    @Ignore
     public Ingrediente(@NonNull String nombre, CategoriaIngrediente categoria, Medicion medicion) {
         this.nombre = nombre;
         this.categoriaIngrediente = categoria;

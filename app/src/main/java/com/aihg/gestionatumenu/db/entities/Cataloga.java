@@ -8,14 +8,22 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 
-@Entity(tableName = CATALOGA, primaryKeys = {"id_receta", "id_categoria_receta"}, foreignKeys = {
-        @ForeignKey(entity = Receta.class,
-                parentColumns = "id_receta",
-                childColumns = "id_receta"),
-        @ForeignKey(entity = CategoriaReceta.class,
-                parentColumns = "id_categoria_receta",
-                childColumns = "id_categoria_receta")
-})
+@Entity(
+    tableName = CATALOGA,
+    primaryKeys = {"id_receta", "id_categoria_receta"},
+    foreignKeys = {
+        @ForeignKey(
+            entity = Receta.class,
+            parentColumns = "id_receta",
+            childColumns = "id_receta"
+        ),
+        @ForeignKey(
+            entity = CategoriaReceta.class,
+            parentColumns = "id_categoria_receta",
+            childColumns = "id_categoria_receta"
+        )
+    }
+)
 public class Cataloga {
     @NonNull
     @Embedded

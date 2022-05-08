@@ -13,18 +13,27 @@ import androidx.room.Relation;
 
 import org.jetbrains.annotations.NotNull;
 
-@Entity(tableName = UTILIZA, primaryKeys = {"id_receta", "id_ingrediente"}, foreignKeys = {
-        @ForeignKey(entity = Receta.class,
-                parentColumns = "id_receta",
-                childColumns = "id_receta"),
-        @ForeignKey(entity = Ingrediente.class,
-                parentColumns = "id_ingrediente",
-                childColumns = "id_ingrediente")
-})
+@Entity(
+    tableName = UTILIZA,
+    primaryKeys = {"id_receta", "id_ingrediente"},
+    foreignKeys = {
+        @ForeignKey(
+            entity = Receta.class,
+            parentColumns = "id_receta",
+            childColumns = "id_receta"
+        ),
+        @ForeignKey(
+            entity = Ingrediente.class,
+            parentColumns = "id_ingrediente",
+            childColumns = "id_ingrediente"
+        )
+    }
+)
 public class Utiliza {
     @NonNull
     @Embedded
     public Receta id_receta;
+
     @NonNull
     @Embedded
     public Ingrediente id_ingrediente;

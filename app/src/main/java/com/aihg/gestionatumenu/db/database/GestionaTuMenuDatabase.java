@@ -1,11 +1,16 @@
 package com.aihg.gestionatumenu.db.database;
 
-import static com.aihg.gestionatumenu.db.database.util.DataGenerator.getDefaultCategoriasIngrediente;
-import static com.aihg.gestionatumenu.db.database.util.DataGenerator.getDefaultIngredientes;
-import static com.aihg.gestionatumenu.db.database.util.DataGenerator.getDefaultMediciones;
+import static com.aihg.gestionatumenu.db.database.util.generator.IngredientesDataGenerator.getDefaultCategoriasIngrediente;
+import static com.aihg.gestionatumenu.db.database.util.generator.IngredientesDataGenerator.getDefaultIngredientes;
+import static com.aihg.gestionatumenu.db.database.util.generator.IngredientesDataGenerator.getDefaultMediciones;
 import static com.aihg.gestionatumenu.db.database.util.DatabaseTables.DATABASE_NAME;
+import static com.aihg.gestionatumenu.db.database.util.generator.RecetasDataGenerator.getAsignacionIngredientesReceta;
+import static com.aihg.gestionatumenu.db.database.util.generator.RecetasDataGenerator.getCatalogacionRecetas;
+import static com.aihg.gestionatumenu.db.database.util.generator.RecetasDataGenerator.getDefaultCategoriasRecetas;
+import static com.aihg.gestionatumenu.db.database.util.generator.RecetasDataGenerator.getDefaultRecetas;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.room.Database;
@@ -93,34 +98,57 @@ public abstract class GestionaTuMenuDatabase extends RoomDatabase {
             executorService.execute(new Runnable() {
                 @Override
                 public void run() {
+                    crearIngredientes();
+                    crearRecetas();
+                }
+
+                private void crearIngredientes() {
+                    Log.d("DEFAULT-DB", "Añadiendo valores por defecto de ingredientes.");
                     getDefaultCategoriasIngrediente().stream().forEach(
-                            categoriaIngredienteDAO::insert
+                        categoriaIngredienteDAO::insert
                     );
 
                     getDefaultMediciones().stream().forEach(
-                            medicionDAO::insert
+                        medicionDAO::insert
                     );
 
                     getDefaultIngredientes().stream().forEach(
-                            ingredienteDAO::insert
+                        ingredienteDAO::insert
+                    );
+                }
+
+                private void crearRecetas() {
+                    Log.d("DEFAULT-DB", "Añadiendo valores por defecto de recetas.");
+                    getDefaultCategoriasRecetas().stream().forEach(
+                        categoriaRecetaDAO::insert
+                    );
+                    getDefaultRecetas().stream().forEach(
+                        recetaDAO::insert
+                    );
+                    getCatalogacionRecetas().stream().forEach(
+                        catalogaDAO::insert
+                    );
+                    getAsignacionIngredientesReceta().stream().forEach(
+                        utilizaDAO::insert
                     );
                 }
             });
         }
     };
 
+
     public static GestionaTuMenuDatabase getDbInstance(final Context context) {
         if (INSTANCE == null) {
             synchronized (GestionaTuMenuDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(
-                            context.getApplicationContext(),
-                            GestionaTuMenuDatabase.class,
-                            DATABASE_NAME
+                        context.getApplicationContext(),
+                        GestionaTuMenuDatabase.class,
+                        DATABASE_NAME
                     )
-                            .fallbackToDestructiveMigration()
-                            .addCallback(roomCallBack)
-                            .build();
+                    .fallbackToDestructiveMigration()
+                    .addCallback(roomCallBack)
+                    .build();
                 }
             }
         }
