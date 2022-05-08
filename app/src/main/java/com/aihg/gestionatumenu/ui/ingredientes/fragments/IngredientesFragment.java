@@ -51,6 +51,7 @@ public class IngredientesFragment extends Fragment {
                 @Override
                 public void onChanged(List<CategoriaIngrediente> categorias) {
                     adapter.setCategorias(categorias);
+
                 }
             });
         viewModel

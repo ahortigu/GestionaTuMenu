@@ -13,12 +13,10 @@ import com.aihg.gestionatumenu.db.entities.CategoriaIngrediente;
 import com.aihg.gestionatumenu.db.entities.Medicion;
 import com.aihg.gestionatumenu.ui.util.AbstractSpinner;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class SpinnerCategoriasAdapter extends AbstractSpinner<CategoriaIngrediente> {
-
-    public SpinnerCategoriasAdapter(@NonNull Context context, int resource, List<CategoriaIngrediente> elementos) {
+public class SpinnerMedicionAdapter extends AbstractSpinner<Medicion> {
+    public SpinnerMedicionAdapter(@NonNull Context context, int resource, List<Medicion> elementos) {
         super(context, resource, elementos);
     }
 
@@ -28,7 +26,7 @@ public class SpinnerCategoriasAdapter extends AbstractSpinner<CategoriaIngredien
     }
 
     @Override
-    public String getNombreItem(CategoriaIngrediente item) {
-        return item.getNombre();
+    public String getNombreItem(Medicion item) {
+        return item.getNombre().isEmpty() ? "No Cuantificable" : item.getNombre();
     }
 }
