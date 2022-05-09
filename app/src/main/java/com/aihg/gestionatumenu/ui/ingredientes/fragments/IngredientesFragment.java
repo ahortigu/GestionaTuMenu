@@ -7,12 +7,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -94,5 +97,16 @@ public class IngredientesFragment extends Fragment {
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
         menu.findItem(R.id.nav_editar).setVisible(false);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+        if(itemId == R.id.nav_add){
+            NavDirections action = IngredientesFragmentDirections.actionIngredientesFragmentToIngredientesCreateFragment();
+            Navigation.findNavController(view).navigate(action);
+        }
+        return super.onOptionsItemSelected(item);
+
     }
 }

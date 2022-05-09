@@ -33,6 +33,15 @@
     <string name="back_arrow">Back Arrow</string>
     <string name="unidad">Unidad</string>
     <string name="ingrediente">Ingrediente</string>
+    <string name="detalle_ingrediente_up">DETALLE INGREDIENTE</string>
+    <string name="detalle_receta_up">DETALLE RECETA</string>
+    <string name="crear_ingredediente_up">CREAR INGREDIENTE</string>
+    <string name="crear_receta_up">CREAR RECETA</string>
+    <string name="edit_ingrediente_up">EDITAR INGREDIENTE</string>
+    <string name="edit_receta_up">EDITAR RECETA</string>
+    <string name="shared_anadir_up">AÑADIR</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tomate_low">Tomate</string>

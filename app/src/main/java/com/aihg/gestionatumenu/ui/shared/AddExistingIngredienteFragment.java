@@ -1,4 +1,4 @@
-package com.aihg.gestionatumenu.ui.listacompra;
+package com.aihg.gestionatumenu.ui.shared;
 
 import android.os.Bundle;
 
@@ -12,9 +12,10 @@ import android.view.ViewGroup;
 
 import com.aihg.gestionatumenu.R;
 
-public class ListaCompraFragment extends Fragment {
+public class AddExistingIngredienteFragment extends Fragment {
 
-    public ListaCompraFragment() {
+    public AddExistingIngredienteFragment() {
+
     }
 
     @Override
@@ -25,12 +26,14 @@ public class ListaCompraFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.listacompra__fragment, container, false);
+        return inflater.inflate(R.layout.shared_add_existing_ingrediente, container, false);
     }
 
     @Override
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
+        menu.findItem(R.id.more).setVisible(false);
         menu.findItem(R.id.nav_editar).setVisible(false);
     }
+
 }

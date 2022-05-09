@@ -1,4 +1,4 @@
-package com.aihg.gestionatumenu.ui.despensa;
+package com.aihg.gestionatumenu.ui.recetas.fragments;
 
 import android.os.Bundle;
 
@@ -12,7 +12,11 @@ import android.view.ViewGroup;
 
 import com.aihg.gestionatumenu.R;
 
-public class DespensaFragment extends Fragment {
+
+public class RecetasCreateFragment extends Fragment {
+    public RecetasCreateFragment() {
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,12 +25,13 @@ public class DespensaFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.despensa__fragment, container, false);
+        return inflater.inflate(R.layout.recetas_create_fragment, container, false);
     }
 
     @Override
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
+        menu.findItem(R.id.more).setVisible(false);
         menu.findItem(R.id.nav_editar).setVisible(false);
     }
 }

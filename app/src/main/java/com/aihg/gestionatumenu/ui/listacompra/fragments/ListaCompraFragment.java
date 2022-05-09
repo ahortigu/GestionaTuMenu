@@ -1,4 +1,4 @@
-package com.aihg.gestionatumenu.ui.recetas.fragments;
+package com.aihg.gestionatumenu.ui.listacompra.fragments;
 
 import android.os.Bundle;
 
@@ -16,10 +16,10 @@ import android.view.ViewGroup;
 import com.aihg.gestionatumenu.R;
 import com.aihg.gestionatumenu.ui.ingredientes.fragments.IngredientesFragmentDirections;
 
-public class RecetasFragment extends Fragment {
+public class ListaCompraFragment extends Fragment {
     private View view;
 
-    public RecetasFragment() {
+    public ListaCompraFragment() {
     }
 
     @Override
@@ -30,7 +30,7 @@ public class RecetasFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        this.view = inflater.inflate(R.layout.recetas__fragment, container, false);
+        this.view = inflater.inflate(R.layout.listacompra__fragment, container, false);
         return view;
     }
 
@@ -44,10 +44,12 @@ public class RecetasFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
         if(itemId == R.id.nav_add){
-            NavDirections action = RecetasFragmentDirections.actionRecetasFragmentToRecetasCreateFragment();
+            NavDirections action = ListaCompraFragmentDirections.actionListaCompraFragmentToAddExistingIngredienteFragment();
             Navigation.findNavController(view).navigate(action);
         }
         return super.onOptionsItemSelected(item);
 
     }
+
+
 }
