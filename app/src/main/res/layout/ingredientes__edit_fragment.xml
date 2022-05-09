@@ -155,19 +155,6 @@
                 tools:ignore="SpeakableTextPresentCheck" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <Button
-            android:id="@+id/b_ie_guardar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="30dp"
-            android:layout_marginEnd="15dp"
-            android:backgroundTint="@color/verde_oscuro"
-            android:text="@string/guardar_UP"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/l_ie_medicion" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
