@@ -62,4 +62,11 @@ public class ListaCompra {
         this.cantidad = cantidad;
         this.ingrediente = ingrediente;
     }
+
+    @Ignore
+    public ListaCompra(int id, int cantidad, Ingrediente ingrediente) {
+        this.id = id;
+        this.cantidad = cantidad;
+        this.ingrediente = ingrediente;
+    }
 }

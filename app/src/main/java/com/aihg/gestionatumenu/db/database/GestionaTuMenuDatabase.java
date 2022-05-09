@@ -8,6 +8,7 @@ import static com.aihg.gestionatumenu.db.database.util.generator.RecetasDataGene
 import static com.aihg.gestionatumenu.db.database.util.generator.RecetasDataGenerator.getCatalogacionRecetas;
 import static com.aihg.gestionatumenu.db.database.util.generator.RecetasDataGenerator.getDefaultCategoriasRecetas;
 import static com.aihg.gestionatumenu.db.database.util.generator.RecetasDataGenerator.getDefaultRecetas;
+import static com.aihg.gestionatumenu.db.database.util.generator.ListaCompraDataGenerator.getDefaultListaCompra;
 
 import android.content.Context;
 import android.util.Log;
@@ -78,6 +79,7 @@ public abstract class GestionaTuMenuDatabase extends RoomDatabase {
 
     public abstract CatalogaDAO catalogaDAO();
 
+
     private static Callback roomCallBack = new Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
@@ -130,6 +132,9 @@ public abstract class GestionaTuMenuDatabase extends RoomDatabase {
                     );
                     getAsignacionIngredientesReceta().stream().forEach(
                         utilizaDAO::insert
+                    );
+                    getDefaultListaCompra().stream().forEach(
+                            listaCompraDAO::insert
                     );
                 }
             });
