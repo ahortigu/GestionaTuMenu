@@ -26,6 +26,18 @@
             tools:ignore="ImageContrastCheck"
             tools:src="@tools:sample/avatars" />
 
+        <Button
+            android:id="@+id/b_ic_guardar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="20dp"
+            android:backgroundTint="@color/verde_oscuro"
+            android:text="@string/guardar_UP"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/l_ic_medicion" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/l_ic_ingrediente"
             android:layout_width="match_parent"
@@ -157,6 +169,7 @@
                 tools:ignore="SpeakableTextPresentCheck" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
