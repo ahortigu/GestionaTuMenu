@@ -54,6 +54,14 @@ public class IngredientesCreateFragment extends Fragment {
         setHasOptionsMenu(true);
         Log.i("LOADING", "Creating Observables on Ingrediente Edit Screen");
         viewModel = new ViewModelProvider(this).get(IngredientesViewModel.class);
+
+        viewModel.getIngredientes().observe(this, new Observer<List<Ingrediente>>() {
+            @Override
+            public void onChanged(List<Ingrediente> ingredientesOv) {
+                ingredientesOv.add(toCreate);
+            }
+        });
+
         viewModel
                 .getCategorias()
                 .observe(this, new Observer<List<CategoriaIngrediente>>() {
@@ -164,6 +172,7 @@ public class IngredientesCreateFragment extends Fragment {
                 Log.i("Ingrediente seteado", toCreate.toString());
                 if(!toCreate.getNombre().isEmpty() && toCreate.getCategoriaIngrediente() != null && toCreate.getMedicion() != null)
                 {
+                    // TODO anadir validaciones aqui
                     viewModel.insertIngrediente(toCreate);
                     Toast.makeText(view.getContext(), "Ingrediente creado con éxito", Toast.LENGTH_LONG).show();
                 } else {
