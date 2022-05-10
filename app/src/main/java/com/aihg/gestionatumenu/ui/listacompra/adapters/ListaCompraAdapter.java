@@ -1,6 +1,6 @@
 package com.aihg.gestionatumenu.ui.listacompra.adapters;
 
-import static com.aihg.gestionatumenu.db.database.util.generator.IngredientesDataGenerator.NO_CUANTIFICABLE;
+import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerator.NO_CUANTIFICABLE;
 
 import android.view.LayoutInflater;
 import android.view.View;

@@ -1,6 +1,6 @@
 package com.aihg.gestionatumenu.db.daos;
 
-import static com.aihg.gestionatumenu.db.database.util.DatabaseTables.DESPENSA;
+import static com.aihg.gestionatumenu.db.util.DatabaseTables.DESPENSA;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -11,7 +11,6 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.aihg.gestionatumenu.db.entities.Despensa;
-import com.aihg.gestionatumenu.db.entities.ListaCompra;
 
 import java.util.List;
 

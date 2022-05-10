@@ -12,7 +12,7 @@ import androidx.test.core.app.ApplicationProvider;
 import com.aihg.gestionatumenu.db.daos.CatalogaDAO;
 import com.aihg.gestionatumenu.db.daos.CategoriaRecetaDAO;
 import com.aihg.gestionatumenu.db.daos.RecetaDAO;
-import com.aihg.gestionatumenu.db.database.GestionaTuMenuDatabase;
+import com.aihg.gestionatumenu.db.GestionaTuMenuDatabase;
 import com.aihg.gestionatumenu.db.entities.Cataloga;
 import com.aihg.gestionatumenu.db.entities.CategoriaReceta;
 import com.aihg.gestionatumenu.db.entities.Receta;

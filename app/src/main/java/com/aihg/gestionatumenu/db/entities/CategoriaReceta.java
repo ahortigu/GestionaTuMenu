@@ -1,6 +1,6 @@
 package com.aihg.gestionatumenu.db.entities;
 
-import static com.aihg.gestionatumenu.db.database.util.DatabaseTables.CATEGORIAS_RECETA;
+import static com.aihg.gestionatumenu.db.util.DatabaseTables.CATEGORIAS_RECETA;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;

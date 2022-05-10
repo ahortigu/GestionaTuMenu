@@ -1,15 +1,15 @@
-package com.aihg.gestionatumenu.db.database;
+package com.aihg.gestionatumenu.db;
 
-import static com.aihg.gestionatumenu.db.database.util.generator.IngredientesDataGenerator.getDefaultCategoriasIngrediente;
-import static com.aihg.gestionatumenu.db.database.util.generator.IngredientesDataGenerator.getDefaultIngredientes;
-import static com.aihg.gestionatumenu.db.database.util.generator.IngredientesDataGenerator.getDefaultMediciones;
-import static com.aihg.gestionatumenu.db.database.util.DatabaseTables.DATABASE_NAME;
-import static com.aihg.gestionatumenu.db.database.util.generator.RecetasDataGenerator.getAsignacionIngredientesReceta;
-import static com.aihg.gestionatumenu.db.database.util.generator.RecetasDataGenerator.getCatalogacionRecetas;
-import static com.aihg.gestionatumenu.db.database.util.generator.RecetasDataGenerator.getDefaultCategoriasRecetas;
-import static com.aihg.gestionatumenu.db.database.util.generator.RecetasDataGenerator.getDefaultRecetas;
-import static com.aihg.gestionatumenu.db.database.util.generator.ListaCompraDataGenerator.getDefaultListaCompra;
-import static com.aihg.gestionatumenu.db.database.util.generator.DespensaDataGenerator.getDefaultDespensa;
+import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerator.getDefaultCategoriasIngrediente;
+import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerator.getDefaultIngredientes;
+import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerator.getDefaultMediciones;
+import static com.aihg.gestionatumenu.db.util.DatabaseTables.DATABASE_NAME;
+import static com.aihg.gestionatumenu.db.util.generator.RecetasDataGenerator.getAsignacionIngredientesReceta;
+import static com.aihg.gestionatumenu.db.util.generator.RecetasDataGenerator.getCatalogacionRecetas;
+import static com.aihg.gestionatumenu.db.util.generator.RecetasDataGenerator.getDefaultCategoriasRecetas;
+import static com.aihg.gestionatumenu.db.util.generator.RecetasDataGenerator.getDefaultRecetas;
+import static com.aihg.gestionatumenu.db.util.generator.ListaCompraDataGenerator.getDefaultListaCompra;
+import static com.aihg.gestionatumenu.db.util.generator.DespensaDataGenerator.getDefaultDespensa;
 
 import android.content.Context;
 import android.util.Log;

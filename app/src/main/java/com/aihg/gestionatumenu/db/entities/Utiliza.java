@@ -1,6 +1,6 @@
 package com.aihg.gestionatumenu.db.entities;
 
-import static com.aihg.gestionatumenu.db.database.util.DatabaseTables.UTILIZA;
+import static com.aihg.gestionatumenu.db.util.DatabaseTables.UTILIZA;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
@@ -8,10 +8,6 @@ import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
-import androidx.room.PrimaryKey;
-import androidx.room.Relation;
-
-import org.jetbrains.annotations.NotNull;
 
 @Entity(
     tableName = UTILIZA,

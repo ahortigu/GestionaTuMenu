@@ -13,7 +13,7 @@ import com.aihg.gestionatumenu.db.daos.ListaCompraDAO;
 import com.aihg.gestionatumenu.db.daos.MedicionDAO;
 import com.aihg.gestionatumenu.db.daos.RecetaDAO;
 import com.aihg.gestionatumenu.db.daos.UtilizaDAO;
-import com.aihg.gestionatumenu.db.database.GestionaTuMenuDatabase;
+import com.aihg.gestionatumenu.db.GestionaTuMenuDatabase;
 import com.aihg.gestionatumenu.db.entities.Cataloga;
 import com.aihg.gestionatumenu.db.entities.CategoriaIngrediente;
 import com.aihg.gestionatumenu.db.entities.CategoriaReceta;

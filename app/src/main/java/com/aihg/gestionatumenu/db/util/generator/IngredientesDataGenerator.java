@@ -1,6 +1,5 @@
-package com.aihg.gestionatumenu.db.database.util.generator;
+package com.aihg.gestionatumenu.db.util.generator;
 
-import com.aihg.gestionatumenu.db.daos.CategoriaIngredienteDAO_Impl;
 import com.aihg.gestionatumenu.db.entities.CategoriaIngrediente;
 import com.aihg.gestionatumenu.db.entities.Ingrediente;
 import com.aihg.gestionatumenu.db.entities.Medicion;

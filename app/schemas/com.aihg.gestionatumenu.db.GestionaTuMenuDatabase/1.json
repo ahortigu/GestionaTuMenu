@@ -1,0 +1,597 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "189b1a0d2ea7fc78484614ff6e3dd471",
+    "entities": [
+      {
+        "tableName": "ingredientes",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_ingrediente` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nombre_ingrediente` TEXT NOT NULL, `id_medicion` INTEGER, `nombre_medicion` TEXT, `id_categoria` INTEGER, `nombre_categoria` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id_ingrediente",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nombre",
+            "columnName": "nombre_ingrediente",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "medicion.id",
+            "columnName": "id_medicion",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "medicion.nombre",
+            "columnName": "nombre_medicion",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "categoriaIngrediente.id",
+            "columnName": "id_categoria",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "categoriaIngrediente.nombre",
+            "columnName": "nombre_categoria",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id_ingrediente"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_ingredientes_id_ingrediente",
+            "unique": false,
+            "columnNames": [
+              "id_ingrediente"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_ingredientes_id_ingrediente` ON `${TABLE_NAME}` (`id_ingrediente`)"
+          },
+          {
+            "name": "index_ingredientes_nombre_ingrediente",
+            "unique": false,
+            "columnNames": [
+              "nombre_ingrediente"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_ingredientes_nombre_ingrediente` ON `${TABLE_NAME}` (`nombre_ingrediente`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "categorias_ingrediente",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_categoria` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nombre_categoria` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id_categoria",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nombre",
+            "columnName": "nombre_categoria",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id_categoria"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_categorias_ingrediente_id_categoria",
+            "unique": false,
+            "columnNames": [
+              "id_categoria"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_categorias_ingrediente_id_categoria` ON `${TABLE_NAME}` (`id_categoria`)"
+          },
+          {
+            "name": "index_categorias_ingrediente_nombre_categoria",
+            "unique": false,
+            "columnNames": [
+              "nombre_categoria"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_categorias_ingrediente_nombre_categoria` ON `${TABLE_NAME}` (`nombre_categoria`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "mediciones",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_medicion` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nombre_medicion` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id_medicion",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nombre",
+            "columnName": "nombre_medicion",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id_medicion"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_mediciones_id_medicion",
+            "unique": false,
+            "columnNames": [
+              "id_medicion"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_mediciones_id_medicion` ON `${TABLE_NAME}` (`id_medicion`)"
+          },
+          {
+            "name": "index_mediciones_nombre_medicion",
+            "unique": false,
+            "columnNames": [
+              "nombre_medicion"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_mediciones_nombre_medicion` ON `${TABLE_NAME}` (`nombre_medicion`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "lista_compra",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_lista_compra` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cantidad_lista_compra` INTEGER NOT NULL, `id_ingrediente` INTEGER, `nombre_ingrediente` TEXT, `id_medicion` INTEGER, `nombre_medicion` TEXT, `id_categoria` INTEGER, `nombre_categoria` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id_lista_compra",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cantidad",
+            "columnName": "cantidad_lista_compra",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ingrediente.id",
+            "columnName": "id_ingrediente",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ingrediente.nombre",
+            "columnName": "nombre_ingrediente",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ingrediente.medicion.id",
+            "columnName": "id_medicion",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ingrediente.medicion.nombre",
+            "columnName": "nombre_medicion",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ingrediente.categoriaIngrediente.id",
+            "columnName": "id_categoria",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ingrediente.categoriaIngrediente.nombre",
+            "columnName": "nombre_categoria",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id_lista_compra"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_lista_compra_id_lista_compra",
+            "unique": false,
+            "columnNames": [
+              "id_lista_compra"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_lista_compra_id_lista_compra` ON `${TABLE_NAME}` (`id_lista_compra`)"
+          },
+          {
+            "name": "index_lista_compra_cantidad_lista_compra",
+            "unique": false,
+            "columnNames": [
+              "cantidad_lista_compra"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_lista_compra_cantidad_lista_compra` ON `${TABLE_NAME}` (`cantidad_lista_compra`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "despensa",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_despensa` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cantidad_despensa` INTEGER NOT NULL, `id_ingrediente` INTEGER, `nombre_ingrediente` TEXT, `id_medicion` INTEGER, `nombre_medicion` TEXT, `id_categoria` INTEGER, `nombre_categoria` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id_despensa",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cantidad",
+            "columnName": "cantidad_despensa",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ingrediente.id",
+            "columnName": "id_ingrediente",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ingrediente.nombre",
+            "columnName": "nombre_ingrediente",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ingrediente.medicion.id",
+            "columnName": "id_medicion",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ingrediente.medicion.nombre",
+            "columnName": "nombre_medicion",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ingrediente.categoriaIngrediente.id",
+            "columnName": "id_categoria",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ingrediente.categoriaIngrediente.nombre",
+            "columnName": "nombre_categoria",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id_despensa"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_despensa_id_despensa",
+            "unique": false,
+            "columnNames": [
+              "id_despensa"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_despensa_id_despensa` ON `${TABLE_NAME}` (`id_despensa`)"
+          },
+          {
+            "name": "index_despensa_cantidad_despensa",
+            "unique": false,
+            "columnNames": [
+              "cantidad_despensa"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_despensa_cantidad_despensa` ON `${TABLE_NAME}` (`cantidad_despensa`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "categorias_receta",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_categoria_receta` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nombre_categoria_receta` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id_categoria_receta",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nombre",
+            "columnName": "nombre_categoria_receta",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id_categoria_receta"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_categorias_receta_id_categoria_receta",
+            "unique": false,
+            "columnNames": [
+              "id_categoria_receta"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_categorias_receta_id_categoria_receta` ON `${TABLE_NAME}` (`id_categoria_receta`)"
+          },
+          {
+            "name": "index_categorias_receta_nombre_categoria_receta",
+            "unique": false,
+            "columnNames": [
+              "nombre_categoria_receta"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_categorias_receta_nombre_categoria_receta` ON `${TABLE_NAME}` (`nombre_categoria_receta`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "recetas",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_receta` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nombre_receta` TEXT NOT NULL, `instrucciones` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id_receta",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nombre",
+            "columnName": "nombre_receta",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "instrucciones",
+            "columnName": "instrucciones",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id_receta"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_recetas_id_receta",
+            "unique": false,
+            "columnNames": [
+              "id_receta"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_recetas_id_receta` ON `${TABLE_NAME}` (`id_receta`)"
+          },
+          {
+            "name": "index_recetas_nombre_receta",
+            "unique": false,
+            "columnNames": [
+              "nombre_receta"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_recetas_nombre_receta` ON `${TABLE_NAME}` (`nombre_receta`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "utiliza",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`cantidad_utiliza` INTEGER NOT NULL, `id_receta` INTEGER NOT NULL, `nombre_receta` TEXT NOT NULL, `instrucciones` TEXT NOT NULL, `id_ingrediente` INTEGER NOT NULL, `nombre_ingrediente` TEXT NOT NULL, `id_medicion` INTEGER, `nombre_medicion` TEXT, `id_categoria` INTEGER, `nombre_categoria` TEXT, PRIMARY KEY(`id_receta`, `id_ingrediente`), FOREIGN KEY(`id_receta`) REFERENCES `recetas`(`id_receta`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`id_ingrediente`) REFERENCES `ingredientes`(`id_ingrediente`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "cantidad",
+            "columnName": "cantidad_utiliza",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id_receta.id",
+            "columnName": "id_receta",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id_receta.nombre",
+            "columnName": "nombre_receta",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id_receta.instrucciones",
+            "columnName": "instrucciones",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id_ingrediente.id",
+            "columnName": "id_ingrediente",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id_ingrediente.nombre",
+            "columnName": "nombre_ingrediente",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id_ingrediente.medicion.id",
+            "columnName": "id_medicion",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "id_ingrediente.medicion.nombre",
+            "columnName": "nombre_medicion",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "id_ingrediente.categoriaIngrediente.id",
+            "columnName": "id_categoria",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "id_ingrediente.categoriaIngrediente.nombre",
+            "columnName": "nombre_categoria",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id_receta",
+            "id_ingrediente"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "recetas",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "id_receta"
+            ],
+            "referencedColumns": [
+              "id_receta"
+            ]
+          },
+          {
+            "table": "ingredientes",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "id_ingrediente"
+            ],
+            "referencedColumns": [
+              "id_ingrediente"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "cataloga",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_receta` INTEGER NOT NULL, `nombre_receta` TEXT NOT NULL, `instrucciones` TEXT NOT NULL, `id_categoria_receta` INTEGER NOT NULL, `nombre_categoria_receta` TEXT NOT NULL, PRIMARY KEY(`id_receta`, `id_categoria_receta`), FOREIGN KEY(`id_receta`) REFERENCES `recetas`(`id_receta`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`id_categoria_receta`) REFERENCES `categorias_receta`(`id_categoria_receta`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id_receta.id",
+            "columnName": "id_receta",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id_receta.nombre",
+            "columnName": "nombre_receta",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id_receta.instrucciones",
+            "columnName": "instrucciones",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id_categoria_receta.id",
+            "columnName": "id_categoria_receta",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id_categoria_receta.nombre",
+            "columnName": "nombre_categoria_receta",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id_receta",
+            "id_categoria_receta"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "recetas",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "id_receta"
+            ],
+            "referencedColumns": [
+              "id_receta"
+            ]
+          },
+          {
+            "table": "categorias_receta",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "id_categoria_receta"
+            ],
+            "referencedColumns": [
+              "id_categoria_receta"
+            ]
+          }
+        ]
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '189b1a0d2ea7fc78484614ff6e3dd471')"
+    ]
+  }
+}

@@ -1,4 +1,4 @@
-package com.aihg.gestionatumenu.db.database.util;
+package com.aihg.gestionatumenu.db.util;
 
 public class DatabaseTables {
     public static final String DATABASE_NAME = "gestiona_tu_menu_database";

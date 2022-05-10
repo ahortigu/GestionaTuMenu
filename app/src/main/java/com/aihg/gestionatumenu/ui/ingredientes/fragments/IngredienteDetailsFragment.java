@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.aihg.gestionatumenu.R;
 import com.aihg.gestionatumenu.db.entities.Ingrediente;
+import com.aihg.gestionatumenu.db.entities.Medicion;
 
 public class IngredienteDetailsFragment extends Fragment {
     private View view;
@@ -42,7 +43,10 @@ public class IngredienteDetailsFragment extends Fragment {
 
         txt_nombre.setText(ingrediente.getNombre());
         txt_categoria.setText(ingrediente.getCategoriaIngrediente().getNombre());
-        txt_medicion.setText(ingrediente.getMedicion().getNombre());
+        Medicion medicion = ingrediente.getMedicion();
+        txt_medicion.setText(
+            medicion.getNombre().isEmpty() ? "No Cuantificable" : medicion.getNombre()
+        );
 
         return view;
     }
