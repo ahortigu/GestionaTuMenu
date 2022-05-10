@@ -90,18 +90,18 @@ public class ItemsCategoriasAdapter extends RecyclerView.Adapter<ItemsCategorias
     public void setCategorias(List<CategoriaIngrediente> categorias) {
         Log.i("MAPPING", "Actualizando Mapping Pantalla Ingredientes. Cambio Categoria");
         this.categorias = categorias;
-        mapCategoriasConIngredientes();
+        wrapperBuilder();
         notifyDataSetChanged();
     }
 
     public void setIngredientes(List<Ingrediente> ingredientes) {
         Log.i("MAPPING", "Actualizando Mapping Pantalla Ingredientes. Cambio Ingrediente");
         this.ingredientes = ingredientes;
-        mapCategoriasConIngredientes();
+        wrapperBuilder();
         notifyDataSetChanged();
     }
 
-    private void mapCategoriasConIngredientes() {
+    private void wrapperBuilder() {
         this.wrappers = this.categorias.stream()
             .map(categoria -> new CategoriaWrapper(
                 categoria,
@@ -117,7 +117,6 @@ public class ItemsCategoriasAdapter extends RecyclerView.Adapter<ItemsCategorias
         private RelativeLayout l_expandable;
         private TextView txt_nombre_categoria;
         private ImageView iv_arrow;
-
         private RecyclerView rv_child;
 
         public ItemCategoriaViewHolder(@NonNull View itemView) {

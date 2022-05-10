@@ -84,65 +84,72 @@ public abstract class GestionaTuMenuDatabase extends RoomDatabase {
     private static Callback roomCallBack = new Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
-            super.onCreate(db);
+        super.onCreate(db);
 
-            // DAO
-            CategoriaIngredienteDAO categoriaIngredienteDAO = INSTANCE.categoriaIngredienteDAO();
-            IngredienteDAO ingredienteDAO = INSTANCE.ingredienteDAO();
-            MedicionDAO medicionDAO = INSTANCE.medicionDAO();
-            ListaCompraDAO listaCompraDAO = INSTANCE.listaCompraDAO();
-            DespensaDAO despensaDAO = INSTANCE.despensaDAO();
-            CategoriaRecetaDAO categoriaRecetaDAO = INSTANCE.categoriaRecetaDAO();
-            RecetaDAO recetaDAO = INSTANCE.recetaDAO();
-            UtilizaDAO utilizaDAO = INSTANCE.utilizaDAO();
-            CatalogaDAO catalogaDAO = INSTANCE.catalogaDAO();
+        // DAO
+        CategoriaIngredienteDAO categoriaIngredienteDAO = INSTANCE.categoriaIngredienteDAO();
+        IngredienteDAO ingredienteDAO = INSTANCE.ingredienteDAO();
+        MedicionDAO medicionDAO = INSTANCE.medicionDAO();
+        ListaCompraDAO listaCompraDAO = INSTANCE.listaCompraDAO();
+        DespensaDAO despensaDAO = INSTANCE.despensaDAO();
+        CategoriaRecetaDAO categoriaRecetaDAO = INSTANCE.categoriaRecetaDAO();
+        RecetaDAO recetaDAO = INSTANCE.recetaDAO();
+        UtilizaDAO utilizaDAO = INSTANCE.utilizaDAO();
+        CatalogaDAO catalogaDAO = INSTANCE.catalogaDAO();
 
-            ExecutorService executorService = Executors.newSingleThreadExecutor();
-            executorService.execute(new Runnable() {
-                @Override
-                public void run() {
-                    crearIngredientes();
-                    crearRecetas();
-                }
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                crearIngredientes();
+                crearRecetas();
+                crearDespensa();
+                crearListaCompra();
+            }
 
-                private void crearIngredientes() {
-                    Log.d("DEFAULT-DB", "Añadiendo valores por defecto de ingredientes.");
-                    getDefaultCategoriasIngrediente().stream().forEach(
-                        categoriaIngredienteDAO::insert
-                    );
+            private void crearIngredientes() {
+                Log.d("DEFAULT-DB", "Añadiendo valores por defecto de ingredientes.");
+                getDefaultCategoriasIngrediente().stream().forEach(
+                    categoriaIngredienteDAO::insert
+                );
 
-                    getDefaultMediciones().stream().forEach(
-                        medicionDAO::insert
-                    );
+                getDefaultMediciones().stream().forEach(
+                    medicionDAO::insert
+                );
 
-                    getDefaultIngredientes().stream().forEach(
-                        ingredienteDAO::insert
-                    );
-                    getDefaultListaCompra().stream().forEach(
-                            listaCompraDAO::insert
-                    );
-                    getDefaultDespensa().stream().forEach(
-                            despensaDAO::insert
-                    );
-                }
+                getDefaultIngredientes().stream().forEach(
+                    ingredienteDAO::insert
+                );
+            }
 
-                private void crearRecetas() {
-                    Log.d("DEFAULT-DB", "Añadiendo valores por defecto de recetas.");
-                    getDefaultCategoriasRecetas().stream().forEach(
-                        categoriaRecetaDAO::insert
-                    );
-                    getDefaultRecetas().stream().forEach(
-                        recetaDAO::insert
-                    );
-                    getCatalogacionRecetas().stream().forEach(
-                        catalogaDAO::insert
-                    );
-                    getAsignacionIngredientesReceta().stream().forEach(
-                        utilizaDAO::insert
-                    );
+            private void crearDespensa() {
+                getDefaultDespensa().stream().forEach(
+                    despensaDAO::insert
+                );
+            }
 
-                }
-            });
+            private void crearListaCompra() {
+                getDefaultListaCompra().stream().forEach(
+                    listaCompraDAO::insert
+                );
+            }
+
+            private void crearRecetas() {
+                Log.d("DEFAULT-DB", "Añadiendo valores por defecto de recetas.");
+                getDefaultCategoriasRecetas().stream().forEach(
+                    categoriaRecetaDAO::insert
+                );
+                getDefaultRecetas().stream().forEach(
+                    recetaDAO::insert
+                );
+                getCatalogacionRecetas().stream().forEach(
+                    catalogaDAO::insert
+                );
+                getAsignacionIngredientesReceta().stream().forEach(
+                    utilizaDAO::insert
+                );
+            }
+        });
         }
     };
 
