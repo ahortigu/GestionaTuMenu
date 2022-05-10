@@ -1,6 +1,7 @@
 package com.aihg.gestionatumenu.ui.ingredientes.adaptors;
 
 import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerator.NO_CUANTIFICABLE;
+import static com.aihg.gestionatumenu.ui.shared.GestionaTuMenuConstants.NO_INGREDIENTE;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,13 +18,19 @@ import com.aihg.gestionatumenu.db.entities.Ingrediente;
 import com.aihg.gestionatumenu.ui.ingredientes.fragments.IngredientesFragmentDirections;
 import com.aihg.gestionatumenu.ui.ingredientes.wrapper.CategoriaWrapper;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class SubItemsIngredientesAdapter extends RecyclerView.Adapter<SubItemsIngredientesAdapter.SubItemIngredienteViewHolder> {
     private List<Ingrediente> ingredientes;
 
+
     public SubItemsIngredientesAdapter(CategoriaWrapper wrapper) {
-        this.ingredientes = wrapper.getIngredientes();
+        if (wrapper.getIngredientes().isEmpty()) {
+            this.ingredientes = Arrays.asList(
+                new Ingrediente(NO_INGREDIENTE, wrapper.getCategoriaIngrediente(), NO_CUANTIFICABLE)
+            );
+        } else this.ingredientes = wrapper.getIngredientes();
     }
 
     @NonNull

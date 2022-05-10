@@ -45,7 +45,7 @@ public class IngredientesFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(IngredientesViewModel.class);
 
         viewModel
-                .getCategorias()
+            .getCategorias()
             .observe(this, new Observer<List<CategoriaIngrediente>>() {
                 @Override
                 public void onChanged(List<CategoriaIngrediente> categorias) {
