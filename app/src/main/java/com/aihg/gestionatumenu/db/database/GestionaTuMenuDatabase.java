@@ -9,6 +9,7 @@ import static com.aihg.gestionatumenu.db.database.util.generator.RecetasDataGene
 import static com.aihg.gestionatumenu.db.database.util.generator.RecetasDataGenerator.getDefaultCategoriasRecetas;
 import static com.aihg.gestionatumenu.db.database.util.generator.RecetasDataGenerator.getDefaultRecetas;
 import static com.aihg.gestionatumenu.db.database.util.generator.ListaCompraDataGenerator.getDefaultListaCompra;
+import static com.aihg.gestionatumenu.db.database.util.generator.DespensaDataGenerator.getDefaultDespensa;
 
 import android.content.Context;
 import android.util.Log;
@@ -117,6 +118,12 @@ public abstract class GestionaTuMenuDatabase extends RoomDatabase {
                     getDefaultIngredientes().stream().forEach(
                         ingredienteDAO::insert
                     );
+                    getDefaultListaCompra().stream().forEach(
+                            listaCompraDAO::insert
+                    );
+                    getDefaultDespensa().stream().forEach(
+                            despensaDAO::insert
+                    );
                 }
 
                 private void crearRecetas() {
@@ -133,9 +140,7 @@ public abstract class GestionaTuMenuDatabase extends RoomDatabase {
                     getAsignacionIngredientesReceta().stream().forEach(
                         utilizaDAO::insert
                     );
-                    getDefaultListaCompra().stream().forEach(
-                            listaCompraDAO::insert
-                    );
+
                 }
             });
         }
