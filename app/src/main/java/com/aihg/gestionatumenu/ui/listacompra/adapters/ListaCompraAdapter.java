@@ -1,7 +1,7 @@
 package com.aihg.gestionatumenu.ui.listacompra.adapters;
 
-import android.text.Editable;
-import android.text.TextWatcher;
+import static com.aihg.gestionatumenu.db.database.util.generator.IngredientesDataGenerator.NO_CUANTIFICABLE;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,31 +37,15 @@ public class ListaCompraAdapter extends RecyclerView.Adapter<ListaCompraAdapter.
     public void onBindViewHolder(@NonNull ListaCompraViewHolder holder, int position) {
         ListaCompra ingrediente = ingredientes.get(position);
         holder.txt_nombre.setText(ingrediente.getIngrediente().getNombre());
-        holder.txt_medicion.setText(ingrediente.getIngrediente().getMedicion().getNombre());
-        holder.et_cantidad.setText(String.valueOf(ingrediente.getCantidad()));
 
-//        holder.v_subitem.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                ListaCompra ingrediente = ingredientes.get(holder.getAdapterPosition());
-//                holder.et_cantidad.addTextChangedListener(new TextWatcher() {
-//                    @Override
-//                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//                    }
-//
-//                    @Override
-//                    public void afterTextChanged(Editable editable) {
-//                        ingrediente.setCantidad(Integer.parseInt(editable.toString()));
-//                    }
-//                });
-//            }
-//        });
+        if (!NO_CUANTIFICABLE.equals(ingrediente.getIngrediente().getMedicion())) {
+            holder.txt_medicion.setText(ingrediente.getIngrediente().getMedicion().getNombre());
+            holder.et_cantidad.setText(ingrediente.getCantidad() + "");
+        }
+        else{
+            holder.txt_medicion.setVisibility(View.INVISIBLE);
+            holder.et_cantidad.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
@@ -77,7 +61,6 @@ public class ListaCompraAdapter extends RecyclerView.Adapter<ListaCompraAdapter.
         this.ingredientes = ingredientes;
         notifyDataSetChanged();
     }
-
 
 
     public class ListaCompraViewHolder extends RecyclerView.ViewHolder {

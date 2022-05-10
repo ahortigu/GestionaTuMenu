@@ -35,19 +35,15 @@ public class IngredientesFragment extends Fragment {
 
     private IngredientesViewModel viewModel;
 
-    public IngredientesFragment() {
-        Log.i("FRAGMENT-INGREDIENTE", "constructor");
-    }
+    public IngredientesFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.i("FRAGMENT-INGREDIENTE", "onCreate");
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
         viewModel = new ViewModelProvider(this).get(IngredientesViewModel.class);
 
-        Log.i("LOADING", "Creating Observables on Ingredientes Screen");
         viewModel
             .getCategorias()
             .observe(this, new Observer<List<CategoriaIngrediente>>() {
@@ -74,7 +70,6 @@ public class IngredientesFragment extends Fragment {
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState
     ) {
-        Log.i("FRAGMENT-INGREDIENTE", "onCreateView");
         this.view = inflater.inflate(R.layout.ingredientes__fragment, container, false);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_i_categorias);
@@ -85,12 +80,6 @@ public class IngredientesFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         return view;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        Log.i("FRAGMENT-INGREDIENTE", "onViewCreated");
     }
 
     @Override

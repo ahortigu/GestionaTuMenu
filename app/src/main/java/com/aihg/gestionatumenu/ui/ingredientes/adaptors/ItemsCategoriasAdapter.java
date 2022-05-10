@@ -49,13 +49,8 @@ public class ItemsCategoriasAdapter extends RecyclerView.Adapter<ItemsCategorias
     public void onBindViewHolder(@NonNull ItemCategoriaViewHolder holder, int position) {
         CategoriaWrapper categoria = wrappers.get(position);
 
-        Log.i("CATEGORIA", "categoria.getNombreCategoria() " + categoria.getNombreCategoria());
-        Log.i("CATEGORIA", "categoria.getNestedIngredientesList().size() " + categoria.getIngredientes().size());
-        // Log.i("CATEGORIA", "ingredientesList.size() " + ingredientesList.size());
-
         holder.txt_nombre_categoria.setText(categoria.getNombreCategoria());
         boolean isExpandable = categoria.isExpandido();
-        //if (isExpandable) ingredientesList = categoria.getNestedIngredientesList();
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(
             holder.rv_child.getContext(), LinearLayoutManager.VERTICAL, false
@@ -73,8 +68,6 @@ public class ItemsCategoriasAdapter extends RecyclerView.Adapter<ItemsCategorias
             @Override
             public void onClick(View v) {
                 categoria.setExpandido(!categoria.isExpandido());
-                //ingredientesList = categoria.getNestedIngredientesList();
-                //holder.l_expandable_ingredientes.setVisibility(categoria.isExpandido() ? View.VISIBLE : View.GONE);
                 notifyItemChanged(holder.getAdapterPosition());
             }
         });

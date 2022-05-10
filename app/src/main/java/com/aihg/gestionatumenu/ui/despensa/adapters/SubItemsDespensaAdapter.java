@@ -42,12 +42,15 @@ public class SubItemsDespensaAdapter extends RecyclerView.Adapter<SubItemsDespen
 
         Despensa despensaItem = this.despensa.get(position);
         holder.txt_nombre.setText(despensaItem.getIngrediente().getNombre());
-        holder.txt_medicion.setText(despensaItem.getIngrediente().getMedicion().getNombre());
+
         if(!NO_CUANTIFICABLE.equals(despensaItem.getIngrediente().getMedicion())){
             holder.et_cantidad.setText(despensaItem.getCantidad() + "");
+            holder.txt_medicion.setText(despensaItem.getIngrediente().getMedicion().getNombre());
         } else {
             holder.et_cantidad.setVisibility(View.INVISIBLE);
+            holder.txt_medicion.setVisibility(View.INVISIBLE);
         }
+
         holder.v_subitem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
