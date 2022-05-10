@@ -33,13 +33,17 @@ public class IngredienteDetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.view = inflater.inflate(R.layout.ingredientes__detail_fragment, container, false);
+
         ingrediente = IngredienteDetailsFragmentArgs.fromBundle(getArguments()).getIngrediente();
+
         TextView txt_nombre = view.findViewById(R.id.txt_id_ingrediente);
         TextView txt_categoria = view.findViewById(R.id.txt_id_categoria);
         TextView txt_medicion = view.findViewById(R.id.txt_id_medicion);
+
         txt_nombre.setText(ingrediente.getNombre());
         txt_categoria.setText(ingrediente.getCategoriaIngrediente().getNombre());
         txt_medicion.setText(ingrediente.getMedicion().getNombre());
+
         return view;
     }
 

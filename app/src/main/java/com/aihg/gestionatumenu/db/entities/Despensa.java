@@ -64,4 +64,10 @@ public class Despensa {
         this.ingrediente = ingrediente;
     }
 
+    @Ignore
+    public Despensa(int id, int cantidad, Ingrediente ingrediente) {
+        this.id = id;
+        this.cantidad = cantidad;
+        this.ingrediente = ingrediente;
+    }
 }

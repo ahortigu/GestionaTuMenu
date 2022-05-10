@@ -1,5 +1,7 @@
 package com.aihg.gestionatumenu.ui.ingredientes.adaptors;
 
+import static com.aihg.gestionatumenu.db.database.util.generator.IngredientesDataGenerator.NO_CUANTIFICABLE;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,9 +39,13 @@ public class SubItemsIngredientesAdapter extends RecyclerView.Adapter<SubItemsIn
     @Override
     public void onBindViewHolder(@NonNull SubItemIngredienteViewHolder holder, int position) {
         Ingrediente ingrediente = ingredientes.get(position);
-        Log.i("INGREDIENTE", "" + ingrediente.getNombre());
         holder.txt_nombre.setText(ingrediente.getNombre());
-        holder.txt_medicion.setText(ingrediente.getMedicion().getNombre());
+
+        if(!NO_CUANTIFICABLE.equals(ingrediente.getMedicion().getNombre())){
+            holder.txt_medicion.setText(ingrediente.getMedicion().getNombre());
+        } else {
+            holder.txt_medicion.setVisibility(View.INVISIBLE);
+        }
 
         holder.v_subitem.setOnClickListener(new View.OnClickListener() {
                 @Override
