@@ -1,13 +1,11 @@
 package com.aihg.gestionatumenu.db.entities;
 
-import static com.aihg.gestionatumenu.db.database.util.DatabaseTables.MEDICIONES;
+import static com.aihg.gestionatumenu.db.util.DatabaseTables.MEDICIONES;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
-import androidx.room.Index;
-import androidx.room.Insert;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = MEDICIONES)

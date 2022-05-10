@@ -1,6 +1,6 @@
 package com.aihg.gestionatumenu.db.daos;
 
-import static com.aihg.gestionatumenu.db.database.util.DatabaseTables.UTILIZA;
+import static com.aihg.gestionatumenu.db.util.DatabaseTables.UTILIZA;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;

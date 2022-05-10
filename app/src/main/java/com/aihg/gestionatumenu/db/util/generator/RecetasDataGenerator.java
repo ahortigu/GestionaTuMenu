@@ -1,21 +1,21 @@
-package com.aihg.gestionatumenu.db.database.util.generator;
+package com.aihg.gestionatumenu.db.util.generator;
 
-import static com.aihg.gestionatumenu.db.database.util.generator.IngredientesDataGenerator.ACEITE;
-import static com.aihg.gestionatumenu.db.database.util.generator.IngredientesDataGenerator.AJO;
-import static com.aihg.gestionatumenu.db.database.util.generator.IngredientesDataGenerator.ALCAPARRAS;
-import static com.aihg.gestionatumenu.db.database.util.generator.IngredientesDataGenerator.ANCHOAS;
-import static com.aihg.gestionatumenu.db.database.util.generator.IngredientesDataGenerator.CALABACIN;
-import static com.aihg.gestionatumenu.db.database.util.generator.IngredientesDataGenerator.CEBOLLA;
-import static com.aihg.gestionatumenu.db.database.util.generator.IngredientesDataGenerator.ESPAGUETIS;
-import static com.aihg.gestionatumenu.db.database.util.generator.IngredientesDataGenerator.ESPARRAGOS;
-import static com.aihg.gestionatumenu.db.database.util.generator.IngredientesDataGenerator.GUINDILLAS;
-import static com.aihg.gestionatumenu.db.database.util.generator.IngredientesDataGenerator.HUEVOS;
-import static com.aihg.gestionatumenu.db.database.util.generator.IngredientesDataGenerator.OLIVAS_NEGRAS;
-import static com.aihg.gestionatumenu.db.database.util.generator.IngredientesDataGenerator.PATATA;
-import static com.aihg.gestionatumenu.db.database.util.generator.IngredientesDataGenerator.PIMIENTA_NEGRA;
-import static com.aihg.gestionatumenu.db.database.util.generator.IngredientesDataGenerator.SAL;
-import static com.aihg.gestionatumenu.db.database.util.generator.IngredientesDataGenerator.SALMON;
-import static com.aihg.gestionatumenu.db.database.util.generator.IngredientesDataGenerator.TOMATE;
+import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerator.ACEITE;
+import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerator.AJO;
+import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerator.ALCAPARRAS;
+import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerator.ANCHOAS;
+import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerator.CALABACIN;
+import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerator.CEBOLLA;
+import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerator.ESPAGUETIS;
+import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerator.ESPARRAGOS;
+import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerator.GUINDILLAS;
+import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerator.HUEVOS;
+import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerator.OLIVAS_NEGRAS;
+import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerator.PATATA;
+import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerator.PIMIENTA_NEGRA;
+import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerator.SAL;
+import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerator.SALMON;
+import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerator.TOMATE;
 
 import com.aihg.gestionatumenu.db.entities.Cataloga;
 import com.aihg.gestionatumenu.db.entities.CategoriaReceta;

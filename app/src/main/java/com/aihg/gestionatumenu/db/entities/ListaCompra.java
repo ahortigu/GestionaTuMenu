@@ -1,5 +1,5 @@
 package com.aihg.gestionatumenu.db.entities;
-import static com.aihg.gestionatumenu.db.database.util.DatabaseTables.LISTACOMPRA;
+import static com.aihg.gestionatumenu.db.util.DatabaseTables.LISTACOMPRA;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;

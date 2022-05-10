@@ -1,6 +1,6 @@
 package com.aihg.gestionatumenu.db.entities;
 
-import static com.aihg.gestionatumenu.db.database.util.DatabaseTables.DESPENSA;
+import static com.aihg.gestionatumenu.db.util.DatabaseTables.DESPENSA;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;

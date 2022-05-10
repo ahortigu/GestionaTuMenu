@@ -1,15 +1,12 @@
 package com.aihg.gestionatumenu.db.entities;
 
-import static com.aihg.gestionatumenu.db.database.util.DatabaseTables.CATEGORIAS_INGREDIENTE;
+import static com.aihg.gestionatumenu.db.util.DatabaseTables.CATEGORIAS_INGREDIENTE;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
-import androidx.room.Index;
 import androidx.room.PrimaryKey;
-
-import java.util.Objects;
 
 @Entity(tableName = CATEGORIAS_INGREDIENTE)
 public class CategoriaIngrediente {

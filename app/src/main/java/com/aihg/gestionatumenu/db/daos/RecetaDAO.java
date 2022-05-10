@@ -1,7 +1,6 @@
 package com.aihg.gestionatumenu.db.daos;
 
-import static com.aihg.gestionatumenu.db.database.util.DatabaseTables.DESPENSA;
-import static com.aihg.gestionatumenu.db.database.util.DatabaseTables.RECETAS;
+import static com.aihg.gestionatumenu.db.util.DatabaseTables.RECETAS;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -11,7 +10,6 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.aihg.gestionatumenu.db.entities.Despensa;
 import com.aihg.gestionatumenu.db.entities.Receta;
 
 import java.util.List;

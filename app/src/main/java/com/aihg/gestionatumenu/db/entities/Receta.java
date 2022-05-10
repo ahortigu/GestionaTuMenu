@@ -1,16 +1,12 @@
 package com.aihg.gestionatumenu.db.entities;
 
-import static com.aihg.gestionatumenu.db.database.util.DatabaseTables.RECETAS;
+import static com.aihg.gestionatumenu.db.util.DatabaseTables.RECETAS;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
-import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
-
-import java.util.List;
-import java.util.Set;
 
 @Entity(tableName = RECETAS)
 public class Receta {
