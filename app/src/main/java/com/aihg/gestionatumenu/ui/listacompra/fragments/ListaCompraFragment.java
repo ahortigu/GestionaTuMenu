@@ -23,6 +23,7 @@ import com.aihg.gestionatumenu.R;
 import com.aihg.gestionatumenu.db.entities.ListaCompra;
 import com.aihg.gestionatumenu.ui.listacompra.adapters.ListaCompraAdapter;
 import com.aihg.gestionatumenu.ui.listacompra.viewmodel.ListaCompraViewModel;
+import com.aihg.gestionatumenu.ui.recetas.fragments.RecetasFragmentDirections;
 
 import java.util.List;
 
@@ -71,9 +72,15 @@ public class ListaCompraFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
-        if(itemId == R.id.nav_add){
-            NavDirections action = ListaCompraFragmentDirections.actionListaCompraFragmentToAddExistingIngredienteFragment();
-            Navigation.findNavController(view).navigate(action);
+        switch(itemId) {
+            case R.id.nav_add:
+                NavDirections action = ListaCompraFragmentDirections.actionListaCompraFragmentToAddExistingIngredienteFragment();
+                Navigation.findNavController(view).navigate(action);
+                break;
+            case R.id.nav_buscar:
+                NavDirections action2 = ListaCompraFragmentDirections.actionListaCompraFragmentToBuscarIngredienteFragment();
+                Navigation.findNavController(view).navigate(action2);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

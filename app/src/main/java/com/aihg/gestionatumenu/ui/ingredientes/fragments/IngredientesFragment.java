@@ -24,6 +24,7 @@ import com.aihg.gestionatumenu.db.entities.CategoriaIngrediente;
 import com.aihg.gestionatumenu.db.entities.Ingrediente;
 import com.aihg.gestionatumenu.ui.ingredientes.adaptors.ItemsCategoriasAdapter;
 import com.aihg.gestionatumenu.ui.ingredientes.viewmodel.IngredientesViewModel;
+import com.aihg.gestionatumenu.ui.recetas.fragments.RecetasFragmentDirections;
 
 import java.util.List;
 
@@ -91,9 +92,15 @@ public class IngredientesFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
-        if(itemId == R.id.nav_add){
-            NavDirections action = IngredientesFragmentDirections.actionIngredientesFragmentToIngredientesCreateFragment();
-            Navigation.findNavController(view).navigate(action);
+        switch(itemId) {
+            case R.id.nav_add:
+                NavDirections action = IngredientesFragmentDirections.actionIngredientesFragmentToIngredientesCreateFragment();
+                Navigation.findNavController(view).navigate(action);
+                break;
+            case R.id.nav_buscar:
+                NavDirections action2 = IngredientesFragmentDirections.actionIngredientesFragmentToBuscarIngredienteFragment();
+                Navigation.findNavController(view).navigate(action2);
+                break;
         }
         return super.onOptionsItemSelected(item);
 

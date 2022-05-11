@@ -1,4 +1,4 @@
-package com.aihg.gestionatumenu.ui.shared;
+package com.aihg.gestionatumenu.ui.shared.fragments;
 
 import android.os.Bundle;
 

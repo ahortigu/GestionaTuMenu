@@ -1,4 +1,4 @@
-package com.aihg.gestionatumenu.ui.shared;
+package com.aihg.gestionatumenu.ui.shared.util;
 
 public class GestionaTuMenuConstants {
     public static final String NO_INGREDIENTE = "No hay Ingredientes";

@@ -23,6 +23,7 @@ import com.aihg.gestionatumenu.db.entities.CategoriaIngrediente;
 import com.aihg.gestionatumenu.db.entities.Despensa;
 import com.aihg.gestionatumenu.ui.despensa.adapters.ItemsCatDespensaAdapter;
 import com.aihg.gestionatumenu.ui.despensa.viewmodel.DespensaViewModel;
+import com.aihg.gestionatumenu.ui.recetas.fragments.RecetasFragmentDirections;
 
 import java.util.List;
 
@@ -87,9 +88,15 @@ public class DespensaFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
-        if (itemId == R.id.nav_add) {
-            NavDirections action = DespensaFragmentDirections.actionDespensaFragmentToAddExistingIngredienteFragment();
-            Navigation.findNavController(view).navigate(action);
+        switch(itemId) {
+            case R.id.nav_add:
+                NavDirections action = DespensaFragmentDirections.actionDespensaFragmentToAddExistingIngredienteFragment();
+                Navigation.findNavController(view).navigate(action);
+                break;
+            case R.id.nav_buscar:
+                NavDirections action2 = DespensaFragmentDirections.actionDespensaFragmentToBuscarIngredienteFragment();
+                Navigation.findNavController(view).navigate(action2);
+                break;
         }
         return super.onOptionsItemSelected(item);
 

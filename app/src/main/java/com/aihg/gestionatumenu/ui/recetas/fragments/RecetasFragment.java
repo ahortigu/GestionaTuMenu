@@ -84,9 +84,15 @@ public class RecetasFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
-        if(itemId == R.id.nav_add){
-            NavDirections action = RecetasFragmentDirections.actionRecetasFragmentToRecetasCreateFragment();
-            Navigation.findNavController(view).navigate(action);
+        switch(itemId) {
+            case R.id.nav_add:
+                NavDirections action = RecetasFragmentDirections.actionRecetasFragmentToRecetasCreateFragment();
+                Navigation.findNavController(view).navigate(action);
+                break;
+            case R.id.nav_buscar:
+                NavDirections action2 = RecetasFragmentDirections.actionRecetasFragmentToBuscarRecetaFragment();
+                Navigation.findNavController(view).navigate(action2);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
