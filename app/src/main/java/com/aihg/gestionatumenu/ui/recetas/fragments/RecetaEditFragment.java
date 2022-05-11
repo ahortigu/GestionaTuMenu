@@ -25,7 +25,7 @@ public class RecetaEditFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.recetas_edit_fragment, container, false);
+        return inflater.inflate(R.layout.recetas__edit_fragment, container, false);
     }
 
     @Override

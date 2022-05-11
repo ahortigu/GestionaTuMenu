@@ -12,12 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.aihg.gestionatumenu.R;
-import com.aihg.gestionatumenu.db.entities.Ingrediente;
-import com.aihg.gestionatumenu.ui.ingredientes.fragments.IngredienteDetailsFragmentArgs;
-import com.aihg.gestionatumenu.ui.ingredientes.fragments.IngredienteDetailsFragmentDirections;
 
 public class RecetaDetailsFragment extends Fragment {
     private View view;
@@ -33,7 +29,7 @@ public class RecetaDetailsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        this.view = inflater.inflate(R.layout.recetas_details_fragment, container, false);
+        this.view = inflater.inflate(R.layout.recetas__details_fragment, container, false);
         return view;
     }
 
