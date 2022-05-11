@@ -9,8 +9,10 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(tableName = DESPENSA)
-public class Despensa {
+public class Despensa implements Serializable, IngredienteInterface {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id_despensa",  index = true)
     public int id;

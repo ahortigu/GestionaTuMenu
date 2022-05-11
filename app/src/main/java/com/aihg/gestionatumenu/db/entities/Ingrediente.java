@@ -12,7 +12,7 @@ import androidx.room.PrimaryKey;
 import java.io.Serializable;
 
 @Entity(tableName = INGREDIENTES)
-public class Ingrediente implements Serializable {
+public class Ingrediente implements Serializable, IngredienteInterface {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id_ingrediente",  index = true)
@@ -112,5 +112,10 @@ public class Ingrediente implements Serializable {
         this.nombre = nombre;
         this.categoriaIngrediente = categoria;
         this.medicion = medicion;
+    }
+
+    @Override
+    public Ingrediente getIngrediente() {
+        return this;
     }
 }

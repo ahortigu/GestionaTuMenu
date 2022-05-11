@@ -42,6 +42,11 @@
         <action
             android:id="@+id/action_ingredientesFragment_to_buscarIngredienteFragment"
             app:destination="@id/buscarIngredienteFragment" />
+        <argument
+            android:name="ingredientebuscar"
+            app:argType="com.aihg.gestionatumenu.db.entities.Ingrediente"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/listaCompraFragment"
@@ -54,6 +59,11 @@
         <action
             android:id="@+id/action_listaCompraFragment_to_buscarIngredienteFragment"
             app:destination="@id/buscarIngredienteFragment" />
+        <argument
+            android:name="listacomprabuscar"
+            app:argType="com.aihg.gestionatumenu.db.entities.ListaCompra"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/recetasFragment"
@@ -84,6 +94,11 @@
         <action
             android:id="@+id/action_despensaFragment_to_buscarIngredienteFragment"
             app:destination="@id/buscarIngredienteFragment" />
+        <argument
+            android:name="despensabuscar"
+            app:argType="com.aihg.gestionatumenu.db.entities.Despensa"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/planificadorFragment"
@@ -168,11 +183,12 @@
             android:id="@+id/action_buscarIngredienteFragment_to_listaCompraFragment"
             app:destination="@id/listaCompraFragment" />
         <action
-            android:id="@+id/action_buscarIngredienteFragment_to_ingredientesFragment"
-            app:destination="@id/ingredientesFragment" />
-        <action
             android:id="@+id/action_buscarIngredienteFragment_to_despensaFragment"
             app:destination="@id/despensaFragment" />
+        <action
+            android:id="@+id/action_buscarIngredienteFragment_to_ingredientesFragment"
+            app:destination="@id/ingredientesFragment">
+        </action>
     </fragment>
     <fragment
         android:id="@+id/buscarRecetaFragment"
