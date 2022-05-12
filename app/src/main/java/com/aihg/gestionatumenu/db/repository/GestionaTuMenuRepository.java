@@ -8,9 +8,13 @@ import com.aihg.gestionatumenu.db.daos.CatalogaDAO;
 import com.aihg.gestionatumenu.db.daos.CategoriaIngredienteDAO;
 import com.aihg.gestionatumenu.db.daos.CategoriaRecetaDAO;
 import com.aihg.gestionatumenu.db.daos.DespensaDAO;
+import com.aihg.gestionatumenu.db.daos.DiaDAO;
 import com.aihg.gestionatumenu.db.daos.IngredienteDAO;
 import com.aihg.gestionatumenu.db.daos.ListaCompraDAO;
 import com.aihg.gestionatumenu.db.daos.MedicionDAO;
+import com.aihg.gestionatumenu.db.daos.MenuDAO;
+import com.aihg.gestionatumenu.db.daos.MomentoComidaDAO;
+import com.aihg.gestionatumenu.db.daos.PlanificadorDAO;
 import com.aihg.gestionatumenu.db.daos.RecetaDAO;
 import com.aihg.gestionatumenu.db.daos.UtilizaDAO;
 import com.aihg.gestionatumenu.db.GestionaTuMenuDatabase;
@@ -18,9 +22,13 @@ import com.aihg.gestionatumenu.db.entities.Cataloga;
 import com.aihg.gestionatumenu.db.entities.CategoriaIngrediente;
 import com.aihg.gestionatumenu.db.entities.CategoriaReceta;
 import com.aihg.gestionatumenu.db.entities.Despensa;
+import com.aihg.gestionatumenu.db.entities.Dia;
 import com.aihg.gestionatumenu.db.entities.Ingrediente;
 import com.aihg.gestionatumenu.db.entities.ListaCompra;
 import com.aihg.gestionatumenu.db.entities.Medicion;
+import com.aihg.gestionatumenu.db.entities.Menu;
+import com.aihg.gestionatumenu.db.entities.MomentoComida;
+import com.aihg.gestionatumenu.db.entities.Planificador;
 import com.aihg.gestionatumenu.db.entities.Receta;
 import com.aihg.gestionatumenu.db.entities.Utiliza;
 
@@ -47,6 +55,12 @@ public class GestionaTuMenuRepository {
     private UtilizaDAO utilizaDAO;
     private CatalogaDAO catalogaDAO;
 
+    private DiaDAO diaDAO;
+    private MomentoComidaDAO momentoComidaDAO;
+    private MenuDAO menuDAO;
+    private PlanificadorDAO planificadorDAO;
+
+
     // Listas
     private LiveData<List<CategoriaIngrediente>> categoriasIngrediente;
     private LiveData<List<Ingrediente>> ingredientes;
@@ -60,6 +74,11 @@ public class GestionaTuMenuRepository {
     private LiveData<List<Receta>> recetas;
     private LiveData<List<Utiliza>> utiliza;
     private LiveData<List<Cataloga>> cataloga;
+
+    private LiveData<List<Dia>> dias;
+    private LiveData<List<MomentoComida>> momentosComida;
+    private LiveData<List<Menu>> menus;
+    private LiveData<List<Planificador>> planificadorList;
 
 
     // Executors
@@ -84,6 +103,11 @@ public class GestionaTuMenuRepository {
         utilizaDAO = database.utilizaDAO();
         catalogaDAO = database.catalogaDAO();
 
+        diaDAO = database.diaDAO();
+        momentoComidaDAO = database.momentoComidaDAO();
+        menuDAO = database.menuDAO();
+        planificadorDAO = database.planificadorDAO();
+
 
         // Lists
         categoriasIngrediente = categoriaIngredienteDAO.getAllCategoriasIngrediente();
@@ -98,6 +122,11 @@ public class GestionaTuMenuRepository {
         recetas = recetaDAO.getAllRecetas();
         utiliza = utilizaDAO.getAllUtiliza();
         cataloga = catalogaDAO.getAllCataloga();
+
+        dias = diaDAO.getAllDias();
+        momentosComida = momentoComidaDAO.getAllMomentosComida();
+        menus = menuDAO.getAllMenus();
+        planificadorList = planificadorDAO.getAllPlanificador();
     }
 
     public LiveData<List<CategoriaIngrediente>> getAllCategoriasIngrediente() {
@@ -112,33 +141,45 @@ public class GestionaTuMenuRepository {
         return mediciones;
     }
 
-    public  LiveData<List<ListaCompra>> getALLListaCompra(){
-
+    public LiveData<List<ListaCompra>> getALLListaCompra() {
         return listaCompra;
     }
 
-    public  LiveData<List<Despensa>> getALLDespensa(){
-
+    public LiveData<List<Despensa>> getALLDespensa() {
         return despensa;
     }
 
-    public  LiveData<List<CategoriaReceta>> getALLCategoriasReceta(){
-
+    public LiveData<List<CategoriaReceta>> getALLCategoriasReceta() {
         return categoriasReceta;
     }
 
-    public  LiveData<List<Receta>> getALLRecetas(){
+    public LiveData<List<Receta>> getALLRecetas() {
 
         return recetas;
     }
 
-    public  LiveData<List<Utiliza>> getAllUtiliza(){
+    public LiveData<List<Utiliza>> getAllUtiliza() {
         return getAllUtiliza();
     }
 
-    public  LiveData<List<Cataloga>> getALLCataloga(){
-
+    public LiveData<List<Cataloga>> getALLCataloga() {
         return cataloga;
+    }
+
+    public LiveData<List<Dia>> getAllDias() {
+        return dias;
+    }
+
+    public LiveData<List<MomentoComida>> getAllMomentosComida() {
+        return momentosComida;
+    }
+
+    public LiveData<List<Menu>> getAllMenus() {
+        return menus;
+    }
+
+    public LiveData<List<Planificador>> getAllPlanificador() {
+        return planificadorList;
     }
 
     public void insert(Ingrediente ingrediente) {
@@ -303,4 +344,57 @@ public class GestionaTuMenuRepository {
         });
     }
 
+    public void insert(Menu menu) {
+        executors.execute(new Runnable() {
+            @Override
+            public void run() {
+                menuDAO.insert(menu);
+            }
+        });
+    }
+
+    public void delete(Menu menu) {
+        executors.execute(new Runnable() {
+            @Override
+            public void run() {
+                menuDAO.delete(menu);
+            }
+        });
+    }
+
+    public void update(Menu menu) {
+        executors.execute(new Runnable() {
+            @Override
+            public void run() {
+                menuDAO.update(menu);
+            }
+        });
+    }
+
+    public void insert(Planificador planificador) {
+        executors.execute(new Runnable() {
+            @Override
+            public void run() {
+                planificadorDAO.insert(planificador);
+            }
+        });
+    }
+
+    public void delete(Planificador planificador) {
+        executors.execute(new Runnable() {
+            @Override
+            public void run() {
+                planificadorDAO.delete(planificador);
+            }
+        });
+    }
+
+    public void update(Planificador planificador) {
+        executors.execute(new Runnable() {
+            @Override
+            public void run() {
+                planificadorDAO.update(planificador);
+            }
+        });
+    }
 }
