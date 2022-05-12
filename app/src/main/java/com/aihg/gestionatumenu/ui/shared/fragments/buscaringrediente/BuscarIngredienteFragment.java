@@ -3,11 +3,12 @@ package com.aihg.gestionatumenu.ui.shared.fragments.buscaringrediente;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -50,18 +51,29 @@ public class BuscarIngredienteFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+    }
 
-        int idDestinoAnterior = Navigation.findNavController(view).getPreviousBackStackEntry().getDestination().getId();
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        this.view = inflater.inflate(R.layout.shared__buscar_ingrediente_fragment, container, false);
+        setAdapterWithCorrectViewModel();
+        setRecyclerView();
+        setBuscador();
+        return view;
+    }
+
+    public void setAdapterWithCorrectViewModel(){
+        int idDestinoAnterior =  NavHostFragment.findNavController(this).getPreviousBackStackEntry().getDestination().getId();
 
         switch(idDestinoAnterior) {
             case R.id.ingredientesFragment:
                 ingredientesViewModel = new ViewModelProvider(this).get(IngredientesViewModel.class);
-                ingredientesViewModel.getIngredientes().observe(this, new Observer<List<Ingrediente>>() {
+                ingredientesViewModel.getIngredientes().observe(requireActivity(), new Observer<List<Ingrediente>>() {
                     @Override
                     public void onChanged(List<Ingrediente> ingredientesOb) {
                         List<IngredienteInterface> toInterface = ingredientesOb.stream()
-                            .map(ingrediente -> (IngredienteInterface) ingrediente)
-                            .collect(Collectors.toList());
+                                .map(ingrediente -> (IngredienteInterface) ingrediente)
+                                .collect(Collectors.toList());
 
                         adapter.setIngredientes(toInterface);
                         dondeBuscar = toInterface;
@@ -70,7 +82,7 @@ public class BuscarIngredienteFragment extends Fragment {
                 break;
             case R.id.despensaFragment:
                 despensaViewModel = new ViewModelProvider(this).get(DespensaViewModel.class);
-                despensaViewModel.getDespensa().observe(this, new Observer<List<Despensa>>() {
+                despensaViewModel.getDespensa().observe(requireActivity(), new Observer<List<Despensa>>() {
                     @Override
                     public void onChanged(List<Despensa> despensaOb) {
                         List<IngredienteInterface> toInterface = despensaOb.stream()
@@ -84,7 +96,7 @@ public class BuscarIngredienteFragment extends Fragment {
                 break;
             case R.id.listaCompraFragment:
                 listaCompraViewModel = new ViewModelProvider(this).get(ListaCompraViewModel.class);
-                listaCompraViewModel.getAllDespensa().observe(this, new Observer<List<ListaCompra>>() {
+                listaCompraViewModel.getAllDespensa().observe(requireActivity(), new Observer<List<ListaCompra>>() {
                     @Override
                     public void onChanged(List<ListaCompra> listaCompraOb) {
                         List<IngredienteInterface> toInterface = listaCompraOb.stream()
@@ -99,17 +111,16 @@ public class BuscarIngredienteFragment extends Fragment {
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        this.view = inflater.inflate(R.layout.shared__buscar_ingrediente_fragment, container, false);
-
+    public void setRecyclerView(){
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_shared_bi_ingredientes);
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         if (adapter == null) adapter = new BuscarIngredienteAdapter();
         recyclerView.setAdapter(adapter);
+    }
 
+    public void setBuscador(){
         SearchView buscador = view.findViewById(R.id.sv_shared_bi_buscador_ingrediente);
         buscador.clearFocus();
         buscador.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -123,9 +134,9 @@ public class BuscarIngredienteFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String newText) {
                 List<IngredienteInterface> ingredientesFiltrados = dondeBuscar.stream()
-                    .filter(ingrediente ->
-                            ingrediente.getIngrediente().getNombre().toLowerCase().contains(newText.toLowerCase()))
-                    .collect(Collectors.toList());
+                        .filter(ingrediente ->
+                                ingrediente.getIngrediente().getNombre().toLowerCase().contains(newText.toLowerCase()))
+                        .collect(Collectors.toList());
 
                 if (ingredientesFiltrados.isEmpty()) {
                     Toast.makeText(view.getContext(), "El ingrediente no existe", Toast.LENGTH_SHORT).show();
@@ -135,7 +146,6 @@ public class BuscarIngredienteFragment extends Fragment {
                 return true;
             }
         });
-        return view;
     }
 
     @Override
