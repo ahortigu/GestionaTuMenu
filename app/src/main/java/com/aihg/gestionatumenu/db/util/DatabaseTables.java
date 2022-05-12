@@ -12,4 +12,8 @@ public class DatabaseTables {
     public static final String RECETAS = "recetas";
     public static final String UTILIZA = "utiliza";
     public static final String CATALOGA = "cataloga";
+    public static final String DIA = "dias";
+    public static final String MOMENTO_COMIDA = "momentos_comida";
+    public static final String MENU = "menus";
+    public static final String PLANIFICADOR = "planificador";
 }
