@@ -33,9 +33,13 @@ import com.aihg.gestionatumenu.db.entities.Cataloga;
 import com.aihg.gestionatumenu.db.entities.CategoriaIngrediente;
 import com.aihg.gestionatumenu.db.entities.CategoriaReceta;
 import com.aihg.gestionatumenu.db.entities.Despensa;
+import com.aihg.gestionatumenu.db.entities.Dia;
 import com.aihg.gestionatumenu.db.entities.Ingrediente;
 import com.aihg.gestionatumenu.db.entities.ListaCompra;
 import com.aihg.gestionatumenu.db.entities.Medicion;
+import com.aihg.gestionatumenu.db.entities.Menu;
+import com.aihg.gestionatumenu.db.entities.MomentoComida;
+import com.aihg.gestionatumenu.db.entities.Planificador;
 import com.aihg.gestionatumenu.db.entities.Receta;
 import com.aihg.gestionatumenu.db.entities.Utiliza;
 
@@ -52,7 +56,11 @@ import java.util.concurrent.Executors;
                 CategoriaReceta.class,
                 Receta.class,
                 Utiliza.class,
-                Cataloga.class
+                Cataloga.class,
+                Dia.class,
+                MomentoComida.class,
+                Menu.class,
+                Planificador.class
         },
         version = 1
 )

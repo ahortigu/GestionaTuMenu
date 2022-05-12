@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "189b1a0d2ea7fc78484614ff6e3dd471",
+    "identityHash": "0ebe19725d6fb42177172618fd096658",
     "entities": [
       {
         "tableName": "ingredientes",
@@ -586,12 +586,334 @@
             ]
           }
         ]
+      },
+      {
+        "tableName": "dias",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_dia` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nombre_dia` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id_dia",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nombre",
+            "columnName": "nombre_dia",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id_dia"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_dias_id_dia",
+            "unique": false,
+            "columnNames": [
+              "id_dia"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_dias_id_dia` ON `${TABLE_NAME}` (`id_dia`)"
+          },
+          {
+            "name": "index_dias_nombre_dia",
+            "unique": false,
+            "columnNames": [
+              "nombre_dia"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_dias_nombre_dia` ON `${TABLE_NAME}` (`nombre_dia`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "momentos_comida",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_momento_comida` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nombre_momento_comida` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id_momento_comida",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nombre",
+            "columnName": "nombre_momento_comida",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id_momento_comida"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_momentos_comida_id_momento_comida",
+            "unique": false,
+            "columnNames": [
+              "id_momento_comida"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_momentos_comida_id_momento_comida` ON `${TABLE_NAME}` (`id_momento_comida`)"
+          },
+          {
+            "name": "index_momentos_comida_nombre_momento_comida",
+            "unique": false,
+            "columnNames": [
+              "nombre_momento_comida"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_momentos_comida_nombre_momento_comida` ON `${TABLE_NAME}` (`nombre_momento_comida`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "menus",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_menu` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `id_receta` INTEGER NOT NULL, `nombre_receta` TEXT NOT NULL, `instrucciones` TEXT NOT NULL, `id_momento_comida` INTEGER NOT NULL, `nombre_momento_comida` TEXT NOT NULL, `id_dia` INTEGER NOT NULL, `nombre_dia` TEXT NOT NULL, FOREIGN KEY(`id_receta`) REFERENCES `recetas`(`id_receta`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`id_momento_comida`) REFERENCES `momentos_comida`(`id_momento_comida`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`id_dia`) REFERENCES `dias`(`id_dia`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id_menu",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id_receta.id",
+            "columnName": "id_receta",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id_receta.nombre",
+            "columnName": "nombre_receta",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id_receta.instrucciones",
+            "columnName": "instrucciones",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id_momento_comida.id",
+            "columnName": "id_momento_comida",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id_momento_comida.nombre",
+            "columnName": "nombre_momento_comida",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id_dia.id",
+            "columnName": "id_dia",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id_dia.nombre",
+            "columnName": "nombre_dia",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id_menu"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_menus_id_momento_comida_id_dia",
+            "unique": true,
+            "columnNames": [
+              "id_momento_comida",
+              "id_dia"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_menus_id_momento_comida_id_dia` ON `${TABLE_NAME}` (`id_momento_comida`, `id_dia`)"
+          },
+          {
+            "name": "index_menus_id_menu",
+            "unique": false,
+            "columnNames": [
+              "id_menu"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_menus_id_menu` ON `${TABLE_NAME}` (`id_menu`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "recetas",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "id_receta"
+            ],
+            "referencedColumns": [
+              "id_receta"
+            ]
+          },
+          {
+            "table": "momentos_comida",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "id_momento_comida"
+            ],
+            "referencedColumns": [
+              "id_momento_comida"
+            ]
+          },
+          {
+            "table": "dias",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "id_dia"
+            ],
+            "referencedColumns": [
+              "id_dia"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "planificador",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_planificador` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `id_receta` INTEGER NOT NULL, `nombre_receta` TEXT NOT NULL, `instrucciones` TEXT NOT NULL, `id_momento_comida` INTEGER NOT NULL, `nombre_momento_comida` TEXT NOT NULL, `id_dia` INTEGER NOT NULL, `nombre_dia` TEXT NOT NULL, FOREIGN KEY(`id_receta`) REFERENCES `recetas`(`id_receta`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`id_momento_comida`) REFERENCES `momentos_comida`(`id_momento_comida`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`id_dia`) REFERENCES `dias`(`id_dia`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id_planificador",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id_receta.id",
+            "columnName": "id_receta",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id_receta.nombre",
+            "columnName": "nombre_receta",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id_receta.instrucciones",
+            "columnName": "instrucciones",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id_momento_comida.id",
+            "columnName": "id_momento_comida",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id_momento_comida.nombre",
+            "columnName": "nombre_momento_comida",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id_dia.id",
+            "columnName": "id_dia",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id_dia.nombre",
+            "columnName": "nombre_dia",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id_planificador"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_planificador_id_momento_comida_id_dia",
+            "unique": true,
+            "columnNames": [
+              "id_momento_comida",
+              "id_dia"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_planificador_id_momento_comida_id_dia` ON `${TABLE_NAME}` (`id_momento_comida`, `id_dia`)"
+          },
+          {
+            "name": "index_planificador_id_planificador",
+            "unique": false,
+            "columnNames": [
+              "id_planificador"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_planificador_id_planificador` ON `${TABLE_NAME}` (`id_planificador`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "recetas",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "id_receta"
+            ],
+            "referencedColumns": [
+              "id_receta"
+            ]
+          },
+          {
+            "table": "momentos_comida",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "id_momento_comida"
+            ],
+            "referencedColumns": [
+              "id_momento_comida"
+            ]
+          },
+          {
+            "table": "dias",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "id_dia"
+            ],
+            "referencedColumns": [
+              "id_dia"
+            ]
+          }
+        ]
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '189b1a0d2ea7fc78484614ff6e3dd471')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0ebe19725d6fb42177172618fd096658')"
     ]
   }
 }
