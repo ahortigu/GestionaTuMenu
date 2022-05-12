@@ -41,6 +41,8 @@
     <string name="edit_receta_up">EDITAR RECETA</string>
     <string name="shared_anadir_up">AÑADIR</string>
     <string name="shared_buscar_up">BUSCAR</string>
+    <string name="dia_up">DIA</string>
+    <string name="momento_up">MOMENTO</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
