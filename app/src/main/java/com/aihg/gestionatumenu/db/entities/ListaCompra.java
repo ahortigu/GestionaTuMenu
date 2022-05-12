@@ -7,9 +7,11 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 
 @Entity(tableName = LISTACOMPRA)
-public class ListaCompra {
+public class ListaCompra implements Serializable, IngredienteInterface {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id_lista_compra",  index = true)

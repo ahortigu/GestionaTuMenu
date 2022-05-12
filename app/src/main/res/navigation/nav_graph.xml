@@ -42,6 +42,11 @@
         <action
             android:id="@+id/action_ingredientesFragment_to_buscarIngredienteFragment"
             app:destination="@id/buscarIngredienteFragment" />
+        <argument
+            android:name="ingredientebuscar"
+            app:argType="com.aihg.gestionatumenu.db.entities.Ingrediente"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/listaCompraFragment"
@@ -54,6 +59,11 @@
         <action
             android:id="@+id/action_listaCompraFragment_to_buscarIngredienteFragment"
             app:destination="@id/buscarIngredienteFragment" />
+        <argument
+            android:name="listacomprabuscar"
+            app:argType="com.aihg.gestionatumenu.db.entities.ListaCompra"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/recetasFragment"
@@ -84,6 +94,11 @@
         <action
             android:id="@+id/action_despensaFragment_to_buscarIngredienteFragment"
             app:destination="@id/buscarIngredienteFragment" />
+        <argument
+            android:name="despensabuscar"
+            app:argType="com.aihg.gestionatumenu.db.entities.Despensa"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/planificadorFragment"
@@ -120,7 +135,7 @@
         android:id="@+id/recetaDetailsFragment"
         android:name="com.aihg.gestionatumenu.ui.recetas.fragments.RecetaDetailsFragment"
         android:label="@string/detalle_receta_up"
-        tools:layout="@layout/recetas_details_fragment" >
+        tools:layout="@layout/recetas__details_fragment" >
         <action
             android:id="@+id/action_recetaDetailsFragment_to_recetaEditFragment"
             app:destination="@id/recetaEditFragment" />
@@ -129,7 +144,7 @@
         android:id="@+id/recetaEditFragment"
         android:name="com.aihg.gestionatumenu.ui.recetas.fragments.RecetaEditFragment"
         android:label="@string/edit_receta_up"
-        tools:layout="@layout/recetas_edit_fragment" />
+        tools:layout="@layout/recetas__edit_fragment" />
     <fragment
         android:id="@+id/ingredientesCreate"
         android:name="com.aihg.gestionatumenu.ui.ingredientes.fragments.IngredientesCreateFragment"
@@ -139,16 +154,16 @@
         android:id="@+id/recetasCreateFragment"
         android:name="com.aihg.gestionatumenu.ui.recetas.fragments.RecetasCreateFragment"
         android:label="@string/crear_receta_up"
-        tools:layout="@layout/recetas_create_fragment" >
+        tools:layout="@layout/recetas__create_fragment" >
         <action
             android:id="@+id/action_recetasCreateFragment_to_recetasFragment"
             app:destination="@id/recetasFragment" />
     </fragment>
     <fragment
         android:id="@+id/addExistingIngredienteFragment"
-        android:name="com.aihg.gestionatumenu.ui.shared.fragments.AddExistingIngredienteFragment"
+        android:name="com.aihg.gestionatumenu.ui.recetas.fragments.AddExistingIngredienteFragment"
         android:label="@string/shared_anadir_up"
-        tools:layout="@layout/shared_add_existing_ingrediente" >
+        tools:layout="@layout/shared__add_existing_ingrediente_fragment" >
         <action
             android:id="@+id/action_addExistingIngredienteFragment_to_listaCompraFragment"
             app:destination="@id/listaCompraFragment" />
@@ -161,24 +176,25 @@
     </fragment>
     <fragment
         android:id="@+id/buscarIngredienteFragment"
-        android:name="com.aihg.gestionatumenu.ui.shared.fragments.BuscarIngredienteFragment"
+        android:name="com.aihg.gestionatumenu.ui.shared.fragments.buscaringrediente.BuscarIngredienteFragment"
         android:label="@string/shared_buscar_up"
-        tools:layout="@layout/shared_buscar_ingrediente" >
+        tools:layout="@layout/shared__buscar_ingrediente_fragment" >
         <action
             android:id="@+id/action_buscarIngredienteFragment_to_listaCompraFragment"
             app:destination="@id/listaCompraFragment" />
         <action
-            android:id="@+id/action_buscarIngredienteFragment_to_ingredientesFragment"
-            app:destination="@id/ingredientesFragment" />
-        <action
             android:id="@+id/action_buscarIngredienteFragment_to_despensaFragment"
             app:destination="@id/despensaFragment" />
+        <action
+            android:id="@+id/action_buscarIngredienteFragment_to_ingredientesFragment"
+            app:destination="@id/ingredientesFragment">
+        </action>
     </fragment>
     <fragment
         android:id="@+id/buscarRecetaFragment"
-        android:name="com.aihg.gestionatumenu.ui.shared.fragments.BuscarRecetaFragment"
+        android:name="com.aihg.gestionatumenu.ui.shared.fragments.buscarreceta.BuscarRecetaFragment"
         android:label="@string/shared_buscar_up"
-        tools:layout="@layout/shared_buscar_receta_fragment" >
+        tools:layout="@layout/shared__buscar_receta_fragment" >
         <action
             android:id="@+id/action_buscarRecetaFragment_to_recetasFragment"
             app:destination="@id/recetasFragment" />

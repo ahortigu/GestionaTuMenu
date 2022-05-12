@@ -1,4 +1,4 @@
-package com.aihg.gestionatumenu.ui.shared.fragments;
+package com.aihg.gestionatumenu.ui.shared.fragments.buscarreceta;
 
 import android.os.Bundle;
 
@@ -12,12 +12,10 @@ import android.view.ViewGroup;
 
 import com.aihg.gestionatumenu.R;
 
-public class AddExistingIngredienteFragment extends Fragment {
+public class BuscarRecetaFragment extends Fragment {
 
-    public AddExistingIngredienteFragment() {
-
+    public BuscarRecetaFragment() {
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +24,7 @@ public class AddExistingIngredienteFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.shared_add_existing_ingrediente, container, false);
+        return inflater.inflate(R.layout.shared__buscar_receta_fragment, container, false);
     }
 
     @Override
@@ -35,5 +33,4 @@ public class AddExistingIngredienteFragment extends Fragment {
         menu.findItem(R.id.more).setVisible(false);
         menu.findItem(R.id.nav_editar).setVisible(false);
     }
-
 }
