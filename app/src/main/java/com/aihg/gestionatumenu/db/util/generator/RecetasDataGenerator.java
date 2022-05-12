@@ -40,10 +40,10 @@ public class RecetasDataGenerator {
     private static final CategoriaReceta CR_VEGETARIANO = new CategoriaReceta(10, "VEGETARIANO");
 
     // RECETAS
-    private static final Receta TORTILLA_PATATA = new Receta(1, "Tortilla de Patata", "instrucciones tortilla de patata");
-    private static final Receta SALMON_ESPARRAGOS = new Receta(2, "Salmón con Esparragos trigueros", "instrucciones salmon esparragos");
-    private static final Receta ZARANGOLLO = new Receta(3, "Zarangollo", "instrucciones zarangollo");
-    private static final Receta PASTA_PUTANESCA = new Receta(4, "Pasta a la Putanesca", "instrucciones pasta");
+    public static final Receta TORTILLA_PATATA = new Receta(1, "Tortilla de Patata", "instrucciones tortilla de patata");
+    public static final Receta SALMON_ESPARRAGOS = new Receta(2, "Salmón con Esparragos trigueros", "instrucciones salmon esparragos");
+    public static final Receta ZARANGOLLO = new Receta(3, "Zarangollo", "instrucciones zarangollo");
+    public static final Receta PASTA_PUTANESCA = new Receta(4, "Pasta a la Putanesca", "instrucciones pasta");
 
     public static List<CategoriaReceta> getDefaultCategoriasRecetas() {
         return Arrays.asList(

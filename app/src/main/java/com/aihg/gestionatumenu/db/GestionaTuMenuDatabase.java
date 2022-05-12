@@ -10,6 +10,10 @@ import static com.aihg.gestionatumenu.db.util.generator.RecetasDataGenerator.get
 import static com.aihg.gestionatumenu.db.util.generator.RecetasDataGenerator.getDefaultRecetas;
 import static com.aihg.gestionatumenu.db.util.generator.ListaCompraDataGenerator.getDefaultListaCompra;
 import static com.aihg.gestionatumenu.db.util.generator.DespensaDataGenerator.getDefaultDespensa;
+import static com.aihg.gestionatumenu.db.util.generator.MenuRelatedDataGenerator.getDefaultDias;
+import static com.aihg.gestionatumenu.db.util.generator.MenuRelatedDataGenerator.getDefaultMomentoComida;
+import static com.aihg.gestionatumenu.db.util.generator.MenuRelatedDataGenerator.getDefaultMenus;
+import static com.aihg.gestionatumenu.db.util.generator.MenuRelatedDataGenerator.getDefaultPlanificador;
 
 import android.content.Context;
 import android.util.Log;
@@ -131,6 +135,7 @@ public abstract class GestionaTuMenuDatabase extends RoomDatabase {
                     crearRecetas();
                     crearDespensa();
                     crearListaCompra();
+                    crearMenuRelated();
                 }
 
                 private void crearIngredientes() {
@@ -148,6 +153,25 @@ public abstract class GestionaTuMenuDatabase extends RoomDatabase {
                     );
                 }
 
+                public void crearMenuRelated() {
+                    getDefaultDias().stream().forEach(
+                            diaDAO::insert
+                    );
+
+                    getDefaultMomentoComida().stream().forEach(
+                            momentoComidaDAO::insert
+                    );
+
+                    getDefaultMenus().stream().forEach(
+                            menuDAO::insert
+                    );
+
+                    getDefaultPlanificador().stream().forEach(
+                            planificadorDAO::insert
+                    );
+
+                }
+
                 private void crearDespensa() {
                     getDefaultDespensa().stream().forEach(
                             despensaDAO::insert
@@ -161,7 +185,6 @@ public abstract class GestionaTuMenuDatabase extends RoomDatabase {
                 }
 
                 private void crearRecetas() {
-                    Log.d("DEFAULT-DB", "Añadiendo valores por defecto de recetas.");
                     getDefaultCategoriasRecetas().stream().forEach(
                             categoriaRecetaDAO::insert
                     );
