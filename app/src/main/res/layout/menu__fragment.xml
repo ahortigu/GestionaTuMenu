@@ -3,5 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00BCD4"
-    tools:context=".ui.menu.MenuFragment"/>
+    android:background="@color/rosa_claro"
+    tools:context=".ui.menu.MenuFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_m_dias"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        tools:listitem="@layout/menu__item" />
+</FrameLayout>
