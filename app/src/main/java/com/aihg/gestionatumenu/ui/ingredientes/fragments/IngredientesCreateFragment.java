@@ -150,7 +150,7 @@ public class IngredientesCreateFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        txt_nombre = view.findViewById(R.id.txt_ic_ingrediente);
+        txt_nombre = view.findViewById(R.id.et_ic_ingrediente);
         txt_nombre.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
