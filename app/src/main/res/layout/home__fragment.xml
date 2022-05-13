@@ -8,111 +8,100 @@
     android:background="@color/rosa_claro"
     tools:context=".ui.home.HomeFragment">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+        <Button
+            android:id="@+id/b_lista_compra"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
+            android:layout_marginBottom="2dp"
+            android:backgroundTint="@color/black"
+            android:text="@string/lista_de_la_compra_upp"
+            app:layout_constraintBottom_toTopOf="@+id/b_recetas"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/b_Ingredientes"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeWidth="2dp" />
 
-            <Button
-                android:id="@+id/bIngredientes"
-                android:layout_width="174dp"
-                android:layout_height="148dp"
-                android:layout_margin="10dp"
-                android:layout_weight="2"
-                android:backgroundTint="@color/black"
-                android:text="@string/ingredientes_low"
-                android:textAlignment="center"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:cornerRadius="20dp" />
+        <Button
+            android:id="@+id/b_despensa"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
+            android:layout_marginEnd="22dp"
+            android:layout_marginBottom="41dp"
+            android:backgroundTint="@color/black"
+            android:text="@string/despensa_up"
+            app:layout_constraintBottom_toTopOf="@+id/b_planificador"
+            app:layout_constraintEnd_toStartOf="@+id/b_recetas"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/b_Ingredientes"
+            app:strokeWidth="2dp" />
 
-            <Button
-                android:id="@+id/bListaCompra"
-                android:layout_width="174dp"
-                android:layout_height="148dp"
-                android:layout_margin="10dp"
-                android:layout_weight="2"
-                android:backgroundTint="@color/black"
-                android:text="@string/lista_de_la_compra_low"
-                android:textAlignment="center"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:cornerRadius="20dp" />
-        </LinearLayout>
+        <Button
+            android:id="@+id/b_Ingredientes"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
+            android:layout_marginEnd="22dp"
+            android:layout_marginBottom="2dp"
+            android:backgroundTint="@color/black"
+            android:text="@string/ingredientes_upp"
+            app:layout_constraintBottom_toTopOf="@+id/b_despensa"
+            app:layout_constraintEnd_toStartOf="@+id/b_lista_compra"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeWidth="2dp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+        <Button
+            android:id="@+id/b_recetas"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
+            android:layout_marginBottom="41dp"
+            android:backgroundTint="@color/black"
+            android:text="@string/recetas_up"
+            app:layout_constraintBottom_toTopOf="@+id/b_menu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/b_despensa"
+            app:layout_constraintTop_toBottomOf="@+id/b_lista_compra"
+            app:strokeWidth="2dp" />
 
-            <Button
-                android:id="@+id/bDespensa"
-                android:layout_width="174dp"
-                android:layout_height="148dp"
-                android:layout_margin="10dp"
-                android:layout_weight="2"
-                android:backgroundTint="@color/black"
-                android:text="@string/despensa_low"
-                android:textAlignment="center"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:cornerRadius="20dp" />
+        <Button
+            android:id="@+id/b_planificador"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
+            android:layout_marginEnd="22dp"
+            android:backgroundTint="@color/black"
+            android:text="@string/planificador_up"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/b_menu"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/b_despensa"
+            app:strokeWidth="2dp" />
 
-            <Button
-                android:id="@+id/bRecetas"
-                android:layout_width="174dp"
-                android:layout_height="148dp"
-                android:layout_margin="10dp"
-                android:layout_weight="2"
-                android:backgroundTint="@color/black"
-                android:text="@string/recetas_low"
-                android:textAlignment="center"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:cornerRadius="20dp" />
-        </LinearLayout>
+        <Button
+            android:id="@+id/b_menu"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/black"
+            android:text="menu"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/b_planificador"
+            app:layout_constraintTop_toBottomOf="@+id/b_recetas"
+            app:strokeWidth="2dp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/bPlanificador"
-                android:layout_width="174dp"
-                android:layout_height="148dp"
-                android:layout_margin="10dp"
-                android:layout_weight="2"
-                android:backgroundTint="@color/black"
-                android:text="@string/planificador_low"
-                android:textAlignment="center"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:cornerRadius="20dp" />
-
-            <Button
-                android:id="@+id/bMenu"
-                android:layout_width="174dp"
-                android:layout_height="148dp"
-                android:layout_margin="10dp"
-                android:layout_weight="2"
-                android:backgroundTint="@color/black"
-                android:text="@string/menu_low"
-                android:textAlignment="center"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:cornerRadius="20dp" />
-
-        </LinearLayout>
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
