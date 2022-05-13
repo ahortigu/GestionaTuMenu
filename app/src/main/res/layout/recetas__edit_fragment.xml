@@ -91,16 +91,6 @@
                     android:background="@color/gris_oscuro"
                     app:layout_constraintTop_toBottomOf="@+id/txt_re_categoria_nombre">
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_re_categorias"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:listitem="@layout/recetas__subitem"
-                        >
-
-                    </androidx.recyclerview.widget.RecyclerView>
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -153,19 +143,6 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txt_re_ingredientes">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_re_ingredientes"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="5dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:listitem="@layout/despensa__subitem"
-                        />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>

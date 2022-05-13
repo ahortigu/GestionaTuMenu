@@ -39,7 +39,7 @@
             app:layout_constraintTop_toBottomOf="@+id/l_ic_medicion" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/l_ic_ingrediente"
+            android:id="@+id/l_rc_ingredientes"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_margin="20dp"
@@ -66,7 +66,7 @@
                 app:layout_constraintVertical_bias="0.0" />
 
             <EditText
-                android:id="@+id/txt_ic_ingrediente"
+                android:id="@+id/et_ic_ingrediente"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
@@ -97,7 +97,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/l_ic_ingrediente">
+            app:layout_constraintTop_toBottomOf="@+id/l_rc_ingredientes">
 
             <TextView
                 android:id="@+id/lv_ic_categorias"
