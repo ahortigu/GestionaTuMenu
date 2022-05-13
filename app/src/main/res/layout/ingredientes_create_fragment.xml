@@ -118,12 +118,10 @@
                 android:id="@+id/sp_ic_categoria"
                 android:layout_width="241dp"
                 android:layout_height="48dp"
-                android:layout_marginStart="10dp"
                 android:layout_marginEnd="15dp"
                 android:textAlignment="textEnd"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/lv_ic_categorias"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="SpeakableTextPresentCheck" />
 
@@ -159,12 +157,10 @@
                 android:id="@+id/sp_ic_medicion"
                 android:layout_width="241dp"
                 android:layout_height="48dp"
-                android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
                 android:textAlignment="textEnd"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/lv_ic_medicion"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="SpeakableTextPresentCheck" />
 
