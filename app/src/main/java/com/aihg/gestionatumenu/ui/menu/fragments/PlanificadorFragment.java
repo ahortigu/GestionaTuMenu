@@ -1,4 +1,4 @@
-package com.aihg.gestionatumenu.ui.menu.planificador.fragments;
+package com.aihg.gestionatumenu.ui.menu.fragments;
 
 import android.os.Bundle;
 
@@ -24,7 +24,7 @@ public class PlanificadorFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.planificador__fragment, container, false);
+        return inflater.inflate(R.layout.menu__fragment, container, false);
     }
 
     @Override

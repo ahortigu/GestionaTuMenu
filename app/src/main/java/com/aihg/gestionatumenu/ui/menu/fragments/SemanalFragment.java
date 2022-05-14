@@ -1,4 +1,4 @@
-package com.aihg.gestionatumenu.ui.menu.semanal.fragment;
+package com.aihg.gestionatumenu.ui.menu.fragments;
 
 import android.os.Bundle;
 

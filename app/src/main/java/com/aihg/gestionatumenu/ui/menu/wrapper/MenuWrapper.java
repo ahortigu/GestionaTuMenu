@@ -1,4 +1,4 @@
-package com.aihg.gestionatumenu.ui.menu.shared.wrapper;
+package com.aihg.gestionatumenu.ui.menu.wrapper;
 
 import com.aihg.gestionatumenu.db.entities.Dia;
 import com.aihg.gestionatumenu.db.entities.MenuInterface;

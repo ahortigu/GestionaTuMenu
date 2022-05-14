@@ -1,4 +1,4 @@
-package com.aihg.gestionatumenu.ui.menu.planificador.adapters;
+package com.aihg.gestionatumenu.ui.menu.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,11 +12,11 @@ import com.aihg.gestionatumenu.R;
 import com.aihg.gestionatumenu.db.entities.Dia;
 import com.aihg.gestionatumenu.db.entities.MomentoComida;
 import com.aihg.gestionatumenu.db.entities.Planificador;
-import com.aihg.gestionatumenu.ui.menu.shared.wrapper.MenuWrapper;
+import com.aihg.gestionatumenu.ui.menu.wrapper.MenuWrapper;
 
 import java.util.List;
 
-public class ItemsPlanificadorAdapter extends RecyclerView.Adapter<ItemsPlanificadorAdapter.ItemsCategoriaPlanificadorViewHolder> {
+public class ItemsMenuAdapter extends RecyclerView.Adapter<ItemsMenuAdapter.ItemsCategoriaPlanificadorViewHolder> {
 
     private List<Dia> dias;
     private List<MomentoComida> momentos;
@@ -28,7 +28,7 @@ public class ItemsPlanificadorAdapter extends RecyclerView.Adapter<ItemsPlanific
     public ItemsCategoriaPlanificadorViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.planificador__item, parent, false);
+                .inflate(R.layout.menu__item, parent, false);
         return new ItemsCategoriaPlanificadorViewHolder(view);
     }
 
@@ -62,10 +62,10 @@ public class ItemsPlanificadorAdapter extends RecyclerView.Adapter<ItemsPlanific
 
         public ItemsCategoriaPlanificadorViewHolder(@NonNull View itemView) {
             super(itemView);
-            txt_dia = itemView.findViewById(R.id.txt_p_dia);
-            txt_momento_desayuno = itemView.findViewById(R.id.txt_p_momento_desayuno);
-            txt_momento_comida = itemView.findViewById(R.id.txt_p_momento_comida);
-            txt_momento_cena= itemView.findViewById(R.id.txt_p_momento_cena);
+            txt_dia = itemView.findViewById(R.id.txt_m_dia);
+            txt_momento_desayuno = itemView.findViewById(R.id.txt_m_momento_desayuno);
+            txt_momento_comida = itemView.findViewById(R.id.txt_m_momento_comida);
+            txt_momento_cena= itemView.findViewById(R.id.txt_m_momento_cena);
         }
     }
 }

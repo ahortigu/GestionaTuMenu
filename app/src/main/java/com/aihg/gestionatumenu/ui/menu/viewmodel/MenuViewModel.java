@@ -1,4 +1,4 @@
-package com.aihg.gestionatumenu.ui.menu.shared.viewmodel;
+package com.aihg.gestionatumenu.ui.menu.viewmodel;
 
 import android.app.Application;
 
