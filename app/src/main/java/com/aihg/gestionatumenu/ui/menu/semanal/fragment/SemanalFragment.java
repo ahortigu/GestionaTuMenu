@@ -1,4 +1,4 @@
-package com.aihg.gestionatumenu.ui.menu;
+package com.aihg.gestionatumenu.ui.menu.semanal.fragment;
 
 import android.os.Bundle;
 
@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 
 import com.aihg.gestionatumenu.R;
 
-public class MenuFragment extends Fragment {
-    public MenuFragment() {
+public class SemanalFragment extends Fragment {
+    public SemanalFragment() {
     }
 
     @Override

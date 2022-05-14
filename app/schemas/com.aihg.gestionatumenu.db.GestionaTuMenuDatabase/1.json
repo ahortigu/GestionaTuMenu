@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "0ebe19725d6fb42177172618fd096658",
+    "identityHash": "a5a1a1dadccb43585d9deb0b2a6b2f97",
     "entities": [
       {
         "tableName": "ingredientes",
@@ -678,12 +678,12 @@
         "foreignKeys": []
       },
       {
-        "tableName": "menus",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_menu` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `id_receta` INTEGER NOT NULL, `nombre_receta` TEXT NOT NULL, `instrucciones` TEXT NOT NULL, `id_momento_comida` INTEGER NOT NULL, `nombre_momento_comida` TEXT NOT NULL, `id_dia` INTEGER NOT NULL, `nombre_dia` TEXT NOT NULL, FOREIGN KEY(`id_receta`) REFERENCES `recetas`(`id_receta`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`id_momento_comida`) REFERENCES `momentos_comida`(`id_momento_comida`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`id_dia`) REFERENCES `dias`(`id_dia`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "tableName": "semanal",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_semanal` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `id_receta` INTEGER, `nombre_receta` TEXT, `instrucciones` TEXT, `id_momento_comida` INTEGER NOT NULL, `nombre_momento_comida` TEXT NOT NULL, `id_dia` INTEGER NOT NULL, `nombre_dia` TEXT NOT NULL, FOREIGN KEY(`id_receta`) REFERENCES `recetas`(`id_receta`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`id_momento_comida`) REFERENCES `momentos_comida`(`id_momento_comida`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`id_dia`) REFERENCES `dias`(`id_dia`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "id",
-            "columnName": "id_menu",
+            "columnName": "id_semanal",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -691,19 +691,19 @@
             "fieldPath": "id_receta.id",
             "columnName": "id_receta",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "id_receta.nombre",
             "columnName": "nombre_receta",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "id_receta.instrucciones",
             "columnName": "instrucciones",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "id_momento_comida.id",
@@ -732,29 +732,29 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "id_menu"
+            "id_semanal"
           ],
           "autoGenerate": true
         },
         "indices": [
           {
-            "name": "index_menus_id_momento_comida_id_dia",
+            "name": "index_semanal_id_momento_comida_id_dia",
             "unique": true,
             "columnNames": [
               "id_momento_comida",
               "id_dia"
             ],
             "orders": [],
-            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_menus_id_momento_comida_id_dia` ON `${TABLE_NAME}` (`id_momento_comida`, `id_dia`)"
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_semanal_id_momento_comida_id_dia` ON `${TABLE_NAME}` (`id_momento_comida`, `id_dia`)"
           },
           {
-            "name": "index_menus_id_menu",
+            "name": "index_semanal_id_semanal",
             "unique": false,
             "columnNames": [
-              "id_menu"
+              "id_semanal"
             ],
             "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_menus_id_menu` ON `${TABLE_NAME}` (`id_menu`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_semanal_id_semanal` ON `${TABLE_NAME}` (`id_semanal`)"
           }
         ],
         "foreignKeys": [
@@ -795,7 +795,7 @@
       },
       {
         "tableName": "planificador",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_planificador` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `id_receta` INTEGER NOT NULL, `nombre_receta` TEXT NOT NULL, `instrucciones` TEXT NOT NULL, `id_momento_comida` INTEGER NOT NULL, `nombre_momento_comida` TEXT NOT NULL, `id_dia` INTEGER NOT NULL, `nombre_dia` TEXT NOT NULL, FOREIGN KEY(`id_receta`) REFERENCES `recetas`(`id_receta`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`id_momento_comida`) REFERENCES `momentos_comida`(`id_momento_comida`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`id_dia`) REFERENCES `dias`(`id_dia`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_planificador` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `id_receta` INTEGER, `nombre_receta` TEXT, `instrucciones` TEXT, `id_momento_comida` INTEGER NOT NULL, `nombre_momento_comida` TEXT NOT NULL, `id_dia` INTEGER NOT NULL, `nombre_dia` TEXT NOT NULL, FOREIGN KEY(`id_receta`) REFERENCES `recetas`(`id_receta`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`id_momento_comida`) REFERENCES `momentos_comida`(`id_momento_comida`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`id_dia`) REFERENCES `dias`(`id_dia`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "id",
@@ -807,19 +807,19 @@
             "fieldPath": "id_receta.id",
             "columnName": "id_receta",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "id_receta.nombre",
             "columnName": "nombre_receta",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "id_receta.instrucciones",
             "columnName": "instrucciones",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "id_momento_comida.id",
@@ -913,7 +913,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0ebe19725d6fb42177172618fd096658')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a5a1a1dadccb43585d9deb0b2a6b2f97')"
     ]
   }
 }

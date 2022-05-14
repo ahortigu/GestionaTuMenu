@@ -19,9 +19,6 @@ public interface PlanificadorDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Planificador planificador);
 
-    @Delete
-    void delete(Planificador planificador);
-
     @Update
     void update(Planificador planificador);
 

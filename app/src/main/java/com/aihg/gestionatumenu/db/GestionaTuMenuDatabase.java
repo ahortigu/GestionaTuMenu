@@ -4,6 +4,7 @@ import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerato
 import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerator.getDefaultIngredientes;
 import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerator.getDefaultMediciones;
 import static com.aihg.gestionatumenu.db.util.DatabaseTables.DATABASE_NAME;
+import static com.aihg.gestionatumenu.db.util.generator.MenuRelatedDataGenerator.getDefaultSemanal;
 import static com.aihg.gestionatumenu.db.util.generator.RecetasDataGenerator.getAsignacionIngredientesReceta;
 import static com.aihg.gestionatumenu.db.util.generator.RecetasDataGenerator.getCatalogacionRecetas;
 import static com.aihg.gestionatumenu.db.util.generator.RecetasDataGenerator.getDefaultCategoriasRecetas;
@@ -12,7 +13,6 @@ import static com.aihg.gestionatumenu.db.util.generator.ListaCompraDataGenerator
 import static com.aihg.gestionatumenu.db.util.generator.DespensaDataGenerator.getDefaultDespensa;
 import static com.aihg.gestionatumenu.db.util.generator.MenuRelatedDataGenerator.getDefaultDias;
 import static com.aihg.gestionatumenu.db.util.generator.MenuRelatedDataGenerator.getDefaultMomentoComida;
-import static com.aihg.gestionatumenu.db.util.generator.MenuRelatedDataGenerator.getDefaultMenus;
 import static com.aihg.gestionatumenu.db.util.generator.MenuRelatedDataGenerator.getDefaultPlanificador;
 
 import android.content.Context;
@@ -32,7 +32,7 @@ import com.aihg.gestionatumenu.db.daos.DiaDAO;
 import com.aihg.gestionatumenu.db.daos.IngredienteDAO;
 import com.aihg.gestionatumenu.db.daos.ListaCompraDAO;
 import com.aihg.gestionatumenu.db.daos.MedicionDAO;
-import com.aihg.gestionatumenu.db.daos.MenuDAO;
+import com.aihg.gestionatumenu.db.daos.SemanalDAO;
 import com.aihg.gestionatumenu.db.daos.MomentoComidaDAO;
 import com.aihg.gestionatumenu.db.daos.PlanificadorDAO;
 import com.aihg.gestionatumenu.db.daos.RecetaDAO;
@@ -45,7 +45,7 @@ import com.aihg.gestionatumenu.db.entities.Dia;
 import com.aihg.gestionatumenu.db.entities.Ingrediente;
 import com.aihg.gestionatumenu.db.entities.ListaCompra;
 import com.aihg.gestionatumenu.db.entities.Medicion;
-import com.aihg.gestionatumenu.db.entities.Menu;
+import com.aihg.gestionatumenu.db.entities.Semanal;
 import com.aihg.gestionatumenu.db.entities.MomentoComida;
 import com.aihg.gestionatumenu.db.entities.Planificador;
 import com.aihg.gestionatumenu.db.entities.Receta;
@@ -55,22 +55,22 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Database(
-        entities = {
-                Ingrediente.class,
-                CategoriaIngrediente.class,
-                Medicion.class,
-                ListaCompra.class,
-                Despensa.class,
-                CategoriaReceta.class,
-                Receta.class,
-                Utiliza.class,
-                Cataloga.class,
-                Dia.class,
-                MomentoComida.class,
-                Menu.class,
-                Planificador.class
-        },
-        version = 1
+    entities = {
+        Ingrediente.class,
+        CategoriaIngrediente.class,
+        Medicion.class,
+        ListaCompra.class,
+        Despensa.class,
+        CategoriaReceta.class,
+        Receta.class,
+        Utiliza.class,
+        Cataloga.class,
+        Dia.class,
+        MomentoComida.class,
+        Semanal.class,
+        Planificador.class
+    },
+    version = 1
 )
 public abstract class GestionaTuMenuDatabase extends RoomDatabase {
 
@@ -100,7 +100,7 @@ public abstract class GestionaTuMenuDatabase extends RoomDatabase {
 
     public abstract MomentoComidaDAO momentoComidaDAO();
 
-    public abstract MenuDAO menuDAO();
+    public abstract SemanalDAO semanalDAO();
 
     public abstract PlanificadorDAO planificadorDAO();
 
@@ -124,7 +124,7 @@ public abstract class GestionaTuMenuDatabase extends RoomDatabase {
 
             DiaDAO diaDAO = INSTANCE.diaDAO();
             MomentoComidaDAO momentoComidaDAO = INSTANCE.momentoComidaDAO();
-            MenuDAO menuDAO = INSTANCE.menuDAO();
+            SemanalDAO semanalDAO = INSTANCE.semanalDAO();
             PlanificadorDAO planificadorDAO = INSTANCE.planificadorDAO();
 
             ExecutorService executorService = Executors.newSingleThreadExecutor();
@@ -141,61 +141,60 @@ public abstract class GestionaTuMenuDatabase extends RoomDatabase {
                 private void crearIngredientes() {
                     Log.d("DEFAULT-DB", "Añadiendo valores por defecto de ingredientes.");
                     getDefaultCategoriasIngrediente().stream().forEach(
-                            categoriaIngredienteDAO::insert
+                        categoriaIngredienteDAO::insert
                     );
 
                     getDefaultMediciones().stream().forEach(
-                            medicionDAO::insert
+                        medicionDAO::insert
                     );
 
                     getDefaultIngredientes().stream().forEach(
-                            ingredienteDAO::insert
+                        ingredienteDAO::insert
                     );
                 }
 
                 public void crearMenuRelated() {
                     getDefaultDias().stream().forEach(
-                            diaDAO::insert
+                        diaDAO::insert
                     );
 
                     getDefaultMomentoComida().stream().forEach(
-                            momentoComidaDAO::insert
+                        momentoComidaDAO::insert
                     );
 
-                    getDefaultMenus().stream().forEach(
-                            menuDAO::insert
+                    getDefaultSemanal().stream().forEach(
+                        semanalDAO::insert
                     );
 
                     getDefaultPlanificador().stream().forEach(
-                            planificadorDAO::insert
+                        planificadorDAO::insert
                     );
-
                 }
 
                 private void crearDespensa() {
                     getDefaultDespensa().stream().forEach(
-                            despensaDAO::insert
+                        despensaDAO::insert
                     );
                 }
 
                 private void crearListaCompra() {
                     getDefaultListaCompra().stream().forEach(
-                            listaCompraDAO::insert
+                        listaCompraDAO::insert
                     );
                 }
 
                 private void crearRecetas() {
                     getDefaultCategoriasRecetas().stream().forEach(
-                            categoriaRecetaDAO::insert
+                        categoriaRecetaDAO::insert
                     );
                     getDefaultRecetas().stream().forEach(
-                            recetaDAO::insert
+                        recetaDAO::insert
                     );
                     getCatalogacionRecetas().stream().forEach(
-                            catalogaDAO::insert
+                        catalogaDAO::insert
                     );
                     getAsignacionIngredientesReceta().stream().forEach(
-                            utilizaDAO::insert
+                        utilizaDAO::insert
                     );
                 }
             });
@@ -208,13 +207,13 @@ public abstract class GestionaTuMenuDatabase extends RoomDatabase {
             synchronized (GestionaTuMenuDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(
-                            context.getApplicationContext(),
-                            GestionaTuMenuDatabase.class,
-                            DATABASE_NAME
+                        context.getApplicationContext(),
+                        GestionaTuMenuDatabase.class,
+                        DATABASE_NAME
                     )
-                            .fallbackToDestructiveMigration()
-                            .addCallback(roomCallBack)
-                            .build();
+                    .fallbackToDestructiveMigration()
+                    .addCallback(roomCallBack)
+                    .build();
                 }
             }
         }
