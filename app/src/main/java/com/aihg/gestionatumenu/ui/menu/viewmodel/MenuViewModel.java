@@ -31,6 +31,10 @@ public class MenuViewModel extends AndroidViewModel {
         return planificador;
     }
 
+    public LiveData<List<Semanal>> getSemanal() {
+        return semanal;
+    }
+
     public void updateRecetaPlanificador(Planificador receta) {
         repository.update(receta);
     }

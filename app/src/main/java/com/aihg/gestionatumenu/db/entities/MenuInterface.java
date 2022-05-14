@@ -8,4 +8,8 @@ public interface MenuInterface {
 
     public Receta getId_receta();
     public void setId_receta(@NonNull Receta id_receta);
+
+    public default Boolean hasReceta() {
+        return this.getId_receta() != null;
+    }
 }
