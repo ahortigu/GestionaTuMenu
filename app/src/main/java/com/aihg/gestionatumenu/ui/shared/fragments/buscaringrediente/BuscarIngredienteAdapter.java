@@ -7,7 +7,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -101,7 +100,7 @@ public class BuscarIngredienteAdapter extends RecyclerView.Adapter<BuscarIngredi
             super(itemView);
             v_subitem = itemView;
             txt_nombre = itemView.findViewById(R.id.txt_shared_nombre_ingrediente);
-            l_shared_buscar_ingrediente = itemView.findViewById(R.id.l_shared_buscar_ingrediente);
+            l_shared_buscar_ingrediente = itemView.findViewById(R.id.l_shared_ingrediente);
         }
     }
 }

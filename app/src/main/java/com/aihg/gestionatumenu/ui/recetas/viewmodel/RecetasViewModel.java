@@ -20,6 +20,7 @@ public class RecetasViewModel extends AndroidViewModel {
 
     private final LiveData<List<CategoriaReceta>> categorias;
     private final LiveData<List<Cataloga>> catalogo;
+    private final LiveData<List<Receta>> recetas;
 
     public RecetasViewModel(@NonNull Application application) {
         super(application);
@@ -27,6 +28,7 @@ public class RecetasViewModel extends AndroidViewModel {
 
         catalogo = repository.getALLCataloga();
         categorias = repository.getALLCategoriasReceta();
+        recetas = repository.getALLRecetas();
     }
 
     public LiveData<List<Cataloga>> getCatalogo() {
@@ -35,6 +37,10 @@ public class RecetasViewModel extends AndroidViewModel {
 
     public LiveData<List<CategoriaReceta>> getCategorias() {
         return categorias;
+    }
+
+    public LiveData<List<Receta>> getRecetas() {
+        return recetas;
     }
 
     //public LiveData<List<Utiliza>> getIngredientes(Receta receta) {

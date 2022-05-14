@@ -13,7 +13,7 @@
         android:layout_marginBottom="15dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/l1"
+            android:id="@+id/l_shared_ingrediente_buscador"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/violeta_oscuro"
@@ -37,11 +37,11 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/l2"
+            android:id="@+id/l_shared_ingredientes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/l1">
+            app:layout_constraintTop_toBottomOf="@+id/l_shared_ingrediente_buscador">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_shared_bi_ingredientes"
