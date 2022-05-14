@@ -1,4 +1,4 @@
-package com.aihg.gestionatumenu.ui.planificador;
+package com.aihg.gestionatumenu.ui.planificador.fragments;
 
 import android.os.Bundle;
 

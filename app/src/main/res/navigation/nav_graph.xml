@@ -102,7 +102,7 @@
     </fragment>
     <fragment
         android:id="@+id/planificadorFragment"
-        android:name="com.aihg.gestionatumenu.ui.planificador.PlanificadorFragment"
+        android:name="com.aihg.gestionatumenu.ui.planificador.fragments.PlanificadorFragment"
         android:label="@string/planificador_up"
         tools:layout="@layout/planificador__fragment" />
     <fragment
