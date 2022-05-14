@@ -198,5 +198,11 @@
         <action
             android:id="@+id/action_buscarRecetaFragment_to_recetasFragment"
             app:destination="@id/recetasFragment" />
+        <action
+            android:id="@+id/action_buscarRecetaFragment_to_planificadorFragment"
+            app:destination="@id/planificadorFragment" />
+        <action
+            android:id="@+id/action_buscarRecetaFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
     </fragment>
 </navigation>

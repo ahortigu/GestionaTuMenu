@@ -12,9 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.aihg.gestionatumenu.R;
 import com.aihg.gestionatumenu.db.entities.Cataloga;
-import com.aihg.gestionatumenu.db.entities.Receta;
-import com.aihg.gestionatumenu.ui.ingredientes.adaptors.SubItemsIngredientesAdapter;
-import com.aihg.gestionatumenu.ui.ingredientes.fragments.IngredientesFragmentDirections;
 import com.aihg.gestionatumenu.ui.recetas.fragments.RecetasFragmentDirections;
 import com.aihg.gestionatumenu.ui.recetas.wrapper.CategoriaRecetaWrapper;
 
@@ -32,7 +29,7 @@ public class SubItemsRecetasAdapter extends RecyclerView.Adapter<SubItemsRecetas
     public SubItemsRecetasViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.recetas__subitem, parent, false);
+                .inflate(R.layout.shared__recetas__subitem, parent, false);
         return new SubItemsRecetasViewHolder(view);
     }
 
@@ -64,7 +61,7 @@ public class SubItemsRecetasAdapter extends RecyclerView.Adapter<SubItemsRecetas
         public SubItemsRecetasViewHolder(@NonNull View itemView) {
             super(itemView);
             v_subitem = itemView;
-            txt_nombre = itemView.findViewById(R.id.txt_rs_nombre);
+            txt_nombre = itemView.findViewById(R.id.txt_shared_receta_nombre);
         }
     }
 }
