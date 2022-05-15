@@ -37,6 +37,7 @@ public abstract class AbstractMenuFragment extends Fragment {
     }
 
     protected abstract void setObservers();
+    protected void saveArguments(View view, Bundle savedInstanceState) {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

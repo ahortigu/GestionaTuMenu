@@ -81,10 +81,7 @@ public class SubitemsMenuAdapter extends RecyclerView.Adapter<SubitemsMenuAdapte
     private void setConfigTextViewSemanalSinReceta(
         @NonNull SubItemMenuViewHolder holder, MenuInterface menu
     ) {
-        Log.i("SUBITEM-SEMANL", "isSemanal " + isSemanal);
-        if(isSemanal) {
-            holder.txt_receta.setText("Sin receta planificada");
-        }
+        if(isSemanal) holder.txt_receta.setText("Sin receta planificada");
     }
 
     private void setConfigTextViewPlanificadorSinReceta(

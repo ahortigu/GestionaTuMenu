@@ -104,7 +104,16 @@
         android:id="@+id/planificadorFragment"
         android:name="com.aihg.gestionatumenu.ui.menu.fragments.PlanificadorFragment"
         android:label="@string/planificador_up"
-        tools:layout="@layout/planificador__fragment" />
+        tools:layout="@layout/menu__fragment" >
+        <action
+            android:id="@+id/action_planificadorFragment_to_buscarRecetaFragment"
+            app:destination="@id/buscarRecetaFragment" />
+        <argument
+            android:name="update_planificador"
+            app:argType="com.aihg.gestionatumenu.db.entities.Planificador"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
     <fragment
         android:id="@+id/menuFragment"
         android:name="com.aihg.gestionatumenu.ui.menu.fragments.SemanalFragment"
@@ -201,8 +210,10 @@
         <action
             android:id="@+id/action_buscarRecetaFragment_to_planificadorFragment"
             app:destination="@id/planificadorFragment" />
-        <action
-            android:id="@+id/action_buscarRecetaFragment_to_menuFragment"
-            app:destination="@id/menuFragment" />
+        <argument
+            android:name="buscar_planificador"
+            app:argType="com.aihg.gestionatumenu.db.entities.Planificador"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
 </navigation>

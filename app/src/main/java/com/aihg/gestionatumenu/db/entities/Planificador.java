@@ -12,6 +12,8 @@ import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(
         tableName = PLANIFICADOR,
         foreignKeys = {
@@ -38,7 +40,7 @@ import androidx.room.PrimaryKey;
                 )
         }
 )
-public class Planificador implements MenuInterface {
+public class Planificador implements MenuInterface, Serializable {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id_planificador", index = true)
