@@ -7,13 +7,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aihg.gestionatumenu.R;
 import com.aihg.gestionatumenu.db.entities.MenuInterface;
 import com.aihg.gestionatumenu.db.entities.Planificador;
+import com.aihg.gestionatumenu.ui.ingredientes.fragments.IngredientesFragmentDirections;
 import com.aihg.gestionatumenu.ui.menu.fragments.PlanificadorFragmentDirections;
+import com.aihg.gestionatumenu.ui.menu.fragments.SemanalFragmentDirections;
 import com.aihg.gestionatumenu.ui.menu.wrapper.MenuWrapper;
 
 public class SubitemsMenuAdapter extends RecyclerView.Adapter<SubitemsMenuAdapter.SubItemMenuViewHolder> {
@@ -21,6 +24,8 @@ public class SubitemsMenuAdapter extends RecyclerView.Adapter<SubitemsMenuAdapte
 
     private Boolean isSemanal;
     private Boolean isPlanificador;
+
+    private View view;
 
     public SubitemsMenuAdapter(MenuWrapper wrapper, boolean isSemanal, boolean isPlanificador) {
         this.wrapper = wrapper;
@@ -35,7 +40,7 @@ public class SubitemsMenuAdapter extends RecyclerView.Adapter<SubitemsMenuAdapte
     @NonNull
     @Override
     public SubItemMenuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater
+        this.view = LayoutInflater
             .from(parent.getContext())
             .inflate(R.layout.menu__subitem, parent, false);
         return new SubItemMenuViewHolder(view);
@@ -71,13 +76,19 @@ public class SubitemsMenuAdapter extends RecyclerView.Adapter<SubitemsMenuAdapte
 
     private void setOnClickSemanalConReceta(MenuInterface menu) {
         if(isSemanal) {
-
+            NavDirections action = SemanalFragmentDirections
+                    .actionMenuFragmentToRecetaDetailsFragment(menu.getId_receta());
+            Navigation.findNavController(view).navigate(action);
         }
     }
 
     private void setOnClickPlanificadorConReceta(MenuInterface menu) {
         if(isPlanificador) {
-
+            PlanificadorFragmentDirections.ActionPlanificadorFragmentToBuscarRecetaFragment
+                    action =  PlanificadorFragmentDirections
+                    .actionPlanificadorFragmentToBuscarRecetaFragment();
+            action.setBuscarPlanificador((Planificador) menu);
+            Navigation.findNavController(view).navigate(action);
         }
     }
 

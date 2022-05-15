@@ -120,7 +120,11 @@
         android:id="@+id/menuFragment"
         android:name="com.aihg.gestionatumenu.ui.menu.fragments.SemanalFragment"
         android:label="@string/menu_app"
-        tools:layout="@layout/menu__fragment" />
+        tools:layout="@layout/menu__fragment" >
+        <action
+            android:id="@+id/action_menuFragment_to_recetaDetailsFragment"
+            app:destination="@id/recetaDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/ingredienteDetailsFragment"
         android:name="com.aihg.gestionatumenu.ui.ingredientes.fragments.IngredienteDetailsFragment"
@@ -150,6 +154,9 @@
         <action
             android:id="@+id/action_recetaDetailsFragment_to_recetaEditFragment"
             app:destination="@id/recetaEditFragment" />
+        <argument
+            android:name="receta"
+            app:argType="com.aihg.gestionatumenu.db.entities.Receta" />
     </fragment>
     <fragment
         android:id="@+id/recetaEditFragment"
