@@ -1,5 +1,6 @@
 package com.aihg.gestionatumenu.ui.shared.fragments.buscarreceta;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aihg.gestionatumenu.R;
+import com.aihg.gestionatumenu.db.entities.Planificador;
 import com.aihg.gestionatumenu.db.entities.Receta;
 
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ import java.util.List;
 
 public class BuscarRecetaAdapter extends RecyclerView.Adapter<BuscarRecetaAdapter.BuscarRecetaViewHolder> {
     private List<Receta> recetas;
+    private Planificador aRellenar;
 
     public BuscarRecetaAdapter() {
         this.recetas = new ArrayList<>();
@@ -54,16 +57,13 @@ public class BuscarRecetaAdapter extends RecyclerView.Adapter<BuscarRecetaAdapte
                         NavDirections toRecetas = BuscarRecetaFragmentDirections.actionBuscarRecetaFragmentToRecetasFragment();
                         Navigation.findNavController(view).navigate(toRecetas);
                         break;
-//                    case R.id.planificadorFragment:
-//                        //TODO Pass receta
-//                        NavDirections toPlanificador = BuscarRecetaFragmentDirections.actionBuscarRecetaFragmentToPlanificadorFragment();
-//                        Navigation.findNavController(view).navigate(toPlanificador);
-//                        break;
-//                    case R.id.menuFragment:
-//                        //TODO Pass receta
-//                        NavDirections toMenu = BuscarRecetaFragmentDirections.actionBuscarRecetaFragmentToMenuFragment();
-//                        Navigation.findNavController(view).navigate(toMenu);
-//                        break;
+                    case R.id.planificadorFragment:
+                        aRellenar.setId_receta(receta);
+                        BuscarRecetaFragmentDirections.ActionBuscarRecetaFragmentToPlanificadorFragment
+                                action = BuscarRecetaFragmentDirections.actionBuscarRecetaFragmentToPlanificadorFragment();
+                        action.setUpdatePlanificador(aRellenar);
+                        Navigation.findNavController(view).navigate(action);
+                        break;
                 }
             }
         });
@@ -77,6 +77,11 @@ public class BuscarRecetaAdapter extends RecyclerView.Adapter<BuscarRecetaAdapte
     public void setRecetas(List<Receta> recetas) {
         this.recetas = recetas;
         notifyDataSetChanged();
+    }
+
+    public void setPlanificadorRellenar(Planificador aRellenar) {
+        Log.i("BUSCAR", "Buscando receta para el " + aRellenar.getNombreDia() + ", para " + aRellenar.getNombreMomentoDia());
+        this.aRellenar = aRellenar;
     }
 
     public void setRecetasFiltradas(List<Receta> recetas) {
@@ -93,7 +98,7 @@ public class BuscarRecetaAdapter extends RecyclerView.Adapter<BuscarRecetaAdapte
             super(itemView);
             v_subitem = itemView;
             txt_nombre = itemView.findViewById(R.id.txt_shared_receta_nombre);
-            l_shared_buscar_receta = itemView.findViewById(R.id.l_m_receta);
+            l_shared_buscar_receta = itemView.findViewById(R.id.l_shared_receta);
         }
     }
 }

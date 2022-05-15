@@ -7,10 +7,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aihg.gestionatumenu.R;
 import com.aihg.gestionatumenu.db.entities.MenuInterface;
+import com.aihg.gestionatumenu.db.entities.Planificador;
+import com.aihg.gestionatumenu.ui.menu.fragments.PlanificadorFragmentDirections;
 import com.aihg.gestionatumenu.ui.menu.wrapper.MenuWrapper;
 
 public class SubitemsMenuAdapter extends RecyclerView.Adapter<SubitemsMenuAdapter.SubItemMenuViewHolder> {
@@ -88,13 +91,19 @@ public class SubitemsMenuAdapter extends RecyclerView.Adapter<SubitemsMenuAdapte
         @NonNull SubItemMenuViewHolder holder, MenuInterface menu
     ) {
         if(isPlanificador) {
+            holder.txt_receta.setText("");
             holder.txt_receta.setHint(
-                "Elegir " + menu.getId_momento_comida().getNombre().toLowerCase()
+                "Elegir " + menu.getId_momento_comida().getNombre().toLowerCase() + "..."
             );
             // TODO anadir subrayado en el HINT
             holder.v_subitem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    PlanificadorFragmentDirections.ActionPlanificadorFragmentToBuscarRecetaFragment
+                            action =  PlanificadorFragmentDirections
+                            .actionPlanificadorFragmentToBuscarRecetaFragment();
+                    action.setBuscarPlanificador((Planificador) menu);
+                    Navigation.findNavController(view).navigate(action);
                 }
             });
         }
