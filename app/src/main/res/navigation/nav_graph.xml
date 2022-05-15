@@ -107,7 +107,9 @@
         tools:layout="@layout/menu__fragment" >
         <action
             android:id="@+id/action_planificadorFragment_to_buscarRecetaFragment"
-            app:destination="@id/buscarRecetaFragment" />
+            app:destination="@id/buscarRecetaFragment"
+            app:launchSingleTop="false"
+            app:popUpToInclusive="false" />
         <argument
             android:name="update_planificador"
             app:argType="com.aihg.gestionatumenu.db.entities.Planificador"
@@ -185,7 +187,7 @@
     </fragment>
     <fragment
         android:id="@+id/buscarIngredienteFragment"
-        android:name="com.aihg.gestionatumenu.ui.shared.fragments.buscaringrediente.BuscarIngredienteFragment"
+        android:name="com.aihg.gestionatumenu.ui.shared.fragments.buscar.ingrediente.BuscarIngredienteFragment"
         android:label="@string/shared_buscar_up"
         tools:layout="@layout/shared__buscar_ingrediente_fragment" >
         <action
@@ -201,15 +203,19 @@
     </fragment>
     <fragment
         android:id="@+id/buscarRecetaFragment"
-        android:name="com.aihg.gestionatumenu.ui.shared.fragments.buscarreceta.BuscarRecetaFragment"
+        android:name="com.aihg.gestionatumenu.ui.shared.fragments.buscar.receta.BuscarRecetaFragment"
         android:label="@string/shared_buscar_up"
         tools:layout="@layout/shared__buscar_receta_fragment" >
         <action
             android:id="@+id/action_buscarRecetaFragment_to_recetasFragment"
-            app:destination="@id/recetasFragment" />
+            app:destination="@id/recetasFragment"
+            app:popUpTo="@id/recetasFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_buscarRecetaFragment_to_planificadorFragment"
-            app:destination="@id/planificadorFragment" />
+            app:destination="@id/planificadorFragment"
+            app:popUpTo="@id/planificadorFragment"
+            app:popUpToInclusive="true" />
         <argument
             android:name="buscar_planificador"
             app:argType="com.aihg.gestionatumenu.db.entities.Planificador"

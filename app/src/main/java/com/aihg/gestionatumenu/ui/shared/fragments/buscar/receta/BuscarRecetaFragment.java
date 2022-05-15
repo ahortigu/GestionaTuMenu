@@ -1,4 +1,4 @@
-package com.aihg.gestionatumenu.ui.shared.fragments.buscarreceta;
+package com.aihg.gestionatumenu.ui.shared.fragments.buscar.receta;
 
 import android.os.Bundle;
 

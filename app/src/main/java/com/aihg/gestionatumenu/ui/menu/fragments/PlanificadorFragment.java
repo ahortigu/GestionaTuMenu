@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -38,5 +39,18 @@ public class PlanificadorFragment extends AbstractMenuFragment {
                     );
                 }
             });
+    }
+
+    @Override
+    public void saveArguments(Bundle savedInstanceState) {
+        Bundle bundle = savedInstanceState == null ? getArguments() : savedInstanceState;
+        if (bundle != null) {
+            PlanificadorFragmentArgs args = PlanificadorFragmentArgs.fromBundle(bundle);
+            Planificador aActualizar = args.getUpdatePlanificador();
+            if (aActualizar != null) {
+                Log.i("ACTUALIZANDO", "El menu a actulizar es "+ aActualizar);
+                getViewModel().updateRecetaPlanificador(aActualizar);
+            }
+        }
     }
 }

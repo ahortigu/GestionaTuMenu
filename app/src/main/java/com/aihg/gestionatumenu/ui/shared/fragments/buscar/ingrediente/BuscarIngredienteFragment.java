@@ -1,9 +1,8 @@
-package com.aihg.gestionatumenu.ui.shared.fragments.buscaringrediente;
+package com.aihg.gestionatumenu.ui.shared.fragments.buscar.ingrediente;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;

@@ -30,14 +30,14 @@ public abstract class AbstractMenuFragment extends Fragment {
 
     public AbstractMenuFragment(boolean isSemanal, boolean isPlanificador) {
         if (isSemanal == isPlanificador) throw new IllegalStateException(
-                "No puede ser un adaptador para Semanal y Planificador al mismo. Uno de los valores debe ser true."
+            "No puede ser un adaptador para Semanal y Planificador al mismo. Uno de los valores debe ser true."
         );
         this.isSemanal = isSemanal;
         this.isPlanificador = isPlanificador;
     }
 
     protected abstract void setObservers();
-    protected void saveArguments(View view, Bundle savedInstanceState) {}
+    protected void saveArguments(Bundle savedInstanceState) {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,6 +58,8 @@ public abstract class AbstractMenuFragment extends Fragment {
 
         if (adapter == null) this.adapter = new ItemsMenuAdapter(isSemanal, isPlanificador);
         this.recyclerView.setAdapter(this.adapter);
+
+        saveArguments(savedInstanceState);
 
         return this.view;
     }
