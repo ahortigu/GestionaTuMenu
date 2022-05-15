@@ -103,6 +103,7 @@ public class PlanificadorFragment extends AbstractMenuFragment {
                 Toast.makeText(
                     getView().getContext(), "¡Planificador aplicado!", Toast.LENGTH_SHORT
                 ).show();
+                getAdapter().forceNotifyDataSetChanged();
             }
         });
 
@@ -124,7 +125,9 @@ public class PlanificadorFragment extends AbstractMenuFragment {
                 Toast.makeText(
                     getView().getContext(), "¡Planificador limpio!", Toast.LENGTH_SHORT
                 ).show();
+                getAdapter().forceNotifyDataSetChanged();
             }
         });
+
     }
 }
