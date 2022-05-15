@@ -31,7 +31,8 @@ public class RecetasCreateFragment extends Fragment {
     @Override
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        menu.findItem(R.id.more).setVisible(false);
         menu.findItem(R.id.nav_editar).setVisible(false);
+        menu.findItem(R.id.nav_buscar).setVisible(false);
+        menu.findItem(R.id.nav_add).setVisible(false);
     }
 }

@@ -3,7 +3,6 @@ package com.aihg.gestionatumenu.ui.listacompra.fragments;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -12,7 +11,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,7 +21,6 @@ import com.aihg.gestionatumenu.R;
 import com.aihg.gestionatumenu.db.entities.ListaCompra;
 import com.aihg.gestionatumenu.ui.listacompra.adapters.ListaCompraAdapter;
 import com.aihg.gestionatumenu.ui.listacompra.viewmodel.ListaCompraViewModel;
-import com.aihg.gestionatumenu.ui.recetas.fragments.RecetasFragmentDirections;
 
 import java.util.List;
 
@@ -67,6 +64,7 @@ public class ListaCompraFragment extends Fragment {
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
         menu.findItem(R.id.nav_editar).setVisible(false);
+        menu.findItem(R.id.nav_buscar).setVisible(false);
     }
 
     @Override
@@ -77,10 +75,10 @@ public class ListaCompraFragment extends Fragment {
                 NavDirections action = ListaCompraFragmentDirections.actionListaCompraFragmentToAddExistingIngredienteFragment();
                 Navigation.findNavController(view).navigate(action);
                 break;
-            case R.id.nav_buscar:
-                NavDirections action2 = ListaCompraFragmentDirections.actionListaCompraFragmentToBuscarIngredienteFragment();
-                Navigation.findNavController(view).navigate(action2);
-                break;
+//            case R.id.nav_buscar:
+//                NavDirections action2 = ListaCompraFragmentDirections.actionListaCompraFragmentToBuscarIngredienteFragment();
+//                Navigation.findNavController(view).navigate(action2);
+//                break;
         }
         return super.onOptionsItemSelected(item);
     }
