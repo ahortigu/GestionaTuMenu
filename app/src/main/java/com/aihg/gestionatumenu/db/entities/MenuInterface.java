@@ -12,4 +12,16 @@ public interface MenuInterface {
     public default Boolean hasReceta() {
         return this.getId_receta() != null;
     }
+
+    public default String getNombreReceta() {
+        return this.getId_receta().getNombre();
+    }
+
+    public default String getNombreMomentoDia() {
+        return this.getId_momento_comida().getNombre();
+    }
+
+    public default String getNombreDia() {
+        return this.getId_dia().getNombre();
+    }
 }

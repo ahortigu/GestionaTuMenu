@@ -93,7 +93,7 @@ public class BuscarRecetaAdapter extends RecyclerView.Adapter<BuscarRecetaAdapte
             super(itemView);
             v_subitem = itemView;
             txt_nombre = itemView.findViewById(R.id.txt_shared_receta_nombre);
-            l_shared_buscar_receta = itemView.findViewById(R.id.l_shared_receta);
+            l_shared_buscar_receta = itemView.findViewById(R.id.l_m_receta);
         }
     }
 }

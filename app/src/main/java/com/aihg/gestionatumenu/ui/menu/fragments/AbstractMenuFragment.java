@@ -32,8 +32,8 @@ public abstract class AbstractMenuFragment extends Fragment {
         if (isSemanal == isPlanificador) throw new IllegalStateException(
                 "No puede ser un adaptador para Semanal y Planificador al mismo. Uno de los valores debe ser true."
         );
-        this.isPlanificador = isSemanal;
-        this.isSemanal = isPlanificador;
+        this.isSemanal = isSemanal;
+        this.isPlanificador = isPlanificador;
     }
 
     protected abstract void setObservers();
