@@ -37,8 +37,8 @@ public class SubItemsIngredientesAdapter extends RecyclerView.Adapter<SubItemsIn
     @Override
     public SubItemIngredienteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater
-                .from(parent.getContext())
-                .inflate(R.layout.ingredientes__subitem, parent, false);
+            .from(parent.getContext())
+            .inflate(R.layout.ingredientes__subitem, parent, false);
         return new SubItemIngredienteViewHolder(view);
     }
 

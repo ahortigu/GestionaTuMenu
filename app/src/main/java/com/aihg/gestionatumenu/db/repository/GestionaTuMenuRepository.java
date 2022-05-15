@@ -12,7 +12,7 @@ import com.aihg.gestionatumenu.db.daos.DiaDAO;
 import com.aihg.gestionatumenu.db.daos.IngredienteDAO;
 import com.aihg.gestionatumenu.db.daos.ListaCompraDAO;
 import com.aihg.gestionatumenu.db.daos.MedicionDAO;
-import com.aihg.gestionatumenu.db.daos.MenuDAO;
+import com.aihg.gestionatumenu.db.daos.SemanalDAO;
 import com.aihg.gestionatumenu.db.daos.MomentoComidaDAO;
 import com.aihg.gestionatumenu.db.daos.PlanificadorDAO;
 import com.aihg.gestionatumenu.db.daos.RecetaDAO;
@@ -26,7 +26,7 @@ import com.aihg.gestionatumenu.db.entities.Dia;
 import com.aihg.gestionatumenu.db.entities.Ingrediente;
 import com.aihg.gestionatumenu.db.entities.ListaCompra;
 import com.aihg.gestionatumenu.db.entities.Medicion;
-import com.aihg.gestionatumenu.db.entities.Menu;
+import com.aihg.gestionatumenu.db.entities.Semanal;
 import com.aihg.gestionatumenu.db.entities.MomentoComida;
 import com.aihg.gestionatumenu.db.entities.Planificador;
 import com.aihg.gestionatumenu.db.entities.Receta;
@@ -57,7 +57,7 @@ public class GestionaTuMenuRepository {
 
     private DiaDAO diaDAO;
     private MomentoComidaDAO momentoComidaDAO;
-    private MenuDAO menuDAO;
+    private SemanalDAO semanalDAO;
     private PlanificadorDAO planificadorDAO;
 
 
@@ -77,7 +77,7 @@ public class GestionaTuMenuRepository {
 
     private LiveData<List<Dia>> dias;
     private LiveData<List<MomentoComida>> momentosComida;
-    private LiveData<List<Menu>> menus;
+    private LiveData<List<Semanal>> semanal;
     private LiveData<List<Planificador>> planificadorList;
 
 
@@ -105,7 +105,7 @@ public class GestionaTuMenuRepository {
 
         diaDAO = database.diaDAO();
         momentoComidaDAO = database.momentoComidaDAO();
-        menuDAO = database.menuDAO();
+        semanalDAO = database.semanalDAO();
         planificadorDAO = database.planificadorDAO();
 
 
@@ -125,7 +125,7 @@ public class GestionaTuMenuRepository {
 
         dias = diaDAO.getAllDias();
         momentosComida = momentoComidaDAO.getAllMomentosComida();
-        menus = menuDAO.getAllMenus();
+        semanal = semanalDAO.getAllSemanal();
         planificadorList = planificadorDAO.getAllPlanificador();
     }
 
@@ -154,7 +154,6 @@ public class GestionaTuMenuRepository {
     }
 
     public LiveData<List<Receta>> getALLRecetas() {
-
         return recetas;
     }
 
@@ -174,8 +173,8 @@ public class GestionaTuMenuRepository {
         return momentosComida;
     }
 
-    public LiveData<List<Menu>> getAllMenus() {
-        return menus;
+    public LiveData<List<Semanal>> getAllSemanal() {
+        return semanal;
     }
 
     public LiveData<List<Planificador>> getAllPlanificador() {
@@ -344,29 +343,20 @@ public class GestionaTuMenuRepository {
         });
     }
 
-    public void insert(Menu menu) {
+    public void insert(Semanal semanal) {
         executors.execute(new Runnable() {
             @Override
             public void run() {
-                menuDAO.insert(menu);
+                semanalDAO.insert(semanal);
             }
         });
     }
 
-    public void delete(Menu menu) {
+    public void update(Semanal semanal) {
         executors.execute(new Runnable() {
             @Override
             public void run() {
-                menuDAO.delete(menu);
-            }
-        });
-    }
-
-    public void update(Menu menu) {
-        executors.execute(new Runnable() {
-            @Override
-            public void run() {
-                menuDAO.update(menu);
+                semanalDAO.update(semanal);
             }
         });
     }
@@ -376,15 +366,6 @@ public class GestionaTuMenuRepository {
             @Override
             public void run() {
                 planificadorDAO.insert(planificador);
-            }
-        });
-    }
-
-    public void delete(Planificador planificador) {
-        executors.execute(new Runnable() {
-            @Override
-            public void run() {
-                planificadorDAO.delete(planificador);
             }
         });
     }

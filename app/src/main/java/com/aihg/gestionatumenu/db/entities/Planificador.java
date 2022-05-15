@@ -12,6 +12,8 @@ import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(
         tableName = PLANIFICADOR,
         foreignKeys = {
@@ -38,13 +40,12 @@ import androidx.room.PrimaryKey;
                 )
         }
 )
-public class Planificador {
+public class Planificador implements MenuInterface, Serializable {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id_planificador", index = true)
     public int id;
 
-    @NonNull
     @Embedded
     public Receta id_receta;
 
@@ -77,7 +78,8 @@ public class Planificador {
         Planificador that = (Planificador) o;
 
         if (id != that.id) return false;
-        if (!id_receta.equals(that.id_receta)) return false;
+        if (id_receta != null ? !id_receta.equals(that.id_receta) : that.id_receta != null)
+            return false;
         if (!id_momento_comida.equals(that.id_momento_comida)) return false;
         return id_dia.equals(that.id_dia);
     }
@@ -85,7 +87,7 @@ public class Planificador {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + id_receta.hashCode();
+        result = 31 * result + (id_receta != null ? id_receta.hashCode() : 0);
         result = 31 * result + id_momento_comida.hashCode();
         result = 31 * result + id_dia.hashCode();
         return result;
@@ -99,12 +101,11 @@ public class Planificador {
         this.id = id;
     }
 
-    @NonNull
     public Receta getId_receta() {
         return id_receta;
     }
 
-    public void setId_receta(@NonNull Receta id_receta) {
+    public void setId_receta(Receta id_receta) {
         this.id_receta = id_receta;
     }
 
@@ -127,14 +128,14 @@ public class Planificador {
     }
 
     @Ignore
-    public Planificador(@NonNull Receta id_receta, @NonNull MomentoComida id_momento_comida, @NonNull Dia id_dia) {
+    public Planificador(Receta id_receta, @NonNull MomentoComida id_momento_comida, @NonNull Dia id_dia) {
         this.id_receta = id_receta;
         this.id_momento_comida = id_momento_comida;
         this.id_dia = id_dia;
     }
 
     @Ignore
-    public Planificador(int id, @NonNull Receta id_receta, @NonNull MomentoComida id_momento_comida, @NonNull Dia id_dia) {
+    public Planificador(int id, Receta id_receta, @NonNull MomentoComida id_momento_comida, @NonNull Dia id_dia) {
         this.id = id;
         this.id_receta = id_receta;
         this.id_momento_comida = id_momento_comida;

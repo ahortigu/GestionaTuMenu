@@ -11,12 +11,12 @@ import androidx.test.core.app.ApplicationProvider;
 
 import com.aihg.gestionatumenu.db.GestionaTuMenuDatabase;
 import com.aihg.gestionatumenu.db.daos.DiaDAO;
-import com.aihg.gestionatumenu.db.daos.MenuDAO;
+import com.aihg.gestionatumenu.db.daos.SemanalDAO;
 import com.aihg.gestionatumenu.db.daos.MomentoComidaDAO;
 import com.aihg.gestionatumenu.db.daos.PlanificadorDAO;
 import com.aihg.gestionatumenu.db.daos.RecetaDAO;
 import com.aihg.gestionatumenu.db.entities.Dia;
-import com.aihg.gestionatumenu.db.entities.Menu;
+import com.aihg.gestionatumenu.db.entities.Semanal;
 import com.aihg.gestionatumenu.db.entities.MomentoComida;
 import com.aihg.gestionatumenu.db.entities.Planificador;
 import com.aihg.gestionatumenu.db.entities.Receta;
@@ -30,7 +30,7 @@ import java.util.List;
 
 public class MenuRelatedTest {
 
-    private MenuDAO menuDAO;
+    private SemanalDAO semanalDAO;
     private PlanificadorDAO planificadorDAO;
     private DiaDAO diaDAO;
     private MomentoComidaDAO momentoComidaDAO;
@@ -42,11 +42,11 @@ public class MenuRelatedTest {
     public void setUp() throws Exception {
         Context context = ApplicationProvider.getApplicationContext();
         db = Room.inMemoryDatabaseBuilder(context, GestionaTuMenuDatabase.class)
-                .allowMainThreadQueries()
-                .build();
+            .allowMainThreadQueries()
+            .build();
         diaDAO = db.diaDAO();
         momentoComidaDAO = db.momentoComidaDAO();
-        menuDAO = db.menuDAO();
+        semanalDAO = db.semanalDAO();
         planificadorDAO = db.planificadorDAO();
         recetaDAO = db.recetaDAO();
     }
@@ -164,12 +164,12 @@ public class MenuRelatedTest {
         );
         Receta lecheGalletas = recetas.get(0);
 
-        menuDAO.insert(new Menu(1, lecheGalletas, desayuno, lunes));
-        List<Menu> menus = getOrAwaitValue(
-                menuDAO.getAllMenus()
+        semanalDAO.insert(new Semanal(1, lecheGalletas, desayuno, lunes));
+        List<Semanal> semanals = getOrAwaitValue(
+                semanalDAO.getAllSemanal()
         );
-        assertFalse(menus.isEmpty());
-        Menu actual = menus.get(0);
+        assertFalse(semanals.isEmpty());
+        Semanal actual = semanals.get(0);
         assertEquals(actual.id_dia.getNombre(), "LUNES");
         assertEquals(actual.id_momento_comida.getNombre(), "DESAYUNO");
         assertEquals(actual.id_receta.getNombre(), "LECHE CON GALLETAS");

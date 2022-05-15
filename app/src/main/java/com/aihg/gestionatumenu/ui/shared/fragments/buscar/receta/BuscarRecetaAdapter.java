@@ -1,5 +1,6 @@
-package com.aihg.gestionatumenu.ui.shared.fragments.buscarreceta;
+package com.aihg.gestionatumenu.ui.shared.fragments.buscar.receta;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,11 +8,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.navigation.NavDestination;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aihg.gestionatumenu.R;
+import com.aihg.gestionatumenu.db.entities.Planificador;
 import com.aihg.gestionatumenu.db.entities.Receta;
 
 import java.util.ArrayList;
@@ -19,6 +22,7 @@ import java.util.List;
 
 public class BuscarRecetaAdapter extends RecyclerView.Adapter<BuscarRecetaAdapter.BuscarRecetaViewHolder> {
     private List<Receta> recetas;
+    private Planificador aRellenar;
 
     public BuscarRecetaAdapter() {
         this.recetas = new ArrayList<>();
@@ -40,30 +44,31 @@ public class BuscarRecetaAdapter extends RecyclerView.Adapter<BuscarRecetaAdapte
         holder.l_shared_buscar_receta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                NavDestination destinoAnterior = Navigation
+                    .findNavController(view)
+                    .getPreviousBackStackEntry()
+                    .getDestination();
 
-                Navigation.findNavController(view).popBackStack();
-
-                int idDestinoAnterior = Navigation.findNavController(view)
-                        .getPreviousBackStackEntry()
-                        .getDestination()
-                        .getId();
-
-                switch (idDestinoAnterior) {
+                switch (destinoAnterior.getId()) {
                     case R.id.recetasFragment:
                         //TODO Pass receta
-                        NavDirections toRecetas = BuscarRecetaFragmentDirections.actionBuscarRecetaFragmentToRecetasFragment();
+                        NavDirections toRecetas = BuscarRecetaFragmentDirections
+                                .actionBuscarRecetaFragmentToRecetasFragment();
                         Navigation.findNavController(view).navigate(toRecetas);
                         break;
-//                    case R.id.planificadorFragment:
-//                        //TODO Pass receta
-//                        NavDirections toPlanificador = BuscarRecetaFragmentDirections.actionBuscarRecetaFragmentToPlanificadorFragment();
-//                        Navigation.findNavController(view).navigate(toPlanificador);
-//                        break;
-//                    case R.id.menuFragment:
-//                        //TODO Pass receta
-//                        NavDirections toMenu = BuscarRecetaFragmentDirections.actionBuscarRecetaFragmentToMenuFragment();
-//                        Navigation.findNavController(view).navigate(toMenu);
-//                        break;
+                    case R.id.planificadorFragment:
+                        aRellenar.setId_receta(receta);
+                        BuscarRecetaFragmentDirections.ActionBuscarRecetaFragmentToPlanificadorFragment
+                                action = BuscarRecetaFragmentDirections
+                                            .actionBuscarRecetaFragmentToPlanificadorFragment();
+                        action.setUpdatePlanificador(aRellenar);
+                        Log.i("PASANDO", "La receta seleccionada es " + aRellenar.getNombreReceta());
+                        Navigation.findNavController(view).navigate(action);
+                        break;
+                    default:
+                        throw new IllegalStateException(
+                            "No se espera recibir este destino anterior: " + destinoAnterior.getNavigatorName()
+                        );
                 }
             }
         });
@@ -77,6 +82,11 @@ public class BuscarRecetaAdapter extends RecyclerView.Adapter<BuscarRecetaAdapte
     public void setRecetas(List<Receta> recetas) {
         this.recetas = recetas;
         notifyDataSetChanged();
+    }
+
+    public void setPlanificadorRellenar(Planificador aRellenar) {
+        Log.i("BUSCAR", "Buscando receta para el " + aRellenar.getNombreDia() + ", para " + aRellenar.getNombreMomentoDia());
+        this.aRellenar = aRellenar;
     }
 
     public void setRecetasFiltradas(List<Receta> recetas) {

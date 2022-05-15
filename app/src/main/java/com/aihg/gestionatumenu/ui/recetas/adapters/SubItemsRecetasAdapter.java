@@ -35,15 +35,14 @@ public class SubItemsRecetasAdapter extends RecyclerView.Adapter<SubItemsRecetas
 
     @Override
     public void onBindViewHolder(@NonNull SubItemsRecetasViewHolder holder, int position) {
-        Cataloga receta = recetas.get(position);
-        holder.txt_nombre.setText(receta.getId_receta().getNombre());
+        Cataloga cataloga = recetas.get(position);
+        holder.txt_nombre.setText(cataloga.getId_receta().getNombre());
 
         holder.v_subitem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO elemento a recuperar para mandarlo como argumento/parametro
-               // Receta receta = recetas.get(holder.getAdapterPosition());
-                NavDirections action = RecetasFragmentDirections.actionRecetasFragmentToRecetaDetailsFragment();
+                NavDirections action = RecetasFragmentDirections
+                        .actionRecetasFragmentToRecetaDetailsFragment(cataloga.getId_receta());
                 Navigation.findNavController(view).navigate(action);
             }
         });

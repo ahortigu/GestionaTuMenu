@@ -1,4 +1,4 @@
-package com.aihg.gestionatumenu.ui.shared.fragments.buscaringrediente;
+package com.aihg.gestionatumenu.ui.shared.fragments.buscar.ingrediente;
 
 import android.view.LayoutInflater;
 import android.view.View;

@@ -1,6 +1,6 @@
 package com.aihg.gestionatumenu.db.entities;
 
-import static com.aihg.gestionatumenu.db.util.DatabaseTables.MENU;
+import static com.aihg.gestionatumenu.db.util.DatabaseTables.SEMANAL;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
@@ -12,7 +12,7 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 @Entity(
-        tableName = MENU,
+        tableName = SEMANAL,
         foreignKeys = {
                 @ForeignKey(
                         entity = Receta.class,
@@ -37,12 +37,11 @@ import androidx.room.PrimaryKey;
                 )
         }
 )
-public class Menu {
+public class Semanal implements MenuInterface {
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id_menu", index = true)
+    @ColumnInfo(name = "id_semanal", index = true)
     public int id;
 
-    @NonNull
     @Embedded
     public Receta id_receta;
 
@@ -54,12 +53,12 @@ public class Menu {
     @Embedded
     public Dia id_dia;
 
-    public Menu() {
+    public Semanal() {
     }
 
     @Override
     public String toString() {
-        return "Menu{" +
+        return "Semanal{" +
                 "id=" + id +
                 ", id_receta=" + id_receta +
                 ", id_momento_comida=" + id_momento_comida +
@@ -70,20 +69,21 @@ public class Menu {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Menu)) return false;
+        if (!(o instanceof Semanal)) return false;
 
-        Menu menu = (Menu) o;
+        Semanal semanal = (Semanal) o;
 
-        if (id != menu.id) return false;
-        if (!id_receta.equals(menu.id_receta)) return false;
-        if (!id_momento_comida.equals(menu.id_momento_comida)) return false;
-        return id_dia.equals(menu.id_dia);
+        if (id != semanal.id) return false;
+        if (id_receta != null ? !id_receta.equals(semanal.id_receta) : semanal.id_receta != null)
+            return false;
+        if (!id_momento_comida.equals(semanal.id_momento_comida)) return false;
+        return id_dia.equals(semanal.id_dia);
     }
 
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + id_receta.hashCode();
+        result = 31 * result + (id_receta != null ? id_receta.hashCode() : 0);
         result = 31 * result + id_momento_comida.hashCode();
         result = 31 * result + id_dia.hashCode();
         return result;
@@ -125,14 +125,14 @@ public class Menu {
     }
 
     @Ignore
-    public Menu(@NonNull Receta id_receta, @NonNull MomentoComida id_momento_comida, @NonNull Dia id_dia) {
+    public Semanal(Receta id_receta, @NonNull MomentoComida id_momento_comida, @NonNull Dia id_dia) {
         this.id_receta = id_receta;
         this.id_momento_comida = id_momento_comida;
         this.id_dia = id_dia;
     }
 
     @Ignore
-    public Menu(int id, @NonNull Receta id_receta, @NonNull MomentoComida id_momento_comida, @NonNull Dia id_dia) {
+    public Semanal(int id, Receta id_receta, @NonNull MomentoComida id_momento_comida, @NonNull Dia id_dia) {
         this.id = id;
         this.id_receta = id_receta;
         this.id_momento_comida = id_momento_comida;
