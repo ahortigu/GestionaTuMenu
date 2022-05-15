@@ -38,6 +38,7 @@ public abstract class AbstractMenuFragment extends Fragment {
 
     protected abstract void setObservers();
     protected void saveArguments(Bundle savedInstanceState) {}
+    protected void setearLogicaBotones() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,8 @@ public abstract class AbstractMenuFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.view = inflater.inflate(R.layout.menu__fragment, container, false);
 
+        setearLogicaBotones();
+
         this.recyclerView = (RecyclerView) view.findViewById(R.id.rv_m_dias);
         this.recyclerView.setHasFixedSize(false);
         this.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -63,6 +66,7 @@ public abstract class AbstractMenuFragment extends Fragment {
 
         return this.view;
     }
+
 
     @Override
     public void onPrepareOptionsMenu(@NonNull Menu menu) {

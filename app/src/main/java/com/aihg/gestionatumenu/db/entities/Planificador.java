@@ -101,12 +101,11 @@ public class Planificador implements MenuInterface, Serializable {
         this.id = id;
     }
 
-    @NonNull
     public Receta getId_receta() {
         return id_receta;
     }
 
-    public void setId_receta(@NonNull Receta id_receta) {
+    public void setId_receta(Receta id_receta) {
         this.id_receta = id_receta;
     }
 
