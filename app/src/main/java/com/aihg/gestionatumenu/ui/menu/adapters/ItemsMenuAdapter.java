@@ -59,6 +59,10 @@ public class ItemsMenuAdapter extends RecyclerView.Adapter<ItemsMenuAdapter.Item
         notifyDataSetChanged();
     }
 
+    public void forceNotifyDataSetChanged() {
+        notifyDataSetChanged();
+    }
+
     private void buildWrapper() {
         Map<Dia, List<MenuInterface>> byDia = this.menu.stream()
             .collect(groupingBy(MenuInterface::getId_dia));

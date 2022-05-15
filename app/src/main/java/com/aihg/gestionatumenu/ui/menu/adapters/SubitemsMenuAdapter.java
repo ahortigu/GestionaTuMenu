@@ -75,7 +75,7 @@ public class SubitemsMenuAdapter extends RecyclerView.Adapter<SubitemsMenuAdapte
     }
 
     private void setOnClickSemanalConReceta(MenuInterface menu) {
-        if(isSemanal) {
+        if(isSemanal && menu.getId_receta() != null) {
             NavDirections action = SemanalFragmentDirections
                     .actionMenuFragmentToRecetaDetailsFragment(menu.getId_receta());
             Navigation.findNavController(view).navigate(action);
