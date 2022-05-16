@@ -98,10 +98,6 @@ public class IngredientesFragment extends Fragment {
                 NavDirections action = IngredientesFragmentDirections.actionIngredientesFragmentToIngredientesCreateFragment();
                 Navigation.findNavController(view).navigate(action);
                 break;
-            case R.id.nav_buscar:
-                NavDirections action2 = IngredientesFragmentDirections.actionIngredientesFragmentToBuscarIngredienteFragment();
-                Navigation.findNavController(view).navigate(action2);
-                break;
         }
         return super.onOptionsItemSelected(item);
 

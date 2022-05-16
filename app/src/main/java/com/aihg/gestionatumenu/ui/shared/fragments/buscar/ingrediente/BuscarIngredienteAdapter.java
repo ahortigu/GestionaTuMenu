@@ -18,6 +18,7 @@ import com.aihg.gestionatumenu.db.entities.Ingrediente;
 import com.aihg.gestionatumenu.db.entities.IngredienteInterface;
 import com.aihg.gestionatumenu.db.entities.ListaCompra;
 import com.aihg.gestionatumenu.db.entities.Planificador;
+import com.aihg.gestionatumenu.db.entities.Receta;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,13 +53,6 @@ public class BuscarIngredienteAdapter extends RecyclerView.Adapter<BuscarIngredi
                         .getDestination();
 
                 switch (destinoAnterior.getId()) {
-                    case R.id.ingredientesFragment:
-                        BuscarIngredienteFragmentDirections.ActionBuscarIngredienteFragmentToIngredientesFragment
-                                toIngredientes =
-                            BuscarIngredienteFragmentDirections.actionBuscarIngredienteFragmentToIngredientesFragment();
-                        toIngredientes.setIngredientebuscar((Ingrediente) ingrediente);
-                        Navigation.findNavController(view).navigate(toIngredientes);
-                        break;
                     case R.id.despensaFragment:
                         Despensa aAnadirDespensa = new Despensa(0, (Ingrediente) ingrediente);
                         BuscarIngredienteFragmentDirections.ActionBuscarIngredienteFragmentToDespensaFragment

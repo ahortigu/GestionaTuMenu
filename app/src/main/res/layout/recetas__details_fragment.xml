@@ -48,17 +48,43 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/l_rd_receta_nombre"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintTop_toBottomOf="@+id/l_rd_receta_imagen"
-                tools:layout_editor_absoluteX="20dp">
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@drawable/borde_fondo_blanco"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/l_rd_receta_imagen">
+
+                <TextView
+                    android:id="@+id/lb_rd_receta_nombre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/borde_fondo_mostaza"
+                    android:padding="5dp"
+                    android:text="@string/nombre_up"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/txt_rd_receta_nombre"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:maxLines="2"
+                    android:minLines="1"
                     android:text="NOMBRE"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@+id/lb_rd_receta_nombre" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -67,26 +93,11 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:layout_marginTop="1dp"
-                android:background="@color/black"
-                android:padding="10dp"
+                android:background="@drawable/borde_fondo_blanco"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/l_rd_receta_nombre">
-
-                <ImageView
-                    android:id="@+id/iv_rd_arrow_categorias"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:contentDescription="@string/imagen_ingrediente"
-                    android:src="@drawable/ic_arrow_down"
-                    app:layout_constraintBottom_toTopOf="@+id/l_rd_expandable_categorias"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/white" />
 
                 <TextView
                     android:id="@+id/lb_rd_categoria_nombre"
@@ -101,39 +112,23 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/l_rd_expandable_categorias"
+                <TextView
+                    android:id="@+id/txt_rd_categoria"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/gris_oscuro"
-                    android:padding="10dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:maxLines="2"
+                    android:minLines="1"
+                    android:singleLine="false"
+                    android:text="@string/categorias_up"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/lb_rd_categoria_nombre">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="75dp"
-                        android:background="@drawable/borde_fondo_blanco"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <TextView
-                            android:id="@+id/txt_rd_categoria"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:lines="2"
-                            android:singleLine="false"
-                            android:text="@string/categorias_up"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    app:layout_constraintTop_toBottomOf="@+id/lb_rd_categoria_nombre" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -142,10 +137,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:background="@color/black"
-                android:padding="10dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/granate_osuro"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/l_rd_categorias">
 
@@ -180,7 +174,8 @@
                     android:id="@+id/l_rd_expandable_ingredientes"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/gris_oscuro"
+                    android:background="@color/granate_osuro"
+                    android:padding="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -189,8 +184,10 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_rd_ingredientes"
                         android:layout_width="match_parent"
-                        android:layout_height="170dp"
-                        android:padding="5dp"
+                        android:layout_height="wrap_content"
+                        android:background="@color/mostaza_claro"
+                        android:maxHeight="170dp"
+                        android:minHeight="80dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -206,8 +203,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:background="@color/black"
-                android:padding="10dp"
+                android:background="@color/granate_osuro"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0"
@@ -243,8 +239,8 @@
                     android:id="@+id/l_rd_expandable_instrucciones"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/gris_oscuro"
-                    android:padding="10dp"
+                    android:background="@color/granate_osuro"
+                    android:padding="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -259,9 +255,9 @@
                         android:inputType="textMultiLine"
                         android:maxLines="50"
                         android:minLines="1"
-                        android:padding="7dp"
+                        android:padding="15dp"
                         android:text="Instruciones etc etc"
-                        android:textAlignment="textStart"
+                        android:textAlignment="textEnd"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:textStyle="bold"
