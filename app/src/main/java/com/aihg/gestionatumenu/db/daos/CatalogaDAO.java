@@ -11,6 +11,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.aihg.gestionatumenu.db.entities.Cataloga;
+import com.aihg.gestionatumenu.db.entities.Receta;
 
 import java.util.List;
 
@@ -28,4 +29,6 @@ public interface CatalogaDAO {
     @Query("SELECT * FROM " + CATALOGA)
     LiveData<List<Cataloga>> getAllCataloga();
 
+    @Query("SELECT * FROM " + CATALOGA + " WHERE id_receta = :receta")
+    LiveData<List<Cataloga>> getCatalogaByReceta(int receta);
 }

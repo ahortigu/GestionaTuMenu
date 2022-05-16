@@ -158,7 +158,7 @@ public class GestionaTuMenuRepository {
     }
 
     public LiveData<List<Utiliza>> getAllUtiliza() {
-        return getAllUtiliza();
+        return utiliza;
     }
 
     public LiveData<List<Cataloga>> getALLCataloga() {
@@ -377,5 +377,25 @@ public class GestionaTuMenuRepository {
                 planificadorDAO.update(planificador);
             }
         });
+    }
+
+    public LiveData<List<Utiliza>> getUtilizaByReceta(Receta receta) {
+        return utilizaDAO.getUtilizaByReceta(receta.getId());
+        //executors.execute(new Runnable() {
+        //    @Override
+        //    public void run() {
+        //        utilizaDAO.getUtilizaByReceta(receta);
+        //    }
+        //});
+    }
+
+    public LiveData<List<Cataloga>> getCatalogaByReceta(Receta receta) {
+        return catalogaDAO.getCatalogaByReceta(receta.getId());
+        //executors.execute(new Runnable() {
+        //    @Override
+        //    public void run() {
+        //        catalogaDAO.getCatalogaByReceta(receta);
+        //    }
+        //});
     }
 }

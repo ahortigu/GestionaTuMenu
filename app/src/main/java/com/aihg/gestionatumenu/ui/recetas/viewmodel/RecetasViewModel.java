@@ -43,9 +43,13 @@ public class RecetasViewModel extends AndroidViewModel {
         return recetas;
     }
 
-    //public LiveData<List<Utiliza>> getIngredientes(Receta receta) {
-    //    return repository.getUtilizaByReceta(receta);
-    //}
+    public LiveData<List<Utiliza>> getUtilizaByReceta(Receta receta) {
+        return repository.getUtilizaByReceta(receta);
+    }
+
+    public LiveData<List<Cataloga>> getCatalogaByReceta(Receta receta) {
+        return repository.getCatalogaByReceta(receta);
+    }
 
     public void insertIngredienteReceta(Utiliza ingrediente) {
         repository.insert(ingrediente);
@@ -67,11 +71,15 @@ public class RecetasViewModel extends AndroidViewModel {
         repository.delete(categoria);
     }
 
+    public void insertReceta(Receta receta) {
+        repository.insert(receta);
+    }
+
     public void updateReceta(Receta receta) {
         repository.update(receta);
     }
 
-    public void insertReceta(Receta receta) {
-        repository.insert(receta);
+    public void deleteReceta(Receta receta) {
+        repository.delete(receta);
     }
 }
