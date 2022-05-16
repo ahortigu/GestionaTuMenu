@@ -43,6 +43,10 @@ public class IngredientesViewModel extends AndroidViewModel {
         return repository.getIngredienteBuscarReceta(receta);
     }
 
+    public LiveData<List<Ingrediente>> getIngredientesByName(Ingrediente ingrediente) {
+        return repository.getIngredienteByName(ingrediente);
+    }
+
     public LiveData<List<CategoriaIngrediente>> getCategorias() {
         return categoriasIngrediente;
     }

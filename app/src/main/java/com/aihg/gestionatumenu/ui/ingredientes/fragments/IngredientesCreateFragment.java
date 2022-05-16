@@ -170,13 +170,28 @@ public class IngredientesCreateFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Log.i("Ingrediente seteado", toCreate.toString());
-                if(!toCreate.getNombre().isEmpty() && toCreate.getCategoriaIngrediente() != null && toCreate.getMedicion() != null)
+                if(!toCreate.getNombre().isEmpty()
+                    && toCreate.getCategoriaIngrediente() != null
+                    && toCreate.getMedicion() != null)
                 {
-                    // TODO anadir validaciones aqui
-                    viewModel.insertIngrediente(toCreate);
-                    Toast.makeText(view.getContext(), "Ingrediente creado con éxito", Toast.LENGTH_LONG).show();
+                    viewModel
+                        .getIngredientesByName(toCreate)
+                        .observe(getViewLifecycleOwner(), ingredientes -> {
+                            if (ingredientes.isEmpty()) {
+                                viewModel.insertIngrediente(toCreate);
+                                Toast.makeText(
+                                    view.getContext(), "Ingrediente creado con éxito", Toast.LENGTH_LONG
+                                ).show();
+                            } else {
+                                Toast.makeText(
+                                    view.getContext(), "¡El ingrediente ya existe!", Toast.LENGTH_LONG
+                                ).show();
+                            }
+                        });
                 } else {
-                    Toast.makeText(view.getContext(), "Por favor, no deje ningún campo vacío", Toast.LENGTH_LONG).show();
+                    Toast.makeText(
+                        view.getContext(), "Por favor, no deje ningún campo vacío", Toast.LENGTH_LONG
+                    ).show();
                 }
             }
         });
