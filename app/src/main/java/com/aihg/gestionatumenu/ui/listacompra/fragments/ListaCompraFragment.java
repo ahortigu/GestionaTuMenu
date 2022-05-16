@@ -12,6 +12,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,8 +22,10 @@ import android.widget.Toast;
 
 import com.aihg.gestionatumenu.R;
 import com.aihg.gestionatumenu.db.entities.ListaCompra;
+import com.aihg.gestionatumenu.db.entities.Planificador;
 import com.aihg.gestionatumenu.ui.listacompra.adapters.ListaCompraAdapter;
 import com.aihg.gestionatumenu.ui.listacompra.viewmodel.ListaCompraViewModel;
+import com.aihg.gestionatumenu.ui.menu.fragments.PlanificadorFragmentArgs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,9 +37,11 @@ public class ListaCompraFragment extends Fragment {
     private ListaCompraAdapter adapter;
     private List<ListaCompra> dondeBuscar;
     private ListaCompraViewModel viewModel;
+    private ListaCompra  aInsertar;
 
     public ListaCompraFragment() {
         dondeBuscar = new ArrayList<>();
+        aInsertar = new ListaCompra();
     }
 
     @Override
@@ -49,8 +54,10 @@ public class ListaCompraFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.view = inflater.inflate(R.layout.listacompra__fragment, container, false);
         setViewModelAndObserver();
-        setRecyclerView();
+        saveArguments(savedInstanceState);
         setBuscador();
+        setRecyclerView();
+
         return view;
     }
 
@@ -66,13 +73,12 @@ public class ListaCompraFragment extends Fragment {
         int itemId = item.getItemId();
         switch(itemId) {
             case R.id.nav_add:
-                NavDirections action = ListaCompraFragmentDirections.actionListaCompraFragmentToAddExistingIngredienteFragment();
+                NavDirections action = ListaCompraFragmentDirections.actionListaCompraFragmentToBuscarIngredienteFragment();
                 Navigation.findNavController(view).navigate(action);
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
-
 
     public void setViewModelAndObserver(){
         viewModel = new ViewModelProvider(this).get(ListaCompraViewModel.class);
@@ -85,6 +91,19 @@ public class ListaCompraFragment extends Fragment {
                 dondeBuscar = ingredientesOb;
             }
         });
+    }
+
+    public void saveArguments(Bundle savedInstanceState) {
+        Bundle bundle = savedInstanceState == null ? getArguments() : savedInstanceState;
+        if (bundle != null) {
+            ListaCompraFragmentArgs args = ListaCompraFragmentArgs.fromBundle(bundle);
+            this.aInsertar = args.getListacomprabuscar();
+            Log.i("RECIBIENDO INGREDIENTE", "El ingrediente a anadir es "+ aInsertar);
+            if (aInsertar != null) {
+                Log.i("ANADIENDO INGREDIENTE", "El ingrediente a anadir es "+ aInsertar.getIngrediente().getNombre());
+                viewModel.insertIngrediente(aInsertar);
+            }
+        }
     }
 
     public void setRecyclerView(){
@@ -123,6 +142,5 @@ public class ListaCompraFragment extends Fragment {
             }
         });
     }
-
 
 }

@@ -50,12 +50,6 @@ public class BuscarRecetaAdapter extends RecyclerView.Adapter<BuscarRecetaAdapte
                     .getDestination();
 
                 switch (destinoAnterior.getId()) {
-                    case R.id.recetasFragment:
-                        //TODO Pass receta
-                        NavDirections toRecetas = BuscarRecetaFragmentDirections
-                                .actionBuscarRecetaFragmentToRecetasFragment();
-                        Navigation.findNavController(view).navigate(toRecetas);
-                        break;
                     case R.id.planificadorFragment:
                         aRellenar.setId_receta(receta);
                         BuscarRecetaFragmentDirections.ActionBuscarRecetaFragmentToPlanificadorFragment
