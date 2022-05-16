@@ -62,6 +62,11 @@ public class ListaCompraAdapter extends RecyclerView.Adapter<ListaCompraAdapter.
         notifyDataSetChanged();
     }
 
+    public void setIngredientesFiltrados(List<ListaCompra> ingredientes) {
+        this.ingredientes = ingredientes;
+        notifyDataSetChanged();
+    }
+
 
     public class ListaCompraViewHolder extends RecyclerView.ViewHolder {
         private View v_subitem;

@@ -56,9 +56,6 @@
         <action
             android:id="@+id/action_listaCompraFragment_to_addExistingIngredienteFragment"
             app:destination="@id/addExistingIngredienteFragment" />
-        <action
-            android:id="@+id/action_listaCompraFragment_to_buscarIngredienteFragment"
-            app:destination="@id/buscarIngredienteFragment" />
         <argument
             android:name="listacomprabuscar"
             app:argType="com.aihg.gestionatumenu.db.entities.ListaCompra"

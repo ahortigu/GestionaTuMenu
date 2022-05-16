@@ -3,6 +3,7 @@ package com.aihg.gestionatumenu.ui.listacompra.fragments;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -16,47 +17,40 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.aihg.gestionatumenu.R;
 import com.aihg.gestionatumenu.db.entities.ListaCompra;
 import com.aihg.gestionatumenu.ui.listacompra.adapters.ListaCompraAdapter;
 import com.aihg.gestionatumenu.ui.listacompra.viewmodel.ListaCompraViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ListaCompraFragment extends Fragment {
     private View view;
     private RecyclerView recyclerView;
     private ListaCompraAdapter adapter;
+    private List<ListaCompra> dondeBuscar;
     private ListaCompraViewModel viewModel;
 
     public ListaCompraFragment() {
+        dondeBuscar = new ArrayList<>();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
-        viewModel = new ViewModelProvider(this).get(ListaCompraViewModel.class);
-        viewModel.getAllDespensa().observe(this, new Observer<List<ListaCompra>>() {
-            @Override
-            public void onChanged(List<ListaCompra> ingredientes) {
-                adapter.setIngredientes(ingredientes);
-            }
-        });
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.view = inflater.inflate(R.layout.listacompra__fragment, container, false);
-
-        recyclerView = (RecyclerView) view.findViewById(R.id.rv_lc_ingredientes);
-        recyclerView.setHasFixedSize(false);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        if (adapter == null) adapter = new ListaCompraAdapter();
-        recyclerView.setAdapter(adapter);
+        setViewModelAndObserver();
+        setRecyclerView();
+        setBuscador();
         return view;
     }
 
@@ -75,11 +69,60 @@ public class ListaCompraFragment extends Fragment {
                 NavDirections action = ListaCompraFragmentDirections.actionListaCompraFragmentToAddExistingIngredienteFragment();
                 Navigation.findNavController(view).navigate(action);
                 break;
-//            case R.id.nav_buscar:
-//                NavDirections action2 = ListaCompraFragmentDirections.actionListaCompraFragmentToBuscarIngredienteFragment();
-//                Navigation.findNavController(view).navigate(action2);
-//                break;
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+    public void setViewModelAndObserver(){
+        viewModel = new ViewModelProvider(this).get(ListaCompraViewModel.class);
+        viewModel.
+                getAllDespensa()
+                .observe(requireActivity(), new Observer<List<ListaCompra>>() {
+            @Override
+            public void onChanged(List<ListaCompra> ingredientesOb) {
+                adapter.setIngredientes(ingredientesOb);
+                dondeBuscar = ingredientesOb;
+            }
+        });
+    }
+
+    public void setRecyclerView(){
+        recyclerView = (RecyclerView) view.findViewById(R.id.rv_lc_ingredientes);
+        recyclerView.setHasFixedSize(false);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        if (adapter == null) adapter = new ListaCompraAdapter();
+        recyclerView.setAdapter(adapter);
+    }
+
+    public void setBuscador(){
+        SearchView buscador = view.findViewById(R.id.sv_lc_buscador_ingrediente);
+        buscador.clearFocus();
+        buscador.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                List<ListaCompra> listaCompraFiltrada = dondeBuscar.stream()
+                        .filter(listaCompraItem ->
+                                listaCompraItem.getIngrediente().getNombre().toLowerCase().contains(newText.toLowerCase()))
+                        .collect(Collectors.toList());
+
+                if (listaCompraFiltrada.isEmpty()) {
+                    Toast.makeText(view.getContext(), "El ingrediente no existe en la lista", Toast.LENGTH_SHORT).show();
+                } else {
+                    adapter.setIngredientesFiltrados(listaCompraFiltrada);
+                }
+                return true;
+            }
+        });
+    }
+
+
 }
