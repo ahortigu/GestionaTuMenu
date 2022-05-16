@@ -25,6 +25,6 @@ public interface RecetaDAO {
     @Update
     void update(Receta receta);
 
-    @Query("SELECT * FROM " + RECETAS + " ORDER BY id_receta ASC")
+    @Query("SELECT * FROM " + RECETAS + " ORDER BY nombre_receta ASC")
     LiveData<List<Receta>> getAllRecetas();
 }

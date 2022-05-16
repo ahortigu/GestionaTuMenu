@@ -1,5 +1,6 @@
 package com.aihg.gestionatumenu.ui.recetas.adapters;
 
+import static java.util.Comparator.comparing;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toMap;
 
@@ -22,6 +23,7 @@ import com.aihg.gestionatumenu.db.entities.CategoriaReceta;
 import com.aihg.gestionatumenu.ui.recetas.wrapper.CategoriaRecetaWrapper;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -110,7 +112,8 @@ public class ItemsCategoriaRecetaAdapter extends RecyclerView.Adapter<ItemsCateg
     }
 
     public void wrapperBuilder() {
-        Map<CategoriaReceta, List<Cataloga>> mapCategorias = this.categorias.stream()
+        Map<CategoriaReceta, List<Cataloga>> mapCategorias = this.categorias
+            .stream()
             .collect(toMap(
                 categoria -> categoria,
                 listaVacia -> new ArrayList<>()
@@ -128,9 +131,13 @@ public class ItemsCategoriaRecetaAdapter extends RecyclerView.Adapter<ItemsCateg
         combinado.putAll(mapCategorias);
         combinado.putAll(mapCatalogo);
 
-        this.wrapper = combinado.keySet().stream().map(
-            categoria -> new CategoriaRecetaWrapper(categoria, combinado.get(categoria))
-        ).collect(Collectors.toList());
+        this.wrapper = combinado.keySet()
+            .stream()
+            .map(
+                categoria -> new CategoriaRecetaWrapper(categoria, combinado.get(categoria))
+            )
+            .sorted(comparing(CategoriaRecetaWrapper::getNombreCategoria))
+            .collect(Collectors.toList());
     }
 
     public class ItemsCategoriaRecetaViewHolder extends RecyclerView.ViewHolder {

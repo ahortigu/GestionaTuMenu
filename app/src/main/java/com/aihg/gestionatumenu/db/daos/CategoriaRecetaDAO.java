@@ -16,6 +16,6 @@ public interface CategoriaRecetaDAO {
     @Insert
     void insert(CategoriaReceta categoriaReceta);
 
-    @Query("SELECT * FROM " + CATEGORIAS_RECETA + " ORDER BY id_categoria_receta ASC")
+    @Query("SELECT * FROM " + CATEGORIAS_RECETA + " ORDER BY nombre_categoria_receta ASC")
     LiveData<List<CategoriaReceta>> getAllCategoriasReceta();
 }

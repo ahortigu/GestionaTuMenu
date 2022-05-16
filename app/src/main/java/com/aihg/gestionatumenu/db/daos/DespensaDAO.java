@@ -25,6 +25,6 @@ public interface DespensaDAO {
     @Update
     void update(Despensa despensa);
 
-    @Query("SELECT * FROM " + DESPENSA + " ORDER BY id_despensa ASC")
+    @Query("SELECT * FROM " + DESPENSA + " ORDER BY nombre_ingrediente ASC")
     LiveData<List<Despensa>> getAllDespensa();
 }
