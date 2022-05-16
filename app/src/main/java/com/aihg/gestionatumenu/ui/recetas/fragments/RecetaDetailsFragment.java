@@ -104,7 +104,7 @@ public class RecetaDetailsFragment extends Fragment {
                     categorias = catalogosOv
                         .stream()
                         .map(catalogo -> catalogo.getId_categoria_receta().getNombre())
-                        .collect(joining(", "));
+                        .collect(joining(" & "));
                 }
                 txt_rd_categoria.setText(categorias);
             });
