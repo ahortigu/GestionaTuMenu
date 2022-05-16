@@ -60,19 +60,20 @@ public class BuscarIngredienteAdapter extends RecyclerView.Adapter<BuscarIngredi
                         Navigation.findNavController(view).navigate(toIngredientes);
                         break;
                     case R.id.despensaFragment:
+                        Despensa aAnadirDespensa = new Despensa(0, (Ingrediente) ingrediente);
                         BuscarIngredienteFragmentDirections.ActionBuscarIngredienteFragmentToDespensaFragment
                                 toDespensa =
                             BuscarIngredienteFragmentDirections.actionBuscarIngredienteFragmentToDespensaFragment();
-                        toDespensa.setDespensabuscar((Despensa) ingrediente);
+                        toDespensa.setDespensabuscar((Despensa) aAnadirDespensa);
+                        Log.i("ENVIANDO INGREDIENTE", "El ingrediente a anadir es "+ aAnadirDespensa);
                         Navigation.findNavController(view).navigate(toDespensa);
                         break;
                     case R.id.listaCompraFragment:
-                        ListaCompra aAnadir = new ListaCompra(0, (Ingrediente) ingrediente);
+                        ListaCompra aAnadirListaCompra = new ListaCompra(0, (Ingrediente) ingrediente);
                         BuscarIngredienteFragmentDirections.ActionBuscarIngredienteFragmentToListaCompraFragment
                                 toListaCompra =
                             BuscarIngredienteFragmentDirections.actionBuscarIngredienteFragmentToListaCompraFragment();
-                        toListaCompra.setListacomprabuscar(aAnadir);
-                        Log.i("ENVIANDO INGREDIENTE", "El ingrediente a anadir es "+ aAnadir);
+                        toListaCompra.setListacomprabuscar(aAnadirListaCompra);
                         Navigation.findNavController(view).navigate(toListaCompra);
                         break;
                 }

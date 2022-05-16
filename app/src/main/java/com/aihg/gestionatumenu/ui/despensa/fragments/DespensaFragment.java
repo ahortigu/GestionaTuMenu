@@ -23,7 +23,7 @@ import com.aihg.gestionatumenu.db.entities.CategoriaIngrediente;
 import com.aihg.gestionatumenu.db.entities.Despensa;
 import com.aihg.gestionatumenu.ui.despensa.adapters.ItemsCatDespensaAdapter;
 import com.aihg.gestionatumenu.ui.despensa.viewmodel.DespensaViewModel;
-import com.aihg.gestionatumenu.ui.recetas.fragments.RecetasFragmentDirections;
+import com.aihg.gestionatumenu.ui.listacompra.fragments.ListaCompraFragmentArgs;
 
 import java.util.List;
 
@@ -31,50 +31,26 @@ public class DespensaFragment extends Fragment {
     private RecyclerView recyclerView;
     private ItemsCatDespensaAdapter adapter;
     private View view;
-
+    private Despensa  aInsertar;
     private DespensaViewModel viewModel;
 
     public DespensaFragment() {
+        aInsertar = new Despensa();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
-        viewModel = new ViewModelProvider(this).get(DespensaViewModel.class);
-        viewModel
-                .getCategorias()
-                .observe(this, new Observer<List<CategoriaIngrediente>>() {
-                    @Override
-                    public void onChanged(List<CategoriaIngrediente> categoriasOb) {
-                        adapter.setCategorias(categoriasOb);
-                    }
-                });
-        viewModel
-                .getDespensa()
-                .observe(this, new Observer<List<Despensa>>() {
-                    @Override
-                    public void onChanged(List<Despensa> despensaOb) {
-                        adapter.setDespensaItems(despensaOb);
-                    }
-                });
     }
 
     @Override
-    public View onCreateView(
-            LayoutInflater inflater,
-            ViewGroup container,
-            Bundle savedInstanceState
-    ) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.view = inflater.inflate(R.layout.despensa__fragment, container, false);
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.rv_d_categorias);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        if (adapter == null) adapter = new ItemsCatDespensaAdapter();
-        recyclerView.setAdapter(adapter);
+        setViewModelsAndObservers();
+        saveArguments(savedInstanceState);
+        setRecyclerView();
 
         return view;
     }
@@ -94,12 +70,50 @@ public class DespensaFragment extends Fragment {
                 NavDirections action = DespensaFragmentDirections.actionDespensaFragmentToBuscarIngredienteFragment();
                 Navigation.findNavController(view).navigate(action);
                 break;
-            case R.id.nav_buscar:
-                NavDirections action2 = DespensaFragmentDirections.actionDespensaFragmentToBuscarIngredienteFragment();
-                Navigation.findNavController(view).navigate(action2);
-                break;
         }
         return super.onOptionsItemSelected(item);
 
+    }
+
+    public void setViewModelsAndObservers(){
+        viewModel = new ViewModelProvider(this).get(DespensaViewModel.class);
+        viewModel
+                .getCategorias()
+                .observe(requireActivity(), new Observer<List<CategoriaIngrediente>>() {
+                    @Override
+                    public void onChanged(List<CategoriaIngrediente> categoriasOb) {
+                        adapter.setCategorias(categoriasOb);
+                    }
+                });
+        viewModel
+                .getDespensa()
+                .observe(requireActivity(), new Observer<List<Despensa>>() {
+                    @Override
+                    public void onChanged(List<Despensa> despensaOb) {
+                        adapter.setDespensaItems(despensaOb);
+                    }
+                });
+
+    }
+
+    public void  setRecyclerView(){
+        recyclerView = (RecyclerView) view.findViewById(R.id.rv_d_categorias);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        if (adapter == null) adapter = new ItemsCatDespensaAdapter();
+        recyclerView.setAdapter(adapter);
+
+    }
+
+    public void saveArguments(Bundle savedInstanceState) {
+        Bundle bundle = savedInstanceState == null ? getArguments() : savedInstanceState;
+        if (bundle != null) {
+            DespensaFragmentArgs args = DespensaFragmentArgs .fromBundle(bundle);
+            this.aInsertar = args.getDespensabuscar();
+            if (aInsertar != null) {
+                viewModel.insertDespensa(aInsertar);
+            }
+        }
     }
 }

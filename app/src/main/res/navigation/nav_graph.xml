@@ -89,7 +89,9 @@
         tools:layout="@layout/despensa__fragment" >
         <action
             android:id="@+id/action_despensaFragment_to_buscarIngredienteFragment"
-            app:destination="@id/buscarIngredienteFragment" />
+            app:destination="@id/buscarIngredienteFragment"
+            app:launchSingleTop="false"
+            app:popUpToInclusive="false"/>
         <argument
             android:name="despensabuscar"
             app:argType="com.aihg.gestionatumenu.db.entities.Despensa"
