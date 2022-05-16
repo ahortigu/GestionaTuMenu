@@ -40,26 +40,19 @@ public class SubItemsDespensaAdapter extends RecyclerView.Adapter<SubItemsDespen
     @Override
     public void onBindViewHolder(@NonNull SubItemDespensaViewHolder holder, int position) {
 
-        Despensa despensaItem = this.despensa.get(position);
-        holder.txt_nombre.setText(despensaItem.getIngrediente().getNombre());
+        Despensa ingrediente = this.despensa.get(position);
+        holder.txt_nombre.setText(ingrediente.getIngrediente().getNombre());
 
-        if(!NO_CUANTIFICABLE.equals(despensaItem.getIngrediente().getMedicion())){
-            holder.et_cantidad.setText(despensaItem.getCantidad() + "");
-            holder.txt_medicion.setText(despensaItem.getIngrediente().getMedicion().getNombre());
-        } else {
-            holder.et_cantidad.setVisibility(View.INVISIBLE);
-            holder.txt_medicion.setVisibility(View.INVISIBLE);
+        if (!NO_CUANTIFICABLE.equals(ingrediente.getIngrediente().getMedicion())) {
+            holder.txt_medicion.setText(ingrediente.getIngrediente().getMedicion().getNombre());
+            holder.et_cantidad.setText(ingrediente.getCantidad() + "");
+            holder.txt_medicion.setVisibility(View.VISIBLE);
+            holder.et_cantidad.setVisibility(View.VISIBLE);
         }
-
-        holder.v_subitem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // TODO Pasar ingrediente como parámetro
-                //Despensa ingrediente = ingredientes.get(holder.getAdapterPosition());
-                NavDirections action = DespensaFragmentDirections.actionDespensaFragmentToBuscarIngredienteFragment();
-                Navigation.findNavController(view).navigate(action);
-            }
-        });
+        else{
+            holder.txt_medicion.setVisibility(View.GONE);
+            holder.et_cantidad.setVisibility(View.GONE);
+        }
     }
 
     @Override
