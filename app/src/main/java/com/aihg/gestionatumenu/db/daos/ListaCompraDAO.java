@@ -25,6 +25,6 @@ public interface ListaCompraDAO {
     @Update
     void update(ListaCompra listaCompra);
 
-    @Query("SELECT * FROM " + LISTACOMPRA + " ORDER BY id_lista_compra ASC")
+    @Query("SELECT * FROM " + LISTACOMPRA + " ORDER BY nombre_ingrediente ASC")
     LiveData<List<ListaCompra>> getAllListaCompra();
 }

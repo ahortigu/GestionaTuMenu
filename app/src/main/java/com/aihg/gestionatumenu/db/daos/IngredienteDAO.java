@@ -29,27 +29,27 @@ public interface IngredienteDAO {
     @Update
     void update(Ingrediente ingrediente);
 
-    @Query("SELECT * FROM " + INGREDIENTES + " ORDER BY id_ingrediente ASC")
+    @Query("SELECT * FROM " + INGREDIENTES + " ORDER BY nombre_ingrediente ASC")
     LiveData<List<Ingrediente>> getAllIngredientes();
 
     @Query(
         "SELECT * FROM " + INGREDIENTES + " WHERE id_ingrediente NOT IN (" +
         "    SELECT id_ingrediente FROM " + DESPENSA + " " +
-        ")"
+        ") order by nombre_ingrediente ASC"
     )
     LiveData<List<Ingrediente>> getIngredientesParaBuscarDespensa();
 
     @Query(
         "SELECT * FROM " + INGREDIENTES + " WHERE id_ingrediente NOT IN (" +
         "    SELECT id_ingrediente FROM " + LISTACOMPRA + " " +
-        ")"
+        ") order by nombre_ingrediente ASC"
     )
     LiveData<List<Ingrediente>> getIngredientesBuscarListaCompra();
 
     @Query(
         "SELECT * FROM " + INGREDIENTES + " WHERE id_ingrediente NOT IN (" +
         "    SELECT id_ingrediente FROM " + UTILIZA + " WHERE id_receta = :receta " +
-        ")"
+        ") order by nombre_ingrediente ASC"
     )
     LiveData<List<Ingrediente>> getIngredienteBuscarReceta(int receta);
 }
