@@ -10,6 +10,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.aihg.gestionatumenu.db.entities.Receta;
 import com.aihg.gestionatumenu.db.entities.Utiliza;
 
 import java.util.List;
@@ -27,4 +28,7 @@ public interface UtilizaDAO {
 
     @Query("SELECT * FROM " + UTILIZA)
     LiveData<List<Utiliza>> getAllUtiliza();
+
+    @Query("SELECT * FROM " + UTILIZA + " WHERE id_receta = :receta")
+    LiveData<List<Utiliza>> getUtilizaByReceta(int receta);
 }

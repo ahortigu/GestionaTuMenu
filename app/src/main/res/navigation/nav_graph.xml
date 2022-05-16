@@ -39,14 +39,6 @@
         <action
             android:id="@+id/action_ingredientesFragment_to_ingredientesCreateFragment"
             app:destination="@id/ingredientesCreate" />
-        <action
-            android:id="@+id/action_ingredientesFragment_to_buscarIngredienteFragment"
-            app:destination="@id/buscarIngredienteFragment" />
-        <argument
-            android:name="ingredientebuscar"
-            app:argType="com.aihg.gestionatumenu.db.entities.Ingrediente"
-            app:nullable="true"
-            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/listaCompraFragment"
