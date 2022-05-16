@@ -381,21 +381,21 @@ public class GestionaTuMenuRepository {
 
     public LiveData<List<Utiliza>> getUtilizaByReceta(Receta receta) {
         return utilizaDAO.getUtilizaByReceta(receta.getId());
-        //executors.execute(new Runnable() {
-        //    @Override
-        //    public void run() {
-        //        utilizaDAO.getUtilizaByReceta(receta);
-        //    }
-        //});
     }
 
     public LiveData<List<Cataloga>> getCatalogaByReceta(Receta receta) {
         return catalogaDAO.getCatalogaByReceta(receta.getId());
-        //executors.execute(new Runnable() {
-        //    @Override
-        //    public void run() {
-        //        catalogaDAO.getCatalogaByReceta(receta);
-        //    }
-        //});
+    }
+
+    public LiveData<List<Ingrediente>> getIngredientesParaBuscarDespensa() {
+        return ingredienteDAO.getIngredientesParaBuscarDespensa();
+    }
+
+    public LiveData<List<Ingrediente>> getIngredientesBuscarListaCompra() {
+        return ingredienteDAO.getIngredientesBuscarListaCompra();
+    }
+
+    public LiveData<List<Ingrediente>> getIngredienteBuscarReceta(Receta receta) {
+        return ingredienteDAO.getIngredienteBuscarReceta(receta.getId());
     }
 }
