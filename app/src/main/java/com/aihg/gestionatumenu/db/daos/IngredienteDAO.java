@@ -1,6 +1,9 @@
 package com.aihg.gestionatumenu.db.daos;
 
+import static com.aihg.gestionatumenu.db.util.DatabaseTables.DESPENSA;
 import static com.aihg.gestionatumenu.db.util.DatabaseTables.INGREDIENTES;
+import static com.aihg.gestionatumenu.db.util.DatabaseTables.LISTACOMPRA;
+import static com.aihg.gestionatumenu.db.util.DatabaseTables.UTILIZA;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -11,6 +14,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.aihg.gestionatumenu.db.entities.Ingrediente;
+import com.aihg.gestionatumenu.db.entities.Receta;
 
 import java.util.List;
 
@@ -27,4 +31,25 @@ public interface IngredienteDAO {
 
     @Query("SELECT * FROM " + INGREDIENTES + " ORDER BY id_ingrediente ASC")
     LiveData<List<Ingrediente>> getAllIngredientes();
+
+    @Query(
+        "SELECT * FROM " + INGREDIENTES + " WHERE id_ingrediente NOT IN (" +
+        "    SELECT id_ingrediente FROM " + DESPENSA + " " +
+        ")"
+    )
+    LiveData<List<Ingrediente>> getIngredientesParaBuscarDespensa();
+
+    @Query(
+        "SELECT * FROM " + INGREDIENTES + " WHERE id_ingrediente NOT IN (" +
+        "    SELECT id_ingrediente FROM " + LISTACOMPRA + " " +
+        ")"
+    )
+    LiveData<List<Ingrediente>> getIngredientesBuscarListaCompra();
+
+    @Query(
+        "SELECT * FROM " + INGREDIENTES + " WHERE id_ingrediente NOT IN (" +
+        "    SELECT id_ingrediente FROM " + UTILIZA + " WHERE id_receta = :receta " +
+        ")"
+    )
+    LiveData<List<Ingrediente>> getIngredienteBuscarReceta(int receta);
 }

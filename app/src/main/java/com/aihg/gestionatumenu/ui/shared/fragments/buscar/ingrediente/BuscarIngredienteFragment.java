@@ -3,14 +3,18 @@ package com.aihg.gestionatumenu.ui.shared.fragments.buscar.ingrediente;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavDestination;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -22,6 +26,7 @@ import com.aihg.gestionatumenu.db.entities.Despensa;
 import com.aihg.gestionatumenu.db.entities.Ingrediente;
 import com.aihg.gestionatumenu.db.entities.IngredienteInterface;
 import com.aihg.gestionatumenu.db.entities.ListaCompra;
+import com.aihg.gestionatumenu.db.entities.Receta;
 import com.aihg.gestionatumenu.ui.despensa.viewmodel.DespensaViewModel;
 import com.aihg.gestionatumenu.ui.ingredientes.viewmodel.IngredientesViewModel;
 import com.aihg.gestionatumenu.ui.listacompra.viewmodel.ListaCompraViewModel;
@@ -55,28 +60,80 @@ public class BuscarIngredienteFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.view = inflater.inflate(R.layout.shared__buscar_ingrediente_fragment, container, false);
-        setAdapterWithCorrectViewModel();
-        setRecyclerView();
-        setBuscador();
+
+
         return view;
     }
 
-    public void setAdapterWithCorrectViewModel(){
-                ingredientesViewModel = new ViewModelProvider(this).get(IngredientesViewModel.class);
-                ingredientesViewModel.getIngredientes().observe(requireActivity(), new Observer<List<Ingrediente>>() {
-                    @Override
-                    public void onChanged(List<Ingrediente> ingredientesOb) {
-                        List<IngredienteInterface> toInterface = ingredientesOb.stream()
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setAdapterWithCorrectViewModel();
+        setRecyclerView();
+        setBuscador();
+    }
+
+    public void setAdapterWithCorrectViewModel() {
+        ingredientesViewModel = new ViewModelProvider(this).get(IngredientesViewModel.class);
+
+        NavDestination destinoAnterior = Navigation
+                .findNavController(view)
+                .getPreviousBackStackEntry()
+                .getDestination();
+
+        switch (destinoAnterior.getId()) {
+            case R.id.despensaFragment:
+                ingredientesViewModel
+                    .getIngredientesParaBuscarDespensa() // ingredientes que no esten en la despensa
+                    .observe(getViewLifecycleOwner(), new Observer<List<Ingrediente>>() {
+                        @Override
+                        public void onChanged(List<Ingrediente> ingredientesOb) {
+                            List<IngredienteInterface> toInterface = ingredientesOb.stream()
+                                    .map(ingrediente -> (IngredienteInterface) ingrediente)
+                                    .collect(Collectors.toList());
+
+                            adapter.setIngredientes(toInterface);
+                            dondeBuscar = toInterface;
+                        }
+                    });
+                break;
+            case R.id.listaCompraFragment:
+                Log.i("LISTA COMPRA", destinoAnterior.getDisplayName());
+                ingredientesViewModel
+                    .getIngredientesBuscarListaCompra() // ingredientes que no esten en la lista de la compra
+                    .observe(getViewLifecycleOwner(), new Observer<List<Ingrediente>>() {
+                        @Override
+                        public void onChanged(List<Ingrediente> ingredientesOb) {
+                            List<IngredienteInterface> toInterface = ingredientesOb.stream()
                                 .map(ingrediente -> (IngredienteInterface) ingrediente)
                                 .collect(Collectors.toList());
 
-                        adapter.setIngredientes(toInterface);
-                        dondeBuscar = toInterface;
-                    }
-                });
+                            adapter.setIngredientes(toInterface);
+                            dondeBuscar = toInterface;
+                        }
+                    });
+                break;
+            case R.id.recetasFragment:
+                ingredientesViewModel
+                    .getIngredienteBuscarReceta(new Receta()) // ingredientes que no esten en la receta
+                    .observe(getViewLifecycleOwner(), new Observer<List<Ingrediente>>() {
+                        @Override
+                        public void onChanged(List<Ingrediente> ingredientesOb) {
+                            List<IngredienteInterface> toInterface = ingredientesOb.stream()
+                                .map(ingrediente -> (IngredienteInterface) ingrediente)
+                                .collect(Collectors.toList());
+
+                            adapter.setIngredientes(toInterface);
+                            dondeBuscar = toInterface;
+                        }
+                    });
+                break;
+            default:
+                throw new IllegalStateException("Se deberia de conocer la procedencia");
+        }
     }
 
-    public void setRecyclerView(){
+    public void setRecyclerView() {
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_shared_bi_ingredientes);
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -85,7 +142,7 @@ public class BuscarIngredienteFragment extends Fragment {
         recyclerView.setAdapter(adapter);
     }
 
-    public void setBuscador(){
+    public void setBuscador() {
         SearchView buscador = view.findViewById(R.id.sv_shared_bi_buscador_ingrediente);
         buscador.clearFocus();
         buscador.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

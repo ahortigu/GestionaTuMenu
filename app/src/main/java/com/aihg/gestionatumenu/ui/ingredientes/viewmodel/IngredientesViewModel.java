@@ -10,6 +10,7 @@ import androidx.lifecycle.LiveData;
 import com.aihg.gestionatumenu.db.entities.CategoriaIngrediente;
 import com.aihg.gestionatumenu.db.entities.Ingrediente;
 import com.aihg.gestionatumenu.db.entities.Medicion;
+import com.aihg.gestionatumenu.db.entities.Receta;
 import com.aihg.gestionatumenu.db.repository.GestionaTuMenuRepository;
 
 import java.util.List;
@@ -28,6 +29,18 @@ public class IngredientesViewModel extends AndroidViewModel {
         categoriasIngrediente = repository.getAllCategoriasIngrediente();
         ingredientes = repository.getAllIngredientes();
         mediciones = repository.getAllMediciones();
+    }
+
+    public LiveData<List<Ingrediente>> getIngredientesParaBuscarDespensa() {
+        return repository.getIngredientesParaBuscarDespensa();
+    }
+
+    public LiveData<List<Ingrediente>> getIngredientesBuscarListaCompra() {
+        return repository.getIngredientesBuscarListaCompra();
+    }
+
+    public LiveData<List<Ingrediente>> getIngredienteBuscarReceta(Receta receta) {
+        return repository.getIngredienteBuscarReceta(receta);
     }
 
     public LiveData<List<CategoriaIngrediente>> getCategorias() {
