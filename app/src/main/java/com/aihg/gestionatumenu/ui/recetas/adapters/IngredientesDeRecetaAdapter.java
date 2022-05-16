@@ -21,9 +21,11 @@ import java.util.List;
 public class IngredientesDeRecetaAdapter
         extends RecyclerView.Adapter<IngredientesDeRecetaAdapter.IngredientesDeRecetaViewHolder>  {
     private List<Utiliza> ingredientes;
+    private boolean isEditable;
 
-    public IngredientesDeRecetaAdapter() {
+    public IngredientesDeRecetaAdapter(boolean isEditable) {
         this.ingredientes = new ArrayList<>();
+        this.isEditable = isEditable;
     }
 
     @NonNull
@@ -45,8 +47,8 @@ public class IngredientesDeRecetaAdapter
             holder.et_cantidad.setText(ingrediente.getCantidad() + "");
             holder.txt_medicion.setVisibility(View.VISIBLE);
             holder.et_cantidad.setVisibility(View.VISIBLE);
-        }
-        else{
+            holder.et_cantidad.setEnabled(isEditable);
+        } else{
             holder.txt_medicion.setVisibility(View.GONE);
             holder.et_cantidad.setVisibility(View.GONE);
         }

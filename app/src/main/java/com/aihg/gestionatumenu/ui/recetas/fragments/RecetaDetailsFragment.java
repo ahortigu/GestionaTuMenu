@@ -111,7 +111,7 @@ public class RecetaDetailsFragment extends Fragment {
     }
 
     private void loadIngredientes() {
-        if (adapter == null) adapter = new IngredientesDeRecetaAdapter();
+        if (adapter == null) adapter = new IngredientesDeRecetaAdapter(false);
         this.recyclerView.setAdapter(adapter);
 
         this.viewModel
