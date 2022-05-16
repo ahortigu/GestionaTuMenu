@@ -62,10 +62,6 @@ public class BuscarIngredienteFragment extends Fragment {
     }
 
     public void setAdapterWithCorrectViewModel(){
-        int idDestinoAnterior =  NavHostFragment.findNavController(this).getPreviousBackStackEntry().getDestination().getId();
-
-        switch(idDestinoAnterior) {
-            case R.id.ingredientesFragment:
                 ingredientesViewModel = new ViewModelProvider(this).get(IngredientesViewModel.class);
                 ingredientesViewModel.getIngredientes().observe(requireActivity(), new Observer<List<Ingrediente>>() {
                     @Override
@@ -78,36 +74,6 @@ public class BuscarIngredienteFragment extends Fragment {
                         dondeBuscar = toInterface;
                     }
                 });
-                break;
-            case R.id.despensaFragment:
-                despensaViewModel = new ViewModelProvider(this).get(DespensaViewModel.class);
-                despensaViewModel.getDespensa().observe(requireActivity(), new Observer<List<Despensa>>() {
-                    @Override
-                    public void onChanged(List<Despensa> despensaOb) {
-                        List<IngredienteInterface> toInterface = despensaOb.stream()
-                                .map(ingrediente -> (IngredienteInterface) ingrediente)
-                                .collect(Collectors.toList());
-
-                        adapter.setIngredientes(toInterface);
-                        dondeBuscar = toInterface;
-                    }
-                });
-                break;
-            case R.id.listaCompraFragment:
-                listaCompraViewModel = new ViewModelProvider(this).get(ListaCompraViewModel.class);
-                listaCompraViewModel.getAllDespensa().observe(requireActivity(), new Observer<List<ListaCompra>>() {
-                    @Override
-                    public void onChanged(List<ListaCompra> listaCompraOb) {
-                        List<IngredienteInterface> toInterface = listaCompraOb.stream()
-                                .map(ingrediente -> (IngredienteInterface) ingrediente)
-                                .collect(Collectors.toList());
-
-                        adapter.setIngredientes(toInterface);
-                        dondeBuscar = toInterface;
-                    }
-                });
-                break;
-        }
     }
 
     public void setRecyclerView(){
@@ -150,7 +116,8 @@ public class BuscarIngredienteFragment extends Fragment {
     @Override
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        menu.findItem(R.id.more).setVisible(false);
         menu.findItem(R.id.nav_editar).setVisible(false);
+        menu.findItem(R.id.nav_buscar).setVisible(false);
+        menu.findItem(R.id.nav_add).setVisible(false);
     }
 }

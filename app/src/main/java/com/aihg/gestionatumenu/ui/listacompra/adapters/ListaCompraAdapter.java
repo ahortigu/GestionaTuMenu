@@ -41,10 +41,12 @@ public class ListaCompraAdapter extends RecyclerView.Adapter<ListaCompraAdapter.
         if (!NO_CUANTIFICABLE.equals(ingrediente.getIngrediente().getMedicion())) {
             holder.txt_medicion.setText(ingrediente.getIngrediente().getMedicion().getNombre());
             holder.et_cantidad.setText(ingrediente.getCantidad() + "");
+            holder.txt_medicion.setVisibility(View.VISIBLE);
+            holder.et_cantidad.setVisibility(View.VISIBLE);
         }
         else{
-            holder.txt_medicion.setVisibility(View.INVISIBLE);
-            holder.et_cantidad.setVisibility(View.INVISIBLE);
+            holder.txt_medicion.setVisibility(View.GONE);
+            holder.et_cantidad.setVisibility(View.GONE);
         }
     }
 
@@ -62,16 +64,19 @@ public class ListaCompraAdapter extends RecyclerView.Adapter<ListaCompraAdapter.
         notifyDataSetChanged();
     }
 
+    public void setIngredientesFiltrados(List<ListaCompra> ingredientes) {
+        this.ingredientes = ingredientes;
+        notifyDataSetChanged();
+    }
+
 
     public class ListaCompraViewHolder extends RecyclerView.ViewHolder {
-        private View v_subitem;
         private TextView txt_nombre;
         private TextView txt_medicion;
         private EditText et_cantidad;
 
         public ListaCompraViewHolder(@NonNull View itemView) {
             super(itemView);
-            v_subitem = itemView;
             txt_nombre = itemView.findViewById(R.id.txt_lci_ingrediente);
             txt_medicion = itemView.findViewById(R.id.txt_lci_medicion);
             et_cantidad = itemView.findViewById(R.id.et_lci_cantidad);

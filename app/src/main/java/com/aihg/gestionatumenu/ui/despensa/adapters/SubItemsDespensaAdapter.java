@@ -56,7 +56,7 @@ public class SubItemsDespensaAdapter extends RecyclerView.Adapter<SubItemsDespen
             public void onClick(View view) {
                 // TODO Pasar ingrediente como parámetro
                 //Despensa ingrediente = ingredientes.get(holder.getAdapterPosition());
-                NavDirections action = DespensaFragmentDirections.actionDespensaFragmentToAddExistingIngredienteFragment();
+                NavDirections action = DespensaFragmentDirections.actionDespensaFragmentToBuscarIngredienteFragment();
                 Navigation.findNavController(view).navigate(action);
             }
         });

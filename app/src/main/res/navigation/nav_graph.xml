@@ -53,17 +53,16 @@
         android:name="com.aihg.gestionatumenu.ui.listacompra.fragments.ListaCompraFragment"
         android:label="@string/lista_de_la_compra_upp"
         tools:layout="@layout/listacompra__fragment" >
-        <action
-            android:id="@+id/action_listaCompraFragment_to_addExistingIngredienteFragment"
-            app:destination="@id/addExistingIngredienteFragment" />
-        <action
-            android:id="@+id/action_listaCompraFragment_to_buscarIngredienteFragment"
-            app:destination="@id/buscarIngredienteFragment" />
         <argument
             android:name="listacomprabuscar"
             app:argType="com.aihg.gestionatumenu.db.entities.ListaCompra"
             app:nullable="true"
             android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_listaCompraFragment_to_buscarIngredienteFragment"
+            app:destination="@id/buscarIngredienteFragment"
+            app:launchSingleTop="false"
+            app:popUpToInclusive="false"/>
     </fragment>
     <fragment
         android:id="@+id/recetasFragment"
@@ -80,17 +79,14 @@
             android:id="@+id/action_recetasFragment_to_buscarRecetaFragment"
             app:destination="@id/buscarRecetaFragment" />
         <action
-            android:id="@+id/action_recetasFragment_to_addExistingIngredienteFragment"
-            app:destination="@id/addExistingIngredienteFragment" />
+            android:id="@+id/action_recetasFragment_to_buscarIngredienteFragment"
+            app:destination="@id/buscarIngredienteFragment" />
     </fragment>
     <fragment
         android:id="@+id/despensaFragment"
         android:name="com.aihg.gestionatumenu.ui.despensa.fragments.DespensaFragment"
         android:label="@string/despensa_up"
         tools:layout="@layout/despensa__fragment" >
-        <action
-            android:id="@+id/action_despensaFragment_to_addExistingIngredienteFragment"
-            app:destination="@id/addExistingIngredienteFragment" />
         <action
             android:id="@+id/action_despensaFragment_to_buscarIngredienteFragment"
             app:destination="@id/buscarIngredienteFragment" />
@@ -135,7 +131,9 @@
             app:argType="com.aihg.gestionatumenu.db.entities.Ingrediente" />
         <action
             android:id="@+id/action_ingredienteDetailsFragment_to_ingredienteEditFragment"
-            app:destination="@id/ingredienteEditFragment" />
+            app:destination="@id/ingredienteEditFragment"
+            app:popUpTo="@id/ingredienteEditFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/ingredienteEditFragment"
@@ -178,46 +176,41 @@
             app:destination="@id/recetasFragment" />
     </fragment>
     <fragment
-        android:id="@+id/addExistingIngredienteFragment"
-        android:name="com.aihg.gestionatumenu.ui.recetas.fragments.AddExistingIngredienteFragment"
-        android:label="@string/shared_anadir_up"
-        tools:layout="@layout/shared__add_existing_ingrediente_fragment" >
-        <action
-            android:id="@+id/action_addExistingIngredienteFragment_to_listaCompraFragment"
-            app:destination="@id/listaCompraFragment" />
-        <action
-            android:id="@+id/action_addExistingIngredienteFragment_to_despensaFragment"
-            app:destination="@id/despensaFragment" />
-        <action
-            android:id="@+id/action_addExistingIngredienteFragment_to_recetasFragment"
-            app:destination="@id/recetasFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/buscarIngredienteFragment"
         android:name="com.aihg.gestionatumenu.ui.shared.fragments.buscar.ingrediente.BuscarIngredienteFragment"
-        android:label="@string/shared_buscar_up"
+        android:label="AÑADIR INGREDIENTE"
         tools:layout="@layout/shared__buscar_ingrediente_fragment" >
         <action
-            android:id="@+id/action_buscarIngredienteFragment_to_listaCompraFragment"
-            app:destination="@id/listaCompraFragment" />
-        <action
             android:id="@+id/action_buscarIngredienteFragment_to_despensaFragment"
-            app:destination="@id/despensaFragment" />
+            app:destination="@id/despensaFragment"
+            app:popUpTo="@id/despensaFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_buscarIngredienteFragment_to_ingredientesFragment"
-            app:destination="@id/ingredientesFragment">
-        </action>
+            app:destination="@id/ingredientesFragment"
+            app:popUpTo="@id/ingredientesFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_buscarIngredienteFragment_to_listaCompraFragment"
+            app:destination="@id/listaCompraFragment"
+            app:popUpTo="@id/listaCompraFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_buscarIngredienteFragment_to_recetasFragment"
+            app:destination="@id/recetasFragment"
+            app:popUpTo="@id/recetasFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="buscar_ingrediente"
+            app:argType="com.aihg.gestionatumenu.db.entities.Ingrediente"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/buscarRecetaFragment"
         android:name="com.aihg.gestionatumenu.ui.shared.fragments.buscar.receta.BuscarRecetaFragment"
-        android:label="@string/shared_buscar_up"
+        android:label="AÑADIR RECETA"
         tools:layout="@layout/shared__buscar_receta_fragment" >
-        <action
-            android:id="@+id/action_buscarRecetaFragment_to_recetasFragment"
-            app:destination="@id/recetasFragment"
-            app:popUpTo="@id/recetasFragment"
-            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_buscarRecetaFragment_to_planificadorFragment"
             app:destination="@id/planificadorFragment"

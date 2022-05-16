@@ -83,6 +83,7 @@ public class DespensaFragment extends Fragment {
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
         menu.findItem(R.id.nav_editar).setVisible(false);
+        menu.findItem(R.id.nav_buscar).setVisible(false);
     }
 
     @Override
@@ -90,7 +91,7 @@ public class DespensaFragment extends Fragment {
         int itemId = item.getItemId();
         switch(itemId) {
             case R.id.nav_add:
-                NavDirections action = DespensaFragmentDirections.actionDespensaFragmentToAddExistingIngredienteFragment();
+                NavDirections action = DespensaFragmentDirections.actionDespensaFragmentToBuscarIngredienteFragment();
                 Navigation.findNavController(view).navigate(action);
                 break;
             case R.id.nav_buscar:

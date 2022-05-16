@@ -1,5 +1,6 @@
 package com.aihg.gestionatumenu.ui.shared.fragments.buscar.ingrediente;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,6 +17,7 @@ import com.aihg.gestionatumenu.db.entities.Despensa;
 import com.aihg.gestionatumenu.db.entities.Ingrediente;
 import com.aihg.gestionatumenu.db.entities.IngredienteInterface;
 import com.aihg.gestionatumenu.db.entities.ListaCompra;
+import com.aihg.gestionatumenu.db.entities.Planificador;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,13 +46,12 @@ public class BuscarIngredienteAdapter extends RecyclerView.Adapter<BuscarIngredi
         holder.l_shared_buscar_ingrediente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).popBackStack();
-                int idDestinoAnterior = Navigation.findNavController(view)
+                NavDestination destinoAnterior = Navigation
+                        .findNavController(view)
                         .getPreviousBackStackEntry()
-                        .getDestination()
-                        .getId();
+                        .getDestination();
 
-                switch (idDestinoAnterior) {
+                switch (destinoAnterior.getId()) {
                     case R.id.ingredientesFragment:
                         BuscarIngredienteFragmentDirections.ActionBuscarIngredienteFragmentToIngredientesFragment
                                 toIngredientes =
@@ -65,10 +67,12 @@ public class BuscarIngredienteAdapter extends RecyclerView.Adapter<BuscarIngredi
                         Navigation.findNavController(view).navigate(toDespensa);
                         break;
                     case R.id.listaCompraFragment:
+                        ListaCompra aAnadir = new ListaCompra(0, (Ingrediente) ingrediente);
                         BuscarIngredienteFragmentDirections.ActionBuscarIngredienteFragmentToListaCompraFragment
                                 toListaCompra =
                             BuscarIngredienteFragmentDirections.actionBuscarIngredienteFragmentToListaCompraFragment();
-                        toListaCompra.setListacomprabuscar((ListaCompra) ingrediente);
+                        toListaCompra.setListacomprabuscar(aAnadir);
+                        Log.i("ENVIANDO INGREDIENTE", "El ingrediente a anadir es "+ aAnadir);
                         Navigation.findNavController(view).navigate(toListaCompra);
                         break;
                 }
