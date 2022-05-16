@@ -32,6 +32,9 @@ public interface IngredienteDAO {
     @Query("SELECT * FROM " + INGREDIENTES + " ORDER BY nombre_ingrediente ASC")
     LiveData<List<Ingrediente>> getAllIngredientes();
 
+    @Query("SELECT * FROM " + INGREDIENTES + " WHERE nombre_ingrediente LIKE :ingrediente")
+    LiveData<List<Ingrediente>> getIngredienteByName(String ingrediente);
+
     @Query(
         "SELECT * FROM " + INGREDIENTES + " WHERE id_ingrediente NOT IN (" +
         "    SELECT id_ingrediente FROM " + DESPENSA + " " +

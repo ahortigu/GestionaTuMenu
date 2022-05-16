@@ -398,4 +398,8 @@ public class GestionaTuMenuRepository {
     public LiveData<List<Ingrediente>> getIngredienteBuscarReceta(Receta receta) {
         return ingredienteDAO.getIngredienteBuscarReceta(receta.getId());
     }
+
+    public LiveData<List<Ingrediente>> getIngredienteByName(Ingrediente ingrediente) {
+        return ingredienteDAO.getIngredienteByName(ingrediente.getNombre());
+    }
 }
