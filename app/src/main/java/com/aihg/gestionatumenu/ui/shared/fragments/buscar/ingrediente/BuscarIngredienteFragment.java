@@ -91,7 +91,6 @@ public class BuscarIngredienteFragment extends Fragment {
         buscador.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
             @Override
-
             public boolean onQueryTextSubmit(String query) {
                 return false;
             }

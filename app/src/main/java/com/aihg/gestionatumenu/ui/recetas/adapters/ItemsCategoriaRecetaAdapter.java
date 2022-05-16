@@ -21,15 +21,11 @@ import com.aihg.gestionatumenu.db.entities.Cataloga;
 import com.aihg.gestionatumenu.db.entities.CategoriaReceta;
 import com.aihg.gestionatumenu.ui.recetas.wrapper.CategoriaRecetaWrapper;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class ItemsCategoriaRecetaAdapter extends RecyclerView.Adapter<ItemsCategoriaRecetaAdapter.ItemsCategoriaRecetaViewHolder>{
 

@@ -1,9 +1,12 @@
 package com.aihg.gestionatumenu.ui.recetas.fragments;
 
+import static java.util.stream.Collectors.joining;
+
 import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -27,8 +30,10 @@ import com.aihg.gestionatumenu.db.entities.Cataloga;
 import com.aihg.gestionatumenu.db.entities.Receta;
 import com.aihg.gestionatumenu.db.entities.Utiliza;
 import com.aihg.gestionatumenu.ui.recetas.adapters.IngredientesDeRecetaAdapter;
+import com.aihg.gestionatumenu.ui.recetas.adapters.ItemsCategoriaRecetaAdapter;
 import com.aihg.gestionatumenu.ui.recetas.viewmodel.RecetasViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecetaDetailsFragment extends Fragment {
@@ -44,6 +49,7 @@ public class RecetaDetailsFragment extends Fragment {
     private boolean isIngredienteExpandido;
     private ConstraintLayout l_rd_expandable_ingredientes_parent;
     private ConstraintLayout l_rd_expandable_ingredientes;
+    private ImageView iv_rd_arrow_ingredientes;
 
     private boolean isInstruccionesExpandido;
     private ConstraintLayout l_rd_expandable_instrucciones_parent;
@@ -51,8 +57,10 @@ public class RecetaDetailsFragment extends Fragment {
     private ImageView iv_rd_instrucciones;
     private TextView txt_instrucciones;
 
+    private TextView txt_rd_categoria;
+
     public RecetaDetailsFragment() {
-        this.isIngredienteExpandido = false;
+        this.isIngredienteExpandido = true;
         this.isInstruccionesExpandido = true;
     }
 
@@ -62,51 +70,75 @@ public class RecetaDetailsFragment extends Fragment {
         setHasOptionsMenu(true);
 
         receta = RecetaDetailsFragmentArgs.fromBundle(getArguments()).getReceta();
-
         viewModel = new ViewModelProvider(this).get(RecetasViewModel.class);
-        setObservers();
-    }
-
-    private void setObservers() {
-        viewModel
-            .getUtilizaByReceta(receta)
-            .observe(this, new Observer<List<Utiliza>>() {
-                @Override
-                public void onChanged(List<Utiliza> utilizas) {
-
-                }
-            });
-        viewModel
-            .getCatalogaByReceta(receta)
-            .observe(this, new Observer<List<Cataloga>>() {
-                @Override
-                public void onChanged(List<Cataloga> cataloga) {
-
-                }
-            });
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.view = inflater.inflate(R.layout.recetas__details_fragment, container, false);
 
-        TextView txt_nombre = view.findViewById(R.id.txt_rd_receta_nombre);
-        txt_nombre.setText(receta.getNombre());
+        this.recyclerView = (RecyclerView) view.findViewById(R.id.rv_rd_ingredientes);
+        this.recyclerView.setHasFixedSize(false);
+        this.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        loadNombreReceta();
+        loadCategorias();
+        loadIngredientes();
         loadInstrucciones();
 
-
-        //TextView txt_categoria = view.findViewById(R.id.txt_rd_categoria);
-       // txt_categoria.setText(cataloga.getId_categoria_receta().getNombre());
-
-        recyclerView = (RecyclerView) view.findViewById(R.id.rv_rd_ingredientes);
-        recyclerView.setHasFixedSize(false);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        if (adapter == null) adapter = new IngredientesDeRecetaAdapter();
-        recyclerView.setAdapter(adapter);
-
         return view;
+    }
+
+    private void loadNombreReceta() {
+        TextView txt_nombre = view.findViewById(R.id.txt_rd_receta_nombre);
+        txt_nombre.setText(receta.getNombre());
+    }
+
+    private void loadCategorias() {
+        this.txt_rd_categoria = view.findViewById(R.id.txt_rd_categoria);
+        this.viewModel
+            .getCatalogaByReceta(receta)
+            .observe(getViewLifecycleOwner(), catalogosOv -> {
+                String categorias = "";
+                if (!catalogosOv.isEmpty()) {
+                    categorias = catalogosOv
+                        .stream()
+                        .map(catalogo -> catalogo.getId_categoria_receta().getNombre())
+                        .collect(joining(", "));
+                }
+                txt_rd_categoria.setText(categorias);
+            });
+    }
+
+    private void loadIngredientes() {
+        if (adapter == null) adapter = new IngredientesDeRecetaAdapter();
+        this.recyclerView.setAdapter(adapter);
+
+        this.viewModel
+            .getUtilizaByReceta(receta)
+            .observe(getViewLifecycleOwner(), new Observer<List<Utiliza>>() {
+                @Override
+                public void onChanged(List<Utiliza> utilizas) {
+                    adapter.setIngredientes(utilizas);
+                }
+            });
+
+        this.l_rd_expandable_ingredientes_parent = view.findViewById(R.id.l_rd_ingredientes);
+        this.l_rd_expandable_ingredientes = view.findViewById(R.id.l_rd_expandable_ingredientes);
+        this.iv_rd_arrow_ingredientes = view.findViewById(R.id.iv_rd_arrow_ingredientes);
+
+        this.l_rd_expandable_ingredientes_parent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isIngredienteExpandido = !isIngredienteExpandido;
+                l_rd_expandable_ingredientes.setVisibility(
+                    isIngredienteExpandido ? View.VISIBLE : View.GONE
+                );
+                iv_rd_arrow_ingredientes.setImageResource(
+                    isIngredienteExpandido ? R.drawable.ic_arrow_up : R.drawable.ic_arrow_down
+                );
+            }
+        });
     }
 
     private void loadInstrucciones() {
@@ -115,9 +147,9 @@ public class RecetaDetailsFragment extends Fragment {
         this.iv_rd_instrucciones = view.findViewById(R.id.iv_rd_instrucciones);
         this.txt_instrucciones = view.findViewById(R.id.txt_rd_instrucciones);
 
-        txt_instrucciones.setText(receta.getInstrucciones());
-        l_rd_expandable_instrucciones.setVisibility(View.VISIBLE);
-        iv_rd_instrucciones.setImageResource(R.drawable.ic_arrow_up);
+        this.txt_instrucciones.setText(receta.getInstrucciones());
+        this.l_rd_expandable_instrucciones.setVisibility(View.VISIBLE);
+        this.iv_rd_instrucciones.setImageResource(R.drawable.ic_arrow_up);
 
         this.l_rd_expandable_instrucciones_parent.setOnClickListener(new View.OnClickListener() {
             @Override
