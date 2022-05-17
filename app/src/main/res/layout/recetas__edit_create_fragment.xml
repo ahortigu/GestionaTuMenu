@@ -146,10 +146,22 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginEnd="10dp"
-                    android:contentDescription="@string/imagen_ingrediente"
+                    android:contentDescription="Arrow"
                     android:src="@drawable/ic_arrow_down"
                     app:layout_constraintBottom_toTopOf="@+id/l_rce_expandable_ingredientes"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/white" />
+
+                <ImageView
+                    android:id="@+id/iv_rce_plus"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginEnd="10dp"
+                    android:contentDescription="@string/shared_anadir_up"
+                    android:src="@drawable/ic_add"
+                    app:layout_constraintBottom_toTopOf="@+id/l_rce_expandable_ingredientes"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_rce_arrow_ingredientes"
                     app:layout_constraintTop_toTopOf="parent"
                     app:tint="@color/white" />
 
