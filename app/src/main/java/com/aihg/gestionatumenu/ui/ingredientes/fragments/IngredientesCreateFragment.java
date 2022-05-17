@@ -1,5 +1,9 @@
 package com.aihg.gestionatumenu.ui.ingredientes.fragments;
 
+import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_CAMPO_VACIO;
+import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_CREAR_INGREDIENTE;
+import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_CREAR_INGREDIENTE_YA_EXISTE;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -180,17 +184,17 @@ public class IngredientesCreateFragment extends Fragment {
                             if (ingredientes.isEmpty()) {
                                 viewModel.insertIngrediente(toCreate);
                                 Toast.makeText(
-                                    view.getContext(), "Ingrediente creado con éxito", Toast.LENGTH_LONG
+                                    view.getContext(), TOAST_CREAR_INGREDIENTE, Toast.LENGTH_LONG
                                 ).show();
                             } else {
                                 Toast.makeText(
-                                    view.getContext(), "¡El ingrediente ya existe!", Toast.LENGTH_LONG
+                                    view.getContext(), TOAST_CREAR_INGREDIENTE_YA_EXISTE, Toast.LENGTH_LONG
                                 ).show();
                             }
                         });
                 } else {
                     Toast.makeText(
-                        view.getContext(), "Por favor, no deje ningún campo vacío", Toast.LENGTH_LONG
+                        view.getContext(), TOAST_CAMPO_VACIO, Toast.LENGTH_LONG
                     ).show();
                 }
             }

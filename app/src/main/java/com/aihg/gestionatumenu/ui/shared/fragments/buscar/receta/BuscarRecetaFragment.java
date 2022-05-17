@@ -1,5 +1,7 @@
 package com.aihg.gestionatumenu.ui.shared.fragments.buscar.receta;
 
+import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_NO_EXISTE_RECETA;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -102,7 +104,7 @@ public class BuscarRecetaFragment extends Fragment {
                         .collect(Collectors.toList());
 
                 if (recetasFiltradas.isEmpty()) {
-                    Toast.makeText(view.getContext(), "La receta no existe", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(view.getContext(), TOAST_NO_EXISTE_RECETA, Toast.LENGTH_SHORT).show();
                 } else {
                     adapter.setRecetasFiltradas(recetasFiltradas);
                 }

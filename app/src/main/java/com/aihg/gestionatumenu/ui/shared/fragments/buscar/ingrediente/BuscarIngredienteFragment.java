@@ -1,5 +1,7 @@
 package com.aihg.gestionatumenu.ui.shared.fragments.buscar.ingrediente;
 
+import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_NO_EXISTE_INGREDIENTE;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -159,7 +161,7 @@ public class BuscarIngredienteFragment extends Fragment {
                         .collect(Collectors.toList());
 
                 if (ingredientesFiltrados.isEmpty()) {
-                    Toast.makeText(view.getContext(), "El ingrediente no existe", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(view.getContext(), TOAST_NO_EXISTE_INGREDIENTE, Toast.LENGTH_SHORT).show();
                 } else {
                     adapter.setIngredientesFiltrados(ingredientesFiltrados);
                 }

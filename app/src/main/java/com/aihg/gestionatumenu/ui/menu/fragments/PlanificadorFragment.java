@@ -1,5 +1,7 @@
 package com.aihg.gestionatumenu.ui.menu.fragments;
 
+import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_PLANIFICADOR_APLICADO;
+import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_PLANIFICADOR_LIMPIO;
 import static java.util.stream.Collectors.toList;
 
 import android.os.Bundle;
@@ -98,7 +100,7 @@ public class PlanificadorFragment extends AbstractMenuFragment {
                                 .forEach(plan -> getViewModel().updateRecetaPlanificador(plan));
 
                         Toast.makeText(
-                                getView().getContext(), "¡Planificador limpio!", Toast.LENGTH_SHORT
+                                getView().getContext(), TOAST_PLANIFICADOR_LIMPIO, Toast.LENGTH_SHORT
                         ).show();
                         getAdapter().forceNotifyDataSetChanged();
                         return true;
@@ -133,7 +135,7 @@ public class PlanificadorFragment extends AbstractMenuFragment {
                                 );
 
                         Toast.makeText(
-                                getView().getContext(), "¡Planificador aplicado!", Toast.LENGTH_SHORT
+                                getView().getContext(), TOAST_PLANIFICADOR_APLICADO, Toast.LENGTH_SHORT
                         ).show();
                         getAdapter().forceNotifyDataSetChanged();
                         return true;

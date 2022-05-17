@@ -1,5 +1,10 @@
 package com.aihg.gestionatumenu.ui.listacompra.fragments;
 
+import static androidx.recyclerview.widget.ItemTouchHelper.RIGHT;
+
+import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_BORRAR_LISTA_COMPRA;
+import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_NO_EXISTE_INGREDIENTE_LISTA;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,6 +14,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,10 +28,8 @@ import android.widget.Toast;
 
 import com.aihg.gestionatumenu.R;
 import com.aihg.gestionatumenu.db.entities.ListaCompra;
-import com.aihg.gestionatumenu.db.entities.Planificador;
 import com.aihg.gestionatumenu.ui.listacompra.adapters.ListaCompraAdapter;
 import com.aihg.gestionatumenu.ui.listacompra.viewmodel.ListaCompraViewModel;
-import com.aihg.gestionatumenu.ui.menu.fragments.PlanificadorFragmentArgs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -112,6 +116,26 @@ public class ListaCompraFragment extends Fragment {
 
         if (adapter == null) adapter = new ListaCompraAdapter();
         recyclerView.setAdapter(adapter);
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                int position = viewHolder.getAdapterPosition();
+                if (!dondeBuscar.isEmpty()) {
+                    ListaCompra toDelete = dondeBuscar.get(position);
+                    viewModel.deleteIngrediente(toDelete);
+                    adapter.notifyDataSetChanged();
+                    Toast.makeText(
+                        view.getContext(), TOAST_BORRAR_LISTA_COMPRA, Toast.LENGTH_SHORT
+                    ).show();
+                }
+            }
+        }).attachToRecyclerView(recyclerView);
     }
 
     public void setBuscador(){
@@ -132,7 +156,7 @@ public class ListaCompraFragment extends Fragment {
                         .collect(Collectors.toList());
 
                 if (listaCompraFiltrada.isEmpty()) {
-                    Toast.makeText(view.getContext(), "El ingrediente no existe en la lista", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(view.getContext(), TOAST_NO_EXISTE_INGREDIENTE_LISTA, Toast.LENGTH_SHORT).show();
                 } else {
                     adapter.setIngredientesFiltrados(listaCompraFiltrada);
                 }
