@@ -1,5 +1,10 @@
 package com.aihg.gestionatumenu.ui.despensa.adapters;
 
+import static androidx.recyclerview.widget.ItemTouchHelper.RIGHT;
+import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_BORRAR_DESPENSA;
+
+import static java.util.stream.Collectors.toList;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,8 +13,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,18 +28,23 @@ import com.aihg.gestionatumenu.ui.despensa.wrapper.CategoriaWrapper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class ItemsCatDespensaAdapter extends  RecyclerView.Adapter<ItemsCatDespensaAdapter.ItemCatDespensaViewHolder>{
 
     private List<CategoriaIngrediente> categorias;
     private List<Despensa> despensa;
     private List<CategoriaWrapper> wrappers;
+
     private RecyclerView.RecycledViewPool recycledViewPool = new RecyclerView.RecycledViewPool();
 
-    public ItemsCatDespensaAdapter() {
+    private DespensaListener listener;
+
+    public ItemsCatDespensaAdapter(DespensaListener listener) {
         this.categorias = new ArrayList<>();
         this.despensa = new ArrayList<>();
         this.wrappers = new ArrayList<>();
+        this.listener = listener;
     }
 
     @NonNull
@@ -61,10 +73,30 @@ public class ItemsCatDespensaAdapter extends  RecyclerView.Adapter<ItemsCatDespe
                 categoria.getDespensa().size()
         );
 
-        SubItemsDespensaAdapter adapter = new SubItemsDespensaAdapter(categoria);
+        SubItemsDespensaAdapter adapter = new SubItemsDespensaAdapter(categoria, listener);
         holder.rv_child.setLayoutManager(layoutManager);
         holder.rv_child.setAdapter(adapter);
         holder.rv_child.setRecycledViewPool(recycledViewPool);
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                TextView txtNombre = viewHolder.itemView.findViewById(R.id.txt_ds_ingrediente);
+                int positionBorrar = IntStream.range(0, despensa.size())
+                        .filter(i -> txtNombre.getText().toString().equals(despensa.get(i).getIngrediente().getNombre()))
+                        .findFirst()
+                        .orElseThrow(() -> new IllegalStateException("El ingrediente " + txtNombre + " deberia existir."));
+                listener.onDeleteItem(despensa.get(positionBorrar), positionBorrar);
+                Toast.makeText(
+                    holder.itemView.getContext(), TOAST_BORRAR_DESPENSA, Toast.LENGTH_SHORT
+                ).show();
+            }
+        }).attachToRecyclerView(holder.rv_child);
 
         holder.l_parent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,9 +142,9 @@ public class ItemsCatDespensaAdapter extends  RecyclerView.Adapter<ItemsCatDespe
                         categoria,
                         this.despensa.stream()
                                 .filter(despensa -> categoria.equals(despensa.getIngrediente().getCategoriaIngrediente()))
-                                .collect(Collectors.toList())
+                                .collect(toList())
                 ))
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
     public class ItemCatDespensaViewHolder extends RecyclerView.ViewHolder {

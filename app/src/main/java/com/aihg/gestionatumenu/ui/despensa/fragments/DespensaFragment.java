@@ -1,13 +1,18 @@
 package com.aihg.gestionatumenu.ui.despensa.fragments;
 
+import static androidx.recyclerview.widget.ItemTouchHelper.RIGHT;
+import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_BORRAR_DESPENSA;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,13 +22,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.aihg.gestionatumenu.R;
 import com.aihg.gestionatumenu.db.entities.CategoriaIngrediente;
 import com.aihg.gestionatumenu.db.entities.Despensa;
+import com.aihg.gestionatumenu.ui.despensa.adapters.DespensaListener;
 import com.aihg.gestionatumenu.ui.despensa.adapters.ItemsCatDespensaAdapter;
 import com.aihg.gestionatumenu.ui.despensa.viewmodel.DespensaViewModel;
-import com.aihg.gestionatumenu.ui.listacompra.fragments.ListaCompraFragmentArgs;
 
 import java.util.List;
 
@@ -32,7 +38,10 @@ public class DespensaFragment extends Fragment {
     private ItemsCatDespensaAdapter adapter;
     private View view;
     private Despensa  aInsertar;
+    private List<Despensa> despensa;
     private DespensaViewModel viewModel;
+
+    private DespensaListener onItemClickListener;
 
     public DespensaFragment() {
         aInsertar = new Despensa();
@@ -48,7 +57,7 @@ public class DespensaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.view = inflater.inflate(R.layout.despensa__fragment, container, false);
 
-        setViewModelsAndObservers();
+        setViewModelsObserversListeners();
         saveArguments(savedInstanceState);
         setRecyclerView();
 
@@ -74,25 +83,43 @@ public class DespensaFragment extends Fragment {
 
     }
 
-    public void setViewModelsAndObservers(){
+    public void setViewModelsObserversListeners(){
         viewModel = new ViewModelProvider(this).get(DespensaViewModel.class);
         viewModel
-                .getCategorias()
-                .observe(requireActivity(), new Observer<List<CategoriaIngrediente>>() {
-                    @Override
-                    public void onChanged(List<CategoriaIngrediente> categoriasOb) {
-                        adapter.setCategorias(categoriasOb);
-                    }
-                });
+            .getCategorias()
+            .observe(requireActivity(), new Observer<List<CategoriaIngrediente>>() {
+                @Override
+                public void onChanged(List<CategoriaIngrediente> categoriasOb) {
+                    adapter.setCategorias(categoriasOb);
+                }
+            });
         viewModel
-                .getDespensa()
-                .observe(requireActivity(), new Observer<List<Despensa>>() {
-                    @Override
-                    public void onChanged(List<Despensa> despensaOb) {
-                        adapter.setDespensaItems(despensaOb);
-                    }
-                });
+            .getDespensa()
+            .observe(requireActivity(), new Observer<List<Despensa>>() {
+                @Override
+                public void onChanged(List<Despensa> despensaOb) {
+                    adapter.setDespensaItems(despensaOb);
+                    despensa = despensaOb;
+                }
+            });
+        onItemClickListener = new DespensaListener() {
+            @Override
+            public void onDeleteItem(Despensa despensa, int posicion) {
+                Log.i("INTERFACE", despensa.toString());
+                viewModel.deleteDespensa(despensa);
+                adapter.notifyItemRemoved(posicion);
+                Toast.makeText(
+                    view.getContext(), TOAST_BORRAR_DESPENSA, Toast.LENGTH_SHORT
+                ).show();
+            }
 
+            @Override
+            public void onUpdateItem(Despensa despensa, int posicion) {
+                Toast.makeText(
+                    view.getContext(), "HOLA", Toast.LENGTH_SHORT
+                ).show();
+            }
+        };
     }
 
     public void  setRecyclerView(){
@@ -100,9 +127,8 @@ public class DespensaFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        if (adapter == null) adapter = new ItemsCatDespensaAdapter();
+        if (adapter == null) adapter = new ItemsCatDespensaAdapter(onItemClickListener);
         recyclerView.setAdapter(adapter);
-
     }
 
     public void saveArguments(Bundle savedInstanceState) {

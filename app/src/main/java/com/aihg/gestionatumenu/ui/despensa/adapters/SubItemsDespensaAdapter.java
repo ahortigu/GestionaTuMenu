@@ -31,7 +31,9 @@ public class SubItemsDespensaAdapter
 
     private List<Despensa> despensa;
 
-    public SubItemsDespensaAdapter(CategoriaWrapper wrapper) {
+    private DespensaListener listener;
+
+    public SubItemsDespensaAdapter(CategoriaWrapper wrapper, DespensaListener listener) {
         this.despensa = wrapper.getDespensa();
         if (this.despensa.isEmpty()) {
             this.despensa.add(new Despensa(
@@ -39,6 +41,7 @@ public class SubItemsDespensaAdapter
                 new Ingrediente(NO_DESPENSA, wrapper.getCategoriaIngrediente(), NO_CUANTIFICABLE)
             ));
         }
+        this.listener = listener;
     }
 
     @NonNull
