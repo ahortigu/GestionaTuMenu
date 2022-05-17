@@ -43,11 +43,4 @@ public class SemanalFragment extends AbstractMenuFragment {
                 }
             });
     }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        ConstraintLayout l_m_botones = view.findViewById(R.id.l_m_botones);
-        l_m_botones.setVisibility(View.GONE);
-    }
 }

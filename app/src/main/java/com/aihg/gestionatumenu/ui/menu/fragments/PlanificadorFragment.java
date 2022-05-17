@@ -7,10 +7,13 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -21,6 +24,7 @@ import com.aihg.gestionatumenu.db.entities.MenuInterface;
 import com.aihg.gestionatumenu.db.entities.Planificador;
 import com.aihg.gestionatumenu.db.entities.Receta;
 import com.aihg.gestionatumenu.db.entities.Semanal;
+import com.aihg.gestionatumenu.ui.home.HomeFragmentDirections;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,23 +38,24 @@ public class PlanificadorFragment extends AbstractMenuFragment {
     @Override
     protected void setObservers() {
         getViewModel()
-            .getPlanificador()
-            .observe(this, new Observer<List<Planificador>>() {
-                @Override
-                public void onChanged(List<Planificador> planificadors) {
-                    getAdapter().setMenu(
-                        planificadors.stream()
-                            .map(item -> (MenuInterface) item)
-                            .collect(toList())
-                    );
-                }
-            });
+                .getPlanificador()
+                .observe(this, new Observer<List<Planificador>>() {
+                    @Override
+                    public void onChanged(List<Planificador> planificadors) {
+                        getAdapter().setMenu(
+                                planificadors.stream()
+                                        .map(item -> (MenuInterface) item)
+                                        .collect(toList())
+                        );
+                    }
+                });
         getViewModel()
-            .getSemanal()
-            .observe(this, new Observer<List<Semanal>>() {
-                @Override
-                public void onChanged(List<Semanal> semanal) {}
-            });
+                .getSemanal()
+                .observe(this, new Observer<List<Semanal>>() {
+                    @Override
+                    public void onChanged(List<Semanal> semanal) {
+                    }
+                });
     }
 
     @Override
@@ -60,74 +65,83 @@ public class PlanificadorFragment extends AbstractMenuFragment {
             PlanificadorFragmentArgs args = PlanificadorFragmentArgs.fromBundle(bundle);
             Planificador aActualizar = args.getUpdatePlanificador();
             if (aActualizar != null) {
-                Log.i("ACTUALIZANDO", "El menu a actulizar es "+ aActualizar);
+                Log.i("ACTUALIZANDO", "El menu a actulizar es " + aActualizar);
                 getViewModel().updateRecetaPlanificador(aActualizar);
             }
         }
     }
 
     @Override
-    protected void setearLogicaBotones() {
-        Button b_aplicar = getView().findViewById(R.id.b_m_aplicar);
-        b_aplicar.setOnClickListener(new View.OnClickListener() {
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        menu.findItem(R.id.nav_done).setVisible(true);
+        menu.findItem(R.id.nav_clear).setVisible(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int menuId = item.getItemId();
+        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
-            public void onClick(View view) {
-                List<Planificador> planificador = getViewModel()
-                    .getPlanificador()
-                    .getValue();
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                switch (item.getItemId()) {
+                    case R.id.nav_clear:
+                        getViewModel()
+                                .getPlanificador()
+                                .getValue()
+                                .stream()
+                                .map(plan -> {
+                                    plan.setId_receta(null);
+                                    return plan;
+                                })
+                                .collect(toList())
+                                .forEach(plan -> getViewModel().updateRecetaPlanificador(plan));
 
-                List<Semanal> semanal = getViewModel()
-                    .getSemanal()
-                    .getValue();
+                        Toast.makeText(
+                                getView().getContext(), "¡Planificador limpio!", Toast.LENGTH_SHORT
+                        ).show();
+                        getAdapter().forceNotifyDataSetChanged();
+                        return true;
 
-                semanal.stream()
-                    .map(momentoComida -> {
-                        Planificador plan = planificador.stream()
-                            .filter(comida ->
-                                comida.getId_dia().equals(momentoComida.getId_dia())
-                                && comida.getId_momento_comida().equals(momentoComida.getId_momento_comida())
-                            )
-                            .findFirst()
-                            .orElseThrow(() -> new IllegalStateException(
-                                "Debe existir los mismos Momentos tanto en Semanal como en Planificador"
-                            ));
+                    case R.id.nav_done:
+                        List<Planificador> planificador = getViewModel()
+                                .getPlanificador()
+                                .getValue();
 
-                        momentoComida.setId_receta(plan.getId_receta());
-                        return momentoComida;
-                    })
-                    .collect(toList())
-                    .forEach(
-                        comida -> getViewModel().updateRecetaSemanal(comida)
-                    );
+                        List<Semanal> semanal = getViewModel()
+                                .getSemanal()
+                                .getValue();
 
-                Toast.makeText(
-                    getView().getContext(), "¡Planificador aplicado!", Toast.LENGTH_SHORT
-                ).show();
-                getAdapter().forceNotifyDataSetChanged();
+                        semanal.stream()
+                                .map(momentoComida -> {
+                                    Planificador plan = planificador.stream()
+                                            .filter(comida ->
+                                                    comida.getId_dia().equals(momentoComida.getId_dia())
+                                                            && comida.getId_momento_comida().equals(momentoComida.getId_momento_comida())
+                                            )
+                                            .findFirst()
+                                            .orElseThrow(() -> new IllegalStateException(
+                                                    "Debe existir los mismos Momentos tanto en Semanal como en Planificador"
+                                            ));
+
+                                    momentoComida.setId_receta(plan.getId_receta());
+                                    return momentoComida;
+                                })
+                                .collect(toList())
+                                .forEach(
+                                        comida -> getViewModel().updateRecetaSemanal(comida)
+                                );
+
+                        Toast.makeText(
+                                getView().getContext(), "¡Planificador aplicado!", Toast.LENGTH_SHORT
+                        ).show();
+                        getAdapter().forceNotifyDataSetChanged();
+                        return true;
+                    default:
+                        return false;
+                }
             }
         });
-
-        Button b_limpiar = getView().findViewById(R.id.b_m_limpiar);
-        b_limpiar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getViewModel()
-                    .getPlanificador()
-                    .getValue()
-                    .stream()
-                    .map(plan -> {
-                        plan.setId_receta(null);
-                        return plan;
-                    })
-                    .collect(toList())
-                    .forEach(plan -> getViewModel().updateRecetaPlanificador(plan));
-
-                Toast.makeText(
-                    getView().getContext(), "¡Planificador limpio!", Toast.LENGTH_SHORT
-                ).show();
-                getAdapter().forceNotifyDataSetChanged();
-            }
-        });
-
+        return super.onOptionsItemSelected(item);
     }
 }

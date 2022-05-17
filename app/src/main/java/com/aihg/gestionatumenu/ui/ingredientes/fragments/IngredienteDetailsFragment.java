@@ -54,8 +54,6 @@ public class IngredienteDetailsFragment extends Fragment {
     @Override
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        menu.findItem(R.id.nav_add).setVisible(false);
-        menu.findItem(R.id.nav_buscar).setVisible(false);
         menu.findItem(R.id.nav_editar).setVisible(true);
     }
 

@@ -25,7 +25,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
     }
 
     @Override
@@ -54,14 +53,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         bPlanificador.setOnClickListener(this);
         bMenu.setOnClickListener(this);
 
-    }
-
-    @Override
-    public void onPrepareOptionsMenu(@NonNull Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-        menu.findItem(R.id.nav_add).setVisible(false);
-        menu.findItem(R.id.nav_buscar).setVisible(false);
-        menu.findItem(R.id.nav_editar).setVisible(false);
     }
 
     @Override

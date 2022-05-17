@@ -16,5 +16,19 @@
         android:icon="@drawable/ic_add"
         android:title="@string/add"
         app:showAsAction="ifRoom" />
-
+    <item
+        android:id="@+id/nav_save"
+        android:icon="@drawable/ic_save"
+        android:title="Guardar"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/nav_clear"
+        android:icon="@drawable/ic_clear"
+        android:title="Limpiar"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/nav_done"
+        android:icon="@drawable/ic_done"
+        android:title="Aplicar"
+        app:showAsAction="ifRoom" />
 </menu>
