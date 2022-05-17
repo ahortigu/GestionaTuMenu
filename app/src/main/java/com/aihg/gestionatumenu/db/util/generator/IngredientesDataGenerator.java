@@ -10,16 +10,16 @@ import java.util.List;
 public class IngredientesDataGenerator {
 
     // CATEGORIAS (INGREDIENTES)
-    private static final CategoriaIngrediente CI_CARNES = new CategoriaIngrediente(1, "CARNES");
-    private static final CategoriaIngrediente CI_CEREALES_Y_FRUTOS_SECOS = new CategoriaIngrediente(2, "CEREALES Y FRUTOS SECOS");
-    private static final CategoriaIngrediente CI_CONDIMENTOS = new CategoriaIngrediente(3, "CONDIMENTOS");
-    private static final CategoriaIngrediente CI_FRUTA = new CategoriaIngrediente(4, "FRUTA");
-    private static final CategoriaIngrediente CI_HUEVOS_Y_LACTEOS = new CategoriaIngrediente(5, "HUEVOS Y LÁCTEOS");
-    private static final CategoriaIngrediente CI_OTROS = new CategoriaIngrediente(6, "OTROS");
-    private static final CategoriaIngrediente CI_PESCADOS = new CategoriaIngrediente(7, "PESCADOS");
-    private static final CategoriaIngrediente CI_VERDURAS = new CategoriaIngrediente(8, "VERDURAS");
-    private static final CategoriaIngrediente CI_PASTA_Y_ARROZ = new CategoriaIngrediente(9, "PASTA Y ARROZ");
-    private static final CategoriaIngrediente CI_LEGUMBRES = new CategoriaIngrediente(10, "LEGUMBRES");
+    public static final CategoriaIngrediente CI_CARNES = new CategoriaIngrediente(1, "CARNES");
+    public static final CategoriaIngrediente CI_CEREALES_Y_FRUTOS_SECOS = new CategoriaIngrediente(2, "CEREALES Y FRUTOS SECOS");
+    public static final CategoriaIngrediente CI_CONDIMENTOS = new CategoriaIngrediente(3, "CONDIMENTOS");
+    public static final CategoriaIngrediente CI_FRUTA = new CategoriaIngrediente(4, "FRUTA");
+    public static final CategoriaIngrediente CI_HUEVOS_Y_LACTEOS = new CategoriaIngrediente(5, "HUEVOS Y LÁCTEOS");
+    public static final CategoriaIngrediente CI_OTROS = new CategoriaIngrediente(6, "OTROS");
+    public static final CategoriaIngrediente CI_PESCADOS = new CategoriaIngrediente(7, "PESCADOS");
+    public static final CategoriaIngrediente CI_VERDURAS = new CategoriaIngrediente(8, "VERDURAS");
+    public static final CategoriaIngrediente CI_PASTA_Y_ARROZ = new CategoriaIngrediente(9, "PASTA Y ARROZ");
+    public static final CategoriaIngrediente CI_LEGUMBRES = new CategoriaIngrediente(10, "LEGUMBRES");
 
     // MEDICIONES
     public static final Medicion GRAMOS = new Medicion(1, "Gr");

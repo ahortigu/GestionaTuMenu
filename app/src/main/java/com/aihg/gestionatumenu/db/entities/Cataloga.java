@@ -85,4 +85,10 @@ public class Cataloga {
         this.id_receta = id_receta;
         this.id_categoria_receta = id_categoria_receta;
     }
+
+    @Ignore
+    public Cataloga(@NonNull Receta id_receta) {
+        this.id_receta = id_receta;
+        this.id_categoria_receta = id_categoria_receta;
+    }
 }
