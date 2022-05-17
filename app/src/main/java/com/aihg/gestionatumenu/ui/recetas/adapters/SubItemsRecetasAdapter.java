@@ -1,5 +1,7 @@
 package com.aihg.gestionatumenu.ui.recetas.adapters;
 
+import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.NO_RECETA;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.aihg.gestionatumenu.R;
 import com.aihg.gestionatumenu.db.entities.Cataloga;
+import com.aihg.gestionatumenu.db.entities.Receta;
 import com.aihg.gestionatumenu.ui.recetas.fragments.RecetasFragmentDirections;
 import com.aihg.gestionatumenu.ui.recetas.wrapper.CategoriaRecetaWrapper;
 
@@ -22,6 +25,12 @@ public class SubItemsRecetasAdapter extends RecyclerView.Adapter<SubItemsRecetas
 
     public SubItemsRecetasAdapter (CategoriaRecetaWrapper wrapper) {
         this.recetas = wrapper.getRecetas();
+        if (this.recetas.isEmpty()) {
+            this.recetas.add(new Cataloga(
+                new Receta(NO_RECETA, ""),
+                wrapper.getCategoria()
+            ));
+        }
     }
 
     @NonNull
@@ -38,14 +47,17 @@ public class SubItemsRecetasAdapter extends RecyclerView.Adapter<SubItemsRecetas
         Cataloga cataloga = recetas.get(position);
         holder.txt_nombre.setText(cataloga.getId_receta().getNombre());
 
-        holder.v_subitem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavDirections action = RecetasFragmentDirections
-                        .actionRecetasFragmentToRecetaDetailsFragment(cataloga.getId_receta());
-                Navigation.findNavController(view).navigate(action);
-            }
-        });
+        if (!NO_RECETA.equals(cataloga.getId_receta().getNombre())) {
+            holder.v_subitem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Cataloga catalogaOC = recetas.get(holder.getAdapterPosition());
+                    NavDirections action = RecetasFragmentDirections
+                            .actionRecetasFragmentToRecetaDetailsFragment(catalogaOC.getId_receta());
+                    Navigation.findNavController(view).navigate(action);
+                }
+            });
+        }
     }
 
     @Override

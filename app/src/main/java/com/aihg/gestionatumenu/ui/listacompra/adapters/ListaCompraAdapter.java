@@ -1,6 +1,8 @@
 package com.aihg.gestionatumenu.ui.listacompra.adapters;
 
+import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerator.CI_OTROS;
 import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerator.NO_CUANTIFICABLE;
+import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.NO_LISTA_COMPRA;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aihg.gestionatumenu.R;
+import com.aihg.gestionatumenu.db.entities.Ingrediente;
 import com.aihg.gestionatumenu.db.entities.ListaCompra;
+import com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +65,14 @@ public class ListaCompraAdapter extends RecyclerView.Adapter<ListaCompraAdapter.
 
     public void setIngredientes(List<ListaCompra> ingredientes) {
         this.ingredientes = ingredientes;
+        if (this.ingredientes.isEmpty()) {
+            this.ingredientes.add(
+                new ListaCompra(
+                    0,
+                    new Ingrediente(NO_LISTA_COMPRA, CI_OTROS, NO_CUANTIFICABLE)
+                )
+            );
+        }
         notifyDataSetChanged();
     }
 

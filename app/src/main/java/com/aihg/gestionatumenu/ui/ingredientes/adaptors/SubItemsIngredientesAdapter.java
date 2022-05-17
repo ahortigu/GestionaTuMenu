@@ -3,6 +3,7 @@ package com.aihg.gestionatumenu.ui.ingredientes.adaptors;
 import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerator.NO_CUANTIFICABLE;
 import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.NO_INGREDIENTE;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,16 +54,19 @@ public class SubItemsIngredientesAdapter extends RecyclerView.Adapter<SubItemsIn
             holder.txt_medicion.setVisibility(View.INVISIBLE);
         }
 
-        holder.v_subitem.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                           // TODO elemento a recuperar para mandarlo como argumento/parametro
-                    Ingrediente ingrediente = ingredientes.get(holder.getAdapterPosition());
-                    NavDirections action = IngredientesFragmentDirections.actionIngredientesFragmentToIngredienteDetailsFragment(ingrediente);
-                    Navigation.findNavController(view).navigate(action);
+        if (!NO_INGREDIENTE.equals(ingrediente.getNombre())) {
+            holder.v_subitem.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                       // TODO elemento a recuperar para mandarlo como argumento/parametro
+                        Ingrediente ingredienteOC = ingredientes.get(holder.getAdapterPosition());
+                        NavDirections action = IngredientesFragmentDirections
+                                .actionIngredientesFragmentToIngredienteDetailsFragment(ingredienteOC);
+                        Navigation.findNavController(view).navigate(action);
+                    }
                 }
-            }
-        );
+            );
+        }
     }
 
     @Override
