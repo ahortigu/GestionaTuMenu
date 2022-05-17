@@ -1,69 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/rosa_claro"
-    tools:context=".ui.recetas.fragments.RecetaEditFragment">>
+    tools:context=".ui.recetas.fragments.RecetaEditFragment">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="SpeakableTextPresentCheck">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp">
-
-            <ImageView
-                android:id="@+id/iv_re_receta"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_margin="20dp"
-                android:background="@drawable/borde_fondo_blanco"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:src="@tools:sample/avatars" />
+            android:layout_height="wrap_content">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/l_re_nombre"
+                android:id="@+id/l_ec_receta_imagen"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/iv_ec_receta"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:background="@drawable/borde_fondo_blanco"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@tools:sample/avatars" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/l_ec_receta_nombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
                 android:background="@drawable/borde_fondo_blanco"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iv_re_receta">
-
-                <EditText
-                    android:id="@+id/et_re_receta"
-                    android:layout_width="wrap_content"
-                    android:layout_height="48dp"
-                    android:layout_marginEnd="15dp"
-                    android:autofillHints=""
-                    android:ems="10"
-                    android:hint="@string/tomate_low"
-                    android:inputType="textPersonName"
-                    android:minHeight="48dp"
-                    android:textAlignment="viewEnd"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/gris_claro"
-                    android:textSize="16sp"
-                    android:textStyle="bold|italic"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.518"
-                    tools:ignore="SpeakableTextPresentCheck" />
+                app:layout_constraintTop_toBottomOf="@+id/l_ec_receta_imagen">
 
                 <TextView
-                    android:id="@+id/lb_re_nombre"
+                    android:id="@+id/lb_ec_receta_nombre"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/borde_fondo_mostaza"
@@ -72,83 +66,95 @@
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/l_re_catgorias"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_margin="20dp"
-                android:background="@drawable/borde_fondo_blanco"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/l_re_nombre">
-
-                <TextView
-                    android:id="@+id/lb_re_categoria"
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/et_ec_nombre_receta"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/borde_fondo_mostaza"
-                    android:padding="5dp"
-                    android:text="@string/categoria_up"
-                    android:textColor="@color/black"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:ems="10"
+                    android:inputType="textMultiLine|textPersonName"
+                    android:maxLines="2"
+                    android:minHeight="48dp"
+                    android:minLines="1"
+                    android:textAlignment="textEnd"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
-
-                <Spinner
-                    android:id="@+id/sp_re_cateogria"
-                    android:layout_width="241dp"
-                    android:layout_height="48dp"
-                    android:layout_marginEnd="15dp"
-                    android:backgroundTint="@color/black"
-                    android:textAlignment="textEnd"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/lb_ec_receta_nombre"
                     tools:ignore="SpeakableTextPresentCheck" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/l_re_ingredientes"
+                android:id="@+id/l_ec_categorias"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:layout_marginStart="15dp"
+                android:layout_marginTop="1dp"
                 android:background="@drawable/borde_fondo_blanco"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/l_re_catgorias">
+                app:layout_constraintTop_toBottomOf="@+id/l_ec_receta_nombre">
 
                 <TextView
-                    android:id="@+id/txt_re_ingrediente"
+                    android:id="@+id/lb_ec_categoria_nombre"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    android:layout_marginEnd="15dp"
-                    android:maxLines="10"
-                    android:minLines="1"
-                    android:text="@string/ingrediente_low"
+                    android:background="@drawable/borde_fondo_mostaza"
+                    android:padding="5dp"
+                    android:text="@string/categorias_up"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Spinner
+                    android:id="@+id/sp_ec_categorias"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginBottom="15dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/lb_re_ingrediente" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/lb_ec_categoria_nombre"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/l_ec_ingredientes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/borde_fondo_granate"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/l_ec_categorias">
+
+                <ImageView
+                    android:id="@+id/iv_ec_arrow_ingredientes"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="10dp"
+                    android:contentDescription="@string/imagen_ingrediente"
+                    android:src="@drawable/ic_arrow_down"
+                    app:layout_constraintBottom_toTopOf="@+id/l_ec_expandable_ingredientes"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/white" />
 
                 <TextView
-                    android:id="@+id/lb_re_ingrediente"
+                    android:id="@+id/lb_ec_ingredientes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/borde_fondo_mostaza"
@@ -157,26 +163,65 @@
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/l_ec_expandable_ingredientes"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/l_ec_expandable_ingredientes"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/granate_osuro"
+                    android:padding="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/lb_ec_ingredientes">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_ec_ingredientes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/borde_fondo_mostaza_claro"
+                        android:maxHeight="100dp"
+                        android:minHeight="80dp"
+                        android:padding="5dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:listitem="@layout/despensa__subitem" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/l_re_instrucciones"
+                android:id="@+id/l_ec_instrucciones"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:background="@drawable/borde_fondo_blanco"
-                android:paddingBottom="15dp"
+                android:background="@drawable/borde_fondo_granate"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/l_re_ingredientes">
+                app:layout_constraintTop_toBottomOf="@+id/l_ec_ingredientes">
+
+                <ImageView
+                    android:id="@+id/iv_ec_instrucciones"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="10dp"
+                    android:contentDescription="@string/imagen_ingrediente"
+                    android:src="@drawable/ic_arrow_down"
+                    app:layout_constraintBottom_toTopOf="@+id/l_ec_expandable_instrucciones"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/white" />
 
                 <TextView
-                    android:id="@+id/lb_re_instrucciones"
+                    android:id="@+id/lb_ec_instrucciones"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/borde_fondo_mostaza"
@@ -185,40 +230,47 @@
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/l_ec_expandable_instrucciones"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                <EditText
-                    android:id="@+id/et_re_instrucciones"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/l_ec_expandable_instrucciones"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="15dp"
-                    android:layout_marginVertical="5dp"
-                    android:autofillHints=""
-                    android:editable="true"
-                    android:ems="10"
-                    android:hint="Cortar los ingredientes etc etc "
-                    android:inputType="textMultiLine|textPersonName"
-                    android:maxHeight="500dp"
-                    android:maxLength="500"
-                    android:maxLines="50"
-                    android:minHeight="48dp"
-                    android:minLines="2"
-                    android:textAlignment="viewEnd"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/gris_claro"
-                    android:textSize="16sp"
-                    android:textStyle="bold|italic"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:background="@color/granate_osuro"
+                    android:padding="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/lb_re_instrucciones"
-                    app:layout_constraintVertical_bias="0.0"
-                    tools:ignore="SpeakableTextPresentCheck" />
+                    app:layout_constraintTop_toBottomOf="@+id/lb_ec_instrucciones"
+                    app:layout_constraintWidth_min="80dp">
+
+                    <EditText
+                        android:id="@+id/et_ec_instrucciones"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/borde_fondo_blanco"
+                        android:ems="10"
+                        android:inputType="textMultiLine|textPersonName"
+                        android:maxLines="50"
+                        android:minLines="3"
+                        android:padding="15dp"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="SpeakableTextPresentCheck" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </ScrollView>
+
 
 </FrameLayout>

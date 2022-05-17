@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -137,8 +138,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:layout_marginTop="20dp"
-                android:background="@color/granate_osuro"
+                android:background="@drawable/borde_fondo_granate"
+                app:layout_constraintBottom_toTopOf="@+id/l_rd_instrucciones"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/l_rd_categorias">
@@ -147,9 +148,7 @@
                     android:id="@+id/iv_rd_arrow_ingredientes"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="10dp"
                     android:contentDescription="@string/imagen_ingrediente"
                     android:src="@drawable/ic_arrow_down"
                     app:layout_constraintBottom_toTopOf="@+id/l_rd_expandable_ingredientes"
@@ -185,9 +184,10 @@
                         android:id="@+id/rv_rd_ingredientes"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/mostaza_claro"
-                        android:maxHeight="170dp"
+                        android:background="@drawable/borde_fondo_mostaza_claro"
+                        android:maxHeight="100dp"
                         android:minHeight="80dp"
+                        android:padding="5dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -203,7 +203,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:background="@color/granate_osuro"
+                android:background="@drawable/borde_fondo_granate"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0"
@@ -217,7 +217,6 @@
                     android:layout_marginEnd="10dp"
                     android:contentDescription="@string/imagen_ingrediente"
                     android:src="@drawable/ic_arrow_down"
-                    app:layout_constraintBottom_toTopOf="@+id/l_rd_expandable_instrucciones"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:tint="@color/white" />
@@ -241,10 +240,11 @@
                     android:layout_height="wrap_content"
                     android:background="@color/granate_osuro"
                     android:padding="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/lb_rd_instrucciones"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_rd_instrucciones"
                     app:layout_constraintWidth_min="80dp">
 
                     <TextView
@@ -254,7 +254,7 @@
                         android:background="@drawable/borde_fondo_blanco"
                         android:inputType="textMultiLine"
                         android:maxLines="50"
-                        android:minLines="1"
+                        android:minLines="3"
                         android:padding="15dp"
                         android:text="Instruciones etc etc"
                         android:textAlignment="textEnd"
@@ -262,7 +262,7 @@
                         android:textSize="16sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintHeight_min="75dp"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
