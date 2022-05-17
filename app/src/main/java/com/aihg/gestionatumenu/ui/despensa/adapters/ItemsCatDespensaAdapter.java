@@ -23,11 +23,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.aihg.gestionatumenu.R;
 import com.aihg.gestionatumenu.db.entities.CategoriaIngrediente;
 import com.aihg.gestionatumenu.db.entities.Despensa;
+import com.aihg.gestionatumenu.ui.despensa.listener.DespensaListener;
 import com.aihg.gestionatumenu.ui.despensa.wrapper.CategoriaWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class ItemsCatDespensaAdapter extends  RecyclerView.Adapter<ItemsCatDespensaAdapter.ItemCatDespensaViewHolder>{
@@ -35,6 +35,8 @@ public class ItemsCatDespensaAdapter extends  RecyclerView.Adapter<ItemsCatDespe
     private List<CategoriaIngrediente> categorias;
     private List<Despensa> despensa;
     private List<CategoriaWrapper> wrappers;
+
+    private List<CategoriaIngrediente> expandidas;
 
     private RecyclerView.RecycledViewPool recycledViewPool = new RecyclerView.RecycledViewPool();
 
@@ -44,6 +46,7 @@ public class ItemsCatDespensaAdapter extends  RecyclerView.Adapter<ItemsCatDespe
         this.categorias = new ArrayList<>();
         this.despensa = new ArrayList<>();
         this.wrappers = new ArrayList<>();
+        this.expandidas = new ArrayList<>();
         this.listener = listener;
     }
 
@@ -102,6 +105,11 @@ public class ItemsCatDespensaAdapter extends  RecyclerView.Adapter<ItemsCatDespe
             @Override
             public void onClick(View v) {
                 categoria.setExpandido(!categoria.isExpandido());
+                if (categoria.isExpandido()) {
+                    expandidas.add(categoria.getCategoriaIngrediente());
+                } else {
+                    expandidas.remove(categoria.getCategoriaIngrediente());
+                }
                 notifyItemChanged(holder.getAdapterPosition());
             }
         });
@@ -138,13 +146,17 @@ public class ItemsCatDespensaAdapter extends  RecyclerView.Adapter<ItemsCatDespe
 
     private void mapCategoriasConDespensaItems() {
         this.wrappers = this.categorias.stream()
-                .map(categoria -> new CategoriaWrapper(
-                        categoria,
-                        this.despensa.stream()
-                                .filter(despensa -> categoria.equals(despensa.getIngrediente().getCategoriaIngrediente()))
-                                .collect(toList())
-                ))
-                .collect(toList());
+            .map(categoria -> {
+                boolean isExpandida = expandidas.contains(categoria);
+                return new CategoriaWrapper(
+                    categoria,
+                    this.despensa.stream()
+                        .filter(despensa -> categoria.equals(despensa.getIngrediente().getCategoriaIngrediente()))
+                        .collect(toList()),
+                    isExpandida
+                );
+            })
+            .collect(toList());
     }
 
     public class ItemCatDespensaViewHolder extends RecyclerView.ViewHolder {

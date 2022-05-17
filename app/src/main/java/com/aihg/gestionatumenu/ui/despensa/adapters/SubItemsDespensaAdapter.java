@@ -2,9 +2,9 @@ package com.aihg.gestionatumenu.ui.despensa.adapters;
 
 import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerator.NO_CUANTIFICABLE;
 import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.NO_DESPENSA;
-import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.NO_INGREDIENTE;
-import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.NO_RECETA;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,19 +12,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aihg.gestionatumenu.R;
-import com.aihg.gestionatumenu.db.entities.Cataloga;
 import com.aihg.gestionatumenu.db.entities.Despensa;
 import com.aihg.gestionatumenu.db.entities.Ingrediente;
-import com.aihg.gestionatumenu.db.entities.Receta;
-import com.aihg.gestionatumenu.ui.despensa.fragments.DespensaFragmentDirections;
+import com.aihg.gestionatumenu.ui.despensa.listener.DespensaListener;
 import com.aihg.gestionatumenu.ui.despensa.wrapper.CategoriaWrapper;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class SubItemsDespensaAdapter
     extends RecyclerView.Adapter<SubItemsDespensaAdapter.SubItemDespensaViewHolder> {
@@ -32,6 +30,10 @@ public class SubItemsDespensaAdapter
     private List<Despensa> despensa;
 
     private DespensaListener listener;
+
+    private boolean changeSaved;
+
+    private Timer timer = new Timer();
 
     public SubItemsDespensaAdapter(CategoriaWrapper wrapper, DespensaListener listener) {
         this.despensa = wrapper.getDespensa();
@@ -42,6 +44,7 @@ public class SubItemsDespensaAdapter
             ));
         }
         this.listener = listener;
+        changeSaved = true;
     }
 
     @NonNull
@@ -61,6 +64,30 @@ public class SubItemsDespensaAdapter
         if (!NO_CUANTIFICABLE.equals(ingrediente.getIngrediente().getMedicion())) {
             holder.txt_medicion.setText(ingrediente.getIngrediente().getMedicion().getNombre());
             holder.et_cantidad.setText(ingrediente.getCantidad() + "");
+            holder.et_cantidad.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View view, boolean hasFocus) {
+                    if (!hasFocus && !changeSaved) {
+                        EditText toUpdate = view.findViewById(R.id.et_ds_cantidad);
+                        toUpdate.setSelected(false);
+                        ingrediente.setCantidad(Integer.parseInt(toUpdate.getText().toString()));
+                        listener.onUpdateItem(ingrediente);
+                        changeSaved = true;
+                    }
+                }
+            });
+            holder.et_cantidad.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    changeSaved = false;
+                }
+            });
             holder.txt_medicion.setVisibility(View.VISIBLE);
             holder.et_cantidad.setVisibility(View.VISIBLE);
         } else{

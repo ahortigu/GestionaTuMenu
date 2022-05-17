@@ -1,18 +1,16 @@
 package com.aihg.gestionatumenu.ui.despensa.fragments;
 
-import static androidx.recyclerview.widget.ItemTouchHelper.RIGHT;
 import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_BORRAR_DESPENSA;
+import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_UPDATE_DESPENSA;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,7 +25,7 @@ import android.widget.Toast;
 import com.aihg.gestionatumenu.R;
 import com.aihg.gestionatumenu.db.entities.CategoriaIngrediente;
 import com.aihg.gestionatumenu.db.entities.Despensa;
-import com.aihg.gestionatumenu.ui.despensa.adapters.DespensaListener;
+import com.aihg.gestionatumenu.ui.despensa.listener.DespensaListener;
 import com.aihg.gestionatumenu.ui.despensa.adapters.ItemsCatDespensaAdapter;
 import com.aihg.gestionatumenu.ui.despensa.viewmodel.DespensaViewModel;
 
@@ -80,7 +78,6 @@ public class DespensaFragment extends Fragment {
                 break;
         }
         return super.onOptionsItemSelected(item);
-
     }
 
     public void setViewModelsObserversListeners(){
@@ -105,7 +102,6 @@ public class DespensaFragment extends Fragment {
         onItemClickListener = new DespensaListener() {
             @Override
             public void onDeleteItem(Despensa despensa, int posicion) {
-                Log.i("INTERFACE", despensa.toString());
                 viewModel.deleteDespensa(despensa);
                 adapter.notifyItemRemoved(posicion);
                 Toast.makeText(
@@ -114,9 +110,10 @@ public class DespensaFragment extends Fragment {
             }
 
             @Override
-            public void onUpdateItem(Despensa despensa, int posicion) {
+            public void onUpdateItem(Despensa toUpdate) {
+                viewModel.updateDespensa(toUpdate);
                 Toast.makeText(
-                    view.getContext(), "HOLA", Toast.LENGTH_SHORT
+                    view.getContext(), TOAST_UPDATE_DESPENSA, Toast.LENGTH_SHORT
                 ).show();
             }
         };

@@ -47,7 +47,6 @@ public class IngredientesCreateFragment extends Fragment {
     private TextView txt_nombre;
     private Button bGuardar;
 
-
     public IngredientesCreateFragment() {
         toCreate = new Ingrediente("", null, null);
     }
@@ -67,81 +66,81 @@ public class IngredientesCreateFragment extends Fragment {
         });
 
         viewModel
-                .getCategorias()
-                .observe(this, new Observer<List<CategoriaIngrediente>>() {
-                    @Override
-                    public void onChanged(List<CategoriaIngrediente> categoriasOv) {
-                        Log.d("LOADING", "Las categorias son:" + categoriasOv);
-                        // Categoria
-                        SpinnerCategoriasAdapter adapter = new SpinnerCategoriasAdapter(
-                                view.getContext(),
-                                android.R.layout.simple_spinner_item,
-                                categoriasOv
-                        );
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            .getCategorias()
+            .observe(this, new Observer<List<CategoriaIngrediente>>() {
+                @Override
+                public void onChanged(List<CategoriaIngrediente> categoriasOv) {
+                    Log.d("LOADING", "Las categorias son:" + categoriasOv);
+                    // Categoria
+                    SpinnerCategoriasAdapter adapter = new SpinnerCategoriasAdapter(
+                            view.getContext(),
+                            android.R.layout.simple_spinner_item,
+                            categoriasOv
+                    );
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-                        categoriasSpinner = (Spinner) view.findViewById(R.id.sp_ic_categoria);
-                        categoriasSpinner.setAdapter(adapter);
+                    categoriasSpinner = (Spinner) view.findViewById(R.id.sp_ic_categoria);
+                    categoriasSpinner.setAdapter(adapter);
 
-                        int posicionCategoria = getPosicionCategoria(categoriasOv);
-                        if (posicionCategoria > 0) {
-                            categoriasSpinner.setSelection(posicionCategoria);
+                    int posicionCategoria = getPosicionCategoria(categoriasOv);
+                    if (posicionCategoria > 0) {
+                        categoriasSpinner.setSelection(posicionCategoria);
+                    }
+
+                    Log.i("SPINNER", "Adaptador seteado");
+                    categoriasSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                            CategoriaIngrediente seleccionado = (CategoriaIngrediente) adapterView.getSelectedItem();
+                            Log.i("SPINNER", "Se ha elegido la categoria: " + seleccionado);
+                            toCreate.setCategoriaIngrediente(seleccionado);
                         }
 
-                        Log.i("SPINNER", "Adaptador seteado");
-                        categoriasSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                                CategoriaIngrediente seleccionado = (CategoriaIngrediente) adapterView.getSelectedItem();
-                                Log.i("SPINNER", "Se ha elegido la categoria: " + seleccionado);
-                                toCreate.setCategoriaIngrediente(seleccionado);
-                            }
-
-                            @Override
-                            public void onNothingSelected(AdapterView<?> adapter) {
-                                Log.i("SPINNER", "Nada Seleccionado");
-                            }
-                        });
-                    }
-                });
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapter) {
+                            Log.i("SPINNER", "Nada Seleccionado");
+                        }
+                    });
+                }
+            });
         viewModel
-                .getMediciones()
-                .observe(this, new Observer<List<Medicion>>() {
-                    @Override
-                    public void onChanged(List<Medicion> medicionesOv) {
-                        Log.d("LOADING", "Las mediciones son:" + medicionesOv);
-                        // Categoria
-                        SpinnerMedicionAdapter adapter = new SpinnerMedicionAdapter(
-                                view.getContext(),
-                                android.R.layout.simple_spinner_item,
-                                medicionesOv
-                        );
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            .getMediciones()
+            .observe(this, new Observer<List<Medicion>>() {
+                @Override
+                public void onChanged(List<Medicion> medicionesOv) {
+                    Log.d("LOADING", "Las mediciones son:" + medicionesOv);
+                    // Categoria
+                    SpinnerMedicionAdapter adapter = new SpinnerMedicionAdapter(
+                            view.getContext(),
+                            android.R.layout.simple_spinner_item,
+                            medicionesOv
+                    );
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-                        medicionesSpinner = (Spinner) view.findViewById(R.id.sp_ic_medicion);
-                        medicionesSpinner.setAdapter(adapter);
+                    medicionesSpinner = (Spinner) view.findViewById(R.id.sp_ic_medicion);
+                    medicionesSpinner.setAdapter(adapter);
 
-                        int posicionMedicion = getPosicionMedicion(medicionesOv);
-                        if (posicionMedicion > 0) {
-                            medicionesSpinner.setSelection(posicionMedicion);
+                    int posicionMedicion = getPosicionMedicion(medicionesOv);
+                    if (posicionMedicion > 0) {
+                        medicionesSpinner.setSelection(posicionMedicion);
+                    }
+
+                    Log.i("SPINNER", "Adaptador seteado");
+                    medicionesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                            Medicion seleccionado = (Medicion) adapterView.getSelectedItem();
+                            Log.i("SPINNER", "Se ha elegido la medicion: " + seleccionado);
+                            toCreate.setMedicion(seleccionado);
                         }
 
-                        Log.i("SPINNER", "Adaptador seteado");
-                        medicionesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                                Medicion seleccionado = (Medicion) adapterView.getSelectedItem();
-                                Log.i("SPINNER", "Se ha elegido la medicion: " + seleccionado);
-                                toCreate.setMedicion(seleccionado);
-                            }
-
-                            @Override
-                            public void onNothingSelected(AdapterView<?> adapter) {
-                                Log.i("SPINNER", "Nada Seleccionado");
-                            }
-                        });
-                    }
-                });
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapter) {
+                            Log.i("SPINNER", "Nada Seleccionado");
+                        }
+                    });
+                }
+            });
     }
 
     @Override
@@ -149,7 +148,6 @@ public class IngredientesCreateFragment extends Fragment {
         this.view = inflater.inflate(R.layout.ingredientes_create_fragment, container, false);
         return view;
     }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
