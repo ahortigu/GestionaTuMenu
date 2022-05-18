@@ -8,6 +8,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +56,11 @@ public class RecetaEditFragment extends Fragment {
         super.onCreate(savedInstanceState);
         receta = RecetaEditFragmentArgs.fromBundle(getArguments()).getAModificar();
         viewModel = new ViewModelProvider(this).get(RecetasViewModel.class);
+        loadObservers();
+    }
+
+    private void loadObservers() {
+
     }
 
     @Override
@@ -72,7 +79,20 @@ public class RecetaEditFragment extends Fragment {
 
     private void loadNombreReceta() {
         this.et_rce_nombre_receta = view.findViewById(R.id.et_rce_nombre_receta);
-        et_rce_nombre_receta.setText(receta.getNombre());
+        this.et_rce_nombre_receta.setText(receta.getNombre());
+        this.et_rce_nombre_receta.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                receta.setNombre(editable.toString());
+                viewModel.updateReceta(receta);
+            }
+        });
     }
 
     private void loadInstrucciones() {
@@ -80,6 +100,19 @@ public class RecetaEditFragment extends Fragment {
         this.l_rce_expandable_instrucciones = view.findViewById(R.id.l_rce_expandable_instrucciones);
         this.iv_rce_instrucciones = view.findViewById(R.id.iv_rce_instrucciones);
         this.et_rce_instrucciones = view.findViewById(R.id.et_rce_instrucciones);
+        this.et_rce_instrucciones.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                receta.setInstrucciones(editable.toString());
+                viewModel.updateReceta(receta);
+            }
+        });
 
         this.et_rce_instrucciones.setText(receta.getInstrucciones());
         this.l_rce_expandable_instrucciones.setVisibility(View.VISIBLE);
