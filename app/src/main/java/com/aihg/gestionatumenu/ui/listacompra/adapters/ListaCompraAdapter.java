@@ -4,6 +4,8 @@ import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerato
 import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerator.NO_CUANTIFICABLE;
 import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.NO_LISTA_COMPRA;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.aihg.gestionatumenu.R;
 import com.aihg.gestionatumenu.db.entities.Ingrediente;
 import com.aihg.gestionatumenu.db.entities.ListaCompra;
+import com.aihg.gestionatumenu.ui.listacompra.listener.ListaCompraListener;
 import com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants;
 
 import java.util.ArrayList;
@@ -25,8 +28,14 @@ import java.util.List;
 public class ListaCompraAdapter extends RecyclerView.Adapter<ListaCompraAdapter.ListaCompraViewHolder> {
     private List<ListaCompra> ingredientes;
 
-    public ListaCompraAdapter() {
+    private ListaCompraListener listener;
+
+    private boolean changeSaved;
+
+    public ListaCompraAdapter(ListaCompraListener listener) {
         this.ingredientes = new ArrayList<>();
+        this.listener = listener;
+        this.changeSaved = true;
     }
 
     @NonNull
@@ -44,10 +53,35 @@ public class ListaCompraAdapter extends RecyclerView.Adapter<ListaCompraAdapter.
         holder.txt_nombre.setText(ingrediente.getIngrediente().getNombre());
 
         if (!NO_CUANTIFICABLE.equals(ingrediente.getIngrediente().getMedicion())) {
-            holder.txt_medicion.setText(ingrediente.getIngrediente().getMedicion().getNombre());
-            holder.et_cantidad.setText(ingrediente.getCantidad() + "");
             holder.txt_medicion.setVisibility(View.VISIBLE);
+            holder.txt_medicion.setText(ingrediente.getIngrediente().getMedicion().getNombre());
             holder.et_cantidad.setVisibility(View.VISIBLE);
+            holder.et_cantidad.setText(ingrediente.getCantidad() + "");
+
+            holder.et_cantidad.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View view, boolean hasFocus) {
+                    if (!hasFocus && !changeSaved) {
+                        EditText toUpdate = view.findViewById(R.id.et_lci_cantidad);
+                        toUpdate.setSelected(false);
+                        ingrediente.setCantidad(Integer.parseInt(toUpdate.getText().toString()));
+                        listener.onUpdateItem(ingrediente);
+                        changeSaved = true;
+                    }
+                }
+            });
+            holder.et_cantidad.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    changeSaved = false;
+                }
+            });
         }
         else{
             holder.txt_medicion.setVisibility(View.GONE);

@@ -5,6 +5,8 @@ import static androidx.recyclerview.widget.ItemTouchHelper.RIGHT;
 import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.NO_LISTA_COMPRA;
 import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_BORRAR_LISTA_COMPRA;
 import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_NO_EXISTE_INGREDIENTE_LISTA;
+import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_UPDATE_DESPENSA;
+import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_UPDATE_LISTACOMPRA;
 
 import android.os.Bundle;
 
@@ -32,6 +34,7 @@ import com.aihg.gestionatumenu.R;
 import com.aihg.gestionatumenu.db.entities.Ingrediente;
 import com.aihg.gestionatumenu.db.entities.ListaCompra;
 import com.aihg.gestionatumenu.ui.listacompra.adapters.ListaCompraAdapter;
+import com.aihg.gestionatumenu.ui.listacompra.listener.ListaCompraListener;
 import com.aihg.gestionatumenu.ui.listacompra.viewmodel.ListaCompraViewModel;
 
 import java.util.ArrayList;
@@ -46,6 +49,8 @@ public class ListaCompraFragment extends Fragment {
     private List<ListaCompra> dondeBuscar;
     private ListaCompraViewModel viewModel;
     private ListaCompra  aInsertar;
+
+    private ListaCompraListener listener;
 
     public ListaCompraFragment() {
         dondeBuscar = new ArrayList<>();
@@ -98,6 +103,15 @@ public class ListaCompraFragment extends Fragment {
                 dondeBuscar = ingredientesOb;
             }
         });
+        listener = new ListaCompraListener() {
+            @Override
+            public void onUpdateItem(ListaCompra toUpdate) {
+                viewModel.updateIngrediente(toUpdate);
+                Toast.makeText(
+                    view.getContext(), TOAST_UPDATE_LISTACOMPRA, Toast.LENGTH_SHORT
+                ).show();
+            }
+        };
     }
 
     public void saveArguments(Bundle savedInstanceState) {
@@ -105,9 +119,7 @@ public class ListaCompraFragment extends Fragment {
         if (bundle != null) {
             ListaCompraFragmentArgs args = ListaCompraFragmentArgs.fromBundle(bundle);
             this.aInsertar = args.getListacomprabuscar();
-            Log.i("RECIBIENDO INGREDIENTE", "El ingrediente a anadir es "+ aInsertar);
             if (aInsertar != null) {
-                Log.i("ANADIENDO INGREDIENTE", "El ingrediente a anadir es "+ aInsertar.getIngrediente().getNombre());
                 viewModel.insertIngrediente(aInsertar);
             }
         }
@@ -118,7 +130,7 @@ public class ListaCompraFragment extends Fragment {
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        if (adapter == null) adapter = new ListaCompraAdapter();
+        if (adapter == null) adapter = new ListaCompraAdapter(listener);
         recyclerView.setAdapter(adapter);
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, RIGHT) {
@@ -165,9 +177,9 @@ public class ListaCompraFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String newText) {
                 List<ListaCompra> listaCompraFiltrada = dondeBuscar.stream()
-                        .filter(listaCompraItem ->
-                                listaCompraItem.getIngrediente().getNombre().toLowerCase().contains(newText.toLowerCase()))
-                        .collect(Collectors.toList());
+                    .filter(listaCompraItem ->
+                            listaCompraItem.getIngrediente().getNombre().toLowerCase().contains(newText.toLowerCase()))
+                    .collect(Collectors.toList());
 
                 if (listaCompraFiltrada.isEmpty()) {
                     Toast.makeText(view.getContext(), TOAST_NO_EXISTE_INGREDIENTE_LISTA, Toast.LENGTH_SHORT).show();
