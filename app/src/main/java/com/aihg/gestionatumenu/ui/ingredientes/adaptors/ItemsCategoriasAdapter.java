@@ -1,5 +1,9 @@
 package com.aihg.gestionatumenu.ui.ingredientes.adaptors;
 
+import static androidx.recyclerview.widget.ItemTouchHelper.RIGHT;
+import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_BORRAR_DESPENSA;
+import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_BORRAR_DESPENSA_FALLADO;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,32 +12,43 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aihg.gestionatumenu.R;
 import com.aihg.gestionatumenu.db.entities.CategoriaIngrediente;
 import com.aihg.gestionatumenu.db.entities.Ingrediente;
+import com.aihg.gestionatumenu.ui.ingredientes.listener.IngredientesListener;
 import com.aihg.gestionatumenu.ui.ingredientes.wrapper.CategoriaWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class ItemsCategoriasAdapter extends RecyclerView.Adapter<ItemsCategoriasAdapter.ItemCategoriaViewHolder> {
 
     private List<CategoriaIngrediente> categorias;
     private List<Ingrediente> ingredientes;
+    private List<Ingrediente> puedenBorrar;
     private List<CategoriaWrapper> wrappers;
 
-    private RecyclerView.RecycledViewPool recycledViewPool = new RecyclerView.RecycledViewPool();
+    private List<CategoriaIngrediente> expandidas;
 
-    public ItemsCategoriasAdapter() {
+    private RecyclerView.RecycledViewPool recycledViewPool = new RecyclerView.RecycledViewPool();
+    private IngredientesListener listener;
+
+    public ItemsCategoriasAdapter(IngredientesListener listener) {
         this.categorias = new ArrayList<>();
         this.ingredientes = new ArrayList<>();
         this.wrappers = new ArrayList<>();
+        this.puedenBorrar = new ArrayList<>();
+        this.expandidas = new ArrayList<>();
+        this.listener = listener;
     }
 
     @NonNull
@@ -64,21 +79,66 @@ public class ItemsCategoriasAdapter extends RecyclerView.Adapter<ItemsCategorias
         holder.rv_child.setAdapter(adapter);
         holder.rv_child.setRecycledViewPool(recycledViewPool);
 
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                Log.i("Hello", "there");
+                return false;
+            }
+
+            @Override
+            public int getSwipeDirs(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+                TextView txtNombre = viewHolder.itemView.findViewById(R.id.txt_is_nombre);
+                int positionToCheck = IntStream.range(0, ingredientes.size())
+                        .filter(i -> txtNombre.getText().toString().equals(ingredientes.get(i).getIngrediente().getNombre()))
+                        .findFirst()
+                        .orElseThrow(() -> new IllegalStateException("El ingrediente " + txtNombre + " deberia existir."));
+                Ingrediente aBloquear = ingredientes.get(positionToCheck);
+                if (puedenBorrar.contains(aBloquear)) {
+                    return super.getSwipeDirs(recyclerView, viewHolder);
+                } else {
+                    return 0;
+                }
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                TextView txtNombre = viewHolder.itemView.findViewById(R.id.txt_is_nombre);
+                int positionBorrar = IntStream.range(0, ingredientes.size())
+                        .filter(i -> txtNombre.getText().toString().equals(ingredientes.get(i).getIngrediente().getNombre()))
+                        .findFirst()
+                        .orElseThrow(() -> new IllegalStateException("El ingrediente " + txtNombre + " deberia existir."));
+                Ingrediente aBorrar = ingredientes.get(positionBorrar);
+                if (puedenBorrar.contains(aBorrar)) {
+                    Toast.makeText(
+                        holder.itemView.getContext(), TOAST_BORRAR_DESPENSA, Toast.LENGTH_SHORT
+                    ).show();
+                    listener.onDeleteItem(aBorrar, positionBorrar);
+                } else {
+                    Toast.makeText(
+                        holder.itemView.getContext(), TOAST_BORRAR_DESPENSA_FALLADO, Toast.LENGTH_SHORT
+                    ).show();
+                }
+            }
+        }).attachToRecyclerView(holder.rv_child);
+
         holder.l_parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 categoria.setExpandido(!categoria.isExpandido());
+                if (categoria.isExpandido()) {
+                    expandidas.add(categoria.getCategoriaIngrediente());
+                } else {
+                    expandidas.remove(categoria.getCategoriaIngrediente());
+                }
                 notifyItemChanged(holder.getAdapterPosition());
             }
         });
 
         holder.l_expandable.setVisibility(isExpandable ? View.VISIBLE : View.GONE);
-        Log.i("CATEGORIA", "isExpandable " + isExpandable);
-        if (isExpandable) {
-            holder.iv_arrow.setImageResource(R.drawable.ic_arrow_up);
-        } else {
-            holder.iv_arrow.setImageResource(R.drawable.ic_arrow_down);
-        }
+        holder.iv_arrow.setImageResource(
+            isExpandable ? R.drawable.ic_arrow_up : R.drawable.ic_arrow_down
+        );
     }
 
     @Override
@@ -88,27 +148,36 @@ public class ItemsCategoriasAdapter extends RecyclerView.Adapter<ItemsCategorias
     }
 
     public void setCategorias(List<CategoriaIngrediente> categorias) {
-        Log.i("MAPPING", "Actualizando Mapping Pantalla Ingredientes. Cambio Categoria");
         this.categorias = categorias;
         wrapperBuilder();
         notifyDataSetChanged();
     }
 
     public void setIngredientes(List<Ingrediente> ingredientes) {
-        Log.i("MAPPING", "Actualizando Mapping Pantalla Ingredientes. Cambio Ingrediente");
         this.ingredientes = ingredientes;
+        wrapperBuilder();
+        notifyDataSetChanged();
+    }
+
+    public void setIngredientesPuedenBorrar(List<Ingrediente> ingredientesOb) {
+        this.puedenBorrar = ingredientesOb;
         wrapperBuilder();
         notifyDataSetChanged();
     }
 
     private void wrapperBuilder() {
         this.wrappers = this.categorias.stream()
-            .map(categoria -> new CategoriaWrapper(
-                categoria,
-                this.ingredientes.stream()
+            .map(categoria -> {
+                List<Ingrediente> ingrDeLaCategoria = this.ingredientes.stream()
                     .filter(ingrediente -> ingrediente.getCategoriaIngrediente().equals(categoria))
-                    .collect(Collectors.toList())
-            ))
+                    .collect(Collectors.toList());
+                boolean isExpandida = expandidas.contains(categoria);
+                return new CategoriaWrapper(
+                    categoria,
+                    ingrDeLaCategoria,
+                    isExpandida
+                );
+            })
             .collect(Collectors.toList());
     }
 

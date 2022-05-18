@@ -55,4 +55,12 @@ public interface IngredienteDAO {
         ") order by nombre_ingrediente ASC"
     )
     LiveData<List<Ingrediente>> getIngredienteBuscarReceta(int receta);
+
+    @Query(
+        "SELECT * FROM " + INGREDIENTES + " i WHERE " +
+        "i.id_ingrediente NOT IN ( SELECT lc.id_ingrediente FROM " + LISTACOMPRA + " lc WHERE lc.id_ingrediente = i.id_ingrediente ) AND  " +
+        "i.id_ingrediente NOT IN ( SELECT d.id_ingrediente FROM " + DESPENSA + " d WHERE d.id_ingrediente = i.id_ingrediente ) AND " +
+        "i.id_ingrediente NOT IN ( SELECT u.id_ingrediente FROM " + UTILIZA + " u WHERE u.id_ingrediente = i.id_ingrediente )"
+    )
+    LiveData<List<Ingrediente>> getIngredientesPuedenBorrar();
 }

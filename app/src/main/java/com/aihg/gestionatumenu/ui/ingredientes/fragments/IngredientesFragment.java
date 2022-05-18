@@ -23,6 +23,7 @@ import com.aihg.gestionatumenu.R;
 import com.aihg.gestionatumenu.db.entities.CategoriaIngrediente;
 import com.aihg.gestionatumenu.db.entities.Ingrediente;
 import com.aihg.gestionatumenu.ui.ingredientes.adaptors.ItemsCategoriasAdapter;
+import com.aihg.gestionatumenu.ui.ingredientes.listener.IngredientesListener;
 import com.aihg.gestionatumenu.ui.ingredientes.viewmodel.IngredientesViewModel;
 import com.aihg.gestionatumenu.ui.recetas.fragments.RecetasFragmentDirections;
 
@@ -35,6 +36,7 @@ public class IngredientesFragment extends Fragment {
     private View view;
 
     private IngredientesViewModel viewModel;
+    private IngredientesListener listener;
 
     public IngredientesFragment() {}
 
@@ -62,6 +64,23 @@ public class IngredientesFragment extends Fragment {
                     adapter.setIngredientes(ingredientes);
                 }
             });
+        viewModel
+            .getIngredientesPuedenBorrar()
+            .observe(this, new Observer<List<Ingrediente>>() {
+                @Override
+                public void onChanged(List<Ingrediente> ingredientesOb) {
+                    adapter.setIngredientesPuedenBorrar(ingredientesOb);
+                }
+            });
+
+        listener = new IngredientesListener() {
+            @Override
+            public void onDeleteItem(Ingrediente aBorrar, int posicion) {
+                viewModel.deleteIngrediente(aBorrar);
+                adapter.notifyItemRemoved(posicion);
+                adapter.notifyDataSetChanged();
+            }
+        };
     }
 
     @Nullable
@@ -77,7 +96,7 @@ public class IngredientesFragment extends Fragment {
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        if (adapter == null) adapter = new ItemsCategoriasAdapter();
+        if (adapter == null) adapter = new ItemsCategoriasAdapter(listener);
         recyclerView.setAdapter(adapter);
 
         return view;
