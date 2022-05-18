@@ -17,9 +17,13 @@ public class MenuWrapper {
     private Boolean expandido;
 
     public MenuWrapper(Dia dia, List<MenuInterface> menuDelDia) {
+        this(dia, menuDelDia, false);
+    }
+
+    public MenuWrapper(Dia dia, List<MenuInterface> menuDelDia, boolean isExpandido) {
         this.dia = dia;
         this.menuDelDia = menuDelDia;
-        this.expandido = false;
+        this.expandido = isExpandido;
     }
 
     private MenuInterface menuDelMomento(MomentoComida momento) {

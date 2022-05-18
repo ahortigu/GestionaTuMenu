@@ -1,6 +1,8 @@
 package com.aihg.gestionatumenu.ui.despensa.adapters;
 
 import static androidx.recyclerview.widget.ItemTouchHelper.RIGHT;
+import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.NO_DESPENSA;
+import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.NO_LISTA_COMPRA;
 import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_BORRAR_DESPENSA;
 
 import static java.util.stream.Collectors.toList;
@@ -85,6 +87,16 @@ public class ItemsCatDespensaAdapter extends  RecyclerView.Adapter<ItemsCatDespe
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
+            }
+
+            @Override
+            public int getSwipeDirs(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+                TextView txtNombre = viewHolder.itemView.findViewById(R.id.txt_ds_ingrediente);
+                if (txtNombre.getText().toString().equals(NO_DESPENSA)) {
+                    return 0;
+                } else {
+                    return super.getSwipeDirs(recyclerView, viewHolder);
+                }
             }
 
             @Override
