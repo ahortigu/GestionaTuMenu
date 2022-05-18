@@ -1,6 +1,7 @@
 package com.aihg.gestionatumenu.ui.ingredientes.adaptors;
 
 import static androidx.recyclerview.widget.ItemTouchHelper.RIGHT;
+import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.NO_INGREDIENTE;
 import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_BORRAR_DESPENSA;
 import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_BORRAR_DESPENSA_FALLADO;
 
@@ -89,6 +90,9 @@ public class ItemsCategoriasAdapter extends RecyclerView.Adapter<ItemsCategorias
             @Override
             public int getSwipeDirs(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
                 TextView txtNombre = viewHolder.itemView.findViewById(R.id.txt_is_nombre);
+                if (NO_INGREDIENTE.equals(txtNombre.getText().toString())) {
+                    return 0;
+                }
                 int positionToCheck = IntStream.range(0, ingredientes.size())
                         .filter(i -> txtNombre.getText().toString().equals(ingredientes.get(i).getIngrediente().getNombre()))
                         .findFirst()
