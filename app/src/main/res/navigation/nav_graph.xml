@@ -154,7 +154,15 @@
         android:id="@+id/recetaEditFragment"
         android:name="com.aihg.gestionatumenu.ui.recetas.fragments.RecetaEditFragment"
         android:label="@string/edit_receta_up"
-        tools:layout="@layout/recetas__edit_create_fragment" />
+        tools:layout="@layout/recetas__edit_create_fragment" >
+        <argument
+            android:name="aModificar"
+            app:argType="com.aihg.gestionatumenu.db.entities.Receta"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_recetaEditFragment_to_buscarIngredienteFragment"
+            app:destination="@id/buscarIngredienteFragment" />
+    </fragment>
     <fragment
         android:id="@+id/ingredientesCreate"
         android:name="com.aihg.gestionatumenu.ui.ingredientes.fragments.IngredientesCreateFragment"
@@ -199,6 +207,9 @@
             app:argType="com.aihg.gestionatumenu.db.entities.Ingrediente"
             app:nullable="true"
             android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_buscarIngredienteFragment_to_recetaEditFragment"
+            app:destination="@id/recetaEditFragment" />
     </fragment>
     <fragment
         android:id="@+id/buscarRecetaFragment"

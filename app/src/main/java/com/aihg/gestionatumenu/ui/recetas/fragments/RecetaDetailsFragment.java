@@ -177,7 +177,7 @@ public class RecetaDetailsFragment extends Fragment {
         int id = item.getItemId();
         NavDirections action;
         if(id == R.id.nav_editar) {
-            action = RecetaDetailsFragmentDirections.actionRecetaDetailsFragmentToRecetaEditFragment();
+            action = RecetaDetailsFragmentDirections.actionRecetaDetailsFragmentToRecetaEditFragment(receta);
             Navigation.findNavController(view).navigate(action);
         }
         return super.onOptionsItemSelected(item);
