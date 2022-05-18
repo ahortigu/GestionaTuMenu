@@ -10,6 +10,7 @@ public class GestionaTuMenuConstants {
     public static final String TOAST_BORRAR_DESPENSA = "¡Item borrado de la despensa!";
     public static final String TOAST_BORRAR_DESPENSA_FALLADO = "No se puede borrar. ¡Está siendo utilizado!";
     public static final String TOAST_UPDATE_DESPENSA = "¡Ingrediente actualizado!";
+    public static final String TOAST_UPDATE_LISTACOMPRA = "¡Lista actualizada!";
     public static final String TOAST_NO_EXISTE_RECETA = "La receta no existe";
     public static final String TOAST_NO_EXISTE_INGREDIENTE_LISTA = "El ingrediente no existe en la lista";
     public static final String TOAST_NO_EXISTE_INGREDIENTE = "El ingrediente no existe";
