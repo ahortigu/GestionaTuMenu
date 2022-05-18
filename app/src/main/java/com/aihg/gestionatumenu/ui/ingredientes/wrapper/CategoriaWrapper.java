@@ -12,15 +12,19 @@ public class CategoriaWrapper {
     private Boolean expandido;
 
     public CategoriaWrapper() {
-        this.categoriaIngrediente = new CategoriaIngrediente();
-        this.ingredientes = new ArrayList<>();
-        this.expandido = false;
+        this(new CategoriaIngrediente(), new ArrayList<>(), false);
     }
 
     public CategoriaWrapper(CategoriaIngrediente categoriaIngrediente, List<Ingrediente> ingredientes) {
+        this(categoriaIngrediente, ingredientes, false);
+    }
+
+    public CategoriaWrapper(
+        CategoriaIngrediente categoriaIngrediente, List<Ingrediente> ingredientes, boolean isExpandido
+    ) {
         this.categoriaIngrediente = categoriaIngrediente;
         this.ingredientes = ingredientes;
-        this.expandido = false;
+        this.expandido = isExpandido;
     }
 
     public CategoriaIngrediente getCategoriaIngrediente() {

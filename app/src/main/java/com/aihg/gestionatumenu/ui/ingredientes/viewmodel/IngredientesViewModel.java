@@ -59,6 +59,10 @@ public class IngredientesViewModel extends AndroidViewModel {
         return ingredientes;
     }
 
+    public LiveData<List<Ingrediente>> getIngredientesPuedenBorrar() {
+        return repository.getIngredientesPuedenBorrar();
+    }
+
     public void insertIngrediente(@NonNull Ingrediente toInsert) {
         Log.i("VM-INGREDIENTES", "Inserting " + toInsert.toString());
         repository.insert(toInsert);
