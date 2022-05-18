@@ -154,7 +154,12 @@
         android:id="@+id/recetaEditFragment"
         android:name="com.aihg.gestionatumenu.ui.recetas.fragments.RecetaEditFragment"
         android:label="@string/edit_receta_up"
-        tools:layout="@layout/recetas__edit_create_fragment" />
+        tools:layout="@layout/recetas__edit_create_fragment" >
+        <argument
+            android:name="aModificar"
+            app:argType="com.aihg.gestionatumenu.db.entities.Receta"
+            app:nullable="true" />
+    </fragment>
     <fragment
         android:id="@+id/ingredientesCreate"
         android:name="com.aihg.gestionatumenu.ui.ingredientes.fragments.IngredientesCreateFragment"
