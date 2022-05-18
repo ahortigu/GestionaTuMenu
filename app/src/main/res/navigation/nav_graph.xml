@@ -159,6 +159,9 @@
             android:name="aModificar"
             app:argType="com.aihg.gestionatumenu.db.entities.Receta"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_recetaEditFragment_to_buscarIngredienteFragment"
+            app:destination="@id/buscarIngredienteFragment" />
     </fragment>
     <fragment
         android:id="@+id/ingredientesCreate"
@@ -204,6 +207,9 @@
             app:argType="com.aihg.gestionatumenu.db.entities.Ingrediente"
             app:nullable="true"
             android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_buscarIngredienteFragment_to_recetaEditFragment"
+            app:destination="@id/recetaEditFragment" />
     </fragment>
     <fragment
         android:id="@+id/buscarRecetaFragment"
