@@ -127,13 +127,9 @@ public class ItemsCatDespensaAdapter extends  RecyclerView.Adapter<ItemsCatDespe
         });
 
         holder.l_expandable.setVisibility(isExpandable ? View.VISIBLE : View.GONE);
-        Log.i("CATEGORIA", "isExpandable " + isExpandable);
-        if (isExpandable) {
-            holder.iv_arrow.setImageResource(R.drawable.ic_arrow_up);
-        } else {
-            holder.iv_arrow.setImageResource(R.drawable.ic_arrow_down);
-        }
-
+        holder.iv_arrow.setImageResource(
+            isExpandable ? R.drawable.ic_arrow_up : R.drawable.ic_arrow_down
+        );
     }
 
     @Override
@@ -143,14 +139,12 @@ public class ItemsCatDespensaAdapter extends  RecyclerView.Adapter<ItemsCatDespe
     }
 
     public void setCategorias(List<CategoriaIngrediente> categorias) {
-        Log.i("MAPPING", "Actualizando Mapping Pantalla DESPENSA. Cambio Categoria");
         this.categorias = categorias;
         mapCategoriasConDespensaItems();
         notifyDataSetChanged();
     }
 
     public void setDespensaItems(List<Despensa> despensa) {
-        Log.i("MAPPING", "Actualizando Mapping Pantalla DESPENSA. Cambio Despensa item");
         this.despensa = despensa;
         mapCategoriasConDespensaItems();
         notifyDataSetChanged();
