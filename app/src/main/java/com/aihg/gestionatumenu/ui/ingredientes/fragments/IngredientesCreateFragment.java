@@ -17,6 +17,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -45,7 +46,6 @@ public class IngredientesCreateFragment extends Fragment {
     private Spinner categoriasSpinner;
     private Spinner medicionesSpinner;
     private TextView txt_nombre;
-    private Button bGuardar;
 
     public IngredientesCreateFragment() {
         toCreate = new Ingrediente("", null, null);
@@ -167,42 +167,50 @@ public class IngredientesCreateFragment extends Fragment {
             }
         });
 
-        bGuardar = view.findViewById(R.id.b_ic_guardar);
-        bGuardar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.i("Ingrediente seteado", toCreate.toString());
-                if(!toCreate.getNombre().isEmpty()
-                    && toCreate.getCategoriaIngrediente() != null
-                    && toCreate.getMedicion() != null)
-                {
-                    viewModel
-                        .getIngredientesByName(toCreate)
-                        .observe(getViewLifecycleOwner(), ingredientes -> {
-                            if (ingredientes.isEmpty()) {
-                                viewModel.insertIngrediente(toCreate);
-                                Toast.makeText(
-                                    view.getContext(), TOAST_CREAR_INGREDIENTE, Toast.LENGTH_LONG
-                                ).show();
-                            } else {
-                                Toast.makeText(
-                                    view.getContext(), TOAST_CREAR_INGREDIENTE_YA_EXISTE, Toast.LENGTH_LONG
-                                ).show();
-                            }
-                        });
-                } else {
-                    Toast.makeText(
-                        view.getContext(), TOAST_CAMPO_VACIO, Toast.LENGTH_LONG
-                    ).show();
-                }
-            }
-        });
     }
 
     @Override
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
         menu.findItem(R.id.nav_save).setVisible(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int menuId = item.getItemId();
+        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                if (menuId == R.id.nav_save ){
+                    Log.i("Ingrediente seteado", toCreate.toString());
+                    if(!toCreate.getNombre().isEmpty()
+                            && toCreate.getCategoriaIngrediente() != null
+                            && toCreate.getMedicion() != null)
+                    {
+                        viewModel
+                                .getIngredientesByName(toCreate)
+                                .observe(getViewLifecycleOwner(), ingredientes -> {
+                                    if (ingredientes.isEmpty()) {
+                                        viewModel.insertIngrediente(toCreate);
+                                        Toast.makeText(
+                                                view.getContext(), TOAST_CREAR_INGREDIENTE, Toast.LENGTH_LONG
+                                        ).show();
+                                    } else {
+                                        Toast.makeText(
+                                                view.getContext(), TOAST_CREAR_INGREDIENTE_YA_EXISTE, Toast.LENGTH_LONG
+                                        ).show();
+                                    }
+                                });
+                    } else {
+                        Toast.makeText(
+                                view.getContext(), TOAST_CAMPO_VACIO, Toast.LENGTH_LONG
+                        ).show();
+                    }
+                }
+                return true;
+            }
+        });
+        return super.onOptionsItemSelected(item);
     }
 
     private int getPosicionCategoria(List<CategoriaIngrediente> dondeBuscar) {
