@@ -8,34 +8,30 @@
     android:background="@color/rosa_claro"
     tools:context=".ui.ingredientes.fragments.IngredientesCreateFragment">
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/l_ic_categoria"
-        app:layout_constraintTop_toTopOf="@+id/l_ic_categoria">
+        android:layout_gravity="center">
 
         <ImageView
             android:id="@+id/iv_ic_ingrediente"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:layout_marginHorizontal="50dp"
             android:background="@drawable/borde_fondo_blanco"
             android:contentDescription="@string/imagen_ingrediente"
-            app:layout_constraintBottom_toTopOf="@+id/l_rc_ingredientes"
+            app:layout_constraintBottom_toTopOf="@+id/l_ic_ingrediente"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ImageContrastCheck"
             tools:src="@tools:sample/avatars" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/l_rc_ingredientes"
+            android:id="@+id/l_ic_ingrediente"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="50dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
             android:background="@drawable/borde_fondo_blanco"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -59,37 +55,37 @@
 
             <EditText
                 android:id="@+id/et_ic_ingrediente"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginBottom="10dp"
                 android:autofillHints=""
                 android:ems="10"
-                android:hint="@string/tomate_low"
                 android:inputType="textPersonName"
-                android:minHeight="48dp"
-                android:textAlignment="viewEnd"
+                android:lines="1"
+                android:maxLength="20"
+                android:singleLine="false"
+                android:textAlignment="textEnd"
+                android:textAllCaps="true"
                 android:textColor="@color/black"
                 android:textColorHint="@color/gris_claro"
                 android:textSize="16sp"
-                android:textStyle="bold"
+                android:textStyle="bold|italic"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.518"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lv_ic_ingrediente"
                 tools:ignore="SpeakableTextPresentCheck" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/l_ic_categoria"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:layout_marginStart="15dp"
             android:background="@drawable/borde_fondo_blanco"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/l_rc_ingredientes">
+            app:layout_constraintTop_toBottomOf="@+id/l_ic_ingrediente">
 
             <TextView
                 android:id="@+id/lv_ic_categorias"
@@ -101,20 +97,20 @@
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Spinner
                 android:id="@+id/sp_ic_categoria"
-                android:layout_width="241dp"
+                android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_marginEnd="15dp"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginBottom="10dp"
                 android:textAlignment="textEnd"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lv_ic_categorias"
                 tools:ignore="SpeakableTextPresentCheck" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -122,7 +118,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/l_ic_medicion"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:background="@drawable/borde_fondo_blanco"
             app:layout_constraintEnd_toEndOf="parent"
@@ -147,17 +143,18 @@
 
             <Spinner
                 android:id="@+id/sp_ic_medicion"
-                android:layout_width="241dp"
+                android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_marginEnd="15dp"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginBottom="10dp"
                 android:textAlignment="textEnd"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lv_ic_medicion"
                 tools:ignore="SpeakableTextPresentCheck" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

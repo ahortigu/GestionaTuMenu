@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:minHeight="70dp"
     app:cardElevation="1dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,6 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
+            android:maxLength="20"
             android:text="@string/ingrediente_up"
             android:textAlignment="viewStart"
             android:textColor="@color/black"
@@ -55,11 +55,12 @@
 
         <EditText
             android:id="@+id/et_lci_cantidad"
-            android:layout_width="74dp"
+            android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_marginEnd="15dp"
             android:ems="3"
             android:inputType="number"
+            android:maxLength="4"
             android:text="@string/cant_sample"
             android:textAlignment="viewEnd"
             android:textColor="@color/black"
