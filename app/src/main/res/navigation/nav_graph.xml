@@ -176,6 +176,9 @@
         <action
             android:id="@+id/action_recetasCreateFragment_to_recetasFragment"
             app:destination="@id/recetasFragment" />
+        <action
+            android:id="@+id/action_recetasCreateFragment_to_buscarIngredienteFragment"
+            app:destination="@id/buscarIngredienteFragment" />
     </fragment>
     <fragment
         android:id="@+id/buscarIngredienteFragment"
@@ -210,6 +213,9 @@
         <action
             android:id="@+id/action_buscarIngredienteFragment_to_recetaEditFragment"
             app:destination="@id/recetaEditFragment" />
+        <action
+            android:id="@+id/action_buscarIngredienteFragment_to_recetasCreateFragment"
+            app:destination="@id/recetasCreateFragment" />
     </fragment>
     <fragment
         android:id="@+id/buscarRecetaFragment"

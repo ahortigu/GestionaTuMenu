@@ -27,9 +27,10 @@ public class ListaCompraDataGenerator {
                 new ListaCompra(5, 100, OLIVAS_NEGRAS),
                 new ListaCompra(6, 300,TOMATE ),
                 new ListaCompra(7, 300, GUINDILLAS ),
-                new ListaCompra(8, SAL ),
-                new ListaCompra(9, PIMIENTA_NEGRA ),
+                new ListaCompra(8, 0, SAL ),
+                new ListaCompra(9,0, PIMIENTA_NEGRA ),
                 new ListaCompra(10, 400, ACEITE)
+
         );
     }
 
