@@ -30,81 +30,147 @@ public class IngredientesDataGenerator {
     public static final Medicion UNIDAD = new Medicion(6, "Unidad");
 
     // INGREDIENTES
+    public static final Ingrediente CONEJO = new Ingrediente(6, "Conejo", KILOS, CI_CARNES);
+    public static final Ingrediente POLLO = new Ingrediente(7, "Pollo", KILOS, CI_CARNES);
+    public static final Ingrediente CORDERO = new Ingrediente(8, "Cordero", KILOS, CI_CARNES);
+    public static final Ingrediente TERNERA = new Ingrediente(24, "Ternera", GRAMOS, CI_CARNES);
+
+    public static final Ingrediente AVENA = new Ingrediente(10, "Avena", GRAMOS, CI_CEREALES_Y_FRUTOS_SECOS);
+    public static final Ingrediente PISTACHOS = new Ingrediente(25, "Pistachos", GRAMOS, CI_CEREALES_Y_FRUTOS_SECOS);
+    public static final Ingrediente ALMENDRAS = new Ingrediente(26, "Almendras", GRAMOS, CI_CEREALES_Y_FRUTOS_SECOS);
+    public static final Ingrediente PAN = new Ingrediente(27, "Pan", GRAMOS, CI_CEREALES_Y_FRUTOS_SECOS);
+
+
+    public static final Ingrediente SAL = new Ingrediente(15, "Sal", NO_CUANTIFICABLE, CI_CONDIMENTOS);
+    public static final Ingrediente AZUCAR = new Ingrediente(16, "Azúcar", GRAMOS, CI_CONDIMENTOS);
+    public static final Ingrediente GUINDILLAS = new Ingrediente(23, "Guindillas", UNIDAD, CI_CONDIMENTOS);
+    public static final Ingrediente ACEITE = new Ingrediente(12, "Aceite", MILILITROS, CI_CONDIMENTOS);
+    public static final Ingrediente VINAGRE = new Ingrediente(13, "Vinagre", MILILITROS, CI_CONDIMENTOS);
+    public static final Ingrediente PIMIENTA_NEGRA = new Ingrediente(14, "Pimienta Negra", NO_CUANTIFICABLE, CI_CONDIMENTOS);
+    public static final Ingrediente PEREJIL = new Ingrediente(28, "Perejil", NO_CUANTIFICABLE, CI_CONDIMENTOS);
+
+
+    public static final Ingrediente PLATANO = new Ingrediente(20, "Platano", UNIDAD, CI_FRUTA);
+    public static final Ingrediente FRESA = new Ingrediente(30, "Fresa", UNIDAD, CI_FRUTA);
+    public static final Ingrediente MANZANA = new Ingrediente(31, "Manzana", UNIDAD, CI_FRUTA);
+    public static final Ingrediente UVAS = new Ingrediente(32, "Uvas", GRAMOS, CI_FRUTA);
+    public static final Ingrediente KIWI = new Ingrediente(33, "Kiwi", UNIDAD, CI_FRUTA);
+    public static final Ingrediente MANDARINA = new Ingrediente(34, "Mandarina", UNIDAD, CI_FRUTA);
+    public static final Ingrediente NARANJA = new Ingrediente(35, "Naranja", UNIDAD, CI_FRUTA);
+
+
+    public static final Ingrediente HUEVOS = new Ingrediente(5, "Huevos", UNIDAD, CI_HUEVOS_Y_LACTEOS);
+    public static final Ingrediente LECHE = new Ingrediente(37, "Leche", LITROS, CI_HUEVOS_Y_LACTEOS);
+    public static final Ingrediente PARMESANO = new Ingrediente(37, "Parmesano", UNIDAD, CI_HUEVOS_Y_LACTEOS);
+    public static final Ingrediente CHEDAR = new Ingrediente(38, "Chedar", GRAMOS, CI_HUEVOS_Y_LACTEOS);
+    public static final Ingrediente YOGOURT = new Ingrediente(39, "Yogourt", UNIDAD, CI_HUEVOS_Y_LACTEOS);
+
+
+    public static final Ingrediente ESPAGUETIS = new Ingrediente(18, "Espaguetis", GRAMOS, CI_PASTA_Y_ARROZ);
+    public static final Ingrediente ARROZ = new Ingrediente(11, "Arroz", GRAMOS, CI_PASTA_Y_ARROZ);
+    public static final Ingrediente MACARRONES = new Ingrediente(40, "Macarrones", GRAMOS, CI_PASTA_Y_ARROZ);
+    public static final Ingrediente TAGLIATELE = new Ingrediente(41, "Tagliatele", GRAMOS, CI_PASTA_Y_ARROZ);
+
+
+    public static final Ingrediente SALMON = new Ingrediente(9, "Salmón", GRAMOS, CI_PESCADOS);
+    public static final Ingrediente ANCHOAS = new Ingrediente(20, "Anchoas", GRAMOS, CI_PESCADOS);
+    public static final Ingrediente BACALAO = new Ingrediente(42, "Bacalao", GRAMOS, CI_PESCADOS);
+    public static final Ingrediente CALAMAR = new Ingrediente(43, "Calamar", GRAMOS, CI_PESCADOS);
+    public static final Ingrediente DORADA = new Ingrediente(44, "Dorada", GRAMOS, CI_PESCADOS);
+    public static final Ingrediente GAMBA = new Ingrediente(45, "Gamba", GRAMOS, CI_PESCADOS);
+
+
     public static final Ingrediente PATATA = new Ingrediente(1, "Patata", UNIDAD, CI_VERDURAS);
     public static final Ingrediente CEBOLLA = new Ingrediente(2, "Cebolla", UNIDAD, CI_VERDURAS);
     public static final Ingrediente ESPARRAGOS = new Ingrediente(3, "Espárragos", GRAMOS, CI_VERDURAS);
     public static final Ingrediente CALABACIN = new Ingrediente(4, "Calabacín", UNIDAD, CI_VERDURAS);
-    public static final Ingrediente HUEVOS = new Ingrediente(5, "Huevos", UNIDAD, CI_HUEVOS_Y_LACTEOS);
-    public static final Ingrediente CONEJO = new Ingrediente(6, "Conejo", KILOS, CI_CARNES);
-    public static final Ingrediente POLLO = new Ingrediente(7, "Pollo", KILOS, CI_CARNES);
-    public static final Ingrediente CORDERO = new Ingrediente(8, "Cordero", KILOS, CI_CARNES);
-    public static final Ingrediente SALMON = new Ingrediente(9, "Salmón", GRAMOS, CI_PESCADOS);
-    public static final Ingrediente AVENA = new Ingrediente(10, "Avena", GRAMOS, CI_CEREALES_Y_FRUTOS_SECOS);
-    public static final Ingrediente ARROZ = new Ingrediente(11, "Arroz", GRAMOS, CI_CEREALES_Y_FRUTOS_SECOS);
-    public static final Ingrediente ACEITE = new Ingrediente(12, "Aceite", MILILITROS, CI_CONDIMENTOS);
-    public static final Ingrediente VINAGRE = new Ingrediente(13, "Vinagre", MILILITROS, CI_CONDIMENTOS);
-    public static final Ingrediente PIMIENTA_NEGRA = new Ingrediente(14, "Pimienta Negra", NO_CUANTIFICABLE, CI_CONDIMENTOS);
-    public static final Ingrediente SAL = new Ingrediente(15, "Sal", NO_CUANTIFICABLE, CI_CONDIMENTOS);
-    public static final Ingrediente AZUCAR = new Ingrediente(16, "Azúcar", GRAMOS, CI_CONDIMENTOS);
-    public static final Ingrediente AJO = new Ingrediente(17, "Ajo", UNIDAD, CI_VERDURAS);
-    public static final Ingrediente ESPAGUETIS = new Ingrediente(18, "Espaguetis", GRAMOS, CI_PASTA_Y_ARROZ);
-    public static final Ingrediente ALCAPARRAS = new Ingrediente(19, "Alcaparras", GRAMOS, CI_VERDURAS);
-    public static final Ingrediente ANCHOAS = new Ingrediente(20, "Anchoas", GRAMOS, CI_PESCADOS);
-    public static final Ingrediente OLIVAS_NEGRAS = new Ingrediente(21, "Olivas Negras", GRAMOS, CI_VERDURAS);
     public static final Ingrediente TOMATE = new Ingrediente(22, "Tomate", GRAMOS, CI_VERDURAS);
-    public static final Ingrediente GUINDILLAS = new Ingrediente(23, "Guindillas", UNIDAD, CI_CONDIMENTOS);
+    public static final Ingrediente AJO = new Ingrediente(17, "Ajo", UNIDAD, CI_VERDURAS);
+    public static final Ingrediente ALCAPARRAS = new Ingrediente(19, "Alcaparras", GRAMOS, CI_VERDURAS);
+    public static final Ingrediente OLIVAS_NEGRAS = new Ingrediente(21, "Olivas Negras", GRAMOS, CI_VERDURAS);
+    public static final Ingrediente PIMIENTO = new Ingrediente(46, "Pimiento", UNIDAD, CI_VERDURAS);
+    public static final Ingrediente LECHUGA = new Ingrediente(47, "Lechuga", UNIDAD, CI_VERDURAS);
+    public static final Ingrediente ZANAHORIA = new Ingrediente(48, "Zanahoria", UNIDAD, CI_VERDURAS);
+    public static final Ingrediente SETAS = new Ingrediente(49, "Setas", UNIDAD, CI_VERDURAS);
+
 
     public static List<CategoriaIngrediente> getDefaultCategoriasIngrediente() {
         return Arrays.asList(
-            CI_CARNES,
-            CI_CEREALES_Y_FRUTOS_SECOS,
-            CI_CONDIMENTOS,
-            CI_FRUTA,
-            CI_HUEVOS_Y_LACTEOS,
-            CI_OTROS,
-            CI_PESCADOS,
-            CI_VERDURAS,
-            CI_PASTA_Y_ARROZ,
-            CI_LEGUMBRES
+                CI_CARNES,
+                CI_CEREALES_Y_FRUTOS_SECOS,
+                CI_CONDIMENTOS,
+                CI_FRUTA,
+                CI_HUEVOS_Y_LACTEOS,
+                CI_OTROS,
+                CI_PESCADOS,
+                CI_VERDURAS,
+                CI_PASTA_Y_ARROZ,
+                CI_LEGUMBRES
         );
     }
 
     public static List<Medicion> getDefaultMediciones() {
         return Arrays.asList(
-            GRAMOS,
-            KILOS,
-            LITROS,
-            MILILITROS,
-            NO_CUANTIFICABLE,
-            UNIDAD
+                GRAMOS,
+                KILOS,
+                LITROS,
+                MILILITROS,
+                NO_CUANTIFICABLE,
+                UNIDAD
         );
     }
 
     public static List<Ingrediente> getDefaultIngredientes() {
         return Arrays.asList(
-            PATATA,
-            CEBOLLA,
-            ESPARRAGOS,
-            CALABACIN,
-            HUEVOS,
-            CONEJO,
-            POLLO,
-            CORDERO,
-            SALMON,
-            AVENA,
-            ARROZ,
-            ACEITE,
-            VINAGRE,
-            PIMIENTA_NEGRA,
-            SAL,
-            AZUCAR,
-            AJO,
-            ESPAGUETIS,
-            ALCAPARRAS,
-            OLIVAS_NEGRAS,
-            TOMATE,
-            GUINDILLAS,
-            ANCHOAS
+                PATATA,
+                CEBOLLA,
+                ESPARRAGOS,
+                CALABACIN,
+                HUEVOS,
+                CONEJO,
+                POLLO,
+                CORDERO,
+                SALMON,
+                AVENA,
+                ARROZ,
+                ACEITE,
+                VINAGRE,
+                PIMIENTA_NEGRA,
+                SAL,
+                AZUCAR,
+                AJO,
+                ESPAGUETIS,
+                ALCAPARRAS,
+                OLIVAS_NEGRAS,
+                TOMATE,
+                GUINDILLAS,
+                ANCHOAS,
+                TERNERA,
+                PISTACHOS,
+                ALMENDRAS,
+                PAN,
+                PEREJIL,
+                PLATANO,
+                FRESA,
+                MANZANA,
+                UVAS,
+                KIWI,
+                MANDARINA,
+                NARANJA,
+                LECHE,
+                PARMESANO,
+                CHEDAR,
+                YOGOURT,
+                MACARRONES,
+                TAGLIATELE,
+                BACALAO,
+                CALAMAR,
+                DORADA,
+                GAMBA,
+                PIMIENTO,
+                LECHUGA,
+                ZANAHORIA,
+                SETAS
         );
     }
 }
