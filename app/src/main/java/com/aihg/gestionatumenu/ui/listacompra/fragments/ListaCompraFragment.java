@@ -96,7 +96,7 @@ public class ListaCompraFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(ListaCompraViewModel.class);
         viewModel.
                 getAllDespensa()
-                .observe(requireActivity(), new Observer<List<ListaCompra>>() {
+                .observe(getViewLifecycleOwner(), new Observer<List<ListaCompra>>() {
             @Override
             public void onChanged(List<ListaCompra> ingredientesOb) {
                 adapter.setIngredientes(ingredientesOb);
