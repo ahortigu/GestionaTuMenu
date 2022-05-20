@@ -34,11 +34,14 @@ public class IngredientesDataGenerator {
     public static final Ingrediente POLLO = new Ingrediente(7, "Pollo", KILOS, CI_CARNES);
     public static final Ingrediente CORDERO = new Ingrediente(8, "Cordero", KILOS, CI_CARNES);
     public static final Ingrediente TERNERA = new Ingrediente(24, "Ternera", GRAMOS, CI_CARNES);
+    public static final Ingrediente CHORIZO = new Ingrediente(52, "Chorizo", GRAMOS, CI_CARNES);
+    public static final Ingrediente JAMON_YORK = new Ingrediente(55, "Jamón york", GRAMOS, CI_CARNES);
 
     public static final Ingrediente AVENA = new Ingrediente(10, "Avena", GRAMOS, CI_CEREALES_Y_FRUTOS_SECOS);
     public static final Ingrediente PISTACHOS = new Ingrediente(25, "Pistachos", GRAMOS, CI_CEREALES_Y_FRUTOS_SECOS);
     public static final Ingrediente ALMENDRAS = new Ingrediente(26, "Almendras", GRAMOS, CI_CEREALES_Y_FRUTOS_SECOS);
     public static final Ingrediente PAN = new Ingrediente(27, "Pan", GRAMOS, CI_CEREALES_Y_FRUTOS_SECOS);
+    public static final Ingrediente HARINA = new Ingrediente(27, "Harina", GRAMOS, CI_CEREALES_Y_FRUTOS_SECOS);
 
 
     public static final Ingrediente SAL = new Ingrediente(15, "Sal", NO_CUANTIFICABLE, CI_CONDIMENTOS);
@@ -64,12 +67,15 @@ public class IngredientesDataGenerator {
     public static final Ingrediente PARMESANO = new Ingrediente(37, "Parmesano", UNIDAD, CI_HUEVOS_Y_LACTEOS);
     public static final Ingrediente CHEDAR = new Ingrediente(38, "Chedar", GRAMOS, CI_HUEVOS_Y_LACTEOS);
     public static final Ingrediente YOGOURT = new Ingrediente(39, "Yogourt", UNIDAD, CI_HUEVOS_Y_LACTEOS);
+    public static final Ingrediente MOZZARELA = new Ingrediente(56, "Mozzarela", UNIDAD, CI_HUEVOS_Y_LACTEOS);
 
+    public static final Ingrediente MERMELADA = new Ingrediente(51, "Mermelada", NO_CUANTIFICABLE, CI_OTROS);
 
     public static final Ingrediente ESPAGUETIS = new Ingrediente(18, "Espaguetis", GRAMOS, CI_PASTA_Y_ARROZ);
     public static final Ingrediente ARROZ = new Ingrediente(11, "Arroz", GRAMOS, CI_PASTA_Y_ARROZ);
     public static final Ingrediente MACARRONES = new Ingrediente(40, "Macarrones", GRAMOS, CI_PASTA_Y_ARROZ);
     public static final Ingrediente TAGLIATELE = new Ingrediente(41, "Tagliatele", GRAMOS, CI_PASTA_Y_ARROZ);
+    public static final Ingrediente LAMINA_LASAGNA = new Ingrediente(50, "Lamina de Lasana", UNIDAD, CI_PASTA_Y_ARROZ);
 
 
     public static final Ingrediente SALMON = new Ingrediente(9, "Salmón", GRAMOS, CI_PESCADOS);
@@ -78,6 +84,8 @@ public class IngredientesDataGenerator {
     public static final Ingrediente CALAMAR = new Ingrediente(43, "Calamar", GRAMOS, CI_PESCADOS);
     public static final Ingrediente DORADA = new Ingrediente(44, "Dorada", GRAMOS, CI_PESCADOS);
     public static final Ingrediente GAMBA = new Ingrediente(45, "Gamba", GRAMOS, CI_PESCADOS);
+    public static final Ingrediente LATA_ATUN = new Ingrediente(45, "Lata atún", UNIDAD, CI_PESCADOS);
+
 
 
     public static final Ingrediente PATATA = new Ingrediente(1, "Patata", UNIDAD, CI_VERDURAS);
@@ -92,6 +100,10 @@ public class IngredientesDataGenerator {
     public static final Ingrediente LECHUGA = new Ingrediente(47, "Lechuga", UNIDAD, CI_VERDURAS);
     public static final Ingrediente ZANAHORIA = new Ingrediente(48, "Zanahoria", UNIDAD, CI_VERDURAS);
     public static final Ingrediente SETAS = new Ingrediente(49, "Setas", UNIDAD, CI_VERDURAS);
+    public static final Ingrediente GUISANTES = new Ingrediente(57, "Guisantes", GRAMOS, CI_VERDURAS);
+
+    public static final Ingrediente LENTEJAS = new Ingrediente(53, "LENTEJAS", GRAMOS, CI_LEGUMBRES);
+    public static final Ingrediente GARBANZOS = new Ingrediente(54, "GARBANZOS", GRAMOS, CI_LEGUMBRES);
 
 
     public static List<CategoriaIngrediente> getDefaultCategoriasIngrediente() {
@@ -170,7 +182,16 @@ public class IngredientesDataGenerator {
                 PIMIENTO,
                 LECHUGA,
                 ZANAHORIA,
-                SETAS
+                SETAS,
+                LAMINA_LASAGNA,
+                MERMELADA,
+                LATA_ATUN,
+                CHORIZO,
+                LENTEJAS,
+                GARBANZOS,
+                MOZZARELA,
+                HARINA,
+                GUISANTES
         );
     }
 }
