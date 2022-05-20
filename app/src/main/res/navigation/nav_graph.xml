@@ -184,7 +184,7 @@
         android:id="@+id/buscarIngredienteFragment"
         android:name="com.aihg.gestionatumenu.ui.shared.fragments.buscar.ingrediente.BuscarIngredienteFragment"
         android:label="AÑADIR INGREDIENTE"
-        tools:layout="@layout/shared__buscar_ingrediente_fragment" >
+        tools:layout="@layout/shared__buscar_fragments" >
         <action
             android:id="@+id/action_buscarIngredienteFragment_to_despensaFragment"
             app:destination="@id/despensaFragment"
@@ -221,7 +221,7 @@
         android:id="@+id/buscarRecetaFragment"
         android:name="com.aihg.gestionatumenu.ui.shared.fragments.buscar.receta.BuscarRecetaFragment"
         android:label="AÑADIR RECETA"
-        tools:layout="@layout/shared__buscar_receta_fragment" >
+        tools:layout="@layout/shared__buscar_fragments" >
         <action
             android:id="@+id/action_buscarRecetaFragment_to_planificadorFragment"
             app:destination="@id/planificadorFragment"

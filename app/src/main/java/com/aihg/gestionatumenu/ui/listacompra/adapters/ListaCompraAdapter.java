@@ -6,7 +6,6 @@ import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.NO_
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,6 @@ import com.aihg.gestionatumenu.R;
 import com.aihg.gestionatumenu.db.entities.Ingrediente;
 import com.aihg.gestionatumenu.db.entities.ListaCompra;
 import com.aihg.gestionatumenu.ui.listacompra.listener.ListaCompraListener;
-import com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +41,7 @@ public class ListaCompraAdapter extends RecyclerView.Adapter<ListaCompraAdapter.
     public ListaCompraViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.listacompra__item, parent, false);
+                .inflate(R.layout.shared__subitem_cantidad, parent, false);
         return new ListaCompraViewHolder(view);
     }
 
@@ -62,7 +60,7 @@ public class ListaCompraAdapter extends RecyclerView.Adapter<ListaCompraAdapter.
                 @Override
                 public void onFocusChange(View view, boolean hasFocus) {
                     if (!hasFocus && !changeSaved) {
-                        EditText toUpdate = view.findViewById(R.id.et_lci_cantidad);
+                        EditText toUpdate = view.findViewById(R.id.et_shared_c_item_cantidad);
                         toUpdate.setSelected(false);
                         ingrediente.setCantidad(Integer.parseInt(toUpdate.getText().toString()));
                         listener.onUpdateItem(ingrediente);
@@ -124,9 +122,9 @@ public class ListaCompraAdapter extends RecyclerView.Adapter<ListaCompraAdapter.
 
         public ListaCompraViewHolder(@NonNull View itemView) {
             super(itemView);
-            txt_nombre = itemView.findViewById(R.id.txt_lci_ingrediente);
-            txt_medicion = itemView.findViewById(R.id.txt_lci_medicion);
-            et_cantidad = itemView.findViewById(R.id.et_lci_cantidad);
+            txt_nombre = itemView.findViewById(R.id.txt_shared_c_item_nombre);
+            txt_medicion = itemView.findViewById(R.id.txt_shared_c_item_medicion);
+            et_cantidad = itemView.findViewById(R.id.et_shared_c_item_cantidad);
         }
     }
 }

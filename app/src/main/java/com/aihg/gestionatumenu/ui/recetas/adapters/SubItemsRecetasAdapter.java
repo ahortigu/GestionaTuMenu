@@ -38,7 +38,7 @@ public class SubItemsRecetasAdapter extends RecyclerView.Adapter<SubItemsRecetas
     public SubItemsRecetasViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.shared__recetas__subitem, parent, false);
+                .inflate(R.layout.shared__subitem_nombre, parent, false);
         return new SubItemsRecetasViewHolder(view);
     }
 
@@ -72,7 +72,7 @@ public class SubItemsRecetasAdapter extends RecyclerView.Adapter<SubItemsRecetas
         public SubItemsRecetasViewHolder(@NonNull View itemView) {
             super(itemView);
             v_subitem = itemView;
-            txt_nombre = itemView.findViewById(R.id.txt_shared_receta_nombre);
+            txt_nombre = itemView.findViewById(R.id.txt_shared_n_nombre_item);
         }
     }
 }

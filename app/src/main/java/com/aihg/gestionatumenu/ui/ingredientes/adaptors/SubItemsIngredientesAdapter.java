@@ -3,7 +3,6 @@ package com.aihg.gestionatumenu.ui.ingredientes.adaptors;
 import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerator.NO_CUANTIFICABLE;
 import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.NO_INGREDIENTE;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +38,7 @@ public class SubItemsIngredientesAdapter extends RecyclerView.Adapter<SubItemsIn
     public SubItemIngredienteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater
             .from(parent.getContext())
-            .inflate(R.layout.ingredientes__subitem, parent, false);
+            .inflate(R.layout.shared__subitem_medicion, parent, false);
         return new SubItemIngredienteViewHolder(view);
     }
 
@@ -83,8 +82,8 @@ public class SubItemsIngredientesAdapter extends RecyclerView.Adapter<SubItemsIn
         public SubItemIngredienteViewHolder(@NonNull View itemView) {
             super(itemView);
             v_subitem = itemView;
-            txt_nombre = itemView.findViewById(R.id.txt_is_nombre);
-            txt_medicion = itemView.findViewById(R.id.txt_is_medicion);
+            txt_nombre = itemView.findViewById(R.id.txt_shared_m_item_nombre);
+            txt_medicion = itemView.findViewById(R.id.txt_shared_m_item_medicion);
         }
     }
 }

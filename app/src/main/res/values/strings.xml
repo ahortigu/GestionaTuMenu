@@ -45,6 +45,7 @@
     <string name="momento_up">MOMENTO</string>
     <string name="aplicar_up">APLICAR</string>
     <string name="categorias_up">CATEGORIAS</string>
+    <string name="item_up">ITEM</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -53,5 +54,5 @@
     <string name="verduras_low">Verduras</string>
     <string name="unidad_low">Unidad</string>
     <string name="guardar_UP">GUARDAR</string>
-    <string name="cant_sample">100</string>
+    <string name="cant_sample">0</string>
 </resources>

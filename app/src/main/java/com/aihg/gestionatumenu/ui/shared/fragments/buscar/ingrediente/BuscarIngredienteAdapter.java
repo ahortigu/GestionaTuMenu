@@ -17,8 +17,6 @@ import com.aihg.gestionatumenu.db.entities.Despensa;
 import com.aihg.gestionatumenu.db.entities.Ingrediente;
 import com.aihg.gestionatumenu.db.entities.IngredienteInterface;
 import com.aihg.gestionatumenu.db.entities.ListaCompra;
-import com.aihg.gestionatumenu.db.entities.Planificador;
-import com.aihg.gestionatumenu.db.entities.Receta;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +33,7 @@ public class BuscarIngredienteAdapter extends RecyclerView.Adapter<BuscarIngredi
     public BuscarIngredienteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.shared__ingrediente_item, parent, false);
+                .inflate(R.layout.shared__subitem_nombre, parent, false);
         return new BuscarIngredienteViewHolder(view);
     }
 
@@ -98,8 +96,8 @@ public class BuscarIngredienteAdapter extends RecyclerView.Adapter<BuscarIngredi
         public BuscarIngredienteViewHolder(@NonNull View itemView) {
             super(itemView);
             v_subitem = itemView;
-            txt_nombre = itemView.findViewById(R.id.txt_shared_nombre_ingrediente);
-            l_shared_buscar_ingrediente = itemView.findViewById(R.id.l_shared_ingrediente);
+            txt_nombre = itemView.findViewById(R.id.txt_shared_n_nombre_item);
+            l_shared_buscar_ingrediente = itemView.findViewById(R.id.l_shared_nombre);
         }
     }
 }

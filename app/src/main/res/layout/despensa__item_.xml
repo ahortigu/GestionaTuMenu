@@ -60,7 +60,7 @@
                 android:id="@+id/rv_id_ingredientes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:listitem="@layout/despensa__subitem" />
+                tools:listitem="@layout/shared__subitem_cantidad" />
         </RelativeLayout>
     </LinearLayout>
 
