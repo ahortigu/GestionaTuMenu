@@ -46,7 +46,6 @@ public class IngredientesCreateFragment extends Fragment {
     private Spinner categoriasSpinner;
     private Spinner medicionesSpinner;
     private TextView txt_nombre;
-    private Boolean isClicked = false;
 
     public IngredientesCreateFragment() {
         toCreate = new Ingrediente("", null, null);
