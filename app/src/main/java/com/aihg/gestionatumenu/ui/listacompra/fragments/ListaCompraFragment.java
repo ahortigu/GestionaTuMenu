@@ -182,7 +182,9 @@ public class ListaCompraFragment extends Fragment {
                     .collect(Collectors.toList());
 
                 if (listaCompraFiltrada.isEmpty()) {
-                    Toast.makeText(view.getContext(), TOAST_NO_EXISTE_INGREDIENTE_LISTA, Toast.LENGTH_SHORT).show();
+                    if (!newText.isEmpty()) Toast.makeText(
+                            view.getContext(), TOAST_NO_EXISTE_INGREDIENTE_LISTA, Toast.LENGTH_SHORT
+                    ).show();
                 } else {
                     adapter.setIngredientesFiltrados(listaCompraFiltrada);
                 }

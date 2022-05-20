@@ -1,5 +1,7 @@
 package com.aihg.gestionatumenu.ui.ingredientes.fragments;
 
+import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_CAMPO_VACIO;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aihg.gestionatumenu.R;
 import com.aihg.gestionatumenu.db.entities.CategoriaIngrediente;
@@ -154,8 +157,14 @@ public class IngredienteEditFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 // TODO anadir validaciones aqui
-                toModify.setNombre(s.toString());
-                viewModel.updateIngrediente(toModify);
+                if(!s.toString().isEmpty()) {
+                    toModify.setNombre(s.toString());
+                    viewModel.updateIngrediente(toModify);
+                } else {
+                    Toast.makeText(
+                            view.getContext(), TOAST_CAMPO_VACIO, Toast.LENGTH_LONG
+                    ).show();
+                }
             }
         });
     }
