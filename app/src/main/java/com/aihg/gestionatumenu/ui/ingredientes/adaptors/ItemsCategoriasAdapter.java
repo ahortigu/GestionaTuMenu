@@ -89,7 +89,7 @@ public class ItemsCategoriasAdapter extends RecyclerView.Adapter<ItemsCategorias
 
             @Override
             public int getSwipeDirs(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-                TextView txtNombre = viewHolder.itemView.findViewById(R.id.txt_is_nombre);
+                TextView txtNombre = viewHolder.itemView.findViewById(R.id.txt_shared_m_item_nombre);
                 if (NO_INGREDIENTE.equals(txtNombre.getText().toString())) {
                     return 0;
                 }
@@ -107,7 +107,7 @@ public class ItemsCategoriasAdapter extends RecyclerView.Adapter<ItemsCategorias
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                TextView txtNombre = viewHolder.itemView.findViewById(R.id.txt_is_nombre);
+                TextView txtNombre = viewHolder.itemView.findViewById(R.id.txt_shared_m_item_nombre);
                 int positionBorrar = IntStream.range(0, ingredientes.size())
                         .filter(i -> txtNombre.getText().toString().equals(ingredientes.get(i).getIngrediente().getNombre()))
                         .findFirst()

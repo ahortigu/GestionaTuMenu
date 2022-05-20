@@ -5,7 +5,6 @@ import static androidx.recyclerview.widget.ItemTouchHelper.RIGHT;
 import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.NO_LISTA_COMPRA;
 import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_BORRAR_LISTA_COMPRA;
 import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_NO_EXISTE_INGREDIENTE_LISTA;
-import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_UPDATE_DESPENSA;
 import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_UPDATE_LISTACOMPRA;
 
 import android.os.Bundle;
@@ -21,7 +20,6 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,7 +29,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aihg.gestionatumenu.R;
-import com.aihg.gestionatumenu.db.entities.Ingrediente;
 import com.aihg.gestionatumenu.db.entities.ListaCompra;
 import com.aihg.gestionatumenu.ui.listacompra.adapters.ListaCompraAdapter;
 import com.aihg.gestionatumenu.ui.listacompra.listener.ListaCompraListener;
@@ -40,7 +37,6 @@ import com.aihg.gestionatumenu.ui.listacompra.viewmodel.ListaCompraViewModel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class ListaCompraFragment extends Fragment {
     private View view;
@@ -141,7 +137,7 @@ public class ListaCompraFragment extends Fragment {
 
             @Override
             public int getSwipeDirs(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-                TextView txtNombre = viewHolder.itemView.findViewById(R.id.txt_lci_ingrediente);
+                TextView txtNombre = viewHolder.itemView.findViewById(R.id.txt_shared_c_item_nombre);
                 if (txtNombre.getText().toString().equals(NO_LISTA_COMPRA)) {
                     return 0;
                 } else {

@@ -12,22 +12,18 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.aihg.gestionatumenu.R;
-import com.aihg.gestionatumenu.db.entities.Despensa;
 import com.aihg.gestionatumenu.db.entities.Ingrediente;
 import com.aihg.gestionatumenu.db.entities.IngredienteInterface;
-import com.aihg.gestionatumenu.db.entities.ListaCompra;
 import com.aihg.gestionatumenu.db.entities.Receta;
 import com.aihg.gestionatumenu.ui.despensa.viewmodel.DespensaViewModel;
 import com.aihg.gestionatumenu.ui.ingredientes.viewmodel.IngredientesViewModel;
@@ -60,7 +56,7 @@ public class BuscarIngredienteFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        this.view = inflater.inflate(R.layout.shared__buscar_ingrediente_fragment, container, false);
+        this.view = inflater.inflate(R.layout.shared__buscar_fragments, container, false);
 
 
         return view;
@@ -135,7 +131,7 @@ public class BuscarIngredienteFragment extends Fragment {
     }
 
     public void setRecyclerView() {
-        recyclerView = (RecyclerView) view.findViewById(R.id.rv_shared_bi_ingredientes);
+        recyclerView = (RecyclerView) view.findViewById(R.id.rv_shared_b_items);
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -144,7 +140,7 @@ public class BuscarIngredienteFragment extends Fragment {
     }
 
     public void setBuscador() {
-        SearchView buscador = view.findViewById(R.id.sv_shared_bi_buscador_ingrediente);
+        SearchView buscador = view.findViewById(R.id.sv_shared_b);
         buscador.clearFocus();
         buscador.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 

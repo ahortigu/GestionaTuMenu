@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aihg.gestionatumenu.R;
-import com.aihg.gestionatumenu.db.entities.ListaCompra;
 import com.aihg.gestionatumenu.db.entities.Utiliza;
 
 import java.util.ArrayList;
@@ -33,7 +32,7 @@ public class IngredientesDeRecetaAdapter
     public IngredientesDeRecetaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.listacompra__item, parent, false);
+                .inflate(R.layout.shared__subitem_cantidad, parent, false);
         return new IngredientesDeRecetaViewHolder(view);
     }
 
@@ -71,9 +70,9 @@ public class IngredientesDeRecetaAdapter
 
         public IngredientesDeRecetaViewHolder(@NonNull View itemView) {
             super(itemView);
-            txt_nombre = itemView.findViewById(R.id.txt_lci_ingrediente);
-            txt_medicion = itemView.findViewById(R.id.txt_lci_medicion);
-            et_cantidad = itemView.findViewById(R.id.et_lci_cantidad);
+            txt_nombre = itemView.findViewById(R.id.txt_shared_c_item_nombre);
+            txt_medicion = itemView.findViewById(R.id.txt_shared_c_item_medicion);
+            et_cantidad = itemView.findViewById(R.id.et_shared_c_item_cantidad);
         }
     }
 }

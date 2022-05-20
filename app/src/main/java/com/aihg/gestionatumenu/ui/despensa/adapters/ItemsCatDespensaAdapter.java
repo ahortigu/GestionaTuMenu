@@ -2,7 +2,6 @@ package com.aihg.gestionatumenu.ui.despensa.adapters;
 
 import static androidx.recyclerview.widget.ItemTouchHelper.RIGHT;
 import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.NO_DESPENSA;
-import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.NO_LISTA_COMPRA;
 import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_BORRAR_DESPENSA;
 
 import static java.util.stream.Collectors.toList;
@@ -91,7 +90,7 @@ public class ItemsCatDespensaAdapter extends  RecyclerView.Adapter<ItemsCatDespe
 
             @Override
             public int getSwipeDirs(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-                TextView txtNombre = viewHolder.itemView.findViewById(R.id.txt_ds_ingrediente);
+                TextView txtNombre = viewHolder.itemView.findViewById(R.id.txt_shared_c_item_nombre);
                 if (txtNombre.getText().toString().equals(NO_DESPENSA)) {
                     return 0;
                 } else {
@@ -101,7 +100,7 @@ public class ItemsCatDespensaAdapter extends  RecyclerView.Adapter<ItemsCatDespe
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                TextView txtNombre = viewHolder.itemView.findViewById(R.id.txt_ds_ingrediente);
+                TextView txtNombre = viewHolder.itemView.findViewById(R.id.txt_shared_c_item_nombre);
                 int positionBorrar = IntStream.range(0, despensa.size())
                         .filter(i -> txtNombre.getText().toString().equals(despensa.get(i).getIngrediente().getNombre()))
                         .findFirst()

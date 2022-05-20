@@ -9,7 +9,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.navigation.NavDestination;
-import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,7 +32,7 @@ public class BuscarRecetaAdapter extends RecyclerView.Adapter<BuscarRecetaAdapte
     public BuscarRecetaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.shared__recetas__subitem, parent, false);
+                .inflate(R.layout.shared__subitem_nombre, parent, false);
         return new BuscarRecetaViewHolder(view);
     }
 
@@ -96,8 +95,8 @@ public class BuscarRecetaAdapter extends RecyclerView.Adapter<BuscarRecetaAdapte
         public BuscarRecetaViewHolder(@NonNull View itemView) {
             super(itemView);
             v_subitem = itemView;
-            txt_nombre = itemView.findViewById(R.id.txt_shared_receta_nombre);
-            l_shared_buscar_receta = itemView.findViewById(R.id.l_shared_receta);
+            txt_nombre = itemView.findViewById(R.id.txt_shared_n_nombre_item);
+            l_shared_buscar_receta = itemView.findViewById(R.id.l_shared_nombre);
         }
     }
 }

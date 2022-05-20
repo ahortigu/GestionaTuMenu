@@ -22,7 +22,6 @@ import com.aihg.gestionatumenu.ui.despensa.wrapper.CategoriaWrapper;
 
 import java.util.List;
 import java.util.Timer;
-import java.util.TimerTask;
 
 public class SubItemsDespensaAdapter
     extends RecyclerView.Adapter<SubItemsDespensaAdapter.SubItemDespensaViewHolder> {
@@ -52,7 +51,7 @@ public class SubItemsDespensaAdapter
     public SubItemDespensaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater
             .from(parent.getContext())
-            .inflate(R.layout.despensa__subitem, parent, false);
+            .inflate(R.layout.shared__subitem_cantidad, parent, false);
         return new SubItemDespensaViewHolder(view);
     }
 
@@ -68,7 +67,7 @@ public class SubItemsDespensaAdapter
                 @Override
                 public void onFocusChange(View view, boolean hasFocus) {
                     if (!hasFocus && !changeSaved) {
-                        EditText toUpdate = view.findViewById(R.id.et_ds_cantidad);
+                        EditText toUpdate = view.findViewById(R.id.et_shared_c_item_cantidad);
                         toUpdate.setSelected(false);
                         ingrediente.setCantidad(Integer.parseInt(toUpdate.getText().toString()));
                         listener.onUpdateItem(ingrediente);
@@ -111,9 +110,9 @@ public class SubItemsDespensaAdapter
         public SubItemDespensaViewHolder(@NonNull View itemView) {
             super(itemView);
             v_subitem = itemView;
-            txt_nombre = itemView.findViewById(R.id.txt_ds_ingrediente);
-            txt_medicion = itemView.findViewById(R.id.txt_ds_medicion);
-            et_cantidad = itemView.findViewById(R.id.et_ds_cantidad);
+            txt_nombre = itemView.findViewById(R.id.txt_shared_c_item_nombre);
+            txt_medicion = itemView.findViewById(R.id.txt_shared_c_item_medicion);
+            et_cantidad = itemView.findViewById(R.id.et_shared_c_item_cantidad);
         }
     }
 }

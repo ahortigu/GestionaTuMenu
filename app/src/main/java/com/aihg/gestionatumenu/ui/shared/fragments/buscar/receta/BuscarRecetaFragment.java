@@ -51,7 +51,7 @@ public class BuscarRecetaFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        this.view =  inflater.inflate(R.layout.shared__buscar_receta_fragment, container, false);
+        this.view =  inflater.inflate(R.layout.shared__buscar_fragments, container, false);
         setViewModelAndObserver();
         setArguments(savedInstanceState);
         setRecyclerView();
@@ -86,7 +86,7 @@ public class BuscarRecetaFragment extends Fragment {
     }
 
     public void setBuscador(){
-        SearchView buscador = view.findViewById(R.id.sv_shared_br_buscador_receta);
+        SearchView buscador = view.findViewById(R.id.sv_shared_b);
         buscador.clearFocus();
         buscador.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
@@ -114,7 +114,7 @@ public class BuscarRecetaFragment extends Fragment {
     }
 
     public void setRecyclerView(){
-        recyclerView = (RecyclerView) view.findViewById(R.id.rv_shared_br_recetas);
+        recyclerView = (RecyclerView) view.findViewById(R.id.rv_shared_b_items);
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 

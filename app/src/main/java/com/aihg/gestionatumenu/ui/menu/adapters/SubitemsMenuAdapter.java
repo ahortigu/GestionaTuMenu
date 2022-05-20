@@ -1,6 +1,5 @@
 package com.aihg.gestionatumenu.ui.menu.adapters;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.aihg.gestionatumenu.R;
 import com.aihg.gestionatumenu.db.entities.MenuInterface;
 import com.aihg.gestionatumenu.db.entities.Planificador;
-import com.aihg.gestionatumenu.ui.ingredientes.fragments.IngredientesFragmentDirections;
 import com.aihg.gestionatumenu.ui.menu.fragments.PlanificadorFragmentDirections;
 import com.aihg.gestionatumenu.ui.menu.fragments.SemanalFragmentDirections;
 import com.aihg.gestionatumenu.ui.menu.wrapper.MenuWrapper;
