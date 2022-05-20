@@ -83,67 +83,57 @@ public class PlanificadorFragment extends AbstractMenuFragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int menuId = item.getItemId();
-        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                switch (item.getItemId()) {
-                    case R.id.nav_clear:
-                        getViewModel()
-                                .getPlanificador()
-                                .getValue()
-                                .stream()
-                                .map(plan -> {
-                                    plan.setId_receta(null);
-                                    return plan;
-                                })
-                                .collect(toList())
-                                .forEach(plan -> getViewModel().updateRecetaPlanificador(plan));
+        switch (item.getItemId()) {
+            case R.id.nav_clear:
+                getViewModel()
+                        .getPlanificador()
+                        .getValue()
+                        .stream()
+                        .map(plan -> {
+                            plan.setId_receta(null);
+                            return plan;
+                        })
+                        .collect(toList())
+                        .forEach(plan -> getViewModel().updateRecetaPlanificador(plan));
 
-                        Toast.makeText(
-                                getView().getContext(), TOAST_PLANIFICADOR_LIMPIO, Toast.LENGTH_SHORT
-                        ).show();
-                        getAdapter().forceNotifyDataSetChanged();
-                        return true;
+                Toast.makeText(
+                        getView().getContext(), TOAST_PLANIFICADOR_LIMPIO, Toast.LENGTH_SHORT
+                ).show();
+                getAdapter().forceNotifyDataSetChanged();
+            case R.id.nav_done:
+                List<Planificador> planificador = getViewModel()
+                        .getPlanificador()
+                        .getValue();
 
-                    case R.id.nav_done:
-                        List<Planificador> planificador = getViewModel()
-                                .getPlanificador()
-                                .getValue();
+                List<Semanal> semanal = getViewModel()
+                        .getSemanal()
+                        .getValue();
 
-                        List<Semanal> semanal = getViewModel()
-                                .getSemanal()
-                                .getValue();
+                semanal.stream()
+                        .map(momentoComida -> {
+                            Planificador plan = planificador.stream()
+                                    .filter(comida ->
+                                            comida.getId_dia().equals(momentoComida.getId_dia())
+                                                    && comida.getId_momento_comida().equals(momentoComida.getId_momento_comida())
+                                    )
+                                    .findFirst()
+                                    .orElseThrow(() -> new IllegalStateException(
+                                            "Debe existir los mismos Momentos tanto en Semanal como en Planificador"
+                                    ));
 
-                        semanal.stream()
-                                .map(momentoComida -> {
-                                    Planificador plan = planificador.stream()
-                                            .filter(comida ->
-                                                    comida.getId_dia().equals(momentoComida.getId_dia())
-                                                            && comida.getId_momento_comida().equals(momentoComida.getId_momento_comida())
-                                            )
-                                            .findFirst()
-                                            .orElseThrow(() -> new IllegalStateException(
-                                                    "Debe existir los mismos Momentos tanto en Semanal como en Planificador"
-                                            ));
+                            momentoComida.setId_receta(plan.getId_receta());
+                            return momentoComida;
+                        })
+                        .collect(toList())
+                        .forEach(
+                                comida -> getViewModel().updateRecetaSemanal(comida)
+                        );
 
-                                    momentoComida.setId_receta(plan.getId_receta());
-                                    return momentoComida;
-                                })
-                                .collect(toList())
-                                .forEach(
-                                        comida -> getViewModel().updateRecetaSemanal(comida)
-                                );
-
-                        Toast.makeText(
-                                getView().getContext(), TOAST_PLANIFICADOR_APLICADO, Toast.LENGTH_SHORT
-                        ).show();
-                        getAdapter().forceNotifyDataSetChanged();
-                        return true;
-                    default:
-                        return false;
-                }
-            }
-        });
+                Toast.makeText(
+                        getView().getContext(), TOAST_PLANIFICADOR_APLICADO, Toast.LENGTH_SHORT
+                ).show();
+                getAdapter().forceNotifyDataSetChanged();
+        }
         return super.onOptionsItemSelected(item);
     }
 }
