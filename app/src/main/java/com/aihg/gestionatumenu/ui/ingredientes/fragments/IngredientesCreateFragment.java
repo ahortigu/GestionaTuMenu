@@ -46,6 +46,7 @@ public class IngredientesCreateFragment extends Fragment {
     private Spinner categoriasSpinner;
     private Spinner medicionesSpinner;
     private TextView txt_nombre;
+    private Boolean isClicked = false;
 
     public IngredientesCreateFragment() {
         toCreate = new Ingrediente("", null, null);
@@ -178,11 +179,7 @@ public class IngredientesCreateFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int menuId = item.getItemId();
-        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
                 if (menuId == R.id.nav_save ){
-                    Log.i("Ingrediente seteado", toCreate.toString());
                     if(!toCreate.getNombre().isEmpty()
                             && toCreate.getCategoriaIngrediente() != null
                             && toCreate.getMedicion() != null)
@@ -193,11 +190,11 @@ public class IngredientesCreateFragment extends Fragment {
                                     if (ingredientes.isEmpty()) {
                                         viewModel.insertIngrediente(toCreate);
                                         Toast.makeText(
-                                                view.getContext(), TOAST_CREAR_INGREDIENTE, Toast.LENGTH_LONG
+                                                view.getContext(), TOAST_CREAR_INGREDIENTE, Toast.LENGTH_SHORT
                                         ).show();
                                     } else {
                                         Toast.makeText(
-                                                view.getContext(), TOAST_CREAR_INGREDIENTE_YA_EXISTE, Toast.LENGTH_LONG
+                                                view.getContext(), TOAST_CREAR_INGREDIENTE_YA_EXISTE, Toast.LENGTH_SHORT
                                         ).show();
                                     }
                                 });
@@ -207,9 +204,6 @@ public class IngredientesCreateFragment extends Fragment {
                         ).show();
                     }
                 }
-                return true;
-            }
-        });
         return super.onOptionsItemSelected(item);
     }
 
