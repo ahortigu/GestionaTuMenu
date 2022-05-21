@@ -2,6 +2,7 @@ package com.aihg.gestionatumenu.ui.recetas.adapters;
 
 import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerator.NO_CUANTIFICABLE;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,13 +37,14 @@ public class IngredientesDeRecetaAdapter
         return new IngredientesDeRecetaViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull IngredientesDeRecetaViewHolder holder, int position) {
         Utiliza ingrediente = ingredientes.get(position);
         holder.txt_nombre.setText(ingrediente.id_ingrediente.getNombre());
 
         if (!NO_CUANTIFICABLE.equals(ingrediente.id_ingrediente.getMedicion())) {
-            holder.txt_medicion.setText(ingrediente.id_ingrediente.getNombre());
+            holder.txt_medicion.setText(ingrediente.id_ingrediente.getMedicion().getNombre());
             holder.et_cantidad.setText(ingrediente.getCantidad() + "");
             holder.txt_medicion.setVisibility(View.VISIBLE);
             holder.et_cantidad.setVisibility(View.VISIBLE);
