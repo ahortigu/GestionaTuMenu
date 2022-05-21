@@ -120,7 +120,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/borde_fondo_mostaza"
                     android:padding="5dp"
-                    android:text="@string/categoria_up"
+                    android:text="@string/categorias_up"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold"

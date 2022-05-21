@@ -139,7 +139,6 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:background="@drawable/borde_fondo_granate"
-                app:layout_constraintBottom_toTopOf="@+id/l_rd_instrucciones"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/l_rd_categorias">
