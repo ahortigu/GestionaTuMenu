@@ -99,4 +99,9 @@ public class Utiliza {
         this.id_ingrediente = id_ingrediente;
         this.cantidad = cantidad;
     }
+
+    @Ignore
+    public Utiliza(Receta id_receta, Ingrediente id_ingrediente) {
+        this(id_receta, id_ingrediente, 0);
+    }
 }

@@ -17,12 +17,15 @@ import com.aihg.gestionatumenu.db.entities.Despensa;
 import com.aihg.gestionatumenu.db.entities.Ingrediente;
 import com.aihg.gestionatumenu.db.entities.IngredienteInterface;
 import com.aihg.gestionatumenu.db.entities.ListaCompra;
+import com.aihg.gestionatumenu.db.entities.Receta;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BuscarIngredienteAdapter extends RecyclerView.Adapter<BuscarIngredienteAdapter.BuscarIngredienteViewHolder> {
     private List<IngredienteInterface> ingredientes;
+
+    private Receta toEdit;
 
     public BuscarIngredienteAdapter() {
         this.ingredientes = new ArrayList<>();
@@ -68,6 +71,14 @@ public class BuscarIngredienteAdapter extends RecyclerView.Adapter<BuscarIngredi
                         toListaCompra.setListacomprabuscar(aAnadirListaCompra);
                         Navigation.findNavController(view).navigate(toListaCompra);
                         break;
+                    case R.id.recetaEditFragment:
+                        BuscarIngredienteFragmentDirections.ActionBuscarIngredienteFragmentToRecetaEditFragment
+                            toRecetaEdit =
+                                BuscarIngredienteFragmentDirections
+                                    .actionBuscarIngredienteFragmentToRecetaEditFragment(toEdit);
+                        toRecetaEdit.setAAnadir((Ingrediente) ingrediente);
+                        Navigation.findNavController(view).navigate(toRecetaEdit);
+                        break;
                 }
             }
         });
@@ -86,6 +97,10 @@ public class BuscarIngredienteAdapter extends RecyclerView.Adapter<BuscarIngredi
     public void setIngredientesFiltrados(List<IngredienteInterface> ingredientes) {
         this.ingredientes = ingredientes;
         notifyDataSetChanged();
+    }
+
+    public void setToEdit(Receta toEdit) {
+        this.toEdit = toEdit;
     }
 
     public class BuscarIngredienteViewHolder extends RecyclerView.ViewHolder {

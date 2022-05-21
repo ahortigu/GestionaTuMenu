@@ -39,11 +39,9 @@ public class BuscarIngredienteFragment extends Fragment {
     private BuscarIngredienteAdapter adapter;
 
     private IngredientesViewModel ingredientesViewModel;
-    private DespensaViewModel despensaViewModel;
-    private ListaCompraViewModel listaCompraViewModel;
 
     private List<IngredienteInterface> dondeBuscar;
-
+    private Receta toEdit;
 
     public BuscarIngredienteFragment() {
         dondeBuscar = new ArrayList<>();
@@ -57,8 +55,6 @@ public class BuscarIngredienteFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.view = inflater.inflate(R.layout.shared__buscar_fragments, container, false);
-
-
         return view;
     }
 
@@ -121,6 +117,26 @@ public class BuscarIngredienteFragment extends Fragment {
                                 .collect(Collectors.toList());
 
                             adapter.setIngredientes(toInterface);
+                            dondeBuscar = toInterface;
+                        }
+                    });
+                break;
+            case R.id.recetaEditFragment:
+                this.toEdit = BuscarIngredienteFragmentArgs
+                    .fromBundle(getArguments())
+                    .getEditReceta();
+                if (this.toEdit == null) throw new IllegalStateException("Se tiene que haber recibido una receta");
+                ingredientesViewModel
+                    .getIngredienteBuscarReceta(toEdit) // ingredientes que no esten en la receta
+                    .observe(getViewLifecycleOwner(), new Observer<List<Ingrediente>>() {
+                        @Override
+                        public void onChanged(List<Ingrediente> ingredientesOb) {
+                            List<IngredienteInterface> toInterface = ingredientesOb.stream()
+                                .map(ingrediente -> (IngredienteInterface) ingrediente)
+                                .collect(Collectors.toList());
+
+                            adapter.setIngredientes(toInterface);
+                            adapter.setToEdit(toEdit);
                             dondeBuscar = toInterface;
                         }
                     });

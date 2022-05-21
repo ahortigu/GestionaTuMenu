@@ -7,10 +7,13 @@ import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOA
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,6 +31,7 @@ import android.widget.Toast;
 import com.aihg.gestionatumenu.R;
 import com.aihg.gestionatumenu.db.entities.Cataloga;
 import com.aihg.gestionatumenu.db.entities.CategoriaReceta;
+import com.aihg.gestionatumenu.db.entities.Ingrediente;
 import com.aihg.gestionatumenu.db.entities.Receta;
 import com.aihg.gestionatumenu.db.entities.Utiliza;
 import com.aihg.gestionatumenu.ui.recetas.adapters.IngredientesDeRecetaAdapter;
@@ -84,8 +88,40 @@ public class RecetaEditFragment extends Fragment {
         super.onCreate(savedInstanceState);
         receta = RecetaEditFragmentArgs.fromBundle(getArguments()).getAModificar();
         viewModel = new ViewModelProvider(this).get(RecetasViewModel.class);
+
         loadObservers();
         loadListener();
+
+        Ingrediente aAnadir = RecetaEditFragmentArgs.fromBundle(getArguments()).getAAnadir();
+        if (aAnadir != null) viewModel.insertIngredienteReceta(new Utiliza(receta, aAnadir));
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        this.view = inflater.inflate(R.layout.recetas__edit_create_fragment, container, false);
+
+        loadCategoriasReceta();
+        loadIngredientesReceta();
+        loadNombreReceta();
+        loadInstrucciones();
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        ImageView addIngrediente = this.view.findViewById(R.id.iv_rce_plus);
+        addIngrediente.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RecetaEditFragmentDirections.ActionRecetaEditFragmentToBuscarIngredienteFragment
+                    actionToAnadir = RecetaEditFragmentDirections.actionRecetaEditFragmentToBuscarIngredienteFragment();
+                actionToAnadir.setEditReceta(receta);
+                Navigation.findNavController(view).navigate(actionToAnadir);
+            }
+        });
     }
 
     private void loadObservers() {
@@ -127,19 +163,6 @@ public class RecetaEditFragment extends Fragment {
                 viewModel.insertCategoriaReceta(new Cataloga(receta, categoriaAnadir));
             }
         };
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        this.view = inflater.inflate(R.layout.recetas__edit_create_fragment, container, false);
-
-
-        loadCategoriasReceta();
-        loadIngredientesReceta();
-        loadNombreReceta();
-        loadInstrucciones();
-
-        return view;
     }
 
     private void loadCategoriasReceta() {
@@ -277,4 +300,5 @@ public class RecetaEditFragment extends Fragment {
             }
         });
     }
+
 }
