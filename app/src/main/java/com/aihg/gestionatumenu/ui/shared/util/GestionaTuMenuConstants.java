@@ -1,5 +1,7 @@
 package com.aihg.gestionatumenu.ui.shared.util;
 
+import java.util.regex.Pattern;
+
 public class GestionaTuMenuConstants {
     public static final String NO_INGREDIENTE = "No hay Ingredientes";
     public static final String NO_DESPENSA = "No hay Ingredientes";
@@ -8,6 +10,8 @@ public class GestionaTuMenuConstants {
 
     public static final String TOAST_BORRAR_LISTA_COMPRA = "¡Item borrado de la lista!";
     public static final String TOAST_BORRAR_DESPENSA = "¡Item borrado de la despensa!";
+    public static final String TOAST_MIN_INGREDIENTES_RECETA_EDITAR = "¡Una receta debe contener almenos un ingrediente!";
+    public static final String TOAST_BORRAR_INGREDIENTE_RECETA = "¡Ingrediente eliminado de la receta!";
     public static final String TOAST_BORRAR_INGREDIENTE = "¡Ingrediente borrado!";
     public static final String TOAST_BORRAR_INGREDIENTE_FALLADO = "No se puede borrar. ¡Está siendo utilizado!";
     public static final String TOAST_UPDATE_DESPENSA = "¡Ingrediente actualizado!";
@@ -21,4 +25,6 @@ public class GestionaTuMenuConstants {
     public static final String TOAST_PLANIFICADOR_APLICADO = "¡Planificador aplicado!";
 
     public static final String TOAST_CAMPO_VACIO = "Por favor, no deje ningún campo vacío";
+
+    public static final Pattern IS_NUMERIC = Pattern.compile("-?\\d+(\\.\\d+)?");
 }

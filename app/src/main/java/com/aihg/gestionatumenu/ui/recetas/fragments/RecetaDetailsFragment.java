@@ -2,11 +2,9 @@ package com.aihg.gestionatumenu.ui.recetas.fragments;
 
 import static java.util.stream.Collectors.joining;
 
-import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -16,7 +14,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,14 +23,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.aihg.gestionatumenu.R;
-import com.aihg.gestionatumenu.db.entities.Cataloga;
 import com.aihg.gestionatumenu.db.entities.Receta;
 import com.aihg.gestionatumenu.db.entities.Utiliza;
 import com.aihg.gestionatumenu.ui.recetas.adapters.IngredientesDeRecetaAdapter;
-import com.aihg.gestionatumenu.ui.recetas.adapters.ItemsCategoriaRecetaAdapter;
 import com.aihg.gestionatumenu.ui.recetas.viewmodel.RecetasViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RecetaDetailsFragment extends Fragment {

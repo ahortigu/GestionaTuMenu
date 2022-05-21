@@ -1,10 +1,17 @@
 package com.aihg.gestionatumenu.ui.recetas.fragments;
 
+import static androidx.recyclerview.widget.ItemTouchHelper.RIGHT;
+import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_BORRAR_INGREDIENTE_RECETA;
+import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_MIN_INGREDIENTES_RECETA_EDITAR;
+
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,26 +23,40 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aihg.gestionatumenu.R;
+import com.aihg.gestionatumenu.db.entities.Cataloga;
+import com.aihg.gestionatumenu.db.entities.CategoriaReceta;
 import com.aihg.gestionatumenu.db.entities.Receta;
+import com.aihg.gestionatumenu.db.entities.Utiliza;
+import com.aihg.gestionatumenu.ui.recetas.adapters.IngredientesDeRecetaAdapter;
+import com.aihg.gestionatumenu.ui.recetas.listener.RecetaListener;
 import com.aihg.gestionatumenu.ui.recetas.viewmodel.RecetasViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.IntStream;
 
 
 public class RecetaEditFragment extends Fragment {
     private View view;
-    private RecyclerView recyclerView;
+    private RecyclerView rvIngrediente;
+    //private RecyclerView rvCategoria;
 
     private RecetasViewModel viewModel;
+    private IngredientesDeRecetaAdapter ingredienteAdapter;
+    //private CategoriasDeRecetaAdapter categoriasAdapter;
+    private RecetaListener listener;
 
     private Receta receta;
 
     private EditText et_rce_nombre_receta;
 
     private boolean isIngredienteExpandido;
-    private ConstraintLayout l_rd_expandable_ingredientes_parent;
-    private ConstraintLayout l_rd_expandable_ingredientes;
-    private ImageView iv_rd_arrow_ingredientes;
+    private ConstraintLayout l_rce_expandable_ingredientes_parent;
+    private ConstraintLayout l_rce_expandable_ingredientes;
+    private ImageView iv_rce_arrow_ingredientes;
     private ImageView iv_rce_plus;
 
     private boolean isInstruccionesExpandido;
@@ -43,12 +64,19 @@ public class RecetaEditFragment extends Fragment {
     private ConstraintLayout l_rce_expandable_instrucciones;
     private ImageView iv_rce_instrucciones;
     private EditText et_rce_instrucciones;
+    private List<Utiliza> ingredientesReceta;
 
+    private boolean isCategoriaExpandido;
+    private ConstraintLayout l_rce_expandable_categorias_parent;
+    private ConstraintLayout l_rce_expandable_categorias;
+    private ImageView iv_rce_arrow_categorias;
     private TextView txt_rd_categoria;
 
     public RecetaEditFragment() {
         this.isIngredienteExpandido = true;
         this.isInstruccionesExpandido = true;
+        this.isCategoriaExpandido = true;
+        this.ingredientesReceta = new ArrayList<>();
     }
 
     @Override
@@ -57,24 +85,142 @@ public class RecetaEditFragment extends Fragment {
         receta = RecetaEditFragmentArgs.fromBundle(getArguments()).getAModificar();
         viewModel = new ViewModelProvider(this).get(RecetasViewModel.class);
         loadObservers();
+        loadListener();
     }
 
     private void loadObservers() {
+        viewModel
+            .getUtilizaByReceta(receta)
+            .observe(this, new Observer<List<Utiliza>>() {
+                @Override
+                public void onChanged(List<Utiliza> ingredientesRecetaOb) {
+                    ingredientesReceta = ingredientesRecetaOb;
+                    ingredienteAdapter.setIngredientes(ingredientesRecetaOb);
+                }
+            });
+    }
 
+    private void loadListener() {
+        this.listener = new RecetaListener() {
+            @Override
+            public void toDeleteUtiliza(Utiliza ingredienteBorrar, int positionABorrar) {
+                viewModel.deleteIngredienteReceta(ingredienteBorrar);
+                Toast.makeText(
+                    view.getContext(), TOAST_BORRAR_INGREDIENTE_RECETA, Toast.LENGTH_SHORT
+                ).show();
+                ingredienteAdapter.notifyItemRemoved(positionABorrar);
+                ingredienteAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void toUpdateUtiliza(Utiliza ingredienteActualizar) {
+                viewModel.updateIngredienteReceta(ingredienteActualizar);
+            }
+
+            @Override
+            public void toDeleteCatalogo(Cataloga categoriaDondeBorrar) {
+                viewModel.deleteCategoriaReceta(categoriaDondeBorrar);
+            }
+
+            @Override
+            public void toAddCatalogo(CategoriaReceta categoriaAnadir) {
+                viewModel.insertCategoriaReceta(new Cataloga(receta, categoriaAnadir));
+            }
+        };
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.view = inflater.inflate(R.layout.recetas__edit_create_fragment, container, false);
 
-        this.recyclerView = (RecyclerView) view.findViewById(R.id.rv_rce_ingredientes);
-        this.recyclerView.setHasFixedSize(false);
-        this.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        loadCategoriasReceta();
+        loadIngredientesReceta();
         loadNombreReceta();
         loadInstrucciones();
 
         return view;
+    }
+
+    private void loadCategoriasReceta() {
+        //this.rvCategoria = (RecyclerView) view.findViewById(R.id.rv_rce_categorias);
+        //this.rvCategoria.setHasFixedSize(false);
+        //this.rvCategoria.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        this.l_rce_expandable_categorias_parent = view.findViewById(R.id.l_rce_categorias);
+        this.l_rce_expandable_categorias = view.findViewById(R.id.l_rce_expandable_categorias);
+        this.iv_rce_arrow_categorias = view.findViewById(R.id.iv_rce_arrow_categorias);
+        this.iv_rce_arrow_categorias.setImageResource(R.drawable.ic_arrow_up);
+
+        this.l_rce_expandable_categorias_parent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isCategoriaExpandido = !isCategoriaExpandido;
+                l_rce_expandable_categorias.setVisibility(
+                    isCategoriaExpandido ? View.VISIBLE : View.GONE
+                );
+                iv_rce_arrow_categorias.setImageResource(
+                    isCategoriaExpandido ? R.drawable.ic_arrow_up : R.drawable.ic_arrow_down
+                );
+            }
+        });
+    }
+
+    private void loadIngredientesReceta() {
+        this.rvIngrediente = (RecyclerView) view.findViewById(R.id.rv_rce_ingredientes);
+        this.rvIngrediente.setHasFixedSize(false);
+        this.rvIngrediente.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        if (ingredienteAdapter == null) ingredienteAdapter = new IngredientesDeRecetaAdapter(true, listener);
+        this.rvIngrediente.setAdapter(ingredienteAdapter);
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public int getSwipeDirs(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+                if (ingredientesReceta.size() < 2) {
+                    Toast.makeText(
+                        viewHolder.itemView.getContext(), TOAST_MIN_INGREDIENTES_RECETA_EDITAR, Toast.LENGTH_SHORT
+                    ).show();
+                    return 0;
+                } else {
+                    return super.getSwipeDirs(recyclerView, viewHolder);
+                }
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                TextView txtNombre = viewHolder.itemView.findViewById(R.id.txt_shared_c_item_nombre);
+                int positionABorrar = IntStream.range(0, ingredientesReceta.size())
+                    .filter(i -> txtNombre.getText().toString().equals(ingredientesReceta.get(i).getId_ingrediente().getNombre()))
+                    .findFirst()
+                    .orElseThrow(() -> new IllegalStateException("El ingrediente " + txtNombre + " deberia existir."));
+                Utiliza aBorrar = ingredientesReceta.get(positionABorrar);
+                listener.toDeleteUtiliza(aBorrar, positionABorrar);
+            }
+        }).attachToRecyclerView(rvIngrediente);
+
+        this.l_rce_expandable_ingredientes_parent = view.findViewById(R.id.l_rce_ingredientes);
+        this.l_rce_expandable_ingredientes = view.findViewById(R.id.l_rce_expandable_ingredientes);
+        this.iv_rce_arrow_ingredientes = view.findViewById(R.id.iv_rce_arrow_ingredientes);
+        this.iv_rce_arrow_ingredientes.setImageResource(R.drawable.ic_arrow_up);
+
+        this.l_rce_expandable_ingredientes_parent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isIngredienteExpandido = !isIngredienteExpandido;
+                l_rce_expandable_ingredientes.setVisibility(
+                    isIngredienteExpandido ? View.VISIBLE : View.GONE
+                );
+                iv_rce_arrow_ingredientes.setImageResource(
+                    isIngredienteExpandido ? R.drawable.ic_arrow_up : R.drawable.ic_arrow_down
+                );
+            }
+        });
     }
 
     private void loadNombreReceta() {
@@ -123,10 +269,10 @@ public class RecetaEditFragment extends Fragment {
             public void onClick(View view) {
                 isInstruccionesExpandido = !isInstruccionesExpandido;
                 l_rce_expandable_instrucciones.setVisibility(
-                        isInstruccionesExpandido ? View.VISIBLE : View.GONE
+                    isInstruccionesExpandido ? View.VISIBLE : View.GONE
                 );
                 iv_rce_instrucciones.setImageResource(
-                        isInstruccionesExpandido ? R.drawable.ic_arrow_up : R.drawable.ic_arrow_down
+                    isInstruccionesExpandido ? R.drawable.ic_arrow_up : R.drawable.ic_arrow_down
                 );
             }
         });
