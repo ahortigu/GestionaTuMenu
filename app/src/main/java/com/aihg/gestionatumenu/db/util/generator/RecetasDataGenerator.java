@@ -61,23 +61,29 @@ public class RecetasDataGenerator {
     private static final CategoriaReceta CR_VEGETARIANO = new CategoriaReceta(10, "VEGETARIANO");
 
     // RECETAS
-    public static final Receta TORTILLA_PATATA = new Receta(1, "Tortilla de Patata", "Instrucciones tortilla de patata");
-    public static final Receta SALMON_ESPARRAGOS = new Receta(2, "Salmón con Esparragos trigueros", "Instrucciones salmon esparragos");
-    public static final Receta ZARANGOLLO = new Receta(3, "Zarangollo", "Instrucciones zarangollo");
-    public static final Receta PASTA_PUTANESCA = new Receta(4, "Pasta a la Putanesca", "Instrucciones pasta");
 
     public static final Receta LASAGNA = new Receta(5, "Lasaña", "Instrucciones lasaña");
+
     public static final Receta LECHE_CON_AVENA = new Receta(6, "Leche con avena", "Instruciones leche con avena");
     public static final Receta TOSTADA_MERMELADA = new Receta(7, "Tostadas con mermelada", "Instrucciones tostadas con mermelada");
     public static final Receta TOSTADA_CON_TOMATE = new Receta(8, "Tostadas con tomate", "Instrucciones tostadas con tomate");
+
     public static final Receta ENSALADA_ATUN = new Receta(9, "Ensalada atún", "Instrucciones ensalada atún.");
+
     public static final Receta LENTEJAS_CHORIZO = new Receta(10, "Lentejas con chorizo", "Instrucciones lentejas con chorizo");
-    public static final Receta PIZZA_JAMON = new Receta(11, "Pizza con jamón", "Pizza con jamón");
     public static final Receta POTAJE_BACALAO = new Receta(12, "Potaje bacalao", "Instrucciones potaje bacalao");
+
+    public static final Receta PIZZA_JAMON = new Receta(11, "Pizza con jamón", "Pizza con jamón");
+    public static final Receta PASTA_PUTANESCA = new Receta(4, "Pasta a la Putanesca", "Instrucciones pasta");
+
     public static final Receta GAMBAS_SALSA_VERDE = new Receta(13, "Gambas con salsa verde", "Instrucciones gambas con salsa verde");
     public static final Receta CALAMARES_SALASA_VERDE = new Receta(14, "Calamares en salsa verde", "Instrucciones calamares en salsa verde");
+    public static final Receta SALMON_ESPARRAGOS = new Receta(2, "Salmón con Esparragos trigueros", "Instrucciones salmon esparragos");
+
     public static final Receta GUISANTES_CON_PATATAS = new Receta(15, "Guisantes con patatas", "Instrucciones guisantes con patata");
     public static final Receta ARROZ_CUBANA = new Receta(16, "Arroz a la cubana", "Instrucciones arroz a la cubana");
+    public static final Receta TORTILLA_PATATA = new Receta(1, "Tortilla de Patata", "Instrucciones tortilla de patata");
+    public static final Receta ZARANGOLLO = new Receta(3, "Zarangollo", "Instrucciones zarangollo");
 
     public static List<CategoriaReceta> getDefaultCategoriasRecetas() {
         return Arrays.asList(

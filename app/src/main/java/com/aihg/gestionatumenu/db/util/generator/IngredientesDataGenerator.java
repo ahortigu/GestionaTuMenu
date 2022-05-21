@@ -43,7 +43,6 @@ public class IngredientesDataGenerator {
     public static final Ingrediente PAN = new Ingrediente(27, "Pan", GRAMOS, CI_CEREALES_Y_FRUTOS_SECOS);
     public static final Ingrediente HARINA = new Ingrediente(27, "Harina", GRAMOS, CI_CEREALES_Y_FRUTOS_SECOS);
 
-
     public static final Ingrediente SAL = new Ingrediente(15, "Sal", NO_CUANTIFICABLE, CI_CONDIMENTOS);
     public static final Ingrediente AZUCAR = new Ingrediente(16, "Azúcar", GRAMOS, CI_CONDIMENTOS);
     public static final Ingrediente GUINDILLAS = new Ingrediente(23, "Guindillas", UNIDAD, CI_CONDIMENTOS);
@@ -52,7 +51,6 @@ public class IngredientesDataGenerator {
     public static final Ingrediente PIMIENTA_NEGRA = new Ingrediente(14, "Pimienta Negra", NO_CUANTIFICABLE, CI_CONDIMENTOS);
     public static final Ingrediente PEREJIL = new Ingrediente(28, "Perejil", NO_CUANTIFICABLE, CI_CONDIMENTOS);
 
-
     public static final Ingrediente PLATANO = new Ingrediente(20, "Platano", UNIDAD, CI_FRUTA);
     public static final Ingrediente FRESA = new Ingrediente(30, "Fresa", UNIDAD, CI_FRUTA);
     public static final Ingrediente MANZANA = new Ingrediente(31, "Manzana", UNIDAD, CI_FRUTA);
@@ -60,7 +58,6 @@ public class IngredientesDataGenerator {
     public static final Ingrediente KIWI = new Ingrediente(33, "Kiwi", UNIDAD, CI_FRUTA);
     public static final Ingrediente MANDARINA = new Ingrediente(34, "Mandarina", UNIDAD, CI_FRUTA);
     public static final Ingrediente NARANJA = new Ingrediente(35, "Naranja", UNIDAD, CI_FRUTA);
-
 
     public static final Ingrediente HUEVOS = new Ingrediente(5, "Huevos", UNIDAD, CI_HUEVOS_Y_LACTEOS);
     public static final Ingrediente LECHE = new Ingrediente(37, "Leche", LITROS, CI_HUEVOS_Y_LACTEOS);
@@ -77,7 +74,6 @@ public class IngredientesDataGenerator {
     public static final Ingrediente TAGLIATELE = new Ingrediente(41, "Tagliatele", GRAMOS, CI_PASTA_Y_ARROZ);
     public static final Ingrediente LAMINA_LASAGNA = new Ingrediente(50, "Lamina de Lasana", UNIDAD, CI_PASTA_Y_ARROZ);
 
-
     public static final Ingrediente SALMON = new Ingrediente(9, "Salmón", GRAMOS, CI_PESCADOS);
     public static final Ingrediente ANCHOAS = new Ingrediente(20, "Anchoas", GRAMOS, CI_PESCADOS);
     public static final Ingrediente BACALAO = new Ingrediente(42, "Bacalao", GRAMOS, CI_PESCADOS);
@@ -85,8 +81,6 @@ public class IngredientesDataGenerator {
     public static final Ingrediente DORADA = new Ingrediente(44, "Dorada", GRAMOS, CI_PESCADOS);
     public static final Ingrediente GAMBA = new Ingrediente(45, "Gamba", GRAMOS, CI_PESCADOS);
     public static final Ingrediente LATA_ATUN = new Ingrediente(45, "Lata atún", UNIDAD, CI_PESCADOS);
-
-
 
     public static final Ingrediente PATATA = new Ingrediente(1, "Patata", UNIDAD, CI_VERDURAS);
     public static final Ingrediente CEBOLLA = new Ingrediente(2, "Cebolla", UNIDAD, CI_VERDURAS);
@@ -191,7 +185,8 @@ public class IngredientesDataGenerator {
                 GARBANZOS,
                 MOZZARELA,
                 HARINA,
-                GUISANTES
+                GUISANTES,
+                JAMON_YORK
         );
     }
 }
