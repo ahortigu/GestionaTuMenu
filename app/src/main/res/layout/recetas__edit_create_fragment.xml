@@ -96,15 +96,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:layout_marginTop="1dp"
-                android:background="@drawable/borde_fondo_blanco"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/borde_fondo_granate"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/l_rce_receta_nombre">
 
+                <ImageView
+                    android:id="@+id/iv_rce_arrow_categorias"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="10dp"
+                    android:contentDescription="Arrow"
+                    android:src="@drawable/ic_arrow_down"
+                    app:layout_constraintBottom_toTopOf="@+id/l_rce_expandable_categorias"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/white" />
+
                 <TextView
-                    android:id="@+id/lb_rce_categoria_nombre"
+                    android:id="@+id/lb_rce_categorias"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/borde_fondo_mostaza"
@@ -113,21 +124,36 @@
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/l_rce_expandable_categorias"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <Spinner
-                    android:id="@+id/sp_rce_catetegorias"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/l_rce_expandable_categorias"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginHorizontal="15dp"
-                    android:layout_marginBottom="15dp"
-                    android:popupBackground="@drawable/spinner_decoration"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/granate_osuro"
+                    android:padding="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/lb_rce_categoria_nombre"
-                    tools:ignore="SpeakableTextPresentCheck" />
+                    app:layout_constraintTop_toBottomOf="@+id/lb_rce_categorias">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_rce_categorias"
+                        android:layout_width="match_parent"
+                        android:layout_height="165dp"
+                        android:background="@drawable/borde_fondo_mostaza_claro"
+                        android:maxHeight="100dp"
+                        android:minHeight="80dp"
+                        android:padding="5dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:listitem="@layout/shared__subitem_spinner" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -203,7 +229,8 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:listitem="@layout/shared__subitem_cantidad" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>

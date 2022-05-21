@@ -2,8 +2,8 @@ package com.aihg.gestionatumenu.ui.ingredientes.adaptors;
 
 import static androidx.recyclerview.widget.ItemTouchHelper.RIGHT;
 import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.NO_INGREDIENTE;
-import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_BORRAR_DESPENSA;
-import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_BORRAR_DESPENSA_FALLADO;
+import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_BORRAR_INGREDIENTE;
+import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_BORRAR_INGREDIENTE_FALLADO;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -83,7 +83,6 @@ public class ItemsCategoriasAdapter extends RecyclerView.Adapter<ItemsCategorias
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                Log.i("Hello", "there");
                 return false;
             }
 
@@ -101,6 +100,9 @@ public class ItemsCategoriasAdapter extends RecyclerView.Adapter<ItemsCategorias
                 if (puedenBorrar.contains(aBloquear)) {
                     return super.getSwipeDirs(recyclerView, viewHolder);
                 } else {
+                    Toast.makeText(
+                        holder.itemView.getContext(), TOAST_BORRAR_INGREDIENTE_FALLADO, Toast.LENGTH_SHORT
+                    ).show();
                     return 0;
                 }
             }
@@ -115,12 +117,12 @@ public class ItemsCategoriasAdapter extends RecyclerView.Adapter<ItemsCategorias
                 Ingrediente aBorrar = ingredientes.get(positionBorrar);
                 if (puedenBorrar.contains(aBorrar)) {
                     Toast.makeText(
-                        holder.itemView.getContext(), TOAST_BORRAR_DESPENSA, Toast.LENGTH_SHORT
+                        holder.itemView.getContext(), TOAST_BORRAR_INGREDIENTE, Toast.LENGTH_SHORT
                     ).show();
                     listener.onDeleteItem(aBorrar, positionBorrar);
                 } else {
                     Toast.makeText(
-                        holder.itemView.getContext(), TOAST_BORRAR_DESPENSA_FALLADO, Toast.LENGTH_SHORT
+                        holder.itemView.getContext(), TOAST_BORRAR_INGREDIENTE_FALLADO, Toast.LENGTH_SHORT
                     ).show();
                 }
             }
