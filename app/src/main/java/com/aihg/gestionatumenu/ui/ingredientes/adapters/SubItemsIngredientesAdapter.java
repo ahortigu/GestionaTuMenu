@@ -1,7 +1,7 @@
-package com.aihg.gestionatumenu.ui.ingredientes.adaptors;
+package com.aihg.gestionatumenu.ui.ingredientes.adapters;
 
 import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerator.NO_CUANTIFICABLE;
-import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.NO_INGREDIENTE;
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.NO_INGREDIENTE;
 
 import android.view.LayoutInflater;
 import android.view.View;

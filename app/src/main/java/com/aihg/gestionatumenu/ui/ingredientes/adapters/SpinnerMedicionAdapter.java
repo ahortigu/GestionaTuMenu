@@ -1,15 +1,9 @@
-package com.aihg.gestionatumenu.ui.ingredientes.adaptors;
+package com.aihg.gestionatumenu.ui.ingredientes.adapters;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.aihg.gestionatumenu.db.entities.CategoriaIngrediente;
 import com.aihg.gestionatumenu.db.entities.Medicion;
 import com.aihg.gestionatumenu.ui.util.AbstractSpinner;
 

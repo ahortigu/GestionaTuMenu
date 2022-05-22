@@ -1,4 +1,4 @@
-package com.aihg.gestionatumenu.ui.shared.fragments.buscar.receta;
+package com.aihg.gestionatumenu.ui.buscar.adapters;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.aihg.gestionatumenu.R;
 import com.aihg.gestionatumenu.db.entities.Planificador;
 import com.aihg.gestionatumenu.db.entities.Receta;
+import com.aihg.gestionatumenu.ui.buscar.fragments.BuscarRecetaFragmentDirections;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,7 @@
 package com.aihg.gestionatumenu.ui.despensa.fragments;
 
-import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_BORRAR_DESPENSA;
-import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_UPDATE_DESPENSA;
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.TOAST_BORRAR_DESPENSA;
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.TOAST_UPDATE_DESPENSA;
 
 import android.os.Bundle;
 
@@ -14,7 +14,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;

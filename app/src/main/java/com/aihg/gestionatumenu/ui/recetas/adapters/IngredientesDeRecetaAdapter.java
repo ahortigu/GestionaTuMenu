@@ -1,9 +1,7 @@
 package com.aihg.gestionatumenu.ui.recetas.adapters;
 
-import static androidx.recyclerview.widget.ItemTouchHelper.RIGHT;
 import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerator.NO_CUANTIFICABLE;
-import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.IS_NUMERIC;
-import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_MIN_INGREDIENTES_RECETA_EDITAR;
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.IS_NUMERIC;
 
 import android.annotation.SuppressLint;
 import android.text.Editable;
@@ -13,10 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aihg.gestionatumenu.R;
@@ -25,7 +21,6 @@ import com.aihg.gestionatumenu.ui.recetas.listener.RecetaListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.IntStream;
 
 public class IngredientesDeRecetaAdapter
         extends RecyclerView.Adapter<IngredientesDeRecetaAdapter.IngredientesDeRecetaViewHolder>  {

@@ -1,8 +1,8 @@
 package com.aihg.gestionatumenu.ui.ingredientes.fragments;
 
-import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_CAMPO_VACIO;
-import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_CREAR_INGREDIENTE;
-import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_CREAR_INGREDIENTE_YA_EXISTE;
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.TOAST_CAMPO_VACIO;
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.TOAST_CREAR_INGREDIENTE;
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.TOAST_CREAR_INGREDIENTE_YA_EXISTE;
 
 import android.os.Bundle;
 
@@ -21,7 +21,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,8 +29,8 @@ import com.aihg.gestionatumenu.R;
 import com.aihg.gestionatumenu.db.entities.CategoriaIngrediente;
 import com.aihg.gestionatumenu.db.entities.Ingrediente;
 import com.aihg.gestionatumenu.db.entities.Medicion;
-import com.aihg.gestionatumenu.ui.ingredientes.adaptors.SpinnerCategoriasAdapter;
-import com.aihg.gestionatumenu.ui.ingredientes.adaptors.SpinnerMedicionAdapter;
+import com.aihg.gestionatumenu.ui.ingredientes.adapters.SpinnerCategoriasAdapter;
+import com.aihg.gestionatumenu.ui.ingredientes.adapters.SpinnerMedicionAdapter;
 import com.aihg.gestionatumenu.ui.ingredientes.viewmodel.IngredientesViewModel;
 
 import java.util.List;

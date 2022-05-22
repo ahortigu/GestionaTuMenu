@@ -1,4 +1,4 @@
-package com.aihg.gestionatumenu.ui.shared.util;
+package com.aihg.gestionatumenu.ui.util;
 
 import java.util.regex.Pattern;
 
@@ -11,6 +11,7 @@ public class GestionaTuMenuConstants {
     public static final String TOAST_BORRAR_LISTA_COMPRA = "¡Item borrado de la lista!";
     public static final String TOAST_BORRAR_DESPENSA = "¡Item borrado de la despensa!";
     public static final String TOAST_MIN_INGREDIENTES_RECETA_EDITAR = "¡Una receta debe contener almenos un ingrediente!";
+    public static final String TOAST_MIN_INGREDIENTES_RECETA_CREAR = "¡Una receta debe contener almenos un ingrediente!";
     public static final String TOAST_BORRAR_INGREDIENTE_RECETA = "¡Ingrediente eliminado de la receta!";
     public static final String TOAST_BORRAR_INGREDIENTE = "¡Ingrediente borrado!";
     public static final String TOAST_BORRAR_INGREDIENTE_FALLADO = "No se puede borrar. ¡Está siendo utilizado!";

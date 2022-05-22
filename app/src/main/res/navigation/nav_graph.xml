@@ -193,7 +193,7 @@
     </fragment>
     <fragment
         android:id="@+id/buscarIngredienteFragment"
-        android:name="com.aihg.gestionatumenu.ui.shared.fragments.buscar.ingrediente.BuscarIngredienteFragment"
+        android:name="com.aihg.gestionatumenu.ui.buscar.fragments.BuscarIngredienteFragment"
         android:label="AÑADIR INGREDIENTE"
         tools:layout="@layout/shared__buscar_fragments" >
         <action
@@ -244,7 +244,7 @@
     </fragment>
     <fragment
         android:id="@+id/buscarRecetaFragment"
-        android:name="com.aihg.gestionatumenu.ui.shared.fragments.buscar.receta.BuscarRecetaFragment"
+        android:name="com.aihg.gestionatumenu.ui.buscar.fragments.BuscarRecetaFragment"
         android:label="AÑADIR RECETA"
         tools:layout="@layout/shared__buscar_fragments" >
         <action

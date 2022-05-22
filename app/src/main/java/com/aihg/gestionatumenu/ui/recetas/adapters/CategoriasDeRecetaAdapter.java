@@ -1,10 +1,9 @@
 package com.aihg.gestionatumenu.ui.recetas.adapters;
 
-import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.MAX_CATGORIAS_POR_RECETA;
-import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.RECETA_SELECT_CATEGORIA_SPINNER;
-import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_PLANIFICADOR_LIMPIO;
-import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_RECETA_EDIT_BORRAR_TODAS_CATEGORIAS;
-import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_RECETA_EDIT_CATEGORIA_DUPLICADA;
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.MAX_CATGORIAS_POR_RECETA;
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.RECETA_SELECT_CATEGORIA_SPINNER;
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.TOAST_RECETA_EDIT_BORRAR_TODAS_CATEGORIAS;
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.TOAST_RECETA_EDIT_CATEGORIA_DUPLICADA;
 import static java.util.stream.Collectors.toList;
 
 import android.util.Log;

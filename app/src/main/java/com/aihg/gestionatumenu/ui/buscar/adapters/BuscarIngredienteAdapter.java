@@ -1,4 +1,4 @@
-package com.aihg.gestionatumenu.ui.shared.fragments.buscar.ingrediente;
+package com.aihg.gestionatumenu.ui.buscar.adapters;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +18,7 @@ import com.aihg.gestionatumenu.db.entities.Ingrediente;
 import com.aihg.gestionatumenu.db.entities.IngredienteInterface;
 import com.aihg.gestionatumenu.db.entities.ListaCompra;
 import com.aihg.gestionatumenu.db.entities.Receta;
+import com.aihg.gestionatumenu.ui.buscar.fragments.BuscarIngredienteFragmentDirections;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,6 +80,8 @@ public class BuscarIngredienteAdapter extends RecyclerView.Adapter<BuscarIngredi
                         toRecetaEdit.setAAnadir((Ingrediente) ingrediente);
                         Navigation.findNavController(view).navigate(toRecetaEdit);
                         break;
+                    default:
+                        throw new IllegalStateException("Se debe de tener una pantalla donde navegar.");
                 }
             }
         });

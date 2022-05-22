@@ -2,10 +2,10 @@ package com.aihg.gestionatumenu.ui.listacompra.fragments;
 
 import static androidx.recyclerview.widget.ItemTouchHelper.RIGHT;
 
-import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.NO_LISTA_COMPRA;
-import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_BORRAR_LISTA_COMPRA;
-import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_NO_EXISTE_INGREDIENTE_LISTA;
-import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_UPDATE_LISTACOMPRA;
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.NO_LISTA_COMPRA;
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.TOAST_BORRAR_LISTA_COMPRA;
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.TOAST_NO_EXISTE_INGREDIENTE_LISTA;
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.TOAST_UPDATE_LISTACOMPRA;
 
 import android.os.Bundle;
 

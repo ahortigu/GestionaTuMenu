@@ -1,6 +1,6 @@
-package com.aihg.gestionatumenu.ui.shared.fragments.buscar.receta;
+package com.aihg.gestionatumenu.ui.buscar.fragments;
 
-import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_NO_EXISTE_RECETA;
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.TOAST_NO_EXISTE_RECETA;
 
 import android.os.Bundle;
 
@@ -23,6 +23,7 @@ import com.aihg.gestionatumenu.R;
 import com.aihg.gestionatumenu.db.entities.Planificador;
 import com.aihg.gestionatumenu.db.entities.Receta;
 import com.aihg.gestionatumenu.ui.recetas.viewmodel.RecetasViewModel;
+import com.aihg.gestionatumenu.ui.buscar.adapters.BuscarRecetaAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
