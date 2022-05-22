@@ -134,9 +134,6 @@ public class ItemsCategoriaRecetaAdapter extends RecyclerView.Adapter<ItemsCateg
                         .findFirst()
                         .orElseThrow(() -> new IllegalStateException("La receta " + txtNombre + " debe de existir"));
                     listener.toDeteleReceta(aBorrar);
-                    Toast.makeText(
-                        holder.itemView.getContext(), TOAST_BORRAR_RECETA, Toast.LENGTH_SHORT
-                    ).show();
                 } else {
                     Toast.makeText(
                         holder.itemView.getContext(), TOAST_NO_BORRAR_RECETA, Toast.LENGTH_SHORT

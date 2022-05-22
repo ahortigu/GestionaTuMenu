@@ -1,5 +1,7 @@
 package com.aihg.gestionatumenu.ui.recetas.fragments;
 
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.TOAST_BORRAR_RECETA;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.aihg.gestionatumenu.R;
 import com.aihg.gestionatumenu.db.entities.Cataloga;
@@ -88,7 +91,46 @@ public class RecetasFragment extends Fragment {
 
             @Override
             public void toDeteleReceta(Receta borrar) {
-                Log.i("RECETA", "Borrar " + borrar);
+                borrarCatalogo(borrar);
+            }
+
+            private void borrarCatalogo(Receta borrar) {
+                viewModel.deleteCategoriasReceta(borrar);
+                viewModel
+                    .getCatalogaByReceta(borrar)
+                    .observe(getViewLifecycleOwner(), new Observer<List<Cataloga>>() {
+                        @Override
+                        public void onChanged(List<Cataloga> catalogas) {
+                            borrarIngredientes(borrar);
+                        }
+                    });
+            }
+
+            private void borrarIngredientes(Receta borrar) {
+                viewModel.deleteIngredientesReceta(borrar);
+                viewModel
+                    .getUtilizaByReceta(borrar)
+                    .observe(getViewLifecycleOwner(), new Observer<List<Utiliza>>() {
+                        @Override
+                        public void onChanged(List<Utiliza> catalogas) {
+                            borrarReceta(borrar);
+                        }
+                    });
+            }
+
+            private void borrarReceta(Receta borrar) {
+                viewModel.deleteReceta(borrar);
+                viewModel
+                    .getRecetaByNombre(borrar.getNombre())
+                    .observe(getViewLifecycleOwner(), new Observer<Receta>() {
+                        @Override
+                        public void onChanged(Receta receta) {
+                            Toast.makeText(
+                               view.getContext(), TOAST_BORRAR_RECETA, Toast.LENGTH_SHORT
+                            ).show();
+                            adapter.notifyDataSetChanged();
+                        }
+                    });
             }
         };
     }

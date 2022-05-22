@@ -1,8 +1,10 @@
 package com.aihg.gestionatumenu.db.daos;
 
+import static com.aihg.gestionatumenu.db.util.DatabaseTables.CATALOGA;
 import static com.aihg.gestionatumenu.db.util.DatabaseTables.PLANIFICADOR;
 import static com.aihg.gestionatumenu.db.util.DatabaseTables.RECETAS;
 import static com.aihg.gestionatumenu.db.util.DatabaseTables.SEMANAL;
+import static com.aihg.gestionatumenu.db.util.DatabaseTables.UTILIZA;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -39,4 +41,10 @@ public interface RecetaDAO {
         "r.id_receta IN ( SELECT p.id_receta FROM " + PLANIFICADOR + " p WHERE p.id_receta = r.id_receta )"
     )
     LiveData<List<Receta>> getRecetasUtilizadasMenuPlanificador();
+
+    @Query("DELETE FROM " + CATALOGA + " WHERE id_receta = :id_receta")
+    void deleteCategoriasReceta(int id_receta);
+
+    @Query("DELETE FROM " + UTILIZA + " WHERE id_receta = :id_receta")
+    void deleteIngredientesReceta(int id_receta);
 }
