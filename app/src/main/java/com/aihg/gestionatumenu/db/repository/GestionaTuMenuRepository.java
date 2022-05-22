@@ -410,4 +410,26 @@ public class GestionaTuMenuRepository {
     public LiveData<Receta> getRecetaByNombre(String nombre) {
         return recetaDAO.getRecetaByNombre(nombre);
     }
+
+    public LiveData<List<Receta>> getRecetasUtilizadasMenuPlanificador() {
+        return recetaDAO.getRecetasUtilizadasMenuPlanificador();
+    }
+
+    public void deleteCategoriasReceta(Receta borrar) {
+        executors.execute(new Runnable() {
+            @Override
+            public void run() {
+                recetaDAO.deleteCategoriasReceta(borrar.getId());
+            }
+        });
+    }
+
+    public void deleteIngredientesReceta(Receta borrar) {
+        executors.execute(new Runnable() {
+            @Override
+            public void run() {
+                recetaDAO.deleteIngredientesReceta(borrar.getId());
+            }
+        });
+    }
 }

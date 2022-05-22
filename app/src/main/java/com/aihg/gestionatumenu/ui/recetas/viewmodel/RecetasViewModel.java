@@ -85,4 +85,16 @@ public class RecetasViewModel extends AndroidViewModel {
     public void deleteReceta(Receta receta) {
         repository.delete(receta);
     }
+
+    public LiveData<List<Receta>> getRecetasUtilizadasMenuPlanificador() {
+        return repository.getRecetasUtilizadasMenuPlanificador();
+    }
+
+    public void deleteCategoriasReceta(Receta borrar) {
+        repository.deleteCategoriasReceta(borrar);
+    }
+
+    public void deleteIngredientesReceta(Receta borrar) {
+        repository.deleteIngredientesReceta(borrar);
+    }
 }

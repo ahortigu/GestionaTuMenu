@@ -10,6 +10,8 @@ public class GestionaTuMenuConstants {
 
     public static final String TOAST_BORRAR_LISTA_COMPRA = "¡Item borrado de la lista!";
     public static final String TOAST_BORRAR_DESPENSA = "¡Item borrado de la despensa!";
+    public static final String TOAST_BORRAR_RECETA = "¡Receta borrada!";
+    public static final String TOAST_NO_BORRAR_RECETA = "¡La receta esta siendo utilizada en el menu o planificador!";
     public static final String TOAST_MIN_INGREDIENTES_RECETA_EDITAR = "¡Una receta debe contener almenos un ingrediente!";
     public static final String TOAST_MIN_INGREDIENTES_RECETA_CREAR = "¡Una receta debe contener almenos un ingrediente!";
     public static final String TOAST_BORRAR_INGREDIENTE_RECETA = "¡Ingrediente eliminado de la receta!";
