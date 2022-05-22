@@ -7,10 +7,13 @@ import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOA
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,8 +31,10 @@ import android.widget.Toast;
 import com.aihg.gestionatumenu.R;
 import com.aihg.gestionatumenu.db.entities.Cataloga;
 import com.aihg.gestionatumenu.db.entities.CategoriaReceta;
+import com.aihg.gestionatumenu.db.entities.Ingrediente;
 import com.aihg.gestionatumenu.db.entities.Receta;
 import com.aihg.gestionatumenu.db.entities.Utiliza;
+import com.aihg.gestionatumenu.ui.recetas.adapters.CategoriasDeRecetaAdapter;
 import com.aihg.gestionatumenu.ui.recetas.adapters.IngredientesDeRecetaAdapter;
 import com.aihg.gestionatumenu.ui.recetas.listener.RecetaListener;
 import com.aihg.gestionatumenu.ui.recetas.viewmodel.RecetasViewModel;
@@ -42,11 +47,11 @@ import java.util.stream.IntStream;
 public class RecetaEditFragment extends Fragment {
     private View view;
     private RecyclerView rvIngrediente;
-    //private RecyclerView rvCategoria;
+    private RecyclerView rvCategoria;
 
     private RecetasViewModel viewModel;
     private IngredientesDeRecetaAdapter ingredienteAdapter;
-    //private CategoriasDeRecetaAdapter categoriasAdapter;
+    private CategoriasDeRecetaAdapter categoriasAdapter;
     private RecetaListener listener;
 
     private Receta receta;
@@ -70,7 +75,6 @@ public class RecetaEditFragment extends Fragment {
     private ConstraintLayout l_rce_expandable_categorias_parent;
     private ConstraintLayout l_rce_expandable_categorias;
     private ImageView iv_rce_arrow_categorias;
-    private TextView txt_rd_categoria;
 
     public RecetaEditFragment() {
         this.isIngredienteExpandido = true;
@@ -84,8 +88,40 @@ public class RecetaEditFragment extends Fragment {
         super.onCreate(savedInstanceState);
         receta = RecetaEditFragmentArgs.fromBundle(getArguments()).getAModificar();
         viewModel = new ViewModelProvider(this).get(RecetasViewModel.class);
+
         loadObservers();
         loadListener();
+
+        Ingrediente aAnadir = RecetaEditFragmentArgs.fromBundle(getArguments()).getAAnadir();
+        if (aAnadir != null) viewModel.insertIngredienteReceta(new Utiliza(receta, aAnadir));
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        this.view = inflater.inflate(R.layout.recetas__edit_create_fragment, container, false);
+
+        loadCategoriasReceta();
+        loadIngredientesReceta();
+        loadNombreReceta();
+        loadInstrucciones();
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        this.iv_rce_plus = this.view.findViewById(R.id.iv_rce_plus);
+        this.iv_rce_plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RecetaEditFragmentDirections.ActionRecetaEditFragmentToBuscarIngredienteFragment
+                    actionToAnadir = RecetaEditFragmentDirections.actionRecetaEditFragmentToBuscarIngredienteFragment();
+                actionToAnadir.setEditReceta(receta);
+                Navigation.findNavController(view).navigate(actionToAnadir);
+            }
+        });
     }
 
     private void loadObservers() {
@@ -96,6 +132,22 @@ public class RecetaEditFragment extends Fragment {
                 public void onChanged(List<Utiliza> ingredientesRecetaOb) {
                     ingredientesReceta = ingredientesRecetaOb;
                     ingredienteAdapter.setIngredientes(ingredientesRecetaOb);
+                }
+            });
+        viewModel
+            .getCategorias()
+            .observe(this, new Observer<List<CategoriaReceta>>() {
+                @Override
+                public void onChanged(List<CategoriaReceta> categoriaRecetas) {
+                    categoriasAdapter.setCategorias(categoriaRecetas);
+                }
+            });
+        viewModel
+            .getCatalogaByReceta(receta)
+            .observe(this, new Observer<List<Cataloga>>() {
+                @Override
+                public void onChanged(List<Cataloga> catalogas) {
+                    categoriasAdapter.setCatalogas(catalogas);
                 }
             });
     }
@@ -118,8 +170,8 @@ public class RecetaEditFragment extends Fragment {
             }
 
             @Override
-            public void toDeleteCatalogo(Cataloga categoriaDondeBorrar) {
-                viewModel.deleteCategoriaReceta(categoriaDondeBorrar);
+            public void toDeleteCatalogo(CategoriaReceta categoriaBorrar) {
+                viewModel.deleteCategoriaReceta(new Cataloga(receta, categoriaBorrar));
             }
 
             @Override
@@ -129,23 +181,13 @@ public class RecetaEditFragment extends Fragment {
         };
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        this.view = inflater.inflate(R.layout.recetas__edit_create_fragment, container, false);
-
-
-        loadCategoriasReceta();
-        loadIngredientesReceta();
-        loadNombreReceta();
-        loadInstrucciones();
-
-        return view;
-    }
-
     private void loadCategoriasReceta() {
-        //this.rvCategoria = (RecyclerView) view.findViewById(R.id.rv_rce_categorias);
-        //this.rvCategoria.setHasFixedSize(false);
-        //this.rvCategoria.setLayoutManager(new LinearLayoutManager(getContext()));
+        this.rvCategoria = (RecyclerView) view.findViewById(R.id.rv_rce_categorias);
+        this.rvCategoria.setHasFixedSize(false);
+        this.rvCategoria.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        if (categoriasAdapter == null) categoriasAdapter = new CategoriasDeRecetaAdapter(listener);
+        this.rvCategoria.setAdapter(categoriasAdapter);
 
         this.l_rce_expandable_categorias_parent = view.findViewById(R.id.l_rce_categorias);
         this.l_rce_expandable_categorias = view.findViewById(R.id.l_rce_expandable_categorias);
@@ -277,4 +319,5 @@ public class RecetaEditFragment extends Fragment {
             }
         });
     }
+
 }

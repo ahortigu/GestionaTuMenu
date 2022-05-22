@@ -26,5 +26,11 @@ public class GestionaTuMenuConstants {
 
     public static final String TOAST_CAMPO_VACIO = "Por favor, no deje ningún campo vacío";
 
+    public static final String RECETA_SELECT_CATEGORIA_SPINNER = "Selecciona una Categoría";
+    public static final String TOAST_RECETA_EDIT_CATEGORIA_DUPLICADA = "¡Categoría duplicada!";
+    public static final String TOAST_RECETA_EDIT_BORRAR_TODAS_CATEGORIAS = "¡Seleccione almenos una categoría!";
+
+    public static final int MAX_CATGORIAS_POR_RECETA = 2;
+
     public static final Pattern IS_NUMERIC = Pattern.compile("-?\\d+(\\.\\d+)?");
 }

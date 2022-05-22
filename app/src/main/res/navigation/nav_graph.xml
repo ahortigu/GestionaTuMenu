@@ -162,6 +162,11 @@
         <action
             android:id="@+id/action_recetaEditFragment_to_buscarIngredienteFragment"
             app:destination="@id/buscarIngredienteFragment" />
+        <argument
+            android:name="aAnadir"
+            app:argType="com.aihg.gestionatumenu.db.entities.Ingrediente"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/ingredientesCreate"
@@ -212,10 +217,19 @@
             android:defaultValue="@null" />
         <action
             android:id="@+id/action_buscarIngredienteFragment_to_recetaEditFragment"
-            app:destination="@id/recetaEditFragment" />
+            app:destination="@id/recetaEditFragment"
+            app:popUpTo="@id/recetaEditFragment"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_buscarIngredienteFragment_to_recetasCreateFragment"
-            app:destination="@id/recetasCreateFragment" />
+            app:destination="@id/recetasCreateFragment"
+            app:popUpTo="@id/recetasCreateFragment"
+            app:popUpToInclusive="true"/>
+        <argument
+            android:name="edit_receta"
+            app:argType="com.aihg.gestionatumenu.db.entities.Receta"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/buscarRecetaFragment"
