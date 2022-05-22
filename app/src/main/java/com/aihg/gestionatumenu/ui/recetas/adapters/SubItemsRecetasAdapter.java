@@ -1,6 +1,6 @@
 package com.aihg.gestionatumenu.ui.recetas.adapters;
 
-import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.NO_RECETA;
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.NO_RECETA;
 
 import android.view.LayoutInflater;
 import android.view.View;

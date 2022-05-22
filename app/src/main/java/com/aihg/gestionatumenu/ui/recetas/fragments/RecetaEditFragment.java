@@ -1,8 +1,8 @@
 package com.aihg.gestionatumenu.ui.recetas.fragments;
 
 import static androidx.recyclerview.widget.ItemTouchHelper.RIGHT;
-import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_BORRAR_INGREDIENTE_RECETA;
-import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_MIN_INGREDIENTES_RECETA_EDITAR;
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.TOAST_BORRAR_INGREDIENTE_RECETA;
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.TOAST_MIN_INGREDIENTES_RECETA_EDITAR;
 
 import android.os.Bundle;
 
@@ -12,7 +12,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -67,8 +66,8 @@ public class RecetaEditFragment extends Fragment {
     private boolean isInstruccionesExpandido;
     private ConstraintLayout l_rce_expandable_instrucciones_parent;
     private ConstraintLayout l_rce_expandable_instrucciones;
-    private ImageView iv_rce_instrucciones;
     private EditText et_rce_instrucciones;
+    private ImageView iv_rce_instrucciones;
     private List<Utiliza> ingredientesReceta;
 
     private boolean isCategoriaExpandido;

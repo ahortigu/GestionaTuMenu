@@ -1,4 +1,4 @@
-package com.aihg.gestionatumenu.ui.shared.util;
+package com.aihg.gestionatumenu.ui.util;
 
 import java.util.regex.Pattern;
 
@@ -11,6 +11,7 @@ public class GestionaTuMenuConstants {
     public static final String TOAST_BORRAR_LISTA_COMPRA = "¡Item borrado de la lista!";
     public static final String TOAST_BORRAR_DESPENSA = "¡Item borrado de la despensa!";
     public static final String TOAST_MIN_INGREDIENTES_RECETA_EDITAR = "¡Una receta debe contener almenos un ingrediente!";
+    public static final String TOAST_MIN_INGREDIENTES_RECETA_CREAR = "¡Una receta debe contener almenos un ingrediente!";
     public static final String TOAST_BORRAR_INGREDIENTE_RECETA = "¡Ingrediente eliminado de la receta!";
     public static final String TOAST_BORRAR_INGREDIENTE = "¡Ingrediente borrado!";
     public static final String TOAST_BORRAR_INGREDIENTE_FALLADO = "No se puede borrar. ¡Está siendo utilizado!";
@@ -29,6 +30,11 @@ public class GestionaTuMenuConstants {
     public static final String RECETA_SELECT_CATEGORIA_SPINNER = "Selecciona una Categoría";
     public static final String TOAST_RECETA_EDIT_CATEGORIA_DUPLICADA = "¡Categoría duplicada!";
     public static final String TOAST_RECETA_EDIT_BORRAR_TODAS_CATEGORIAS = "¡Seleccione almenos una categoría!";
+
+    public static final String RECETA_CREAR_HINT_INSTRUCCIONES = "Escriba las instrucciones aqui...";
+    public static final String RECETA_CREAR_HINT_NOMBRE = "Nombre de la Receta";
+    public static final String RECETA_CREAR_DUPLICADA = "¡Ya existe una receta con este nombre!";
+    public static final String RECETA_CREAR_EXITO = "¡Receta creada con éxito!";
 
     public static final int MAX_CATGORIAS_POR_RECETA = 2;
 

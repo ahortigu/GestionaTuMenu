@@ -209,7 +209,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/l_rce_expandable_ingredientes"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@color/granate_osuro"
                     android:padding="10dp"
                     app:layout_constraintEnd_toEndOf="parent"

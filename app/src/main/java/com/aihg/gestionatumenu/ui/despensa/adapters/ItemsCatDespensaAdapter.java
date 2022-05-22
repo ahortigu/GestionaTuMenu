@@ -1,8 +1,8 @@
 package com.aihg.gestionatumenu.ui.despensa.adapters;
 
 import static androidx.recyclerview.widget.ItemTouchHelper.RIGHT;
-import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.NO_DESPENSA;
-import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_BORRAR_DESPENSA;
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.NO_DESPENSA;
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.TOAST_BORRAR_DESPENSA;
 
 import static java.util.stream.Collectors.toList;
 

@@ -1,6 +1,6 @@
-package com.aihg.gestionatumenu.ui.shared.fragments.buscar.ingrediente;
+package com.aihg.gestionatumenu.ui.buscar.fragments;
 
-import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.TOAST_NO_EXISTE_INGREDIENTE;
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.TOAST_NO_EXISTE_INGREDIENTE;
 
 import android.os.Bundle;
 
@@ -25,9 +25,9 @@ import com.aihg.gestionatumenu.R;
 import com.aihg.gestionatumenu.db.entities.Ingrediente;
 import com.aihg.gestionatumenu.db.entities.IngredienteInterface;
 import com.aihg.gestionatumenu.db.entities.Receta;
-import com.aihg.gestionatumenu.ui.despensa.viewmodel.DespensaViewModel;
 import com.aihg.gestionatumenu.ui.ingredientes.viewmodel.IngredientesViewModel;
-import com.aihg.gestionatumenu.ui.listacompra.viewmodel.ListaCompraViewModel;
+import com.aihg.gestionatumenu.ui.buscar.adapters.BuscarIngredienteAdapter;
+import com.aihg.gestionatumenu.ui.recetas.wrapper.RecetaTemporalWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +42,7 @@ public class BuscarIngredienteFragment extends Fragment {
 
     private List<IngredienteInterface> dondeBuscar;
     private Receta toEdit;
+    private RecetaTemporalWrapper onCreation;
 
     public BuscarIngredienteFragment() {
         dondeBuscar = new ArrayList<>();
@@ -117,6 +118,28 @@ public class BuscarIngredienteFragment extends Fragment {
                                 .collect(Collectors.toList());
 
                             adapter.setIngredientes(toInterface);
+                            dondeBuscar = toInterface;
+                        }
+                    });
+                break;
+            case R.id.recetasCreateFragment:
+                this.onCreation = BuscarIngredienteFragmentArgs
+                    .fromBundle(getArguments())
+                    .getRecetaOnCreation();
+                if (this.onCreation == null) throw new IllegalStateException("Se tiene que haber recibido una receta temporal");
+                ingredientesViewModel
+                    .getIngredientes()
+                    .observe(getViewLifecycleOwner(), new Observer<List<Ingrediente>>() {
+                        @Override
+                        public void onChanged(List<Ingrediente> ingredientesOb) {
+                            List<Ingrediente> ingredienteReceta = onCreation.getIngredientes();
+                            List<IngredienteInterface> toInterface = ingredientesOb.stream()
+                                .filter(ingrediente -> !ingredienteReceta.contains(ingrediente))
+                                .map(ingrediente -> (IngredienteInterface) ingrediente)
+                                .collect(Collectors.toList());
+
+                            adapter.setIngredientes(toInterface);
+                            adapter.setOnCreation(onCreation);
                             dondeBuscar = toInterface;
                         }
                     });

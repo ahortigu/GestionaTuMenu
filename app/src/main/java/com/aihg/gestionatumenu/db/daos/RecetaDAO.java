@@ -27,4 +27,7 @@ public interface RecetaDAO {
 
     @Query("SELECT * FROM " + RECETAS + " ORDER BY nombre_receta ASC")
     LiveData<List<Receta>> getAllRecetas();
+
+    @Query("SELECT * FROM " + RECETAS + " WHERE nombre_receta LIKE :nombre")
+    LiveData<Receta> getRecetaByNombre(String nombre);
 }

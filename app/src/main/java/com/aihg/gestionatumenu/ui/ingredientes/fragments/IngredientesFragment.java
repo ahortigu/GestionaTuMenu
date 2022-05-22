@@ -12,7 +12,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,10 +21,9 @@ import android.view.ViewGroup;
 import com.aihg.gestionatumenu.R;
 import com.aihg.gestionatumenu.db.entities.CategoriaIngrediente;
 import com.aihg.gestionatumenu.db.entities.Ingrediente;
-import com.aihg.gestionatumenu.ui.ingredientes.adaptors.ItemsCategoriasAdapter;
+import com.aihg.gestionatumenu.ui.ingredientes.adapters.ItemsCategoriasAdapter;
 import com.aihg.gestionatumenu.ui.ingredientes.listener.IngredientesListener;
 import com.aihg.gestionatumenu.ui.ingredientes.viewmodel.IngredientesViewModel;
-import com.aihg.gestionatumenu.ui.recetas.fragments.RecetasFragmentDirections;
 
 import java.util.List;
 

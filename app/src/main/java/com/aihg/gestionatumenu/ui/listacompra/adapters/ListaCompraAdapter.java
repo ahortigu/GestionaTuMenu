@@ -2,7 +2,7 @@ package com.aihg.gestionatumenu.ui.listacompra.adapters;
 
 import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerator.CI_OTROS;
 import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerator.NO_CUANTIFICABLE;
-import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.NO_LISTA_COMPRA;
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.NO_LISTA_COMPRA;
 
 import android.text.Editable;
 import android.text.TextWatcher;

@@ -1,7 +1,7 @@
 package com.aihg.gestionatumenu.ui.despensa.adapters;
 
 import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerator.NO_CUANTIFICABLE;
-import static com.aihg.gestionatumenu.ui.shared.util.GestionaTuMenuConstants.NO_DESPENSA;
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.NO_DESPENSA;
 
 import android.text.Editable;
 import android.text.TextWatcher;

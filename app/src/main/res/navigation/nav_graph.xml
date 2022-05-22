@@ -172,7 +172,11 @@
         android:id="@+id/ingredientesCreate"
         android:name="com.aihg.gestionatumenu.ui.ingredientes.fragments.IngredientesCreateFragment"
         android:label="@string/crear_ingredediente_up"
-        tools:layout="@layout/ingredientes_create_fragment" />
+        tools:layout="@layout/ingredientes_create_fragment" >
+        <action
+            android:id="@+id/action_ingredientesCreate_to_ingredientesFragment"
+            app:destination="@id/ingredientesFragment" />
+    </fragment>
     <fragment
         android:id="@+id/recetasCreateFragment"
         android:name="com.aihg.gestionatumenu.ui.recetas.fragments.RecetasCreateFragment"
@@ -183,11 +187,17 @@
             app:destination="@id/recetasFragment" />
         <action
             android:id="@+id/action_recetasCreateFragment_to_buscarIngredienteFragment"
-            app:destination="@id/buscarIngredienteFragment" />
+            app:destination="@id/buscarIngredienteFragment"
+            app:launchSingleTop="false" />
+        <argument
+            android:name="OnCreation"
+            app:argType="com.aihg.gestionatumenu.ui.recetas.wrapper.RecetaTemporalWrapper"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/buscarIngredienteFragment"
-        android:name="com.aihg.gestionatumenu.ui.shared.fragments.buscar.ingrediente.BuscarIngredienteFragment"
+        android:name="com.aihg.gestionatumenu.ui.buscar.fragments.BuscarIngredienteFragment"
         android:label="AÑADIR INGREDIENTE"
         tools:layout="@layout/shared__buscar_fragments" >
         <action
@@ -230,10 +240,15 @@
             app:argType="com.aihg.gestionatumenu.db.entities.Receta"
             app:nullable="true"
             android:defaultValue="@null" />
+        <argument
+            android:name="RecetaOnCreation"
+            app:argType="com.aihg.gestionatumenu.ui.recetas.wrapper.RecetaTemporalWrapper"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/buscarRecetaFragment"
-        android:name="com.aihg.gestionatumenu.ui.shared.fragments.buscar.receta.BuscarRecetaFragment"
+        android:name="com.aihg.gestionatumenu.ui.buscar.fragments.BuscarRecetaFragment"
         android:label="AÑADIR RECETA"
         tools:layout="@layout/shared__buscar_fragments" >
         <action
