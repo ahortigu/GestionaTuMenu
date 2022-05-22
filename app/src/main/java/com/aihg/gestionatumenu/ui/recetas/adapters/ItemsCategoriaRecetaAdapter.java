@@ -1,5 +1,9 @@
 package com.aihg.gestionatumenu.ui.recetas.adapters;
 
+import static androidx.recyclerview.widget.ItemTouchHelper.RIGHT;
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.NO_DESPENSA;
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.NO_RECETA;
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.TOAST_BORRAR_DESPENSA;
 import static java.util.Comparator.comparing;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toMap;
@@ -12,8 +16,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,6 +34,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class ItemsCategoriaRecetaAdapter extends RecyclerView.Adapter<ItemsCategoriaRecetaAdapter.ItemsCategoriaRecetaViewHolder>{
 
@@ -82,6 +89,36 @@ public class ItemsCategoriaRecetaAdapter extends RecyclerView.Adapter<ItemsCateg
             }
         });
 
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public int getSwipeDirs(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+                TextView txtNombre = viewHolder.itemView.findViewById(R.id.txt_shared_n_nombre_item);
+                if (txtNombre.getText().toString().equals(NO_RECETA)) {
+                    return 0;
+                } else {
+                    return super.getSwipeDirs(recyclerView, viewHolder);
+                }
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                TextView txtNombre = viewHolder.itemView.findViewById(R.id.txt_shared_n_nombre_item);
+                //int positionBorrar = IntStream.range(0, wrapper.size())
+                //    .filter(i -> txtNombre.getText().toString().equals(catalogaItem.get(i).getNombre()))
+                //    .findFirst()
+                //    .orElseThrow(() -> new IllegalStateException("El ingrediente " + txtNombre + " deberia existir."));
+                //listener.onDeleteItem(wrapper.get(positionBorrar), positionBorrar);
+                Toast.makeText(
+                    holder.itemView.getContext(), TOAST_BORRAR_DESPENSA, Toast.LENGTH_SHORT
+                ).show();
+            }
+        }).attachToRecyclerView(holder.rv_child);
+
         holder.l_expandable.setVisibility(isExpandable ? View.VISIBLE : View.GONE);
         Log.i("CATEGORIA", "isExpandable " + isExpandable);
         if (isExpandable) {
@@ -98,14 +135,12 @@ public class ItemsCategoriaRecetaAdapter extends RecyclerView.Adapter<ItemsCateg
     }
 
     public void setCategorias(List<CategoriaReceta> categorias) {
-        Log.i("MAPPING", "Actualizando Mapping Pantalla Ingredientes. Cambio Categoria");
         this.categorias = categorias;
         wrapperBuilder();
         notifyDataSetChanged();
     }
 
     public void setCatalogo(List<Cataloga> catalogo) {
-        Log.i("MAPPING", "Actualizando Mapping Pantalla Ingredientes. Cambio Categoria");
         this.catalogo = catalogo;
         wrapperBuilder();
         notifyDataSetChanged();
