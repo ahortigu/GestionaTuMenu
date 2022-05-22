@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -32,6 +34,7 @@ import com.aihg.gestionatumenu.db.entities.Medicion;
 import com.aihg.gestionatumenu.ui.ingredientes.adapters.SpinnerCategoriasAdapter;
 import com.aihg.gestionatumenu.ui.ingredientes.adapters.SpinnerMedicionAdapter;
 import com.aihg.gestionatumenu.ui.ingredientes.viewmodel.IngredientesViewModel;
+import com.aihg.gestionatumenu.ui.recetas.fragments.RecetasCreateFragmentDirections;
 
 import java.util.List;
 import java.util.stream.IntStream;
@@ -177,31 +180,32 @@ public class IngredientesCreateFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int menuId = item.getItemId();
-                if (menuId == R.id.nav_save ){
-                    if(!toCreate.getNombre().isEmpty()
-                            && toCreate.getCategoriaIngrediente() != null
-                            && toCreate.getMedicion() != null)
-                    {
-                        viewModel
-                                .getIngredientesByName(toCreate)
-                                .observe(getViewLifecycleOwner(), ingredientes -> {
-                                    if (ingredientes.isEmpty()) {
-                                        viewModel.insertIngrediente(toCreate);
-                                        Toast.makeText(
-                                                view.getContext(), TOAST_CREAR_INGREDIENTE, Toast.LENGTH_SHORT
-                                        ).show();
-                                    } else {
-                                        Toast.makeText(
-                                                view.getContext(), TOAST_CREAR_INGREDIENTE_YA_EXISTE, Toast.LENGTH_SHORT
-                                        ).show();
-                                    }
-                                });
-                    } else {
-                        Toast.makeText(
-                                view.getContext(), TOAST_CAMPO_VACIO, Toast.LENGTH_LONG
-                        ).show();
-                    }
-                }
+        if (menuId == R.id.nav_save ){
+            if(!toCreate.getNombre().isEmpty()
+                && toCreate.getCategoriaIngrediente() != null
+                && toCreate.getMedicion() != null)
+            {
+                viewModel
+                    .getIngredientesByName(toCreate)
+                    .observe(getViewLifecycleOwner(), ingredientes -> {
+                        if (ingredientes.isEmpty()) {
+                            viewModel.insertIngrediente(toCreate);
+                            Toast.makeText(
+                                view.getContext(), TOAST_CREAR_INGREDIENTE, Toast.LENGTH_SHORT
+                            ).show();
+                            NavDirections toIngredientes = IngredientesCreateFragmentDirections
+                                .actionIngredientesCreateToIngredientesFragment();
+                            Navigation.findNavController(view).navigate(toIngredientes);
+                        } else {
+                            Toast.makeText(
+                                view.getContext(), TOAST_CREAR_INGREDIENTE_YA_EXISTE, Toast.LENGTH_SHORT
+                            ).show();
+                        }
+                    });
+            } else {
+                Toast.makeText(view.getContext(), TOAST_CAMPO_VACIO, Toast.LENGTH_LONG).show();
+            }
+        }
         return super.onOptionsItemSelected(item);
     }
 

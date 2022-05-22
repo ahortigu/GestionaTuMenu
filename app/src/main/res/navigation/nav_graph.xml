@@ -172,7 +172,11 @@
         android:id="@+id/ingredientesCreate"
         android:name="com.aihg.gestionatumenu.ui.ingredientes.fragments.IngredientesCreateFragment"
         android:label="@string/crear_ingredediente_up"
-        tools:layout="@layout/ingredientes_create_fragment" />
+        tools:layout="@layout/ingredientes_create_fragment" >
+        <action
+            android:id="@+id/action_ingredientesCreate_to_ingredientesFragment"
+            app:destination="@id/ingredientesFragment" />
+    </fragment>
     <fragment
         android:id="@+id/recetasCreateFragment"
         android:name="com.aihg.gestionatumenu.ui.recetas.fragments.RecetasCreateFragment"

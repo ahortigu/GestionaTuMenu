@@ -1,8 +1,12 @@
 package com.aihg.gestionatumenu.ui.recetas.fragments;
 
 import static androidx.recyclerview.widget.ItemTouchHelper.RIGHT;
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.NO_INGREDIENTE;
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.RECETA_CREAR_DUPLICADA;
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.RECETA_CREAR_EXITO;
 import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.RECETA_CREAR_HINT_INSTRUCCIONES;
 import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.RECETA_CREAR_HINT_NOMBRE;
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.TOAST_CAMPO_VACIO;
 import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.TOAST_MIN_INGREDIENTES_RECETA_CREAR;
 
 import static java.util.stream.Collectors.toList;
@@ -15,6 +19,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -35,6 +40,8 @@ import android.widget.Toast;
 import com.aihg.gestionatumenu.R;
 import com.aihg.gestionatumenu.db.entities.Cataloga;
 import com.aihg.gestionatumenu.db.entities.CategoriaReceta;
+import com.aihg.gestionatumenu.db.entities.Ingrediente;
+import com.aihg.gestionatumenu.db.entities.Receta;
 import com.aihg.gestionatumenu.db.entities.Utiliza;
 import com.aihg.gestionatumenu.ui.recetas.adapters.CategoriasDeRecetaAdapter;
 import com.aihg.gestionatumenu.ui.recetas.adapters.IngredientesDeRecetaAdapter;
@@ -80,6 +87,7 @@ public class RecetasCreateFragment extends Fragment {
     public RecetasCreateFragment() {
         this.isInstruccionesExpandido = true;
         this.isCategoriaExpandido = true;
+        this.isIngredienteExpandido = true;
     }
 
     @Override
@@ -129,6 +137,7 @@ public class RecetasCreateFragment extends Fragment {
 
         if (ingredienteAdapter == null) ingredienteAdapter = new IngredientesDeRecetaAdapter(true, listener);
         this.rvIngrediente.setAdapter(ingredienteAdapter);
+        ingredienteAdapter.setIngredientes(receta.getUtiliza());
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, RIGHT) {
             @Override
@@ -155,7 +164,8 @@ public class RecetasCreateFragment extends Fragment {
                     .filter(i -> txtNombre.getText().toString().equals(receta.getIngredientes().get(i).getNombre()))
                     .findFirst()
                     .orElseThrow(() -> new IllegalStateException("El ingrediente " + txtNombre + " deberia existir."));
-                receta.getIngredientes().remove(positionABorrar);
+                Ingrediente aBorrar = receta.getIngredientes().get(positionABorrar);
+                listener.toDeleteUtiliza(new Utiliza(receta.getReceta(), aBorrar), positionABorrar);
             }
         }).attachToRecyclerView(rvIngrediente);
 
@@ -214,12 +224,65 @@ public class RecetasCreateFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int menuId = item.getItemId();
-        if (menuId == R.id.nav_save ){
-            Toast.makeText(
-                    view.getContext(), "TODO", Toast.LENGTH_SHORT
-            ).show();
+        if (menuId == R.id.nav_save) {
+            if (isRecetaTemporalValido()) {
+                viewModel
+                    .getRecetaByNombre(receta.getNombre())
+                    .observe(getViewLifecycleOwner(), recetaExistente -> {
+                        if (recetaExistente == null) guardarReceta();
+                        else Toast.makeText(
+                            view.getContext(), RECETA_CREAR_DUPLICADA, Toast.LENGTH_SHORT
+                        ).show();
+                    });
+            } else {
+                Toast.makeText(
+                    view.getContext(), TOAST_CAMPO_VACIO, Toast.LENGTH_SHORT
+                ).show();
+            }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void guardarReceta() {
+        viewModel
+            .insertReceta(receta.getReceta());
+        viewModel
+            .getRecetaByNombre(receta.getNombre())
+            .observe(getViewLifecycleOwner(), new Observer<Receta>() {
+                @Override
+                public void onChanged(Receta recetaInsertada) {
+                    receta
+                        .getCategorias()
+                        .stream()
+                        .forEach(categoriaReceta -> {
+                            viewModel.insertCategoriaReceta(
+                                new Cataloga(recetaInsertada, categoriaReceta)
+                            );
+                        });
+                    receta
+                        .getUtiliza()
+                        .stream()
+                        .forEach(ingrediente -> {
+                            viewModel.insertIngredienteReceta(
+                                new Utiliza(recetaInsertada, ingrediente.getId_ingrediente(), ingrediente.getCantidad())
+                            );
+                        });
+                    Toast.makeText(
+                        view.getContext(), RECETA_CREAR_EXITO, Toast.LENGTH_SHORT
+                    ).show();
+                    NavDirections toRecetas = RecetasCreateFragmentDirections
+                        .actionRecetasCreateFragmentToRecetasFragment();
+                    Navigation.findNavController(view).navigate(toRecetas);
+                }
+            });
+    }
+
+    private boolean isRecetaTemporalValido() {
+        boolean nombreNotEmpty = !this.receta.getNombre().isEmpty();
+        boolean instruccionesNotEmpty = !this.receta.getInstrucciones().isEmpty();
+        boolean categoriasNotEmpty = !this.receta.getCategorias().isEmpty();
+        boolean ingredientesNotEmpty = !this.receta.getUtiliza().isEmpty();
+        return nombreNotEmpty && ingredientesNotEmpty && instruccionesNotEmpty && categoriasNotEmpty;
     }
 
     private void loadObservers() {
@@ -250,19 +313,29 @@ public class RecetasCreateFragment extends Fragment {
     private void loadListener() {
         this.listener = new RecetaListener() {
             @Override
-            public void toDeleteUtiliza(Utiliza ingredienteBorrar, int positionABorrar) {}
+            public void toDeleteUtiliza(Utiliza ingredienteBorrar, int positionABorrar) {
+                receta.deleteIngrediente(ingredienteBorrar.getId_ingrediente());
+                ingredienteAdapter.setIngredientes(receta.getUtiliza());
+                ingredienteAdapter.notifyDataSetChanged();
+            }
 
             @Override
-            public void toUpdateUtiliza(Utiliza ingredienteActualizar) {}
+            public void toUpdateUtiliza(Utiliza ingredienteActualizar) {
+                receta.actualizarUtiliza(ingredienteActualizar);
+                ingredienteAdapter.setIngredientes(receta.getUtiliza());
+                ingredienteAdapter.notifyDataSetChanged();
+            }
 
             @Override
             public void toDeleteCatalogo(CategoriaReceta categoriaBorrar) {
                 receta.deleteCategoria(categoriaBorrar);
+                categoriasAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void toAddCatalogo(CategoriaReceta categoriaAnadir) {
                 receta.anadirCategoria(categoriaAnadir);
+                categoriasAdapter.notifyDataSetChanged();
             }
         };
     }

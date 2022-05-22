@@ -19,6 +19,7 @@ import com.aihg.gestionatumenu.db.entities.IngredienteInterface;
 import com.aihg.gestionatumenu.db.entities.ListaCompra;
 import com.aihg.gestionatumenu.db.entities.Receta;
 import com.aihg.gestionatumenu.ui.buscar.fragments.BuscarIngredienteFragmentDirections;
+import com.aihg.gestionatumenu.ui.recetas.wrapper.RecetaTemporalWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,7 @@ public class BuscarIngredienteAdapter extends RecyclerView.Adapter<BuscarIngredi
     private List<IngredienteInterface> ingredientes;
 
     private Receta toEdit;
+    private RecetaTemporalWrapper onCreation;
 
     public BuscarIngredienteAdapter() {
         this.ingredientes = new ArrayList<>();
@@ -59,18 +61,28 @@ public class BuscarIngredienteAdapter extends RecyclerView.Adapter<BuscarIngredi
                         Despensa aAnadirDespensa = new Despensa(0, (Ingrediente) ingrediente);
                         BuscarIngredienteFragmentDirections.ActionBuscarIngredienteFragmentToDespensaFragment
                                 toDespensa =
-                            BuscarIngredienteFragmentDirections.actionBuscarIngredienteFragmentToDespensaFragment();
+                                    BuscarIngredienteFragmentDirections
+                                        .actionBuscarIngredienteFragmentToDespensaFragment();
                         toDespensa.setDespensabuscar((Despensa) aAnadirDespensa);
-                        Log.i("ENVIANDO INGREDIENTE", "El ingrediente a anadir es "+ aAnadirDespensa);
                         Navigation.findNavController(view).navigate(toDespensa);
                         break;
                     case R.id.listaCompraFragment:
                         ListaCompra aAnadirListaCompra = new ListaCompra(0, (Ingrediente) ingrediente);
                         BuscarIngredienteFragmentDirections.ActionBuscarIngredienteFragmentToListaCompraFragment
                                 toListaCompra =
-                            BuscarIngredienteFragmentDirections.actionBuscarIngredienteFragmentToListaCompraFragment();
+                                    BuscarIngredienteFragmentDirections
+                                        .actionBuscarIngredienteFragmentToListaCompraFragment();
                         toListaCompra.setListacomprabuscar(aAnadirListaCompra);
                         Navigation.findNavController(view).navigate(toListaCompra);
+                        break;
+                    case R.id.recetasCreateFragment:
+                        BuscarIngredienteFragmentDirections.ActionBuscarIngredienteFragmentToRecetasCreateFragment
+                            toRecetaCreate =
+                                BuscarIngredienteFragmentDirections
+                                    .actionBuscarIngredienteFragmentToRecetasCreateFragment();
+                        onCreation.anadirIngrediente((Ingrediente) ingrediente);
+                        toRecetaCreate.setOnCreation(onCreation);
+                        Navigation.findNavController(view).navigate(toRecetaCreate);
                         break;
                     case R.id.recetaEditFragment:
                         BuscarIngredienteFragmentDirections.ActionBuscarIngredienteFragmentToRecetaEditFragment
@@ -104,6 +116,10 @@ public class BuscarIngredienteAdapter extends RecyclerView.Adapter<BuscarIngredi
 
     public void setToEdit(Receta toEdit) {
         this.toEdit = toEdit;
+    }
+
+    public void setOnCreation(RecetaTemporalWrapper onCreation) {
+        this.onCreation = onCreation;
     }
 
     public class BuscarIngredienteViewHolder extends RecyclerView.ViewHolder {

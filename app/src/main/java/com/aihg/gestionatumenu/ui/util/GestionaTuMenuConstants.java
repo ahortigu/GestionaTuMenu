@@ -33,6 +33,8 @@ public class GestionaTuMenuConstants {
 
     public static final String RECETA_CREAR_HINT_INSTRUCCIONES = "Escriba las instrucciones aqui...";
     public static final String RECETA_CREAR_HINT_NOMBRE = "Nombre de la Receta";
+    public static final String RECETA_CREAR_DUPLICADA = "¡Ya existe una receta con este nombre!";
+    public static final String RECETA_CREAR_EXITO = "¡Receta creada con éxito!";
 
     public static final int MAX_CATGORIAS_POR_RECETA = 2;
 

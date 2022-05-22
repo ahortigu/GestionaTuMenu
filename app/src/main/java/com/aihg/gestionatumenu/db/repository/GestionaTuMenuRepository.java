@@ -406,4 +406,8 @@ public class GestionaTuMenuRepository {
     public LiveData<List<Ingrediente>> getIngredientesPuedenBorrar() {
         return ingredienteDAO.getIngredientesPuedenBorrar();
     }
+
+    public LiveData<Receta> getRecetaByNombre(String nombre) {
+        return recetaDAO.getRecetaByNombre(nombre);
+    }
 }

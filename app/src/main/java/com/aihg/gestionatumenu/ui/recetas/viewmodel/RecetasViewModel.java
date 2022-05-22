@@ -8,7 +8,6 @@ import androidx.lifecycle.LiveData;
 
 import com.aihg.gestionatumenu.db.entities.Cataloga;
 import com.aihg.gestionatumenu.db.entities.CategoriaReceta;
-import com.aihg.gestionatumenu.db.entities.Ingrediente;
 import com.aihg.gestionatumenu.db.entities.Receta;
 import com.aihg.gestionatumenu.db.entities.Utiliza;
 import com.aihg.gestionatumenu.db.repository.GestionaTuMenuRepository;
@@ -41,6 +40,10 @@ public class RecetasViewModel extends AndroidViewModel {
 
     public LiveData<List<Receta>> getRecetas() {
         return recetas;
+    }
+
+    public LiveData<Receta> getRecetaByNombre(String nombre) {
+        return repository.getRecetaByNombre(nombre);
     }
 
     public LiveData<List<Utiliza>> getUtilizaByReceta(Receta receta) {

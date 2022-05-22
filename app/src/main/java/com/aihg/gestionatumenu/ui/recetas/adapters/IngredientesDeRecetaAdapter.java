@@ -1,7 +1,9 @@
 package com.aihg.gestionatumenu.ui.recetas.adapters;
 
+import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerator.CI_OTROS;
 import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerator.NO_CUANTIFICABLE;
 import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.IS_NUMERIC;
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.NO_INGREDIENTE;
 
 import android.annotation.SuppressLint;
 import android.text.Editable;
@@ -16,10 +18,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aihg.gestionatumenu.R;
+import com.aihg.gestionatumenu.db.entities.Ingrediente;
+import com.aihg.gestionatumenu.db.entities.Receta;
 import com.aihg.gestionatumenu.db.entities.Utiliza;
 import com.aihg.gestionatumenu.ui.recetas.listener.RecetaListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class IngredientesDeRecetaAdapter
@@ -103,8 +108,14 @@ public class IngredientesDeRecetaAdapter
         return ingredientes.size();
     }
 
-    public void setIngredientes(List<Utiliza> ingredientes) {
-        this.ingredientes = ingredientes;
+    public void setIngredientes(List<Utiliza> ingredientesValue) {
+        this.ingredientes.clear();
+        this.ingredientes.addAll(ingredientesValue);
+        if (this.ingredientes.isEmpty()) {
+            this.ingredientes.add(new Utiliza(
+                new Receta(), new Ingrediente(NO_INGREDIENTE, CI_OTROS, NO_CUANTIFICABLE)
+            ));
+        }
         notifyDataSetChanged();
     }
 
