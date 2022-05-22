@@ -30,6 +30,9 @@ public class GestionaTuMenuConstants {
     public static final String TOAST_RECETA_EDIT_CATEGORIA_DUPLICADA = "¡Categoría duplicada!";
     public static final String TOAST_RECETA_EDIT_BORRAR_TODAS_CATEGORIAS = "¡Seleccione almenos una categoría!";
 
+    public static final String RECETA_CREAR_HINT_INSTRUCCIONES = "Escriba las instrucciones aqui...";
+    public static final String RECETA_CREAR_HINT_NOMBRE = "Nombre de la Receta";
+
     public static final int MAX_CATGORIAS_POR_RECETA = 2;
 
     public static final Pattern IS_NUMERIC = Pattern.compile("-?\\d+(\\.\\d+)?");

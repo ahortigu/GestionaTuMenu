@@ -35,12 +35,20 @@ public class RecetaTemporalWrapper implements Serializable {
         return ingredientes.stream().collect(toList());
     }
 
+    public String getNombre() {
+        return this.receta.getNombre();
+    }
+
     public void setNombre(String nuevoNombre) {
         this.receta.setNombre(nuevoNombre);
     }
 
     public void setInstrucciones(String nuevasInstrucciones) {
         this.receta.setInstrucciones(nuevasInstrucciones);
+    }
+
+    public String getInstrucciones() {
+        return this.receta.getInstrucciones();
     }
 
     public void anadirIngrediente(Ingrediente anadir) {

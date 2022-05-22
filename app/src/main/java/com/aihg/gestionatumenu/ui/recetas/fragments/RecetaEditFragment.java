@@ -67,8 +67,8 @@ public class RecetaEditFragment extends Fragment {
     private boolean isInstruccionesExpandido;
     private ConstraintLayout l_rce_expandable_instrucciones_parent;
     private ConstraintLayout l_rce_expandable_instrucciones;
-    private ImageView iv_rce_instrucciones;
     private EditText et_rce_instrucciones;
+    private ImageView iv_rce_instrucciones;
     private List<Utiliza> ingredientesReceta;
 
     private boolean isCategoriaExpandido;
