@@ -44,7 +44,9 @@ public class RecetasCreateFragment extends Fragment {
     private EditText et_rce_instrucciones;
     private ImageView iv_rce_instrucciones;
 
-    public RecetasCreateFragment() {}
+    public RecetasCreateFragment() {
+        this.isInstruccionesExpandido = true;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
