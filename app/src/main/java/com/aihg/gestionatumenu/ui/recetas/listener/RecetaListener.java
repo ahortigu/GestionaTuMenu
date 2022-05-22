@@ -8,6 +8,6 @@ public interface RecetaListener {
     public void toDeleteUtiliza(Utiliza ingredienteBorrar, int positionABorrar);
     public void toUpdateUtiliza(Utiliza ingredienteActualizar);
 
-    public void toDeleteCatalogo(Cataloga categoriaDondeBorrar);
+    public void toDeleteCatalogo(CategoriaReceta categoriaBorrar);
     public void toAddCatalogo(CategoriaReceta categoriaAnadir);
 }

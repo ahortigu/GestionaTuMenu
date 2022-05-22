@@ -61,7 +61,9 @@ public class CategoriaReceta {
                 '}';
     }
 
-    public CategoriaReceta() {}
+    public CategoriaReceta() {
+        this("");
+    }
 
     @Ignore
     public CategoriaReceta(@NonNull String nombre) {
