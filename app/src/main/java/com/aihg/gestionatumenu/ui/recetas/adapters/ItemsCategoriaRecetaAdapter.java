@@ -4,8 +4,11 @@ import static androidx.recyclerview.widget.ItemTouchHelper.RIGHT;
 import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.NO_DESPENSA;
 import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.NO_RECETA;
 import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.TOAST_BORRAR_DESPENSA;
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.TOAST_BORRAR_RECETA;
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.TOAST_NO_BORRAR_RECETA;
 import static java.util.Comparator.comparing;
 import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 
 import android.util.Log;
@@ -26,6 +29,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.aihg.gestionatumenu.R;
 import com.aihg.gestionatumenu.db.entities.Cataloga;
 import com.aihg.gestionatumenu.db.entities.CategoriaReceta;
+import com.aihg.gestionatumenu.db.entities.Receta;
+import com.aihg.gestionatumenu.ui.recetas.listener.RecetaListener;
 import com.aihg.gestionatumenu.ui.recetas.wrapper.CategoriaRecetaWrapper;
 
 import java.util.ArrayList;
@@ -41,14 +46,20 @@ public class ItemsCategoriaRecetaAdapter extends RecyclerView.Adapter<ItemsCateg
     private List<CategoriaReceta> categorias;
     private List<Cataloga> catalogo;
 
+    private List<String> noBorrar;
+
     private List<CategoriaRecetaWrapper> wrapper;
+
+    private RecetaListener listener;
 
     private RecyclerView.RecycledViewPool recycledViewPool = new RecyclerView.RecycledViewPool();
 
-    public ItemsCategoriaRecetaAdapter() {
+    public ItemsCategoriaRecetaAdapter(RecetaListener listener) {
         this.categorias = new ArrayList<>();
         this.catalogo = new ArrayList<>();
         this.wrapper = new ArrayList<>();
+        this.noBorrar = new ArrayList<>();
+        this.listener = listener;
     }
 
     @NonNull
@@ -98,7 +109,13 @@ public class ItemsCategoriaRecetaAdapter extends RecyclerView.Adapter<ItemsCateg
             @Override
             public int getSwipeDirs(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
                 TextView txtNombre = viewHolder.itemView.findViewById(R.id.txt_shared_n_nombre_item);
-                if (txtNombre.getText().toString().equals(NO_RECETA)) {
+                String receta = txtNombre.getText().toString();
+                if (NO_RECETA.equals(receta)) {
+                    return 0;
+                } else if (!isRecetaBorrable(receta)) {
+                    Toast.makeText(
+                        holder.itemView.getContext(), TOAST_NO_BORRAR_RECETA, Toast.LENGTH_SHORT
+                    ).show();
                     return 0;
                 } else {
                     return super.getSwipeDirs(recyclerView, viewHolder);
@@ -108,14 +125,23 @@ public class ItemsCategoriaRecetaAdapter extends RecyclerView.Adapter<ItemsCateg
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 TextView txtNombre = viewHolder.itemView.findViewById(R.id.txt_shared_n_nombre_item);
-                //int positionBorrar = IntStream.range(0, wrapper.size())
-                //    .filter(i -> txtNombre.getText().toString().equals(catalogaItem.get(i).getNombre()))
-                //    .findFirst()
-                //    .orElseThrow(() -> new IllegalStateException("El ingrediente " + txtNombre + " deberia existir."));
-                //listener.onDeleteItem(wrapper.get(positionBorrar), positionBorrar);
-                Toast.makeText(
-                    holder.itemView.getContext(), TOAST_BORRAR_DESPENSA, Toast.LENGTH_SHORT
-                ).show();
+                String nombreReceta = txtNombre.getText().toString();
+                if (isRecetaBorrable(nombreReceta)) {
+                    Receta aBorrar = catalogo
+                        .stream()
+                        .filter(cataloga -> cataloga.getId_receta().getNombre().equals(nombreReceta))
+                        .map(Cataloga::getId_receta)
+                        .findFirst()
+                        .orElseThrow(() -> new IllegalStateException("La receta " + txtNombre + " debe de existir"));
+                    listener.toDeteleReceta(aBorrar);
+                    Toast.makeText(
+                        holder.itemView.getContext(), TOAST_BORRAR_RECETA, Toast.LENGTH_SHORT
+                    ).show();
+                } else {
+                    Toast.makeText(
+                        holder.itemView.getContext(), TOAST_NO_BORRAR_RECETA, Toast.LENGTH_SHORT
+                    ).show();
+                }
             }
         }).attachToRecyclerView(holder.rv_child);
 
@@ -146,7 +172,19 @@ public class ItemsCategoriaRecetaAdapter extends RecyclerView.Adapter<ItemsCateg
         notifyDataSetChanged();
     }
 
-    public void wrapperBuilder() {
+    public void setNoBorrar(List<Receta> noBorrar) {
+        this.noBorrar = noBorrar
+            .stream()
+            .map(Receta::getNombre)
+            .collect(toList());
+        notifyDataSetChanged();
+    }
+
+    private boolean isRecetaBorrable(String nombre) {
+        return !this.noBorrar.contains(nombre);
+    }
+
+    private void wrapperBuilder() {
         Map<CategoriaReceta, List<Cataloga>> mapCategorias = this.categorias
             .stream()
             .collect(toMap(
@@ -172,7 +210,7 @@ public class ItemsCategoriaRecetaAdapter extends RecyclerView.Adapter<ItemsCateg
                 categoria -> new CategoriaRecetaWrapper(categoria, combinado.get(categoria))
             )
             .sorted(comparing(CategoriaRecetaWrapper::getNombreCategoria))
-            .collect(Collectors.toList());
+            .collect(toList());
     }
 
     public class ItemsCategoriaRecetaViewHolder extends RecyclerView.ViewHolder {

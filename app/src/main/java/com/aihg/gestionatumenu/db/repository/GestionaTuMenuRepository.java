@@ -410,4 +410,8 @@ public class GestionaTuMenuRepository {
     public LiveData<Receta> getRecetaByNombre(String nombre) {
         return recetaDAO.getRecetaByNombre(nombre);
     }
+
+    public LiveData<List<Receta>> getRecetasUtilizadasMenuPlanificador() {
+        return recetaDAO.getRecetasUtilizadasMenuPlanificador();
+    }
 }

@@ -11,6 +11,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,7 +22,10 @@ import com.aihg.gestionatumenu.R;
 import com.aihg.gestionatumenu.db.entities.Cataloga;
 import com.aihg.gestionatumenu.db.entities.CategoriaIngrediente;
 import com.aihg.gestionatumenu.db.entities.CategoriaReceta;
+import com.aihg.gestionatumenu.db.entities.Receta;
+import com.aihg.gestionatumenu.db.entities.Utiliza;
 import com.aihg.gestionatumenu.ui.recetas.adapters.ItemsCategoriaRecetaAdapter;
+import com.aihg.gestionatumenu.ui.recetas.listener.RecetaListener;
 import com.aihg.gestionatumenu.ui.recetas.viewmodel.RecetasViewModel;
 
 import java.util.List;
@@ -32,8 +36,9 @@ public class RecetasFragment extends Fragment {
     private View view;
     private RecetasViewModel viewModel;
 
-    public RecetasFragment() {
-    }
+    private RecetaListener listener;
+
+    public RecetasFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,6 +64,33 @@ public class RecetasFragment extends Fragment {
                 }
         });
 
+        viewModel
+            .getRecetasUtilizadasMenuPlanificador()
+            .observe(this, new Observer<List<Receta>>() {
+                @Override
+                public void onChanged(List<Receta> recetas) {
+                    adapter.setNoBorrar(recetas);
+                }
+            });
+
+        this.listener = new RecetaListener() {
+            @Override
+            public void toDeleteUtiliza(Utiliza ingredienteBorrar, int positionABorrar) {}
+
+            @Override
+            public void toUpdateUtiliza(Utiliza ingredienteActualizar) {}
+
+            @Override
+            public void toDeleteCatalogo(CategoriaReceta categoriaBorrar) {}
+
+            @Override
+            public void toAddCatalogo(CategoriaReceta categoriaAnadir) {}
+
+            @Override
+            public void toDeteleReceta(Receta borrar) {
+                Log.i("RECETA", "Borrar " + borrar);
+            }
+        };
     }
 
     @Override
@@ -69,7 +101,7 @@ public class RecetasFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        if (adapter == null) adapter = new ItemsCategoriaRecetaAdapter();
+        if (adapter == null) adapter = new ItemsCategoriaRecetaAdapter(listener);
         recyclerView.setAdapter(adapter);
 
         return view;

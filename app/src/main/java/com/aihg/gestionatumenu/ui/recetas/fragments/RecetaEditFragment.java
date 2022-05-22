@@ -177,6 +177,9 @@ public class RecetaEditFragment extends Fragment {
             public void toAddCatalogo(CategoriaReceta categoriaAnadir) {
                 viewModel.insertCategoriaReceta(new Cataloga(receta, categoriaAnadir));
             }
+
+            @Override
+            public void toDeteleReceta(Receta borrar) {}
         };
     }
 

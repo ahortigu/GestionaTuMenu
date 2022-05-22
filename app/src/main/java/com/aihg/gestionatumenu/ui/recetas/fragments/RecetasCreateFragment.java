@@ -337,6 +337,9 @@ public class RecetasCreateFragment extends Fragment {
                 receta.anadirCategoria(categoriaAnadir);
                 categoriasAdapter.notifyDataSetChanged();
             }
+
+            @Override
+            public void toDeteleReceta(Receta borrar) {}
         };
     }
 
