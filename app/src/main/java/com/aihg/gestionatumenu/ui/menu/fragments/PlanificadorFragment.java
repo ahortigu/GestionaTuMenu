@@ -8,6 +8,9 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.Menu;
@@ -90,6 +93,7 @@ public class PlanificadorFragment extends AbstractMenuFragment {
                         getView().getContext(), TOAST_PLANIFICADOR_LIMPIO, Toast.LENGTH_SHORT
                 ).show();
                 getAdapter().forceNotifyDataSetChanged();
+                break;
             case R.id.nav_done:
                 List<Planificador> planificador = getViewModel()
                         .getPlanificador()
@@ -122,7 +126,13 @@ public class PlanificadorFragment extends AbstractMenuFragment {
                 Toast.makeText(
                         getView().getContext(), TOAST_PLANIFICADOR_APLICADO, Toast.LENGTH_SHORT
                 ).show();
+                NavDirections toMenu = PlanificadorFragmentDirections.actionPlanificadorFragmentToMenuFragment();
+                Navigation.findNavController(getView()).navigate(toMenu);
                 getAdapter().forceNotifyDataSetChanged();
+                break;
+            default:
+                new IllegalStateException(
+                    "Problema en Planificador");
         }
         return super.onOptionsItemSelected(item);
     }
