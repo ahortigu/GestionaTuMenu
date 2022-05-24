@@ -57,31 +57,30 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        NavDirections action;
         switch (view.getId()) {
             case R.id.b_Ingredientes:
-                action = HomeFragmentDirections.actionHomeFragmentToIngredientesFragment();
-                Navigation.findNavController(view).navigate(action);
+                NavDirections toIngredientes = HomeFragmentDirections.actionHomeFragmentToIngredientesFragment();
+                Navigation.findNavController(view).navigate(toIngredientes);
                 break;
             case R.id.b_lista_compra:
-                action = HomeFragmentDirections.actionHomeFragmentToListaCompraFragment();
-                Navigation.findNavController(view).navigate(action);
+                NavDirections toListaCompra = HomeFragmentDirections.actionHomeFragmentToListaCompraFragment();
+                Navigation.findNavController(view).navigate(toListaCompra);
                 break;
             case R.id.b_despensa:
-                action = HomeFragmentDirections.actionHomeFragmentToDespensaFragment();
-                Navigation.findNavController(view).navigate(action);
+                NavDirections toDespensa = HomeFragmentDirections.actionHomeFragmentToDespensaFragment();
+                Navigation.findNavController(view).navigate(toDespensa);
                 break;
             case R.id.b_recetas:
-                action = HomeFragmentDirections.actionHomeFragmentToRecetasFragment();
-                Navigation.findNavController(view).navigate(action);
+                NavDirections toRecetas = HomeFragmentDirections.actionHomeFragmentToRecetasFragment();
+                Navigation.findNavController(view).navigate(toRecetas);
                 break;
             case R.id.b_planificador:
-                action = HomeFragmentDirections.actionHomeFragmentToPlanificadorFragment();
-                Navigation.findNavController(view).navigate(action);
+                NavDirections toPlanificador = HomeFragmentDirections.actionHomeFragmentToPlanificadorFragment();
+                Navigation.findNavController(view).navigate(toPlanificador);
                 break;
             case R.id.b_menu:
-                 action = HomeFragmentDirections.actionHomeFragmentToMenuFragment();
-                Navigation.findNavController(view).navigate(action);
+                NavDirections toMenu = HomeFragmentDirections.actionHomeFragmentToMenuFragment();
+                Navigation.findNavController(view).navigate(toMenu);
                 break;
         }
     }
