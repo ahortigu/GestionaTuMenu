@@ -1,13 +1,16 @@
 package com.aihg.gestionatumenu.ui.despensa.adapters;
 
 import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerator.NO_CUANTIFICABLE;
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.IS_NUMERIC;
 import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.NO_DESPENSA;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -30,7 +33,7 @@ public class SubItemsDespensaAdapter
 
     private DespensaListener listener;
 
-    private boolean changeSaved;
+    private boolean isChanged;
 
     private Timer timer = new Timer();
 
@@ -43,7 +46,7 @@ public class SubItemsDespensaAdapter
             ));
         }
         this.listener = listener;
-        changeSaved = true;
+        isChanged = false;
     }
 
     @NonNull
@@ -66,13 +69,24 @@ public class SubItemsDespensaAdapter
             holder.et_cantidad.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View view, boolean hasFocus) {
-                    if (!hasFocus && !changeSaved) {
+                    if (!hasFocus && isChanged) {
                         EditText toUpdate = view.findViewById(R.id.et_shared_c_item_cantidad);
-                        toUpdate.setSelected(false);
-                        ingrediente.setCantidad(Integer.parseInt(toUpdate.getText().toString()));
-                        listener.onUpdateItem(ingrediente);
-                        changeSaved = true;
+                        String newValue = toUpdate.getText().toString();
+                        saveChange(newValue, ingrediente);
+                        isChanged = false;
                     }
+                }
+            });
+            holder.et_cantidad.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                    if(actionId == EditorInfo.IME_ACTION_DONE){
+                        holder.et_cantidad.clearFocus();
+                        String newValue = textView.getText().toString();
+                        saveChange(newValue, ingrediente);
+                        isChanged = false;
+                    }
+                    return false;
                 }
             });
             holder.et_cantidad.addTextChangedListener(new TextWatcher() {
@@ -84,7 +98,7 @@ public class SubItemsDespensaAdapter
 
                 @Override
                 public void afterTextChanged(Editable editable) {
-                    changeSaved = false;
+                    isChanged = validateChange(editable.toString(), ingrediente);
                 }
             });
             holder.txt_medicion.setVisibility(View.VISIBLE);
@@ -93,6 +107,23 @@ public class SubItemsDespensaAdapter
             holder.txt_medicion.setVisibility(View.GONE);
             holder.et_cantidad.setVisibility(View.GONE);
         }
+    }
+
+    private void saveChange(String newValue, Despensa toUpdate) {
+        if (validateChange(newValue, toUpdate)) {
+            toUpdate.setCantidad(Integer.parseInt(newValue));
+            listener.onUpdateItem(toUpdate);
+        }
+    }
+
+    private boolean validateChange(String newValue, Despensa toUpdate) {
+        if (newValue.isEmpty()) return false;
+
+        boolean isNumber = IS_NUMERIC.matcher(newValue).matches();
+        if (!isNumber) return false;
+
+        int newValueAsInt = Integer.parseInt(newValue);
+        return newValueAsInt != toUpdate.getCantidad();
     }
 
     @Override

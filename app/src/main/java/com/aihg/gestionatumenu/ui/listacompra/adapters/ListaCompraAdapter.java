@@ -2,13 +2,16 @@ package com.aihg.gestionatumenu.ui.listacompra.adapters;
 
 import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerator.CI_OTROS;
 import static com.aihg.gestionatumenu.db.util.generator.IngredientesDataGenerator.NO_CUANTIFICABLE;
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.IS_NUMERIC;
 import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.NO_LISTA_COMPRA;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -16,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aihg.gestionatumenu.R;
+import com.aihg.gestionatumenu.db.entities.Despensa;
 import com.aihg.gestionatumenu.db.entities.Ingrediente;
 import com.aihg.gestionatumenu.db.entities.ListaCompra;
 import com.aihg.gestionatumenu.ui.listacompra.listener.ListaCompraListener;
@@ -28,12 +32,12 @@ public class ListaCompraAdapter extends RecyclerView.Adapter<ListaCompraAdapter.
 
     private ListaCompraListener listener;
 
-    private boolean changeSaved;
+    private boolean isChanged;
 
     public ListaCompraAdapter(ListaCompraListener listener) {
         this.ingredientes = new ArrayList<>();
         this.listener = listener;
-        this.changeSaved = true;
+        this.isChanged = true;
     }
 
     @NonNull
@@ -59,13 +63,24 @@ public class ListaCompraAdapter extends RecyclerView.Adapter<ListaCompraAdapter.
             holder.et_cantidad.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View view, boolean hasFocus) {
-                    if (!hasFocus && !changeSaved) {
+                    if (!hasFocus && isChanged) {
                         EditText toUpdate = view.findViewById(R.id.et_shared_c_item_cantidad);
-                        toUpdate.setSelected(false);
-                        ingrediente.setCantidad(Integer.parseInt(toUpdate.getText().toString()));
-                        listener.onUpdateItem(ingrediente);
-                        changeSaved = true;
+                        String newValue = toUpdate.getText().toString();
+                        saveChange(newValue, ingrediente);
+                        isChanged = false;
                     }
+                }
+            });
+            holder.et_cantidad.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                    if(actionId == EditorInfo.IME_ACTION_DONE){
+                        holder.et_cantidad.clearFocus();
+                        String newValue = textView.getText().toString();
+                        saveChange(newValue, ingrediente);
+                        isChanged = false;
+                    }
+                    return false;
                 }
             });
             holder.et_cantidad.addTextChangedListener(new TextWatcher() {
@@ -77,7 +92,7 @@ public class ListaCompraAdapter extends RecyclerView.Adapter<ListaCompraAdapter.
 
                 @Override
                 public void afterTextChanged(Editable editable) {
-                    changeSaved = false;
+                    isChanged = validateChange(editable.toString(), ingrediente);
                 }
             });
         }
@@ -85,6 +100,23 @@ public class ListaCompraAdapter extends RecyclerView.Adapter<ListaCompraAdapter.
             holder.txt_medicion.setVisibility(View.GONE);
             holder.et_cantidad.setVisibility(View.GONE);
         }
+    }
+
+    private void saveChange(String newValue, ListaCompra toUpdate) {
+        if (validateChange(newValue, toUpdate)) {
+            toUpdate.setCantidad(Integer.parseInt(newValue));
+            listener.onUpdateItem(toUpdate);
+        }
+    }
+
+    private boolean validateChange(String newValue, ListaCompra toUpdate) {
+        if (newValue.isEmpty()) return false;
+
+        boolean isNumber = IS_NUMERIC.matcher(newValue).matches();
+        if (!isNumber) return false;
+
+        int newValueAsInt = Integer.parseInt(newValue);
+        return newValueAsInt != toUpdate.getCantidad();
     }
 
     @Override

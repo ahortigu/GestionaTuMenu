@@ -64,9 +64,6 @@ public class ItemsCatDespensaAdapter extends  RecyclerView.Adapter<ItemsCatDespe
     public void onBindViewHolder(@NonNull ItemCatDespensaViewHolder holder, int position) {
         CategoriaWrapper categoria = wrappers.get(position);
 
-        Log.i("CATEGORIA_DESPENSA", "categoria.getNombreCategoria() " + categoria.getNombreCategoria());
-        Log.i("CATEGORIA_DESPENSA", "categoria.getDespensa().size() " + categoria.getDespensa().size());
-
         holder.txt_nombre_categoria.setText(categoria.getNombreCategoria());
         boolean isExpandable = categoria.isExpandido();
 
