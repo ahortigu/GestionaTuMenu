@@ -1,5 +1,6 @@
 package com.aihg.gestionatumenu.ui.ingredientes.fragments;
 
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.INGREDIENTE_CREAR_HINT_NOMBRE;
 import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.TOAST_CAMPO_VACIO;
 import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.TOAST_CREAR_INGREDIENTE;
 import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.TOAST_CREAR_INGREDIENTE_YA_EXISTE;
@@ -17,11 +18,13 @@ import androidx.navigation.Navigation;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -93,6 +96,7 @@ public class IngredientesCreateFragment extends Fragment {
                     categoriasSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                            txt_nombre.clearFocus();
                             CategoriaIngrediente seleccionado = (CategoriaIngrediente) adapterView.getSelectedItem();
                             Log.i("SPINNER", "Se ha elegido la categoria: " + seleccionado);
                             toCreate.setCategoriaIngrediente(seleccionado);
@@ -100,7 +104,7 @@ public class IngredientesCreateFragment extends Fragment {
 
                         @Override
                         public void onNothingSelected(AdapterView<?> adapter) {
-                            Log.i("SPINNER", "Nada Seleccionado");
+                            txt_nombre.clearFocus();
                         }
                     });
                 }
@@ -131,6 +135,7 @@ public class IngredientesCreateFragment extends Fragment {
                     medicionesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                            txt_nombre.clearFocus();
                             Medicion seleccionado = (Medicion) adapterView.getSelectedItem();
                             Log.i("SPINNER", "Se ha elegido la medicion: " + seleccionado);
                             toCreate.setMedicion(seleccionado);
@@ -138,7 +143,7 @@ public class IngredientesCreateFragment extends Fragment {
 
                         @Override
                         public void onNothingSelected(AdapterView<?> adapter) {
-                            Log.i("SPINNER", "Nada Seleccionado");
+                            txt_nombre.clearFocus();
                         }
                     });
                 }
@@ -155,6 +160,24 @@ public class IngredientesCreateFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         txt_nombre = view.findViewById(R.id.et_ic_ingrediente);
+        txt_nombre.setHint(INGREDIENTE_CREAR_HINT_NOMBRE);
+        txt_nombre.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (!hasFocus) txt_nombre.clearFocus();
+            }
+        });
+        txt_nombre.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if(actionId == EditorInfo.IME_ACTION_DONE){
+                    txt_nombre.clearFocus();
+                    String newValue = textView.getText().toString();
+                    toCreate.setNombre(newValue);
+                }
+                return false;
+            }
+        });
         txt_nombre.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
@@ -164,7 +187,6 @@ public class IngredientesCreateFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                // TODO anadir validaciones aqui
                 toCreate.setNombre(s.toString());
             }
         });

@@ -39,6 +39,7 @@ public class GestionaTuMenuConstants {
     public static final String RECETA_CREAR_EXITO = "¡Receta creada con éxito!";
 
     public static final int MAX_CATGORIAS_POR_RECETA = 2;
+    public static final String INGREDIENTE_CREAR_HINT_NOMBRE = "Nombre del Ingrediente";
 
     public static final Pattern IS_NUMERIC = Pattern.compile("-?\\d+(\\.\\d+)?");
 }

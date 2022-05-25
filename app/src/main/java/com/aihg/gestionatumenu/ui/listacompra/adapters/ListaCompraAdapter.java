@@ -63,6 +63,7 @@ public class ListaCompraAdapter extends RecyclerView.Adapter<ListaCompraAdapter.
             holder.et_cantidad.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View view, boolean hasFocus) {
+                    if (!hasFocus) holder.et_cantidad.clearFocus();
                     if (!hasFocus && isChanged) {
                         EditText toUpdate = view.findViewById(R.id.et_shared_c_item_cantidad);
                         String newValue = toUpdate.getText().toString();
