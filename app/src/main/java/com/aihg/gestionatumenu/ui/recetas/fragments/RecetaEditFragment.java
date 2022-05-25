@@ -1,6 +1,7 @@
 package com.aihg.gestionatumenu.ui.recetas.fragments;
 
 import static androidx.recyclerview.widget.ItemTouchHelper.RIGHT;
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.RECETA_CREAR_HINT_INSTRUCCIONES;
 import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.TOAST_BORRAR_INGREDIENTE_RECETA;
 import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.TOAST_MIN_INGREDIENTES_RECETA_EDITAR;
 
@@ -270,6 +271,7 @@ public class RecetaEditFragment extends Fragment {
     private void loadNombreReceta() {
         this.et_rce_nombre_receta = view.findViewById(R.id.et_rce_nombre_receta);
         this.et_rce_nombre_receta.setText(receta.getNombre());
+        this.et_rce_nombre_receta.setHint(receta.getNombre());
         this.et_rce_nombre_receta.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
@@ -305,6 +307,7 @@ public class RecetaEditFragment extends Fragment {
         });
 
         this.et_rce_instrucciones.setText(receta.getInstrucciones());
+        this.et_rce_instrucciones.setHint(RECETA_CREAR_HINT_INSTRUCCIONES);
         this.l_rce_expandable_instrucciones.setVisibility(View.VISIBLE);
         this.iv_rce_instrucciones.setImageResource(R.drawable.ic_arrow_up);
 

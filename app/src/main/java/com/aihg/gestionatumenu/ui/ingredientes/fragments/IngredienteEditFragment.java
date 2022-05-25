@@ -13,10 +13,12 @@ import androidx.lifecycle.ViewModelProvider;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -41,6 +43,8 @@ public class IngredienteEditFragment extends Fragment {
 
     private Spinner categoriasSpinner;
     private Spinner medicionesSpinner;
+
+    private TextView txt_nombre;
 
     public IngredienteEditFragment() {}
 
@@ -77,6 +81,7 @@ public class IngredienteEditFragment extends Fragment {
                     categoriasSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                            txt_nombre.clearFocus();
                             CategoriaIngrediente seleccionado = (CategoriaIngrediente) adapterView.getSelectedItem();
                             Log.i("SPINNER", "Se ha elegido la categoria: " + seleccionado);
                             toModify.setCategoriaIngrediente(seleccionado);
@@ -85,7 +90,7 @@ public class IngredienteEditFragment extends Fragment {
 
                         @Override
                         public void onNothingSelected(AdapterView<?> adapter) {
-                            Log.i("SPINNER", "Nada Seleccionado");
+                            txt_nombre.clearFocus();
                         }
                     });
                 }
@@ -116,6 +121,7 @@ public class IngredienteEditFragment extends Fragment {
                     medicionesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                            txt_nombre.clearFocus();
                             Medicion seleccionado = (Medicion) adapterView.getSelectedItem();
                             Log.i("SPINNER", "Se ha elegido la medicion: " + seleccionado);
                             toModify.setMedicion(seleccionado);
@@ -124,6 +130,7 @@ public class IngredienteEditFragment extends Fragment {
 
                         @Override
                         public void onNothingSelected(AdapterView<?> adapter) {
+                            txt_nombre.clearFocus();
                             Log.i("SPINNER", "Nada Seleccionado");
                         }
                     });
@@ -142,8 +149,26 @@ public class IngredienteEditFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         toModify = IngredienteDetailsFragmentArgs.fromBundle(getArguments()).getIngrediente();
-        TextView txt_nombre = view.findViewById(R.id.txt_ie_ingrediente);
+        txt_nombre = view.findViewById(R.id.txt_ie_ingrediente);
         txt_nombre.setHint(toModify.getNombre());
+        txt_nombre.setText(toModify.getNombre());
+        txt_nombre.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (!hasFocus) txt_nombre.clearFocus();
+            }
+        });
+        txt_nombre.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if(actionId == EditorInfo.IME_ACTION_DONE){
+                    txt_nombre.clearFocus();
+                    String newValue = textView.getText().toString();
+                    toModify.setNombre(newValue);
+                }
+                return false;
+            }
+        });
         txt_nombre.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
@@ -159,7 +184,7 @@ public class IngredienteEditFragment extends Fragment {
                     viewModel.updateIngrediente(toModify);
                 } else {
                     Toast.makeText(
-                            view.getContext(), TOAST_CAMPO_VACIO, Toast.LENGTH_LONG
+                        view.getContext(), TOAST_CAMPO_VACIO, Toast.LENGTH_LONG
                     ).show();
                 }
             }

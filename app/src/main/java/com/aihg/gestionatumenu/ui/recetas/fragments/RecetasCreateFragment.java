@@ -27,11 +27,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -347,6 +349,23 @@ public class RecetasCreateFragment extends Fragment {
         this.et_rce_nombre_receta = view.findViewById(R.id.et_rce_nombre_receta);
         this.et_rce_nombre_receta.setText(receta.getNombre());
         this.et_rce_nombre_receta.setHint(RECETA_CREAR_HINT_NOMBRE);
+        this.et_rce_nombre_receta.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (!hasFocus) et_rce_nombre_receta.clearFocus();
+            }
+        });
+        this.et_rce_nombre_receta.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if(actionId == EditorInfo.IME_ACTION_DONE){
+                    et_rce_nombre_receta.clearFocus();
+                    String newValue = textView.getText().toString();
+                    receta.setNombre(newValue);
+                }
+                return false;
+            }
+        });
         this.et_rce_nombre_receta.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
@@ -366,6 +385,23 @@ public class RecetasCreateFragment extends Fragment {
         this.l_rce_expandable_instrucciones = view.findViewById(R.id.l_rce_expandable_instrucciones);
         this.iv_rce_instrucciones = view.findViewById(R.id.iv_rce_instrucciones);
         this.et_rce_instrucciones = view.findViewById(R.id.et_rce_instrucciones);
+        this.et_rce_instrucciones.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (!hasFocus) et_rce_instrucciones.clearFocus();
+            }
+        });
+        this.et_rce_instrucciones.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if(actionId == EditorInfo.IME_ACTION_DONE){
+                    et_rce_instrucciones.clearFocus();
+                    String newValue = textView.getText().toString();
+                    receta.setInstrucciones(newValue);
+                }
+                return false;
+            }
+        });
         this.et_rce_instrucciones.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
