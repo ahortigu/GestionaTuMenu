@@ -8,9 +8,11 @@ import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.NO_INGREDI
 import android.annotation.SuppressLint;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -19,19 +21,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.aihg.gestionatumenu.R;
 import com.aihg.gestionatumenu.db.entities.Ingrediente;
+import com.aihg.gestionatumenu.db.entities.ListaCompra;
 import com.aihg.gestionatumenu.db.entities.Receta;
 import com.aihg.gestionatumenu.db.entities.Utiliza;
 import com.aihg.gestionatumenu.ui.recetas.listener.RecetaListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class IngredientesDeRecetaAdapter
         extends RecyclerView.Adapter<IngredientesDeRecetaAdapter.IngredientesDeRecetaViewHolder>  {
     private List<Utiliza> ingredientes;
     private boolean isEditable;
-    private boolean changeSaved;
+    private boolean isChanged;
 
     private RecetaListener listener;
 
@@ -43,7 +45,7 @@ public class IngredientesDeRecetaAdapter
         this.ingredientes = new ArrayList<>();
         this.isEditable = isEditable;
         this.listener = listener;
-        changeSaved = true;
+        isChanged = true;
     }
 
     @NonNull
@@ -76,16 +78,25 @@ public class IngredientesDeRecetaAdapter
             holder.et_cantidad.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View view, boolean hasFocus) {
-                    if (!hasFocus && !changeSaved) {
-                        // https://www.baeldung.com/java-check-string-number
-                        EditText editText = view.findViewById(R.id.et_shared_c_item_cantidad);
-                        String newValue = editText.getText().toString();
-                        if (!newValue.isEmpty() && IS_NUMERIC.matcher(newValue).matches()) {
-                            ingrediente.setCantidad(Integer.parseInt(newValue));
-                            listener.toUpdateUtiliza(ingrediente);
-                        }
-                        changeSaved = true;
+                    if (!hasFocus) holder.et_cantidad.clearFocus();
+                    if (!hasFocus && isChanged) {
+                        EditText toUpdate = view.findViewById(R.id.et_shared_c_item_cantidad);
+                        String newValue = toUpdate.getText().toString();
+                        saveChange(newValue, ingrediente);
+                        isChanged = false;
                     }
+                }
+            });
+            holder.et_cantidad.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                    if(actionId == EditorInfo.IME_ACTION_DONE){
+                        holder.et_cantidad.clearFocus();
+                        String newValue = textView.getText().toString();
+                        saveChange(newValue, ingrediente);
+                        isChanged = false;
+                    }
+                    return false;
                 }
             });
             holder.et_cantidad.addTextChangedListener(new TextWatcher() {
@@ -97,10 +108,27 @@ public class IngredientesDeRecetaAdapter
 
                 @Override
                 public void afterTextChanged(Editable editable) {
-                    changeSaved = false;
+                    isChanged = validateChange(editable.toString(), ingrediente);
                 }
             });
         }
+    }
+
+    private void saveChange(String newValue, Utiliza toUpdate) {
+        if (validateChange(newValue, toUpdate)) {
+            toUpdate.setCantidad(Integer.parseInt(newValue));
+            listener.toUpdateUtiliza(toUpdate);
+        }
+    }
+
+    private boolean validateChange(String newValue, Utiliza toUpdate) {
+        if (newValue.isEmpty()) return false;
+
+        boolean isNumber = IS_NUMERIC.matcher(newValue).matches();
+        if (!isNumber) return false;
+
+        int newValueAsInt = Integer.parseInt(newValue);
+        return newValueAsInt != toUpdate.getCantidad();
     }
 
     @Override
