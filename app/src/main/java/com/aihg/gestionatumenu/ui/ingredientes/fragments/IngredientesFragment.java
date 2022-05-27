@@ -42,43 +42,7 @@ public class IngredientesFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
         viewModel = new ViewModelProvider(this).get(IngredientesViewModel.class);
-
-        viewModel
-            .getCategorias()
-            .observe(this, new Observer<List<CategoriaIngrediente>>() {
-                @Override
-                public void onChanged(List<CategoriaIngrediente> categorias) {
-                    adapter.setCategorias(categorias);
-
-                }
-            });
-        viewModel
-            .getIngredientes()
-            .observe(this, new Observer<List<Ingrediente>>() {
-                @Override
-                public void onChanged(List<Ingrediente> ingredientes) {
-                    adapter.setIngredientes(ingredientes);
-                }
-            });
-        viewModel
-            .getIngredientesPuedenBorrar()
-            .observe(this, new Observer<List<Ingrediente>>() {
-                @Override
-                public void onChanged(List<Ingrediente> ingredientesOb) {
-                    adapter.setIngredientesPuedenBorrar(ingredientesOb);
-                }
-            });
-
-        listener = new IngredientesListener() {
-            @Override
-            public void onDeleteItem(Ingrediente aBorrar, int posicion) {
-                viewModel.deleteIngrediente(aBorrar);
-                adapter.notifyItemRemoved(posicion);
-                adapter.notifyDataSetChanged();
-            }
-        };
     }
 
     @Nullable
@@ -89,15 +53,19 @@ public class IngredientesFragment extends Fragment {
             @Nullable Bundle savedInstanceState
     ) {
         this.view = inflater.inflate(R.layout.ingredientes__fragment, container, false);
+        setObservers();
+        setRecyclerView();
 
+        return view;
+    }
+
+    public void setRecyclerView(){
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_i_categorias);
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         if (adapter == null) adapter = new ItemsCategoriasAdapter(listener);
         recyclerView.setAdapter(adapter);
-
-        return view;
     }
 
     @Override
@@ -117,5 +85,43 @@ public class IngredientesFragment extends Fragment {
         }
         return super.onOptionsItemSelected(item);
 
+    }
+
+    public void setObservers(){
+
+        viewModel
+            .getCategorias()
+            .observe(getViewLifecycleOwner(), new Observer<List<CategoriaIngrediente>>() {
+                @Override
+                public void onChanged(List<CategoriaIngrediente> categorias) {
+                    adapter.setCategorias(categorias);
+
+                }
+            });
+        viewModel
+            .getIngredientes()
+            .observe(getViewLifecycleOwner(), new Observer<List<Ingrediente>>() {
+                @Override
+                public void onChanged(List<Ingrediente> ingredientes) {
+                    adapter.setIngredientes(ingredientes);
+                }
+            });
+        viewModel
+            .getIngredientesPuedenBorrar()
+            .observe(getViewLifecycleOwner(), new Observer<List<Ingrediente>>() {
+                @Override
+                public void onChanged(List<Ingrediente> ingredientesOb) {
+                    adapter.setIngredientesPuedenBorrar(ingredientesOb);
+                }
+            });
+
+        listener = new IngredientesListener() {
+            @Override
+            public void onDeleteItem(Ingrediente aBorrar, int posicion) {
+                viewModel.deleteIngrediente(aBorrar);
+                adapter.notifyItemRemoved(posicion);
+                adapter.notifyDataSetChanged();
+            }
+        };
     }
 }

@@ -51,6 +51,7 @@ public class BuscarIngredienteFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ingredientesViewModel = new ViewModelProvider(this).get(IngredientesViewModel.class);
     }
 
     @Override
@@ -62,13 +63,12 @@ public class BuscarIngredienteFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setAdapterWithCorrectViewModel();
+        setObservers();
         setRecyclerView();
         setBuscador();
     }
 
-    public void setAdapterWithCorrectViewModel() {
-        ingredientesViewModel = new ViewModelProvider(this).get(IngredientesViewModel.class);
+    public void setObservers() {
 
         NavDestination destinoAnterior = Navigation
                 .findNavController(view)
@@ -92,7 +92,6 @@ public class BuscarIngredienteFragment extends Fragment {
                     });
                 break;
             case R.id.listaCompraFragment:
-                Log.i("LISTA COMPRA", destinoAnterior.getDisplayName());
                 ingredientesViewModel
                     .getIngredientesBuscarListaCompra() // ingredientes que no esten en la lista de la compra
                     .observe(getViewLifecycleOwner(), new Observer<List<Ingrediente>>() {

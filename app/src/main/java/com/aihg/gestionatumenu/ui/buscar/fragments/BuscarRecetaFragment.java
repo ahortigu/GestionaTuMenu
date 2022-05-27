@@ -48,12 +48,13 @@ public class BuscarRecetaFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        recetasViewModel = new ViewModelProvider(this).get(RecetasViewModel.class);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.view =  inflater.inflate(R.layout.shared__buscar_fragments, container, false);
-        setViewModelAndObserver();
+        setObservers();
         setArguments(savedInstanceState);
         setRecyclerView();
         setBuscador();
@@ -65,11 +66,10 @@ public class BuscarRecetaFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
     }
 
-    public void setViewModelAndObserver(){
-        recetasViewModel = new ViewModelProvider(this).get(RecetasViewModel.class);
+    public void setObservers(){
         recetasViewModel
             .getRecetas()
-            .observe(requireActivity(), new Observer<List<Receta>>() {
+            .observe(getViewLifecycleOwner(), new Observer<List<Receta>>() {
                 @Override
                 public void onChanged(List<Receta> recetasOb) {
                     adapter.setRecetas(recetasOb);

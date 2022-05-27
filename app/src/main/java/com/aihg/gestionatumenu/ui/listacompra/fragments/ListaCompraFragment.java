@@ -57,12 +57,14 @@ public class ListaCompraFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        viewModel = new ViewModelProvider(this).get(ListaCompraViewModel.class);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.view = inflater.inflate(R.layout.listacompra__fragment, container, false);
-        setViewModelAndObserver();
+
+        setObservers();
         saveArguments(savedInstanceState);
         setBuscador();
         setRecyclerView();
@@ -88,8 +90,7 @@ public class ListaCompraFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    public void setViewModelAndObserver(){
-        viewModel = new ViewModelProvider(this).get(ListaCompraViewModel.class);
+    public void setObservers(){
         viewModel.
                 getAllDespensa()
                 .observe(getViewLifecycleOwner(), new Observer<List<ListaCompra>>() {
