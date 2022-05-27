@@ -48,13 +48,14 @@ public class DespensaFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        viewModel = new ViewModelProvider(this).get(DespensaViewModel.class);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.view = inflater.inflate(R.layout.despensa__fragment, container, false);
 
-        setViewModelsObserversListeners();
+        setObservers();
         saveArguments(savedInstanceState);
         setRecyclerView();
 
@@ -79,11 +80,10 @@ public class DespensaFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    public void setViewModelsObserversListeners(){
-        viewModel = new ViewModelProvider(this).get(DespensaViewModel.class);
+    public void setObservers(){
         viewModel
             .getCategorias()
-            .observe(requireActivity(), new Observer<List<CategoriaIngrediente>>() {
+            .observe(getViewLifecycleOwner(), new Observer<List<CategoriaIngrediente>>() {
                 @Override
                 public void onChanged(List<CategoriaIngrediente> categoriasOb) {
                     adapter.setCategorias(categoriasOb);
@@ -91,7 +91,7 @@ public class DespensaFragment extends Fragment {
             });
         viewModel
             .getDespensa()
-            .observe(requireActivity(), new Observer<List<Despensa>>() {
+            .observe(getViewLifecycleOwner(), new Observer<List<Despensa>>() {
                 @Override
                 public void onChanged(List<Despensa> despensaOb) {
                     adapter.setDespensaItems(despensaOb);
