@@ -178,7 +178,10 @@
         tools:layout="@layout/ingredientes_create_fragment" >
         <action
             android:id="@+id/action_ingredientesCreate_to_ingredientesFragment"
-            app:destination="@id/ingredientesFragment" />
+            app:destination="@id/ingredientesFragment"
+            app:popUpTo="@id/ingredientesFragment"
+            app:popUpToInclusive="true"
+            />
     </fragment>
     <fragment
         android:id="@+id/recetasCreateFragment"
@@ -187,7 +190,10 @@
         tools:layout="@layout/recetas__edit_create_fragment" >
         <action
             android:id="@+id/action_recetasCreateFragment_to_recetasFragment"
-            app:destination="@id/recetasFragment" />
+            app:destination="@id/recetasFragment"
+            app:popUpTo="@id/recetasFragment"
+            app:popUpToInclusive="true"
+            />
         <action
             android:id="@+id/action_recetasCreateFragment_to_buscarIngredienteFragment"
             app:destination="@id/buscarIngredienteFragment"

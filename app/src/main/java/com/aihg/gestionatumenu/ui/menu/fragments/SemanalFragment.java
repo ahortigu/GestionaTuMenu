@@ -32,7 +32,7 @@ public class SemanalFragment extends AbstractMenuFragment {
     protected void setObservers() {
         getViewModel()
             .getSemanal()
-            .observe(this, new Observer<List<Semanal>>() {
+            .observe(getViewLifecycleOwner(), new Observer<List<Semanal>>() {
                 @Override
                 public void onChanged(List<Semanal> semanal) {
                     getAdapter().setMenu(

@@ -44,27 +44,28 @@ public abstract class AbstractMenuFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
         viewModel = new ViewModelProvider(this).get(MenuViewModel.class);
-        setObservers();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.view = inflater.inflate(R.layout.menu__fragment, container, false);
 
+        setObservers();
         setearLogicaBotones();
+        setRecyclerView();
+        saveArguments(savedInstanceState);
 
+        return this.view;
+    }
+
+    public void setRecyclerView(){
         this.recyclerView = (RecyclerView) view.findViewById(R.id.rv_m_dias);
         this.recyclerView.setHasFixedSize(false);
         this.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         if (adapter == null) this.adapter = new ItemsMenuAdapter(isSemanal, isPlanificador);
         this.recyclerView.setAdapter(this.adapter);
-
-        saveArguments(savedInstanceState);
-
-        return this.view;
     }
 
 

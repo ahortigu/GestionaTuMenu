@@ -34,7 +34,7 @@ public class PlanificadorFragment extends AbstractMenuFragment {
     protected void setObservers() {
         getViewModel()
                 .getPlanificador()
-                .observe(this, new Observer<List<Planificador>>() {
+                .observe(getViewLifecycleOwner(), new Observer<List<Planificador>>() {
                     @Override
                     public void onChanged(List<Planificador> planificadors) {
                         getAdapter().setMenu(
@@ -46,7 +46,7 @@ public class PlanificadorFragment extends AbstractMenuFragment {
                 });
         getViewModel()
                 .getSemanal()
-                .observe(this, new Observer<List<Semanal>>() {
+                .observe(getViewLifecycleOwner(), new Observer<List<Semanal>>() {
                     @Override
                     public void onChanged(List<Semanal> semanal) {
                     }
@@ -60,7 +60,6 @@ public class PlanificadorFragment extends AbstractMenuFragment {
             PlanificadorFragmentArgs args = PlanificadorFragmentArgs.fromBundle(bundle);
             Planificador aActualizar = args.getUpdatePlanificador();
             if (aActualizar != null) {
-                Log.i("ACTUALIZANDO", "El menu a actulizar es " + aActualizar);
                 getViewModel().updateRecetaPlanificador(aActualizar);
             }
         }
