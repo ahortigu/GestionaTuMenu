@@ -22,8 +22,8 @@ public class MainActivity extends AppCompatActivity implements AppBarConfigurati
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(R.style.SplashScreem);
         setContentView(R.layout.activity_main);
+
         //NavController
         navHostFragment = (NavHostFragment) getSupportFragmentManager()
             .findFragmentById(R.id.nav_host_fragment_activity_main);
