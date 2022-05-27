@@ -1,5 +1,7 @@
 package com.aihg.gestionatumenu.ui.util;
 
+import com.aihg.gestionatumenu.db.entities.CategoriaReceta;
+
 import java.util.regex.Pattern;
 
 public class GestionaTuMenuConstants {
@@ -42,4 +44,5 @@ public class GestionaTuMenuConstants {
     public static final String INGREDIENTE_CREAR_HINT_NOMBRE = "Nombre del Ingrediente";
 
     public static final Pattern IS_NUMERIC = Pattern.compile("-?\\d+(\\.\\d+)?");
+    public static final CategoriaReceta SELECCIONA_CATEGORIA = new CategoriaReceta(RECETA_SELECT_CATEGORIA_SPINNER);
 }

@@ -132,28 +132,67 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/l_rce_expandable_categorias"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/granate_osuro"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/borde_fondo_mostaza_claro"
                     android:padding="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/lb_rce_categorias">
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_rce_categorias"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/l_rec_cat1"
                         android:layout_width="match_parent"
-                        android:layout_height="165dp"
-                        android:background="@drawable/borde_fondo_mostaza_claro"
-                        android:maxHeight="100dp"
-                        android:minHeight="80dp"
-                        android:padding="5dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/borde_fondo_blanco"
+                        app:layout_constraintBottom_toTopOf="@+id/l_rec_cat2"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:listitem="@layout/shared__subitem_spinner" />
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <Spinner
+                            android:id="@+id/sp_rec_cat1"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:layout_marginHorizontal="15dp"
+                            android:layout_marginVertical="10dp"
+                            android:popupBackground="@drawable/spinner_decoration"
+                            android:textAlignment="textEnd"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="SpeakableTextPresentCheck" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/l_rec_cat2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/borde_fondo_blanco"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/l_rec_cat1">
+
+                        <Spinner
+                            android:id="@+id/sp_rec_cat2"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:layout_marginHorizontal="15dp"
+                            android:layout_marginVertical="10dp"
+                            android:popupBackground="@drawable/spinner_decoration"
+                            android:textAlignment="textEnd"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="SpeakableTextPresentCheck" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>

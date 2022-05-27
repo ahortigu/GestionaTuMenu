@@ -1,15 +1,15 @@
 package com.aihg.gestionatumenu.ui.recetas.fragments;
 
 import static androidx.recyclerview.widget.ItemTouchHelper.RIGHT;
-import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.NO_INGREDIENTE;
 import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.RECETA_CREAR_DUPLICADA;
 import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.RECETA_CREAR_EXITO;
 import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.RECETA_CREAR_HINT_INSTRUCCIONES;
 import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.RECETA_CREAR_HINT_NOMBRE;
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.SELECCIONA_CATEGORIA;
 import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.TOAST_CAMPO_VACIO;
 import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.TOAST_MIN_INGREDIENTES_RECETA_CREAR;
-
-import static java.util.stream.Collectors.toList;
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.TOAST_RECETA_EDIT_BORRAR_TODAS_CATEGORIAS;
+import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.TOAST_RECETA_EDIT_CATEGORIA_DUPLICADA;
 
 import android.os.Bundle;
 
@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -34,8 +35,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +54,7 @@ import com.aihg.gestionatumenu.ui.recetas.listener.RecetaListener;
 import com.aihg.gestionatumenu.ui.recetas.viewmodel.RecetasViewModel;
 import com.aihg.gestionatumenu.ui.recetas.wrapper.RecetaTemporalWrapper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -58,22 +62,30 @@ public class RecetasCreateFragment extends Fragment {
     private View view;
     private RecetasViewModel viewModel;
     private RecetaListener listener;
-
-    private RecyclerView rvCategoria;
-    private CategoriasDeRecetaAdapter categoriasAdapter;
-
-    private RecyclerView rvIngrediente;
-    private IngredientesDeRecetaAdapter ingredienteAdapter;
-
     private RecetaTemporalWrapper receta;
 
     private EditText et_rce_nombre_receta;
+
+    private boolean isCategoriaExpandido;
+    private ConstraintLayout l_rce_expandable_categorias_parent;
+    private ConstraintLayout l_rce_expandable_categorias;
+    private ImageView iv_rce_arrow_categorias;
+
+    private CategoriasDeRecetaAdapter categoriasCat1Adapter;
+    private CategoriasDeRecetaAdapter categoriasCat2Adapter;
+    private Spinner spCat1;
+    private Spinner spCat2;
+    private CategoriaReceta previoSpCat1;
+    private CategoriaReceta previoSpCat2;
+    private List<CategoriaReceta> categorias;
 
     private boolean isIngredienteExpandido;
     private ConstraintLayout l_rce_expandable_ingredientes_parent;
     private ConstraintLayout l_rce_expandable_ingredientes;
     private ImageView iv_rce_arrow_ingredientes;
     private ImageView iv_rce_plus;
+    private RecyclerView rvIngrediente;
+    private IngredientesDeRecetaAdapter ingredienteAdapter;
 
     private boolean isInstruccionesExpandido;
     private ConstraintLayout l_rce_expandable_instrucciones_parent;
@@ -81,15 +93,15 @@ public class RecetasCreateFragment extends Fragment {
     private EditText et_rce_instrucciones;
     private ImageView iv_rce_instrucciones;
 
-    private boolean isCategoriaExpandido;
-    private ConstraintLayout l_rce_expandable_categorias_parent;
-    private ConstraintLayout l_rce_expandable_categorias;
-    private ImageView iv_rce_arrow_categorias;
-
     public RecetasCreateFragment() {
         this.isInstruccionesExpandido = true;
         this.isCategoriaExpandido = true;
         this.isIngredienteExpandido = true;
+
+        this.previoSpCat1 = SELECCIONA_CATEGORIA;
+        this.previoSpCat2 = SELECCIONA_CATEGORIA;
+
+        this.categorias = new ArrayList<>();
     }
 
     @Override
@@ -98,20 +110,11 @@ public class RecetasCreateFragment extends Fragment {
         setHasOptionsMenu(true);
 
         viewModel = new ViewModelProvider(this).get(RecetasViewModel.class);
-
-        loadRecetaEnCreacion();
-        loadObservers();
-        loadListener();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.view = inflater.inflate(R.layout.recetas__edit_create_fragment, container, false);
-
-        loadCategoriasReceta();
-        loadIngredientesReceta();
-        loadNombreReceta();
-        loadInstrucciones();
 
         return view;
     }
@@ -119,6 +122,15 @@ public class RecetasCreateFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        loadRecetaEnCreacion();
+        loadObservers();
+        loadListener();
+
+        loadCategoriasReceta();
+        loadIngredientesReceta();
+        loadNombreReceta();
+        loadInstrucciones();
 
         this.iv_rce_plus = this.view.findViewById(R.id.iv_rce_plus);
         this.iv_rce_plus.setOnClickListener(new View.OnClickListener() {
@@ -191,13 +203,6 @@ public class RecetasCreateFragment extends Fragment {
     }
 
     private void loadCategoriasReceta() {
-        this.rvCategoria = (RecyclerView) view.findViewById(R.id.rv_rce_categorias);
-        this.rvCategoria.setHasFixedSize(false);
-        this.rvCategoria.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        if (categoriasAdapter == null) categoriasAdapter = new CategoriasDeRecetaAdapter(listener);
-        this.rvCategoria.setAdapter(categoriasAdapter);
-
         this.l_rce_expandable_categorias_parent = view.findViewById(R.id.l_rce_categorias);
         this.l_rce_expandable_categorias = view.findViewById(R.id.l_rce_expandable_categorias);
         this.iv_rce_arrow_categorias = view.findViewById(R.id.iv_rce_arrow_categorias);
@@ -214,6 +219,58 @@ public class RecetasCreateFragment extends Fragment {
                     isCategoriaExpandido ? R.drawable.ic_arrow_up : R.drawable.ic_arrow_down
                 );
             }
+        });
+
+        crearSpinner1();
+        crearSpinner2();
+
+        categoriasCat1Adapter.setNotifyOnChange(false);
+        categoriasCat2Adapter.setNotifyOnChange(false);
+    }
+
+    private void crearSpinner1(){
+        if (categoriasCat1Adapter == null) categoriasCat1Adapter = new CategoriasDeRecetaAdapter(
+            view.getContext(),
+            android.R.layout.simple_spinner_item,
+            categorias
+        );
+        else categoriasCat1Adapter.setElementos(categorias);
+        categoriasCat1Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spCat1 = (Spinner) view.findViewById(R.id.sp_rec_cat1);
+        spCat1.setAdapter(categoriasCat1Adapter);
+        spCat1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                CategoriaReceta seleccionada = (CategoriaReceta) spCat1.getSelectedItem();
+                if (!previoSpCat1.equals(seleccionada)) changeOnCategoria(seleccionada, 1);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {}
+        });
+    }
+
+
+    private void crearSpinner2(){
+        if (categoriasCat2Adapter == null) categoriasCat2Adapter = new CategoriasDeRecetaAdapter(
+            view.getContext(),
+            android.R.layout.simple_spinner_item,
+            categorias
+        );
+        else categoriasCat2Adapter.setElementos(categorias);
+        categoriasCat2Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spCat2 = (Spinner) view.findViewById(R.id.sp_rec_cat2);
+        spCat2.setAdapter(categoriasCat2Adapter);
+        spCat2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                CategoriaReceta seleccionada = (CategoriaReceta) spCat2.getSelectedItem();
+                if (!previoSpCat2.equals(seleccionada)) changeOnCategoria(seleccionada, 2);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {}
         });
     }
 
@@ -290,26 +347,130 @@ public class RecetasCreateFragment extends Fragment {
     private void loadObservers() {
         viewModel
             .getCategorias()
-            .observe(this, new Observer<List<CategoriaReceta>>() {
+            .observe(getViewLifecycleOwner(), new Observer<List<CategoriaReceta>>() {
                 @Override
-                public void onChanged(List<CategoriaReceta> categoriaRecetas) {
-                    categoriasAdapter.setCategorias(categoriaRecetas);
-                    categoriasAdapter.setCatalogas(
-                        receta
-                            .getCategorias()
-                            .stream()
-                            .map(cat -> new Cataloga(receta.getReceta(), cat))
-                            .collect(toList())
-                    );
+                public void onChanged(List<CategoriaReceta> categoriaRecetasOb) {
+                    categorias = categoriaRecetasOb;
+                    if (!categorias.contains(SELECCIONA_CATEGORIA)) {
+                        categorias.add(0, SELECCIONA_CATEGORIA);
+                    }
+
+                    categoriasCat1Adapter.setElementos(categorias);
+                    categoriasCat2Adapter.setElementos(categorias);
+
+                    loadValoresSpinner();
                 }
             });
     }
 
+    private void validarSpinnerDondeTrabajar(int spinner) {
+        if (spinner < 1 && spinner > 2) throw new IllegalStateException("Spinner no contemplado");
+    }
+
+    private CategoriaReceta getPrevioSpinner(int spinner) {
+        validarSpinnerDondeTrabajar(spinner);
+
+        if (spinner == 1) return previoSpCat1;
+        else return previoSpCat2;
+    }
+
+    private void setPrevioSpinner(CategoriaReceta nueva, int spinner) {
+        validarSpinnerDondeTrabajar(spinner);
+
+        if (spinner == 1) previoSpCat1 = nueva;
+        else previoSpCat2 = nueva;
+    }
+
+    private void setDefaultSeleccion(int spinner) {
+        validarSpinnerDondeTrabajar(spinner);
+        if (spinner == 1) {
+            categoriasCat1Adapter.setNotifyOnChange(false);
+            int position1 = categoriasCat1Adapter.getPositionItem(SELECCIONA_CATEGORIA);
+            previoSpCat1 = SELECCIONA_CATEGORIA;
+            spCat1.setSelection(position1);
+            categoriasCat1Adapter.setNotifyOnChange(true);
+        }
+        if (spinner == 2) {
+            categoriasCat2Adapter.setNotifyOnChange(false);
+            int position2 = categoriasCat2Adapter.getPositionItem(SELECCIONA_CATEGORIA);
+            previoSpCat2 = SELECCIONA_CATEGORIA;
+            spCat2.setSelection(position2);
+            categoriasCat2Adapter.setNotifyOnChange(true);
+        }
+    }
+
+    private void setPreviousSeleccion(int spinner) {
+        validarSpinnerDondeTrabajar(spinner);
+        if (spinner == 1) {
+            categoriasCat1Adapter.setNotifyOnChange(false);
+            int position1 = categoriasCat1Adapter.getPositionItem(previoSpCat1);
+            spCat1.setSelection(position1);
+            categoriasCat1Adapter.setNotifyOnChange(true);
+        }
+        if (spinner == 2) {
+            categoriasCat2Adapter.setNotifyOnChange(false);
+            int position2 = categoriasCat2Adapter.getPositionItem(previoSpCat2);
+            spCat2.setSelection(position2);
+            categoriasCat2Adapter.setNotifyOnChange(true);
+        }
+    }
+
+    private void changeOnCategoria(CategoriaReceta seleccionada, int spinner) {
+        List<CategoriaReceta> seleccionadas = receta.getCategorias();
+        CategoriaReceta previa = getPrevioSpinner(spinner);
+
+        if (!previa.equals(seleccionada)) {
+            if (seleccionadas.contains(seleccionada)) {
+                setDefaultSeleccion(spinner);
+                Toast.makeText(
+                    view.getContext(), TOAST_RECETA_EDIT_CATEGORIA_DUPLICADA, Toast.LENGTH_SHORT
+                ).show();
+            } else if (SELECCIONA_CATEGORIA.equals(seleccionada)) {
+                if (seleccionadas.size() > 1 ) {
+                    receta.deleteCategoria(seleccionada);
+                    setPrevioSpinner(seleccionada, spinner);
+                } else {
+                    setPreviousSeleccion(spinner);
+                    Toast.makeText(
+                        view.getContext(), TOAST_RECETA_EDIT_BORRAR_TODAS_CATEGORIAS, Toast.LENGTH_SHORT
+                    ).show();
+                }
+            } else {
+                if (!SELECCIONA_CATEGORIA.equals(previa)) receta.deleteCategoria(seleccionada);
+                receta.anadirCategoria(seleccionada);
+                setPrevioSpinner(seleccionada, spinner);
+            }
+        }
+    }
+
+    private void loadValoresSpinner() {
+        List<CategoriaReceta> seleccionadas = receta.getCategorias();
+        if (!seleccionadas.isEmpty()) {
+            categoriasCat1Adapter.setNotifyOnChange(false);
+            categoriasCat2Adapter.setNotifyOnChange(false);
+
+            CategoriaReceta first = seleccionadas.get(0);
+
+            CategoriaReceta second = null;
+            if (seleccionadas.size() > 1) second = seleccionadas.get(1);
+            else second = SELECCIONA_CATEGORIA;
+
+            int position1 = categoriasCat1Adapter.getPositionItem(first);
+            previoSpCat1 = first;
+            spCat1.setSelection(position1);
+
+            int position2 = categoriasCat2Adapter.getPositionItem(second);
+            previoSpCat2 = second;
+            spCat2.setSelection(position2);
+
+            categoriasCat1Adapter.setNotifyOnChange(true);
+            categoriasCat2Adapter.setNotifyOnChange(true);
+        }
+    }
+
     private void loadRecetaEnCreacion() {
         receta = RecetasCreateFragmentArgs.fromBundle(getArguments()).getOnCreation();
-        if (receta == null) {
-            receta = new RecetaTemporalWrapper();
-        }
+        if (receta == null) receta = new RecetaTemporalWrapper();
     }
 
     private void loadListener() {
@@ -331,13 +492,13 @@ public class RecetasCreateFragment extends Fragment {
             @Override
             public void toDeleteCatalogo(CategoriaReceta categoriaBorrar) {
                 receta.deleteCategoria(categoriaBorrar);
-                categoriasAdapter.notifyDataSetChanged();
+                categoriasCat1Adapter.notifyDataSetChanged();
             }
 
             @Override
             public void toAddCatalogo(CategoriaReceta categoriaAnadir) {
                 receta.anadirCategoria(categoriaAnadir);
-                categoriasAdapter.notifyDataSetChanged();
+                categoriasCat1Adapter.notifyDataSetChanged();
             }
 
             @Override
