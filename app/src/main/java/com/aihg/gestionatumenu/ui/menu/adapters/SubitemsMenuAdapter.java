@@ -1,8 +1,11 @@
 package com.aihg.gestionatumenu.ui.menu.adapters;
 
+import android.annotation.SuppressLint;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -57,6 +60,8 @@ public class SubitemsMenuAdapter extends RecyclerView.Adapter<SubitemsMenuAdapte
 
     private void setConfigOnTextView(@NonNull SubItemMenuViewHolder holder, MenuInterface menu) {
         holder.lb_momento.setText(menu.getNombreMomentoDia());
+        if(isPlanificador) holder.iv_imagen.setVisibility(View.GONE);
+
         if (menu.hasReceta()) {
             holder.txt_receta.setText(menu.getNombreReceta());
             holder.v_subitem.setOnClickListener(new View.OnClickListener() {
@@ -90,10 +95,15 @@ public class SubitemsMenuAdapter extends RecyclerView.Adapter<SubitemsMenuAdapte
         }
     }
 
+    @SuppressLint("ResourceAsColor")
     private void setConfigTextViewSemanalSinReceta(
         @NonNull SubItemMenuViewHolder holder, MenuInterface menu
     ) {
-        if(isSemanal) holder.txt_receta.setText("Sin receta planificada");
+        if(isSemanal) {
+            holder.txt_receta.setText("Sin receta planificada");
+            holder.txt_receta.setTextColor(R.color.gris_claro);
+            holder.iv_imagen.setVisibility(View.GONE);
+        };
     }
 
     private void setConfigTextViewPlanificadorSinReceta(
@@ -123,12 +133,14 @@ public class SubitemsMenuAdapter extends RecyclerView.Adapter<SubitemsMenuAdapte
 
         private TextView lb_momento;
         private TextView txt_receta;
+        private ImageView iv_imagen;
 
         public SubItemMenuViewHolder(@NonNull View itemView) {
             super(itemView);
             v_subitem = itemView;
             lb_momento = itemView.findViewById(R.id.lb_m_momento);
             txt_receta = itemView.findViewById(R.id.txt_m_receta);
+            iv_imagen = itemView.findViewById(R.id.iv_m_receta);
         }
     }
 }
