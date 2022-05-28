@@ -288,7 +288,7 @@ public class RecetaEditFragment extends Fragment {
     }
 
     private void changeOnCategoria(CategoriaReceta seleccionada, int spinner) {
-            public void toDeteleReceta(Receta borrar) {}
+        Log.i("changeOnCategoria", "being called");
         CategoriaReceta previa = getPrevioSpinner(spinner);
 
         if (!previa.equals(seleccionada)) {
@@ -316,7 +316,7 @@ public class RecetaEditFragment extends Fragment {
     }
 
     private void loadValoresSpinner() {
-        this.rvCategoria = (RecyclerView) view.findViewById(R.id.rv_rce_categorias);
+        Log.i("loadValoresSpinner", "being called");
         if (!seleccionadas.isEmpty()) {
             categoriasCat1Adapter.setNotifyOnChange(false);
             categoriasCat2Adapter.setNotifyOnChange(false);

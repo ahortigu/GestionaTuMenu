@@ -427,6 +427,7 @@ public class RecetasCreateFragment extends Fragment {
                 ).show();
             } else if (SELECCIONA_CATEGORIA.equals(seleccionada)) {
                 if (seleccionadas.size() > 1 ) {
+                    Log.i("BORRANDO", seleccionada.toString());
                     receta.deleteCategoria(seleccionada);
                     setPrevioSpinner(seleccionada, spinner);
                 } else {

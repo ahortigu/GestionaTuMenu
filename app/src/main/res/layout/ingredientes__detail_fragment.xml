@@ -57,6 +57,7 @@
                 android:id="@+id/txt_id_ingrediente"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLength="25"
                 android:paddingHorizontal="15dp"
                 android:paddingVertical="10dp"
                 android:text="@string/nombre_up"
