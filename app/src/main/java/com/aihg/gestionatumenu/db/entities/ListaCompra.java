@@ -4,13 +4,25 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
 
-@Entity(tableName = LISTACOMPRA)
+@Entity(
+    tableName = LISTACOMPRA,
+    foreignKeys = @ForeignKey(
+        entity = Ingrediente.class,
+        parentColumns = "id_ingrediente",
+        childColumns = "id_ingrediente"
+    ),
+    indices = {@Index(
+        value = {"id_lista_compra", "id_ingrediente"}
+    )}
+)
 public class ListaCompra implements Serializable, IngredienteInterface {
 
     @PrimaryKey(autoGenerate = true)
@@ -18,7 +30,7 @@ public class ListaCompra implements Serializable, IngredienteInterface {
     public int id;
 
     @NonNull
-    @ColumnInfo(name = "cantidad_lista_compra",  index = true)
+    @ColumnInfo(name = "cantidad_lista_compra")
     public int cantidad;
 
     @Embedded

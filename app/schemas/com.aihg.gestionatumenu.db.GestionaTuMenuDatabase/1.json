@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "a5a1a1dadccb43585d9deb0b2a6b2f97",
+    "identityHash": "fb54b39c235e1feb20c756e1192f5313",
     "entities": [
       {
         "tableName": "ingredientes",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_ingrediente` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nombre_ingrediente` TEXT NOT NULL, `id_medicion` INTEGER, `nombre_medicion` TEXT, `id_categoria` INTEGER, `nombre_categoria` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_ingrediente` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nombre_ingrediente` TEXT NOT NULL, `id_medicion` INTEGER, `nombre_medicion` TEXT, `id_categoria` INTEGER, `nombre_categoria` TEXT, FOREIGN KEY(`id_categoria`) REFERENCES `categorias_ingrediente`(`id_categoria`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`id_medicion`) REFERENCES `mediciones`(`id_medicion`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "id",
@@ -53,6 +53,18 @@
         },
         "indices": [
           {
+            "name": "index_ingredientes_id_ingrediente_nombre_ingrediente_id_categoria_id_medicion",
+            "unique": false,
+            "columnNames": [
+              "id_ingrediente",
+              "nombre_ingrediente",
+              "id_categoria",
+              "id_medicion"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_ingredientes_id_ingrediente_nombre_ingrediente_id_categoria_id_medicion` ON `${TABLE_NAME}` (`id_ingrediente`, `nombre_ingrediente`, `id_categoria`, `id_medicion`)"
+          },
+          {
             "name": "index_ingredientes_id_ingrediente",
             "unique": false,
             "columnNames": [
@@ -71,7 +83,30 @@
             "createSql": "CREATE INDEX IF NOT EXISTS `index_ingredientes_nombre_ingrediente` ON `${TABLE_NAME}` (`nombre_ingrediente`)"
           }
         ],
-        "foreignKeys": []
+        "foreignKeys": [
+          {
+            "table": "categorias_ingrediente",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "id_categoria"
+            ],
+            "referencedColumns": [
+              "id_categoria"
+            ]
+          },
+          {
+            "table": "mediciones",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "id_medicion"
+            ],
+            "referencedColumns": [
+              "id_medicion"
+            ]
+          }
+        ]
       },
       {
         "tableName": "categorias_ingrediente",
@@ -97,6 +132,16 @@
           "autoGenerate": true
         },
         "indices": [
+          {
+            "name": "index_categorias_ingrediente_id_categoria_nombre_categoria",
+            "unique": false,
+            "columnNames": [
+              "id_categoria",
+              "nombre_categoria"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_categorias_ingrediente_id_categoria_nombre_categoria` ON `${TABLE_NAME}` (`id_categoria`, `nombre_categoria`)"
+          },
           {
             "name": "index_categorias_ingrediente_id_categoria",
             "unique": false,
@@ -143,6 +188,16 @@
         },
         "indices": [
           {
+            "name": "index_mediciones_id_medicion_nombre_medicion",
+            "unique": false,
+            "columnNames": [
+              "id_medicion",
+              "nombre_medicion"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_mediciones_id_medicion_nombre_medicion` ON `${TABLE_NAME}` (`id_medicion`, `nombre_medicion`)"
+          },
+          {
             "name": "index_mediciones_id_medicion",
             "unique": false,
             "columnNames": [
@@ -165,7 +220,7 @@
       },
       {
         "tableName": "lista_compra",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_lista_compra` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cantidad_lista_compra` INTEGER NOT NULL, `id_ingrediente` INTEGER, `nombre_ingrediente` TEXT, `id_medicion` INTEGER, `nombre_medicion` TEXT, `id_categoria` INTEGER, `nombre_categoria` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_lista_compra` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cantidad_lista_compra` INTEGER NOT NULL, `id_ingrediente` INTEGER, `nombre_ingrediente` TEXT, `id_medicion` INTEGER, `nombre_medicion` TEXT, `id_categoria` INTEGER, `nombre_categoria` TEXT, FOREIGN KEY(`id_ingrediente`) REFERENCES `ingredientes`(`id_ingrediente`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "id",
@@ -224,6 +279,16 @@
         },
         "indices": [
           {
+            "name": "index_lista_compra_id_lista_compra_id_ingrediente",
+            "unique": false,
+            "columnNames": [
+              "id_lista_compra",
+              "id_ingrediente"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_lista_compra_id_lista_compra_id_ingrediente` ON `${TABLE_NAME}` (`id_lista_compra`, `id_ingrediente`)"
+          },
+          {
             "name": "index_lista_compra_id_lista_compra",
             "unique": false,
             "columnNames": [
@@ -231,22 +296,25 @@
             ],
             "orders": [],
             "createSql": "CREATE INDEX IF NOT EXISTS `index_lista_compra_id_lista_compra` ON `${TABLE_NAME}` (`id_lista_compra`)"
-          },
-          {
-            "name": "index_lista_compra_cantidad_lista_compra",
-            "unique": false,
-            "columnNames": [
-              "cantidad_lista_compra"
-            ],
-            "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_lista_compra_cantidad_lista_compra` ON `${TABLE_NAME}` (`cantidad_lista_compra`)"
           }
         ],
-        "foreignKeys": []
+        "foreignKeys": [
+          {
+            "table": "ingredientes",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "id_ingrediente"
+            ],
+            "referencedColumns": [
+              "id_ingrediente"
+            ]
+          }
+        ]
       },
       {
         "tableName": "despensa",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_despensa` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cantidad_despensa` INTEGER NOT NULL, `id_ingrediente` INTEGER, `nombre_ingrediente` TEXT, `id_medicion` INTEGER, `nombre_medicion` TEXT, `id_categoria` INTEGER, `nombre_categoria` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_despensa` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cantidad_despensa` INTEGER NOT NULL, `id_ingrediente` INTEGER, `nombre_ingrediente` TEXT, `id_medicion` INTEGER, `nombre_medicion` TEXT, `id_categoria` INTEGER, `nombre_categoria` TEXT, FOREIGN KEY(`id_ingrediente`) REFERENCES `ingredientes`(`id_ingrediente`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "id",
@@ -305,6 +373,16 @@
         },
         "indices": [
           {
+            "name": "index_despensa_id_despensa_id_ingrediente",
+            "unique": false,
+            "columnNames": [
+              "id_despensa",
+              "id_ingrediente"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_despensa_id_despensa_id_ingrediente` ON `${TABLE_NAME}` (`id_despensa`, `id_ingrediente`)"
+          },
+          {
             "name": "index_despensa_id_despensa",
             "unique": false,
             "columnNames": [
@@ -312,18 +390,21 @@
             ],
             "orders": [],
             "createSql": "CREATE INDEX IF NOT EXISTS `index_despensa_id_despensa` ON `${TABLE_NAME}` (`id_despensa`)"
-          },
-          {
-            "name": "index_despensa_cantidad_despensa",
-            "unique": false,
-            "columnNames": [
-              "cantidad_despensa"
-            ],
-            "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_despensa_cantidad_despensa` ON `${TABLE_NAME}` (`cantidad_despensa`)"
           }
         ],
-        "foreignKeys": []
+        "foreignKeys": [
+          {
+            "table": "ingredientes",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "id_ingrediente"
+            ],
+            "referencedColumns": [
+              "id_ingrediente"
+            ]
+          }
+        ]
       },
       {
         "tableName": "categorias_receta",
@@ -913,7 +994,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a5a1a1dadccb43585d9deb0b2a6b2f97')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'fb54b39c235e1feb20c756e1192f5313')"
     ]
   }
 }
