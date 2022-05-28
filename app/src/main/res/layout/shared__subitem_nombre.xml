@@ -6,16 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:minHeight="70dp"
     app:cardElevation="1dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/l_shared_nombre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/borde_fondo_blanco"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:background="@drawable/borde_fondo_blanco">
 
         <ImageView
             android:id="@+id/iv_shared_n"
@@ -23,11 +20,13 @@
             android:layout_height="75dp"
             android:background="@drawable/borde_fondo_blanco"
             android:contentDescription="@string/imagen_ingrediente"
+            android:padding="3dp"
+            android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            tools:srcCompat="@tools:sample/avatars" />
+            app:srcCompat="@drawable/coliflor2" />
 
         <TextView
             android:id="@+id/txt_shared_n_nombre_item"

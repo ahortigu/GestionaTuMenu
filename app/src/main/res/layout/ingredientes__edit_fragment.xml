@@ -18,12 +18,14 @@
             android:layout_height="200dp"
             android:background="@drawable/borde_fondo_blanco"
             android:contentDescription="@string/imagen_ingrediente"
+            android:padding="3dp"
+            android:scaleType="fitXY"
             app:layout_constraintBottom_toTopOf="@+id/l_ie_ingrediente"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ImageContrastCheck"
-            tools:src="@tools:sample/avatars" />
+            app:srcCompat="@drawable/coliflor2" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/l_ie_ingrediente"
