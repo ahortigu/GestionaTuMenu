@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData;
 
 import com.aihg.gestionatumenu.db.entities.CategoriaIngrediente;
 import com.aihg.gestionatumenu.db.entities.Despensa;
+import com.aihg.gestionatumenu.db.entities.Ingrediente;
 import com.aihg.gestionatumenu.db.repository.GestionaTuMenuRepository;
 
 import java.util.List;
@@ -47,5 +48,9 @@ public class DespensaViewModel extends AndroidViewModel {
     public void deleteDespensa(@NonNull Despensa toDelete) {
         Log.i("VM-DESPENSA", "Deleting " + toDelete.toString());
         repository.delete(toDelete);
+    }
+
+    public LiveData<List<Ingrediente>> getDespensasToUpdate() {
+        return repository.getDespensasToUpdate();
     }
 }

@@ -432,4 +432,8 @@ public class GestionaTuMenuRepository {
             }
         });
     }
+
+    public LiveData<List<Ingrediente>> getDespensasToUpdate() {
+        return despensaDAO.getDespensasToUpdate();
+    }
 }
