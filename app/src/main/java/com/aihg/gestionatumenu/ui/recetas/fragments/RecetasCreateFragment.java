@@ -303,35 +303,36 @@ public class RecetasCreateFragment extends Fragment {
     }
 
     private void guardarReceta() {
-        viewModel
-            .insertReceta(receta.getReceta());
+        viewModel.insertReceta(receta.getReceta());
         viewModel
             .getRecetaByNombre(receta.getNombre())
             .observe(getViewLifecycleOwner(), new Observer<Receta>() {
                 @Override
                 public void onChanged(Receta recetaInsertada) {
-                    receta
-                        .getCategorias()
-                        .stream()
-                        .forEach(categoriaReceta -> {
-                            viewModel.insertCategoriaReceta(
-                                new Cataloga(recetaInsertada, categoriaReceta)
-                            );
-                        });
-                    receta
-                        .getUtiliza()
-                        .stream()
-                        .forEach(ingrediente -> {
-                            viewModel.insertIngredienteReceta(
-                                new Utiliza(recetaInsertada, ingrediente.getId_ingrediente(), ingrediente.getCantidad())
-                            );
-                        });
-                    Toast.makeText(
-                        view.getContext(), RECETA_CREAR_EXITO, Toast.LENGTH_SHORT
-                    ).show();
-                    NavDirections toRecetas = RecetasCreateFragmentDirections
-                        .actionRecetasCreateFragmentToRecetasFragment();
-                    Navigation.findNavController(view).navigate(toRecetas);
+                    if (recetaInsertada != null) {
+                        receta
+                            .getCategorias()
+                            .stream()
+                            .forEach(categoriaReceta -> {
+                                viewModel.insertCategoriaReceta(
+                                    new Cataloga(recetaInsertada, categoriaReceta)
+                                );
+                            });
+                        receta
+                            .getUtiliza()
+                            .stream()
+                            .forEach(ingrediente -> {
+                                viewModel.insertIngredienteReceta(
+                                    new Utiliza(recetaInsertada, ingrediente.getId_ingrediente(), ingrediente.getCantidad())
+                                );
+                            });
+                        Toast.makeText(
+                            view.getContext(), RECETA_CREAR_EXITO, Toast.LENGTH_SHORT
+                        ).show();
+                        NavDirections toRecetas = RecetasCreateFragmentDirections
+                            .actionRecetasCreateFragmentToRecetasFragment();
+                        Navigation.findNavController(view).navigate(toRecetas);
+                    }
                 }
             });
     }
@@ -427,6 +428,7 @@ public class RecetasCreateFragment extends Fragment {
                 ).show();
             } else if (SELECCIONA_CATEGORIA.equals(seleccionada)) {
                 if (seleccionadas.size() > 1 ) {
+                    Log.i("BORRANDO", seleccionada.toString());
                     receta.deleteCategoria(seleccionada);
                     setPrevioSpinner(seleccionada, spinner);
                 } else {

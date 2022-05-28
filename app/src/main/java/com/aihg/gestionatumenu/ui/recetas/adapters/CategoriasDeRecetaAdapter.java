@@ -15,6 +15,10 @@ public class CategoriasDeRecetaAdapter extends AbstractSpinner<CategoriaReceta> 
         super(context, resource, elementos);
     }
 
+    public boolean isLoaded() {
+        return this.getCount() > 0;
+    }
+
     @Override
     public long getItemId(int position) {
         return getItem(position).getId();

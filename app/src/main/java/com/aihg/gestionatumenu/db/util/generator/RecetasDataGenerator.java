@@ -78,11 +78,11 @@ public class RecetasDataGenerator {
 
     public static final Receta GAMBAS_SALSA_VERDE = new Receta(13, "Gambas con salsa verde", "Instrucciones gambas con salsa verde");
     public static final Receta CALAMARES_SALASA_VERDE = new Receta(14, "Calamares en salsa verde", "Instrucciones calamares en salsa verde");
-    public static final Receta SALMON_ESPARRAGOS = new Receta(2, "Salmón con Esparragos trigueros", "Instrucciones salmon esparragos");
+    public static final Receta SALMON_ESPARRAGOS = new Receta(2, "Salmón con trigueros", "Instrucciones salmón con esparragos triguetos");
 
     public static final Receta GUISANTES_CON_PATATAS = new Receta(15, "Guisantes con patatas", "Instrucciones guisantes con patata");
     public static final Receta ARROZ_CUBANA = new Receta(16, "Arroz a la cubana", "Instrucciones arroz a la cubana");
-    public static final Receta TORTILLA_PATATA = new Receta(1, "Tortilla de Patata", "Instrucciones tortilla de patata");
+    public static final Receta TORTILLA_PATATA = new Receta(1, "Tortilla de patata", "Instrucciones tortilla de patata");
     public static final Receta ZARANGOLLO = new Receta(3, "Zarangollo", "Instrucciones zarangollo");
 
     public static List<CategoriaReceta> getDefaultCategoriasRecetas() {

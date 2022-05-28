@@ -29,6 +29,7 @@ import com.aihg.gestionatumenu.ui.despensa.adapters.ItemsCatDespensaAdapter;
 import com.aihg.gestionatumenu.ui.despensa.viewmodel.DespensaViewModel;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DespensaFragment extends Fragment {
     private RecyclerView recyclerView;
@@ -96,6 +97,14 @@ public class DespensaFragment extends Fragment {
                 public void onChanged(List<Despensa> despensaOb) {
                     adapter.setDespensaItems(despensaOb);
                     despensa = despensaOb;
+                    if (aInsertar != null && !despensa.contains(aInsertar)) {
+                        boolean existe = despensa.stream()
+                            .map(item -> item.getIngrediente())
+                            .collect(Collectors.toList())
+                            .contains(aInsertar.getIngrediente());
+                        if (!existe) viewModel.insertDespensa(aInsertar);
+                        aInsertar = null;
+                    }
                 }
             });
         onItemClickListener = new DespensaListener() {
@@ -132,9 +141,9 @@ public class DespensaFragment extends Fragment {
         if (bundle != null) {
             DespensaFragmentArgs args = DespensaFragmentArgs .fromBundle(bundle);
             this.aInsertar = args.getDespensabuscar();
-            if (aInsertar != null) {
-                viewModel.insertDespensa(aInsertar);
-            }
+            //if (aInsertar != null) {
+            //    viewModel.insertDespensa(aInsertar);
+            //}
         }
     }
 }

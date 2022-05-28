@@ -37,11 +37,13 @@
                     android:layout_width="200dp"
                     android:layout_height="200dp"
                     android:background="@drawable/borde_fondo_blanco"
+                    android:padding="3dp"
+                    android:scaleType="fitXY"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:src="@tools:sample/avatars" />
+                    app:srcCompat="@drawable/coliflor2" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -76,14 +78,15 @@
                     android:layout_marginHorizontal="15dp"
                     android:layout_marginBottom="15dp"
                     android:ems="10"
+                    android:imeOptions="actionDone"
                     android:inputType="textMultiLine|textPersonName"
-                    android:maxLines="2"
+                    android:maxLength="25"
+                    android:maxLines="1"
                     android:minHeight="48dp"
                     android:minLines="1"
                     android:textAlignment="textEnd"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    android:imeOptions="actionDone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
