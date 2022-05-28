@@ -67,7 +67,7 @@ public class SubItemsDespensaAdapter
         if(ingredienteVacio.equals(ingrediente.getIngrediente())){
             holder.iv_imagen.setVisibility(View.GONE);
             holder.txt_medicion.setVisibility(View.GONE);
-            holder.txt_medicion.setVisibility(View.GONE);
+            holder.et_cantidad.setVisibility(View.GONE);
         }
 
         holder.txt_nombre.setText(ingrediente.getIngrediente().getNombre());
