@@ -93,6 +93,8 @@ public class RecetasCreateFragment extends Fragment {
     private EditText et_rce_instrucciones;
     private ImageView iv_rce_instrucciones;
 
+    boolean estaCargado;
+
     public RecetasCreateFragment() {
         this.isInstruccionesExpandido = true;
         this.isCategoriaExpandido = true;
@@ -102,6 +104,7 @@ public class RecetasCreateFragment extends Fragment {
         this.previoSpCat2 = SELECCIONA_CATEGORIA;
 
         this.categorias = new ArrayList<>();
+        this.estaCargado = false;
     }
 
     @Override
@@ -242,8 +245,10 @@ public class RecetasCreateFragment extends Fragment {
         spCat1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                CategoriaReceta seleccionada = (CategoriaReceta) spCat1.getSelectedItem();
-                if (!previoSpCat1.equals(seleccionada)) changeOnCategoria(seleccionada, 1);
+                if (estaCargado) {
+                    CategoriaReceta seleccionada = (CategoriaReceta) spCat1.getSelectedItem();
+                    if (!previoSpCat1.equals(seleccionada)) changeOnCategoria(seleccionada, 1);
+                }
             }
 
             @Override
@@ -265,8 +270,10 @@ public class RecetasCreateFragment extends Fragment {
         spCat2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                CategoriaReceta seleccionada = (CategoriaReceta) spCat2.getSelectedItem();
-                if (!previoSpCat2.equals(seleccionada)) changeOnCategoria(seleccionada, 2);
+                if (estaCargado) {
+                    CategoriaReceta seleccionada = (CategoriaReceta) spCat2.getSelectedItem();
+                    if (!previoSpCat2.equals(seleccionada)) changeOnCategoria(seleccionada, 2);
+                }
             }
 
             @Override
@@ -420,8 +427,11 @@ public class RecetasCreateFragment extends Fragment {
         List<CategoriaReceta> seleccionadas = receta.getCategorias();
         CategoriaReceta previa = getPrevioSpinner(spinner);
 
-        if (!previa.equals(seleccionada)) {
+        if (estaCargado && !previa.equals(seleccionada)) {
             if (seleccionadas.contains(seleccionada)) {
+                if (!SELECCIONA_CATEGORIA.equals(previa)) {
+                    receta.deleteCategoria(previa);
+                }
                 setDefaultSeleccion(spinner);
                 Toast.makeText(
                     view.getContext(), TOAST_RECETA_EDIT_CATEGORIA_DUPLICADA, Toast.LENGTH_SHORT
@@ -438,11 +448,15 @@ public class RecetasCreateFragment extends Fragment {
                     ).show();
                 }
             } else {
-                if (!SELECCIONA_CATEGORIA.equals(previa)) receta.deleteCategoria(seleccionada);
+                if (!SELECCIONA_CATEGORIA.equals(previa)) {
+                    receta.deleteCategoria(previa);
+                }
                 receta.anadirCategoria(seleccionada);
                 setPrevioSpinner(seleccionada, spinner);
             }
         }
+        receta.getCategorias().stream().forEach(item -> Log.i("Categorias", item.toString()));
+        Log.i("Categorias", "");
     }
 
     private void loadValoresSpinner() {
@@ -457,17 +471,28 @@ public class RecetasCreateFragment extends Fragment {
             if (seleccionadas.size() > 1) second = seleccionadas.get(1);
             else second = SELECCIONA_CATEGORIA;
 
-            int position1 = categoriasCat1Adapter.getPositionItem(first);
             previoSpCat1 = first;
-            spCat1.setSelection(position1);
+            if (categoriasCat1Adapter.isLoaded()) {
+                int position1 = categoriasCat1Adapter.getPositionItem(first);
+                spCat1.setSelection(position1);
+            }
 
-            int position2 = categoriasCat2Adapter.getPositionItem(second);
             previoSpCat2 = second;
-            spCat2.setSelection(position2);
+            if (categoriasCat2Adapter.isLoaded()) {
+                int position2 = categoriasCat2Adapter.getPositionItem(second);
+                spCat2.setSelection(position2);
+            }
 
             categoriasCat1Adapter.setNotifyOnChange(true);
             categoriasCat2Adapter.setNotifyOnChange(true);
         }
+        this.estaCargado = isLoaded();
+    }
+
+    private boolean isLoaded() {
+        boolean categoriasAdapterCargadas = categoriasCat2Adapter.isLoaded() && categoriasCat1Adapter.isLoaded();
+        boolean previosCargados = previoSpCat1 != null && previoSpCat2 != null;
+        return categoriasAdapterCargadas && previosCargados;
     }
 
     private void loadRecetaEnCreacion() {
