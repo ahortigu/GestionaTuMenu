@@ -98,6 +98,14 @@ public class ListaCompraFragment extends Fragment {
             public void onChanged(List<ListaCompra> ingredientesOb) {
                 adapter.setIngredientes(ingredientesOb);
                 dondeBuscar = ingredientesOb;
+                if (aInsertar != null && !dondeBuscar.contains(aInsertar)) {
+                    boolean existe = dondeBuscar.stream()
+                        .map(item -> item.getIngrediente())
+                        .collect(Collectors.toList())
+                        .contains(aInsertar.getIngrediente());
+                    if (!existe) viewModel.insertIngrediente(aInsertar);
+                    aInsertar = null;
+                }
             }
         });
         listener = new ListaCompraListener() {
@@ -116,9 +124,6 @@ public class ListaCompraFragment extends Fragment {
         if (bundle != null) {
             ListaCompraFragmentArgs args = ListaCompraFragmentArgs.fromBundle(bundle);
             this.aInsertar = args.getListacomprabuscar();
-            if (aInsertar != null) {
-                viewModel.insertIngrediente(aInsertar);
-            }
         }
     }
 

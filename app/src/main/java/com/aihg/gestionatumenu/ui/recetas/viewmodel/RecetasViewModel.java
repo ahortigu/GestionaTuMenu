@@ -1,6 +1,7 @@
 package com.aihg.gestionatumenu.ui.recetas.viewmodel;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -67,6 +68,7 @@ public class RecetasViewModel extends AndroidViewModel {
     }
 
     public void insertCategoriaReceta(Cataloga categoria) {
+        Log.i("insertCategoriaReceta", categoria.getId_categoria_receta().toString());
         repository.insert(categoria);
     }
 

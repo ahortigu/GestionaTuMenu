@@ -90,6 +90,8 @@ public class RecetaEditFragment extends Fragment {
     private EditText et_rce_instrucciones;
     private ImageView iv_rce_instrucciones;
 
+    boolean estaCargado;
+
     public RecetaEditFragment() {
         this.isIngredienteExpandido = true;
         this.isInstruccionesExpandido = true;
@@ -99,12 +101,15 @@ public class RecetaEditFragment extends Fragment {
         this.categorias = new ArrayList<>();
         this.seleccionadas = new ArrayList<>();
 
-        this.previoSpCat1 = SELECCIONA_CATEGORIA;
-        this.previoSpCat2 = SELECCIONA_CATEGORIA;
+        this.previoSpCat1 = null;
+        this.previoSpCat2 = null;
+
+        this.estaCargado = false;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Log.i("onCreate", "Me han llamado");
         super.onCreate(savedInstanceState);
         receta = RecetaEditFragmentArgs.fromBundle(getArguments()).getAModificar();
         viewModel = new ViewModelProvider(this).get(RecetasViewModel.class);
@@ -112,6 +117,7 @@ public class RecetaEditFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.i("onCreateView", "Me han llamado");
         this.view = inflater.inflate(R.layout.recetas__edit_create_fragment, container, false);
 
         Ingrediente aAnadir = RecetaEditFragmentArgs.fromBundle(getArguments()).getAAnadir();
@@ -122,6 +128,7 @@ public class RecetaEditFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        Log.i("onViewCreated", "Me han llamado");
         super.onViewCreated(view, savedInstanceState);
 
         loadObservers();
@@ -144,6 +151,54 @@ public class RecetaEditFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        Log.i("onViewStateRestored", "Me han llamado");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.i("onStart", "Me han llamado");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.i("onResume", "Me han llamado");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.i("onPause", "Me han llamado");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.i("onStop", "Me han llamado");
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.i("onSaveInstanceState", "Me han llamado");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.i("onDestroyView", "Me han llamado");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i("onDestroy", "Me han llamado");
+    }
+
     private void loadObservers() {
         viewModel
             .getUtilizaByReceta(receta)
@@ -160,9 +215,12 @@ public class RecetaEditFragment extends Fragment {
                 @Override
                 public void onChanged(List<CategoriaReceta> categoriaRecetasOb) {
                     categorias = categoriaRecetasOb;
-                    categorias.add(0, SELECCIONA_CATEGORIA);
+                    if (!categorias.contains(SELECCIONA_CATEGORIA)) {
+                        categorias.add(0, SELECCIONA_CATEGORIA);
+                    }
                     categoriasCat1Adapter.setElementos(categorias);
                     categoriasCat2Adapter.setElementos(categorias);
+                    loadValoresSpinner();
                 }
             });
         viewModel
@@ -171,10 +229,8 @@ public class RecetaEditFragment extends Fragment {
                 @Override
                 public void onChanged(List<Cataloga> catalogasOb) {
                     seleccionadas = catalogasOb;
-                    if (categoriasCat1Adapter != null && categoriasCat2Adapter != null) {
+                    if (categoriasCat1Adapter.isLoaded() && categoriasCat2Adapter.isLoaded()) {
                         loadValoresSpinner();
-                        categoriasCat1Adapter.notifyDataSetChanged();
-                        categoriasCat2Adapter.notifyDataSetChanged();
                     }
                 }
             });
@@ -194,8 +250,10 @@ public class RecetaEditFragment extends Fragment {
         spCat1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                CategoriaReceta seleccionada = (CategoriaReceta) spCat1.getSelectedItem();
-                if (!previoSpCat1.equals(seleccionada)) changeOnCategoria(seleccionada, 1);
+                if (estaCargado) {
+                    CategoriaReceta seleccionada = (CategoriaReceta) spCat1.getSelectedItem();
+                    if (!previoSpCat1.equals(seleccionada)) changeOnCategoria(seleccionada, 1);
+                }
             }
 
             @Override
@@ -217,8 +275,10 @@ public class RecetaEditFragment extends Fragment {
         spCat2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                CategoriaReceta seleccionada = (CategoriaReceta) spCat2.getSelectedItem();
-                if (!previoSpCat2.equals(seleccionada)) changeOnCategoria(seleccionada, 2);
+                if (estaCargado) {
+                    CategoriaReceta seleccionada = (CategoriaReceta) spCat2.getSelectedItem();
+                    if (!previoSpCat2.equals(seleccionada)) changeOnCategoria(seleccionada, 2);
+                }
             }
 
             @Override
@@ -238,6 +298,7 @@ public class RecetaEditFragment extends Fragment {
     }
 
     private void setPrevioSpinner(CategoriaReceta nueva, int spinner) {
+        Log.i("setPrevioSpinner", spinner + " " + nueva.toString());
         validarSpinnerDondeTrabajar(spinner);
 
         if (spinner == 1) previoSpCat1 = nueva;
@@ -245,40 +306,36 @@ public class RecetaEditFragment extends Fragment {
     }
 
     private void setDefaultSeleccion(int spinner) {
+        Log.i("setDefaultSeleccion", "" + spinner);
         validarSpinnerDondeTrabajar(spinner);
         if (spinner == 1) {
-            categoriasCat1Adapter.setNotifyOnChange(false);
             int position1 = categoriasCat1Adapter.getPositionItem(SELECCIONA_CATEGORIA);
             previoSpCat1 = SELECCIONA_CATEGORIA;
             spCat1.setSelection(position1);
-            categoriasCat1Adapter.setNotifyOnChange(true);
         }
         if (spinner == 2) {
-            categoriasCat2Adapter.setNotifyOnChange(false);
             int position2 = categoriasCat2Adapter.getPositionItem(SELECCIONA_CATEGORIA);
             previoSpCat2 = SELECCIONA_CATEGORIA;
             spCat2.setSelection(position2);
-            categoriasCat2Adapter.setNotifyOnChange(true);
         }
     }
 
     private void setPreviousSeleccion(int spinner) {
         validarSpinnerDondeTrabajar(spinner);
         if (spinner == 1) {
-            categoriasCat1Adapter.setNotifyOnChange(false);
+            Log.i("setPreviousSeleccion", spinner + " " + previoSpCat1.toString());
             int position1 = categoriasCat1Adapter.getPositionItem(previoSpCat1);
             spCat1.setSelection(position1);
-            categoriasCat1Adapter.setNotifyOnChange(true);
         }
         if (spinner == 2) {
-            categoriasCat2Adapter.setNotifyOnChange(false);
+            Log.i("setPreviousSeleccion", spinner + " " + previoSpCat2.toString());
             int position2 = categoriasCat2Adapter.getPositionItem(previoSpCat2);
             spCat2.setSelection(position2);
-            categoriasCat2Adapter.setNotifyOnChange(true);
         }
     }
 
     private void borrarCategoriaReceta(CategoriaReceta seleccionada) {
+        Log.i("borrarCategoriaReceta", seleccionada.toString());
         Cataloga aBorrar = seleccionadas
             .stream()
             .filter(cataloga -> cataloga.getId_categoria_receta().equals(seleccionada))
@@ -288,10 +345,10 @@ public class RecetaEditFragment extends Fragment {
     }
 
     private void changeOnCategoria(CategoriaReceta seleccionada, int spinner) {
-        Log.i("changeOnCategoria", "being called");
         CategoriaReceta previa = getPrevioSpinner(spinner);
+        Log.i("changeOnCategoria", "being called- Previo " + previa.toString());
 
-        if (!previa.equals(seleccionada)) {
+        if (estaCargado && !previa.equals(seleccionada)) {
             if (seleccionadas.contains(seleccionada)) {
                 setDefaultSeleccion(spinner);
                 Toast.makeText(
@@ -308,7 +365,9 @@ public class RecetaEditFragment extends Fragment {
                     ).show();
                 }
             } else {
-                if (!SELECCIONA_CATEGORIA.equals(previa)) borrarCategoriaReceta(previa);
+                if (!SELECCIONA_CATEGORIA.equals(previa)) {
+                    borrarCategoriaReceta(previa);
+                }
                 viewModel.insertCategoriaReceta(new Cataloga(receta, seleccionada));
                 setPrevioSpinner(seleccionada, spinner);
             }
@@ -318,26 +377,31 @@ public class RecetaEditFragment extends Fragment {
     private void loadValoresSpinner() {
         Log.i("loadValoresSpinner", "being called");
         if (!seleccionadas.isEmpty()) {
-            categoriasCat1Adapter.setNotifyOnChange(false);
-            categoriasCat2Adapter.setNotifyOnChange(false);
-
             CategoriaReceta first = seleccionadas.get(0).getId_categoria_receta();
 
             CategoriaReceta second = null;
             if (seleccionadas.size() > 1) second = seleccionadas.get(1).getId_categoria_receta();
             else second = SELECCIONA_CATEGORIA;
 
-            int position1 = categoriasCat1Adapter.getPositionItem(first);
             previoSpCat1 = first;
-            spCat1.setSelection(position1);
+            if (categoriasCat1Adapter.isLoaded()) {
+                int position1 = categoriasCat1Adapter.getPositionItem(first);
+                spCat1.setSelection(position1);
+            }
 
-            int position2 = categoriasCat2Adapter.getPositionItem(second);
             previoSpCat2 = second;
-            spCat2.setSelection(position2);
-
-            categoriasCat1Adapter.setNotifyOnChange(true);
-            categoriasCat2Adapter.setNotifyOnChange(true);
+            if (categoriasCat2Adapter.isLoaded()) {
+                int position2 = categoriasCat2Adapter.getPositionItem(second);
+                spCat2.setSelection(position2);
+            }
         }
+        this.estaCargado = isLoaded();
+    }
+
+    private boolean isLoaded() {
+        boolean categoriasAdapterCargadas = categoriasCat2Adapter.isLoaded() && categoriasCat1Adapter.isLoaded();
+        boolean previosCargados = previoSpCat1 != null && previoSpCat2 != null;
+        return categoriasAdapterCargadas && previosCargados;
     }
 
     private void loadCategoriasReceta() {

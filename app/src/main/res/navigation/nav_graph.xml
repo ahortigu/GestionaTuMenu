@@ -148,7 +148,10 @@
         tools:layout="@layout/recetas__details_fragment" >
         <action
             android:id="@+id/action_recetaDetailsFragment_to_recetaEditFragment"
-            app:destination="@id/recetaEditFragment" />
+            app:destination="@id/recetaEditFragment"
+            app:launchSingleTop="false"
+            app:popUpTo="@id/recetaEditFragment"
+            app:popUpToInclusive="true" />
         <argument
             android:name="receta"
             app:argType="com.aihg.gestionatumenu.db.entities.Receta" />
