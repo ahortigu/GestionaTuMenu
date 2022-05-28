@@ -6,24 +6,40 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
-@Entity(tableName = INGREDIENTES)
+@Entity(
+    tableName = INGREDIENTES,
+    foreignKeys = {
+        @ForeignKey(
+            entity = CategoriaIngrediente.class,
+            parentColumns = "id_categoria",
+            childColumns = "id_categoria"
+        ),
+        @ForeignKey(
+            entity = Medicion.class,
+            parentColumns = "id_medicion",
+            childColumns = "id_medicion"
+        )
+    },
+    indices = {@Index(
+        value = {"id_ingrediente", "nombre_ingrediente", "id_categoria", "id_medicion"}
+    )}
+)
 public class Ingrediente implements Serializable, IngredienteInterface {
 
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id_ingrediente",  index = true)
+    @ColumnInfo(name = "id_ingrediente", index = true)
     public int id;
 
     @NonNull
-    @ColumnInfo(name = "nombre_ingrediente",  index = true)
+    @ColumnInfo(name = "nombre_ingrediente", index = true)
     public String nombre;
-
-//    @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
-//    public byte[] imagen;
 
     @Embedded
     public Medicion medicion;
@@ -90,14 +106,15 @@ public class Ingrediente implements Serializable, IngredienteInterface {
     @Override
     public String toString() {
         return "Ingrediente{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", medicion=" + medicion +
-                ", categoriaIngrediente=" + categoriaIngrediente +
-                '}';
+            "id=" + id +
+            ", nombre='" + nombre + '\'' +
+            ", medicion=" + medicion +
+            ", categoriaIngrediente=" + categoriaIngrediente +
+            '}';
     }
 
-    public Ingrediente() {}
+    public Ingrediente() {
+    }
 
     @Ignore
     public Ingrediente(int id, @NonNull String nombre, Medicion medicion, CategoriaIngrediente categoriaIngrediente) {

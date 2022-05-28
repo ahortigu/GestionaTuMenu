@@ -1,6 +1,7 @@
 package com.aihg.gestionatumenu.db.daos;
 
 import static com.aihg.gestionatumenu.db.util.DatabaseTables.DESPENSA;
+import static com.aihg.gestionatumenu.db.util.DatabaseTables.INGREDIENTES;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -11,6 +12,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.aihg.gestionatumenu.db.entities.Despensa;
+import com.aihg.gestionatumenu.db.entities.Ingrediente;
 
 import java.util.List;
 
@@ -27,4 +29,10 @@ public interface DespensaDAO {
 
     @Query("SELECT * FROM " + DESPENSA + " ORDER BY nombre_ingrediente ASC")
     LiveData<List<Despensa>> getAllDespensa();
+
+    @Query(
+        "SELECT i.* FROM " + INGREDIENTES + " i, " + DESPENSA + " p " +
+        "WHERE i.id_ingrediente = p.id_ingrediente AND i.id_categoria != p.id_categoria"
+    )
+    LiveData<List<Ingrediente>> getDespensasToUpdate();
 }

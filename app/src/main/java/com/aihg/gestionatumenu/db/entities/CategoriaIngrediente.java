@@ -6,9 +6,15 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = CATEGORIAS_INGREDIENTE)
+@Entity(
+    tableName = CATEGORIAS_INGREDIENTE,
+    indices = {@Index(
+        value = {"id_categoria", "nombre_categoria"}
+    )}
+)
 public class CategoriaIngrediente {
 
     @PrimaryKey(autoGenerate = true)

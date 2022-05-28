@@ -6,9 +6,15 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = MEDICIONES)
+@Entity(
+    tableName = MEDICIONES,
+    indices = {@Index(
+        value = {"id_medicion", "nombre_medicion"}
+    )}
+)
 public class Medicion {
 
     @PrimaryKey(autoGenerate = true)

@@ -14,6 +14,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,10 +25,12 @@ import android.widget.Toast;
 import com.aihg.gestionatumenu.R;
 import com.aihg.gestionatumenu.db.entities.CategoriaIngrediente;
 import com.aihg.gestionatumenu.db.entities.Despensa;
+import com.aihg.gestionatumenu.db.entities.Ingrediente;
 import com.aihg.gestionatumenu.ui.despensa.listener.DespensaListener;
 import com.aihg.gestionatumenu.ui.despensa.adapters.ItemsCatDespensaAdapter;
 import com.aihg.gestionatumenu.ui.despensa.viewmodel.DespensaViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,8 +44,14 @@ public class DespensaFragment extends Fragment {
 
     private DespensaListener onItemClickListener;
 
+    private List<Ingrediente> toUpdate;
+    private boolean actualizado;
+
     public DespensaFragment() {
         aInsertar = new Despensa();
+        actualizado = true;
+        despensa = new ArrayList<>();
+        toUpdate = new ArrayList<>();
     }
 
     @Override
@@ -61,6 +70,24 @@ public class DespensaFragment extends Fragment {
         setRecyclerView();
 
         return view;
+    }
+
+    private void actualizarDespensa() {
+        if (!despensa.isEmpty() && !toUpdate.isEmpty()) {
+            toUpdate.forEach(ingrediente -> {
+                Despensa toUpdate = despensa.stream()
+                    .filter(item -> item.getIngrediente().getId() == ingrediente.getId())
+                    .findFirst()
+                    .orElseThrow(() -> new IllegalStateException("El ingrediente deberia estar relacionado"));
+
+                toUpdate.setIngrediente(ingrediente);
+                viewModel.updateDespensa(toUpdate);
+                Log.i("Update Data Despensa", "Updated " + toUpdate);
+            });
+            toUpdate.clear();
+            adapter.notifyDataSetChanged();
+            actualizado = true;
+        } else Log.i("Update Data Despensa", "Sin Despensa que actualizar");
     }
 
     @Override
@@ -104,6 +131,18 @@ public class DespensaFragment extends Fragment {
                             .contains(aInsertar.getIngrediente());
                         if (!existe) viewModel.insertDespensa(aInsertar);
                         aInsertar = null;
+                    }
+                    actualizarDespensa();
+                }
+            });
+        viewModel
+            .getDespensasToUpdate()
+            .observe(getViewLifecycleOwner(), new Observer<List<Ingrediente>>() {
+                @Override
+                public void onChanged(List<Ingrediente> ingredientes) {
+                    if (!ingredientes.isEmpty() && actualizado){
+                        toUpdate = ingredientes;
+                        actualizado = false;
                     }
                 }
             });
