@@ -94,6 +94,7 @@ public class RecetasCreateFragment extends Fragment {
     private ImageView iv_rce_instrucciones;
 
     boolean estaCargado;
+    boolean isGuardada;
 
     public RecetasCreateFragment() {
         this.isInstruccionesExpandido = true;
@@ -105,6 +106,7 @@ public class RecetasCreateFragment extends Fragment {
 
         this.categorias = new ArrayList<>();
         this.estaCargado = false;
+        this.isGuardada = false;
     }
 
     @Override
@@ -296,7 +298,7 @@ public class RecetasCreateFragment extends Fragment {
                     .getRecetaByNombre(receta.getNombre())
                     .observe(getViewLifecycleOwner(), recetaExistente -> {
                         if (recetaExistente == null) guardarReceta();
-                        else Toast.makeText(
+                        if (recetaExistente != null && !isGuardada) Toast.makeText(
                             view.getContext(), RECETA_CREAR_DUPLICADA, Toast.LENGTH_SHORT
                         ).show();
                     });
@@ -310,6 +312,7 @@ public class RecetasCreateFragment extends Fragment {
     }
 
     private void guardarReceta() {
+        isGuardada = true;
         viewModel.insertReceta(receta.getReceta());
         viewModel
             .getRecetaByNombre(receta.getNombre())
