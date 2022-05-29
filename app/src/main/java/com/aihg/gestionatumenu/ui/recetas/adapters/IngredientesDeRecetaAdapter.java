@@ -6,6 +6,7 @@ import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.IS_NUMERIC
 import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.NO_INGREDIENTE;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -32,6 +34,7 @@ import java.util.List;
 public class IngredientesDeRecetaAdapter
         extends RecyclerView.Adapter<IngredientesDeRecetaAdapter.IngredientesDeRecetaViewHolder>  {
     private List<Utiliza> ingredientes;
+    private Ingrediente ingredienteVacio;
     private boolean isEditable;
     private boolean isChanged;
 
@@ -57,10 +60,18 @@ public class IngredientesDeRecetaAdapter
         return new IngredientesDeRecetaViewHolder(view);
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "ResourceAsColor"})
     @Override
     public void onBindViewHolder(@NonNull IngredientesDeRecetaViewHolder holder, int position) {
         Utiliza ingrediente = ingredientes.get(position);
+
+        if(ingredienteVacio.equals(ingrediente.getId_ingrediente())){
+            holder.iv_imagen.setVisibility(View.GONE);
+            holder.txt_medicion.setVisibility(View.GONE);
+            holder.et_cantidad.setVisibility(View.GONE);
+            holder.txt_nombre.setTextColor(Color.GRAY);
+            holder.txt_nombre.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
+        }
         holder.txt_nombre.setText(ingrediente.id_ingrediente.getNombre());
 
         if (!NO_CUANTIFICABLE.equals(ingrediente.id_ingrediente.getMedicion())) {
@@ -139,9 +150,10 @@ public class IngredientesDeRecetaAdapter
     public void setIngredientes(List<Utiliza> ingredientesValue) {
         this.ingredientes.clear();
         this.ingredientes.addAll(ingredientesValue);
+        ingredienteVacio = new Ingrediente(NO_INGREDIENTE, CI_OTROS, NO_CUANTIFICABLE);
         if (this.ingredientes.isEmpty()) {
             this.ingredientes.add(new Utiliza(
-                new Receta(), new Ingrediente(NO_INGREDIENTE, CI_OTROS, NO_CUANTIFICABLE)
+                new Receta(), ingredienteVacio
             ));
         }
         notifyDataSetChanged();
@@ -149,6 +161,7 @@ public class IngredientesDeRecetaAdapter
 
     public class IngredientesDeRecetaViewHolder extends RecyclerView.ViewHolder{
         private RecyclerView recyclerView;
+        private ImageView iv_imagen;
         private TextView txt_nombre;
         private TextView txt_medicion;
         private EditText et_cantidad;
@@ -156,6 +169,7 @@ public class IngredientesDeRecetaAdapter
         public IngredientesDeRecetaViewHolder(@NonNull View itemView) {
             super(itemView);
             recyclerView = itemView.findViewById(R.id.rv_rce_ingredientes);
+            iv_imagen = itemView.findViewById(R.id.iv_shared_c);
             txt_nombre = itemView.findViewById(R.id.txt_shared_c_item_nombre);
             txt_medicion = itemView.findViewById(R.id.txt_shared_c_item_medicion);
             et_cantidad = itemView.findViewById(R.id.et_shared_c_item_cantidad);

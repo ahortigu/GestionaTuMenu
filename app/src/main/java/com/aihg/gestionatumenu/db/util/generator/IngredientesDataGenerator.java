@@ -26,7 +26,7 @@ public class IngredientesDataGenerator {
     public static final Medicion KILOS = new Medicion(2, "Kg");
     public static final Medicion LITROS = new Medicion(3, "L");
     public static final Medicion MILILITROS = new Medicion(4, "ml");
-    public static final Medicion NO_CUANTIFICABLE = new Medicion(5, "No cuantificable");
+    public static final Medicion NO_CUANTIFICABLE = new Medicion(5, "");
     public static final Medicion UNIDAD = new Medicion(6, "Unidad");
 
     // INGREDIENTES

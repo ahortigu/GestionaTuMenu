@@ -258,7 +258,7 @@
                         android:minLines="3"
                         android:padding="15dp"
                         android:text="Instruciones etc etc"
-                        android:textAlignment="textEnd"
+                        android:textAlignment="viewStart"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:textStyle="bold"

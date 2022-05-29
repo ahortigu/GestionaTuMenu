@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,19 +31,20 @@ public class SubItemsDespensaAdapter
     extends RecyclerView.Adapter<SubItemsDespensaAdapter.SubItemDespensaViewHolder> {
 
     private List<Despensa> despensa;
-
     private DespensaListener listener;
-
+    private Ingrediente ingredienteVacio;
     private boolean isChanged;
+
+
 
     private Timer timer = new Timer();
 
     public SubItemsDespensaAdapter(CategoriaWrapper wrapper, DespensaListener listener) {
+        ingredienteVacio = new Ingrediente(NO_DESPENSA, wrapper.getCategoriaIngrediente(), NO_CUANTIFICABLE);
         this.despensa = wrapper.getDespensa();
         if (this.despensa.isEmpty()) {
             this.despensa.add(new Despensa(
-                0,
-                new Ingrediente(NO_DESPENSA, wrapper.getCategoriaIngrediente(), NO_CUANTIFICABLE)
+                0,ingredienteVacio
             ));
         }
         this.listener = listener;
@@ -61,6 +63,13 @@ public class SubItemsDespensaAdapter
     @Override
     public void onBindViewHolder(@NonNull SubItemDespensaViewHolder holder, int position) {
         Despensa ingrediente = this.despensa.get(position);
+
+        if(ingredienteVacio.equals(ingrediente.getIngrediente())){
+            holder.iv_imagen.setVisibility(View.GONE);
+            holder.txt_medicion.setVisibility(View.GONE);
+            holder.et_cantidad.setVisibility(View.GONE);
+        }
+
         holder.txt_nombre.setText(ingrediente.getIngrediente().getNombre());
 
         if (!NO_CUANTIFICABLE.equals(ingrediente.getIngrediente().getMedicion())) {
@@ -139,10 +148,12 @@ public class SubItemsDespensaAdapter
         private TextView txt_nombre;
         private TextView txt_medicion;
         private EditText et_cantidad;
+        private ImageView iv_imagen;
 
         public SubItemDespensaViewHolder(@NonNull View itemView) {
             super(itemView);
             v_subitem = itemView;
+            iv_imagen = itemView.findViewById(R.id.iv_shared_c);
             txt_nombre = itemView.findViewById(R.id.txt_shared_c_item_nombre);
             txt_medicion = itemView.findViewById(R.id.txt_shared_c_item_medicion);
             et_cantidad = itemView.findViewById(R.id.et_shared_c_item_cantidad);

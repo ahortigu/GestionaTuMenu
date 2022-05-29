@@ -5,6 +5,7 @@ import static com.aihg.gestionatumenu.ui.util.GestionaTuMenuConstants.NO_RECETA;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -27,8 +28,7 @@ public class SubItemsRecetasAdapter extends RecyclerView.Adapter<SubItemsRecetas
         this.recetas = wrapper.getRecetas();
         if (this.recetas.isEmpty()) {
             this.recetas.add(new Cataloga(
-                new Receta(NO_RECETA, ""),
-                wrapper.getCategoria()
+                new Receta(NO_RECETA, ""), wrapper.getCategoria()
             ));
         }
     }
@@ -45,6 +45,11 @@ public class SubItemsRecetasAdapter extends RecyclerView.Adapter<SubItemsRecetas
     @Override
     public void onBindViewHolder(@NonNull SubItemsRecetasViewHolder holder, int position) {
         Cataloga cataloga = recetas.get(position);
+
+        if(NO_RECETA.equals(cataloga.getId_receta().getNombre())){
+            holder.iv_imagen.setVisibility(View.GONE);
+        }
+
         holder.txt_nombre.setText(cataloga.getId_receta().getNombre());
 
         if (!NO_RECETA.equals(cataloga.getId_receta().getNombre())) {
@@ -68,10 +73,12 @@ public class SubItemsRecetasAdapter extends RecyclerView.Adapter<SubItemsRecetas
     public class SubItemsRecetasViewHolder extends RecyclerView.ViewHolder {
         private View v_subitem;
         private TextView txt_nombre;
+        private ImageView iv_imagen;
 
         public SubItemsRecetasViewHolder(@NonNull View itemView) {
             super(itemView);
             v_subitem = itemView;
+            iv_imagen = itemView.findViewById(R.id.iv_shared_n);
             txt_nombre = itemView.findViewById(R.id.txt_shared_n_nombre_item);
         }
     }
