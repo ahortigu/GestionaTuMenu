@@ -13,7 +13,7 @@ import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class LandingPage extends AppCompatActivity {
+public class SplashScreen extends AppCompatActivity {
     private static int LANDING_TIMEOUT = 2000;
 
     @Override
@@ -23,7 +23,7 @@ public class LandingPage extends AppCompatActivity {
         getWindow().setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_landing_page);
+        setContentView(R.layout.activity_splash_screen);
 
         // Componentes UI
         ConstraintLayout landing = findViewById(R.id.landing);
@@ -44,7 +44,7 @@ public class LandingPage extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(LandingPage.this, MainActivity.class);
+                Intent intent = new Intent(SplashScreen.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
