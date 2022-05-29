@@ -34,7 +34,6 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/iv_rd_receta"
                     android:layout_width="200dp"
                     android:layout_height="200dp"
                     android:background="@drawable/borde_fondo_blanco"
@@ -223,7 +222,6 @@
                     app:tint="@color/white" />
 
                 <TextView
-                    android:id="@+id/lb_rd_instrucciones"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/borde_fondo_mostaza"

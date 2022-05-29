@@ -37,7 +37,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/l_shared_b_items"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="5dp"
