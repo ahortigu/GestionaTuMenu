@@ -25,7 +25,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ImageContrastCheck"
-            app:srcCompat="@drawable/coliflor2" />
+            app:srcCompat="@drawable/coliflor" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/l_ie_ingrediente"
@@ -118,7 +118,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/l_ie_medicion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"

@@ -33,7 +33,6 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/iv_rce_receta"
                     android:layout_width="200dp"
                     android:layout_height="200dp"
                     android:background="@drawable/borde_fondo_blanco"
@@ -43,7 +42,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/coliflor2" />
+                    app:srcCompat="@drawable/coliflor" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

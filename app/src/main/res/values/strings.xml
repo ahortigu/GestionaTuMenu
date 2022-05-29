@@ -1,28 +1,15 @@
 <resources>
     <string name="app_name">GestionaTuMenu</string>
     <string name="home_up">HOME</string>
-    <string name="home_low">Home</string>
     <string name="ingredientes_upp">INGREDIENTES</string>
-    <string name="ingredientes_low">Ingredientes</string>
     <string name="lista_de_la_compra_upp">LISTA DE LA COMPRA</string>
-    <string name="lista_de_la_compra_low">Lista de la Compra</string>
     <string name="lista_up">LISTA</string>
     <string name="despensa_up">DESPENSA</string>
-    <string name="despensa_low">Despensa</string>
     <string name="recetas_up">RECETAS</string>
-    <string name="recetas_low">Recetas</string>
     <string name="planificador_up">PLANIFICADOR</string>
-    <string name="planificador_low">Planificador</string>
     <string name="menu_app">MENU</string>
-    <string name="menu_low">Menu</string>
     <string name="nombre_up">NOMBRE</string>
-    <string name="nombre_low">Nombre</string>
     <string name="medicion_up">MEDICION</string>
-    <string name="medicion_low">Medicion</string>
-    <string name="cantidad_up">CANTIDAD</string>
-    <string name="catidad_low">Cantidad</string>
-    <string name="ingrediente_up">INGREDIENTE</string>
-    <string name="ingrediente_low">Ingrediente</string>
     <string name="imagen_ingrediente">Imagen ingrediente</string>
     <string name="imagen_receta">Imagen Receta</string>
     <string name="receta_up">RECETA</string>
@@ -30,9 +17,6 @@
     <string name="instrucciones_up">INSTRUCCIONES</string>
     <string name="buscar">Buscar</string>
     <string name="add">Añadir</string>
-    <string name="back_arrow">Back Arrow</string>
-    <string name="unidad">Unidad</string>
-    <string name="ingrediente">Ingrediente</string>
     <string name="detalle_ingrediente_up">DETALLE INGREDIENTE</string>
     <string name="detalle_receta_up">DETALLE RECETA</string>
     <string name="crear_ingredediente_up">CREAR INGREDIENTE</string>
@@ -40,19 +24,12 @@
     <string name="edit_ingrediente_up">EDITAR INGREDIENTE</string>
     <string name="edit_receta_up">EDITAR RECETA</string>
     <string name="shared_anadir_up">AÑADIR</string>
-    <string name="shared_buscar_up">BUSCAR</string>
     <string name="dia_up">DIA</string>
     <string name="momento_up">MOMENTO</string>
-    <string name="aplicar_up">APLICAR</string>
     <string name="categorias_up">CATEGORIAS</string>
     <string name="item_up">ITEM</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="tomate_low">Tomate</string>
-    <string name="verduras_low">Verduras</string>
-    <string name="unidad_low">Unidad</string>
-    <string name="guardar_UP">GUARDAR</string>
     <string name="cant_sample">0</string>
 </resources>

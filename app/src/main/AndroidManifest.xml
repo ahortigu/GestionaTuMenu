@@ -14,7 +14,7 @@
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".LandingPage"
+            android:name=".SplashScreen"
             android:exported="true"
             android:theme="@style/SplashScreen"
             android:screenOrientation="portrait">
